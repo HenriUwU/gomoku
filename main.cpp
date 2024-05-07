@@ -6,7 +6,7 @@ int main() {
     sf::Vertex line[] =
     {
         sf::Vertex(sf::Vector2f(150, 0)), // Start point
-        sf::Vertex(sf::Vector2f(150, )) // End point (adjust Y coordinate for length)
+        sf::Vertex(sf::Vector2f(150, 300)) // End point (adjust Y coordinate for length)
     };
 
     while (window.isOpen()) {
