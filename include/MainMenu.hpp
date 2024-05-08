@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 14:06:48 by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/08 16:13:13 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:45:03 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ class MainMenu {
         int         _selectedItemIndex;
         sf::Font    _font;
         sf::Text    _menu[NB_MENU_ITEMS];
+        sf::Texture _backgroundTexture;
+        sf::Sprite  _backgroundSprite;
         
     public:
         MainMenu(float width, float height);
