@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/08 17:23:46 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/09 13:49:55 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int main()
                 std::cout << "Player vs AI" << std::endl;
             if (mainMenu.getSelectedItemIndex() == 3 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
                 window.close();
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape))
                 window.close();
         }   
 
