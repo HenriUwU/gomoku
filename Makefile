@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
+#    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/07 15:50:59 by hsebille          #+#    #+#              #
-#    Updated: 2024/05/08 14:34:14 by hsebille         ###   ########.fr        #
+#    Updated: 2024/05/09 18:00:24 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ NAME			:= Gomoku
 
 SRC				:=	src/main.cpp				\
 					src/MainMenu.cpp			\
+					src/Graphics.cpp			\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)

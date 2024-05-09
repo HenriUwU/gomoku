@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Graphics.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/09 18:14:05 by laprieur         ###   ########.fr       */
+/*   Created: 2024/05/09 17:49:07 by laprieur          #+#    #+#             */
+/*   Updated: 2024/05/09 18:09:47 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef GRAPHICS_HPP
+# define GRAPHICS_HPP
+
 #include "gomoku.hpp"
 
-bool displayMenu = true;
+class Graphics {
+	private:
+		unsigned int	_windowWidth;
+		unsigned int	_windowHeight;
 
-int main() {
-	sf::RenderWindow	window(sf::VideoMode(1920, 1080), "Gomoku");
-	MainMenu			mainMenu(window.getSize().x, window.getSize().y);
+	public:
+		Graphics(sf::RenderWindow &window);
+		~Graphics();
 
-	while (window.isOpen()) {
-		sf::Event event;
-		while (window.pollEvent(event)) {
-			mainMenu.handleKeys(event, window);
-		}
+		void	displayCheckerboard(sf::RenderWindow &window);
+};
 
-		if (displayMenu == true) {
-			window.clear(sf::Color::Black);
-			mainMenu.display(window);
-			window.display();
-		}
-	}
-}
+#endif
