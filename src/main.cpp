@@ -60,9 +60,9 @@ int main()
                 std::cout << "Player vs Player" << std::endl;
                 displayMenu = false;
                 std::pair <unsigned int, unsigned int> startPoint;
-                startPoint = std::make_pair((windowWidth - (windowHeight - 100)) / 2, 50);
+                startPoint = std::make_pair((windowWidth - (windowHeight - 20)) / 2, 10);
                 window.clear(sf::Color::Black);
-                drawCheckerboard(windowHeight - 100, startPoint, window);
+                drawCheckerboard(windowHeight - 20, startPoint, window);
                 window.display();
             }
             if (mainMenu.getSelectedItemIndex() == 2 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
