@@ -12,11 +12,37 @@
 
 #include "MainMenu.hpp"
 
+void    drawCheckerboard(float dimensions, std::pair<unsigned int, unsigned int> startPoint, sf::RenderWindow &window) {
+    for (int i = 0; i < 20; i++) {
+
+        sf::Vertex verticalLine[] =
+        {
+            sf::Vertex(sf::Vector2f((dimensions / 19) * i + startPoint.first, startPoint.second)),
+            sf::Vertex(sf::Vector2f((dimensions / 19) * i + startPoint.first, startPoint.second + dimensions))
+        };
+
+        sf::Vertex horizontalLine[] =
+        {
+            sf::Vertex(sf::Vector2f(startPoint.first, (dimensions / 19) * i + startPoint.second)),
+            sf::Vertex(sf::Vector2f(startPoint.first + dimensions, (dimensions / 19) * i + startPoint.second))
+        };
+
+        window.draw(verticalLine, 2, sf::Lines);
+        window.draw(horizontalLine, 2, sf::Lines);
+
+    }
+}
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");
 
-    MainMenu mainMenu(window.getSize().x, window.getSize().y); 
+    MainMenu mainMenu(window.getSize().x, window.getSize().y);
+
+    float windowHeight = window.getSize().y;
+    unsigned int windowWidth = window.getSize().x;
+
+    bool displayMenu = true;
     
     while (window.isOpen())
     {
@@ -30,8 +56,15 @@ int main()
                 if (event.key.code == sf::Keyboard::Down)
                     mainMenu.MoveDown();
             }
-            if (mainMenu.getSelectedItemIndex() == 1 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+            if (mainMenu.getSelectedItemIndex() == 1 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
                 std::cout << "Player vs Player" << std::endl;
+                displayMenu = false;
+                std::pair <unsigned int, unsigned int> startPoint;
+                startPoint = std::make_pair((windowWidth - (windowHeight - 100)) / 2, 50);
+                window.clear(sf::Color::Black);
+                drawCheckerboard(windowHeight - 100, startPoint, window);
+                window.display();
+            }
             if (mainMenu.getSelectedItemIndex() == 2 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
                 std::cout << "Player vs AI" << std::endl;
             if (mainMenu.getSelectedItemIndex() == 3 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
@@ -39,34 +72,11 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }   
-        window.clear();
-        mainMenu.draw(window);
-        window.display();        
+
+        if (displayMenu == true) {
+            window.clear(sf::Color::Black);
+            mainMenu.draw(window);
+            window.display();
+        }
     }
 }
-
-
-
-/* int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Vertical Line Example");
-
-    sf::Vertex line[] =
-    {
-        sf::Vertex(sf::Vector2f(150, 0)), // Start point
-        sf::Vertex(sf::Vector2f(150, 300)) // End point (adjust Y coordinate for length)
-    };
-
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }   
-
-        window.clear(sf::Color::Black);
-        window.draw(line, 2, sf::Lines); // Drawing the line
-        window.display();
-    }
-
-    return 0;
-} */
