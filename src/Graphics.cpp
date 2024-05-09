@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:50:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/09 18:14:38 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:33:45 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ Graphics::Graphics(sf::RenderWindow &window) {
 Graphics::~Graphics() {}
 
 void	Graphics::displayCheckerboard(sf::RenderWindow &window) {
-	std::pair <unsigned int, unsigned int> startPoint = std::make_pair((_windowWidth - (_windowHeight - 20)) / 2, 10);
-
-	float dimensions = _windowHeight - 20;
+	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair((_windowWidth - (_windowHeight - 20)) / 2, 10);
+	float 	dimensions = _windowHeight - 20;
 
 	for (int i = 0; i < 20; i++) {
 		sf::Vertex verticalLine[] =

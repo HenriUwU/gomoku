@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 14:06:48 by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/09 18:08:21 by laprieur         ###   ########.fr       */
+/*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
+/*   Updated: 2024/05/09 18:31:19 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,19 @@ class MainMenu {
 		sf::Text	_menu[NB_MENU_ITEMS];
 		sf::Texture	_backgroundTexture;
 		sf::Sprite	_backgroundSprite;
+		sf::Music	_music;
 
 	public:
 		MainMenu(float width, float height);
 		~MainMenu();
 
-		int		getSelectedItemIndex() { return _selectedItemIndex; }   
+		int		getSelectedItemIndex() { return _selectedItemIndex; }
 
 		void	display(sf::RenderWindow &window);
 		void	MoveUp();
 		void	MoveDown();
+		void	playMusic();
+		void	stopMusic();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 };
 

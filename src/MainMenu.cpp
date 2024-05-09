@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/09 18:12:16 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:32:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ MainMenu::MainMenu(float width, float height) {
 
 	if (!_backgroundTexture.loadFromFile("assets/images/frame1.png")) {
 		std::cerr << "Error while loading the background file." << std::endl;
+	}
+
+	if (!_music.openFromFile("assets/musics/MainMenuSong.ogg")) {
+		std::cerr << "Error while loading the music file." << std::endl;
 	}
 
 	_backgroundSprite.setTexture(_backgroundTexture);
@@ -59,6 +63,8 @@ MainMenu::MainMenu(float width, float height) {
 	}
 
 	_selectedItemIndex = 1;
+
+	playMusic();
 }
 
 MainMenu::~MainMenu() {}
@@ -86,6 +92,17 @@ void	MainMenu::MoveDown() {
 	}
 }
 
+void	MainMenu::playMusic()
+{
+	_music.play();
+	_music.setLoop(true);
+}
+
+void	MainMenu::stopMusic()
+{
+	_music.stop();
+}
+
 void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 	if (event.type == sf::Event::KeyReleased) {
 		if (event.key.code == sf::Keyboard::Up)
@@ -94,7 +111,7 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 			MoveDown();
 	}
 	if (getSelectedItemIndex() == 1 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
-		std::cout << "Player vs Player" << std::endl;
+		stopMusic();
 		displayMenu = false;
 		window.clear(sf::Color::Black);
 		Graphics graphics(window);
