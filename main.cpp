@@ -1,13 +1,31 @@
 #include <SFML/Graphics.hpp>
 
-int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Vertical Line Example");
+void    drawCheckerboard(float dimensions, std::pair<unsigned int, unsigned int> startPoint, sf::RenderWindow &window) {
+    for (int i = 0; i < 20; i++) {
 
-    sf::Vertex line[] =
-    {
-        sf::Vertex(sf::Vector2f(150, 0)), // Start point
-        sf::Vertex(sf::Vector2f(150, 300)) // End point (adjust Y coordinate for length)
-    };
+        sf::Vertex verticalLine[] =
+        {
+            sf::Vertex(sf::Vector2f((dimensions / 19) * i + startPoint.first, startPoint.second)),
+            sf::Vertex(sf::Vector2f((dimensions / 19) * i + startPoint.first, startPoint.second + dimensions))
+        };
+
+        sf::Vertex horizontalLine[] =
+        {
+            sf::Vertex(sf::Vector2f(startPoint.first, (dimensions / 19) * i + startPoint.second)),
+            sf::Vertex(sf::Vector2f(startPoint.first + dimensions, (dimensions / 19) * i + startPoint.second))
+        };
+
+        window.draw(verticalLine, 2, sf::Lines);
+        window.draw(horizontalLine, 2, sf::Lines);
+
+    }
+}
+
+int main() {
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Vertical Line Example");
+
+    float windowHeight = window.getSize().y;
+    unsigned int windowWidth = window.getSize().x;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -16,9 +34,13 @@ int main() {
                 window.close();
         }
 
+        std::pair <unsigned int, unsigned int> startPoint;
+        startPoint = std::make_pair((windowWidth - (windowHeight - 100)) / 2, 50);
+
         window.clear(sf::Color::Black);
-        window.draw(line, 2, sf::Lines); // Drawing the line
+        drawCheckerboard(windowHeight - 100, startPoint, window);
         window.display();
+
     }
 
     return 0;
