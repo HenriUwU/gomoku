@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/08 18:25:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:31:15 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ MainMenu::MainMenu(float width, float height)
     
     if (!_backgroundTexture.loadFromFile("assets/images/frame1.png")) {
         std::cerr << "Error while loading the background file." << std::endl;
+    }
+    
+    if (!_music.openFromFile("assets/musics/MainMenuSong.ogg")) {
+        std::cerr << "Error while loading the music file." << std::endl;
     }
 
     _backgroundSprite.setTexture(_backgroundTexture);
@@ -60,6 +64,8 @@ MainMenu::MainMenu(float width, float height)
     }
 
     _selectedItemIndex = 1;
+
+    playMusic();
 }
 
 MainMenu::~MainMenu() {}
@@ -88,4 +94,15 @@ void MainMenu::MoveDown()
         _selectedItemIndex++;
         _menu[_selectedItemIndex].setFillColor(sf::Color::Red);
     }
+}
+
+void MainMenu::playMusic()
+{
+    _music.play();
+    _music.setLoop(true);
+}
+
+void MainMenu::stopMusic()
+{
+    _music.stop();
 }

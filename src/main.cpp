@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/09 13:49:55 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:29:51 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int main()
                     mainMenu.MoveDown();
             }
             if (mainMenu.getSelectedItemIndex() == 1 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
-                std::cout << "Player vs Player" << std::endl;
+                mainMenu.stopMusic();
                 displayMenu = false;
                 std::pair <unsigned int, unsigned int> startPoint;
                 startPoint = std::make_pair((windowWidth - (windowHeight - 20)) / 2, 10);

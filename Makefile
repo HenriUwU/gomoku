@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/07 15:50:59 by hsebille          #+#    #+#              #
-#    Updated: 2024/05/08 14:34:14 by hsebille         ###   ########.fr        #
+#    Updated: 2024/05/09 14:16:28 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
 DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g -MMD -Iinclude
-SFML_FLAGS		:=	-lsfml-graphics -lsfml-window -lsfml-system
+SFML_FLAGS		:=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 # **************************************************************************** #
 #                                    TOOLS                                     #
