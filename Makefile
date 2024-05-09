@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/07 15:50:59 by hsebille          #+#    #+#              #
-#    Updated: 2024/05/07 16:28:26 by hsebille         ###   ########.fr        #
+#    Updated: 2024/05/08 14:34:14 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,13 @@ NAME			:= Gomoku
 # **************************************************************************** #
 
 SRC				:=	src/main.cpp				\
+					src/MainMenu.cpp			\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g -MMD
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g -MMD -Iinclude
 SFML_FLAGS		:=	-lsfml-graphics -lsfml-window -lsfml-system
 
 # **************************************************************************** #
@@ -38,7 +39,7 @@ MAKEFLAGS		+= --silent --no-print-directory
 all: header $(NAME)
 
 $(NAME): $(SRC_OBJS)
-	$(COMPILER) $(SRC_OBJS) $(DEBUG_FLAGS) $(SFML_FLAGS) $(LDFLAGS) -o $(NAME)
+	$(COMPILER) $(SRC_OBJS) $(DEBUG_FLAGS) $(SFML_FLAGS) -o $(NAME)
 	@printf "%b" "$(BLUE)CREATED $(CYAN)$(NAME)\n"
 
 .build/%.o: %.cpp
