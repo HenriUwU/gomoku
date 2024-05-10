@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:50:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/10 11:32:03 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:54:36 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,18 @@ void	Graphics::circleFollowMouse(sf::RenderWindow &window) {
 	sf::CircleShape	circle(25.f);
 	circle.setFillColor(sf::Color::Green);
 
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	circle.setPosition(sf::Vector2f(mousePosition.x - circle.getRadius(), mousePosition.y - circle.getRadius()));
 	
+	float cellSize = (_windowHeight - 20) / 19.0f;
+	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair((_windowWidth - (_windowHeight - 20)) / 2, 10);
+
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+	
+	float xIndex = std::round((mousePosition.x - startPoint.first) / cellSize);
+	float yIndex = std::round((mousePosition.y - startPoint.second) / cellSize);
+
+	sf::Vector2f nearestIntersection(startPoint.first + xIndex * cellSize, startPoint.second + yIndex * cellSize);
+	circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
+
 	window.clear();
 	displayCheckerboard(window);
 	window.draw(circle);
