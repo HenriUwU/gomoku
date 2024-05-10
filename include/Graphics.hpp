@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:49:07 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/09 18:09:47 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:02:00 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class Graphics {
 		~Graphics();
 
 		void	displayCheckerboard(sf::RenderWindow &window);
+		void	circleFollowMouse(sf::RenderWindow &window);
 };
 
 #endif

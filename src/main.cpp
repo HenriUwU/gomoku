@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/09 18:23:35 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:25:54 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ int main() {
 			window.clear(sf::Color::Black);
 			mainMenu.display(window);
 			window.display();
+		}
+		else {
+			Graphics graphics(window);
+			graphics.circleFollowMouse(window);
+			window.display();	
 		}
 	}
 }

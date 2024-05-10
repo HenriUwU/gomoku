@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:50:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/09 18:33:45 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/10 11:32:03 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,16 @@ void	Graphics::displayCheckerboard(sf::RenderWindow &window) {
 		window.draw(verticalLine, 2, sf::Lines);
 		window.draw(horizontalLine, 2, sf::Lines);
 	}
+}
+
+void	Graphics::circleFollowMouse(sf::RenderWindow &window) {
+	sf::CircleShape	circle(25.f);
+	circle.setFillColor(sf::Color::Green);
+
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+	circle.setPosition(sf::Vector2f(mousePosition.x - circle.getRadius(), mousePosition.y - circle.getRadius()));
+	
+	window.clear();
+	displayCheckerboard(window);
+	window.draw(circle);
 }
