@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:50:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/10 11:54:36 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/10 13:18:18 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ void	Graphics::displayCheckerboard(sf::RenderWindow &window) {
 }
 
 void	Graphics::circleFollowMouse(sf::RenderWindow &window) {
+	window.clear();
 	sf::CircleShape	circle(25.f);
 	circle.setFillColor(sf::Color::Green);
+	displayCheckerboard(window);
 
-	
 	float cellSize = (_windowHeight - 20) / 19.0f;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair((_windowWidth - (_windowHeight - 20)) / 2, 10);
 
@@ -57,7 +58,13 @@ void	Graphics::circleFollowMouse(sf::RenderWindow &window) {
 	sf::Vector2f nearestIntersection(startPoint.first + xIndex * cellSize, startPoint.second + yIndex * cellSize);
 	circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
 
-	window.clear();
-	displayCheckerboard(window);
-	window.draw(circle);
+	if (xIndex > 0 && xIndex < 19 && yIndex > 0 && yIndex < 19) {
+		// Draw the circle at the nearest grid intersection point
+		sf::Vector2f nearestIntersection(startPoint.first + xIndex * cellSize, startPoint.second + yIndex * cellSize);
+		circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
+		window.draw(circle);
+	}
+
+	window.display();
+
 }
