@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:49:07 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/10 14:12:44 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:57:49 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 class Graphics {
 	private:
+		float									_gridSize;
+		float									_cellSize;
 		unsigned int							_windowWidth;
 		unsigned int							_windowHeight;
 		std::pair <unsigned int, unsigned int>	_gridStartPoint;
