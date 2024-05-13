@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Graphics.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:54:03 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 15:09:48 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:56:53 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,6 @@ class Graphics {
 	public:
 		Graphics(sf::RenderWindow &window);
 		virtual ~Graphics();
+
+		// std::string	getCoordinates(float x, float y);
 };

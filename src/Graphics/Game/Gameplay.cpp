@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 15:12:32 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:01:02 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	Gameplay::circleFollowMouse(sf::RenderWindow &window) {
 	Goban goban(window);
 	goban.display(window);
 	if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
+		char xCoord = 'A' + static_cast<int>(xIndex);
+        int yCoord = 19 - static_cast<int>(yIndex);
+        std::string position = std::string(1, xCoord) + std::to_string(yCoord);
+        std::cout << "Clicked position: " << position << std::endl;
 		sf::Vector2f	nearestIntersection(_gridStartPoint.first + xIndex * _cellSize, _gridStartPoint.second + yIndex * _cellSize);
 		circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
 		window.draw(circle);

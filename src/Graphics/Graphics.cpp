@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:53:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 15:28:48 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:56:55 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,7 @@ Graphics::Graphics(sf::RenderWindow &window) {
 }
 
 Graphics::~Graphics() {}
+
+/* std::string	getCoordinates(float x, float y) {
+	
+} */
