@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Goban.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 13:57:55 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:11:47 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Goban.hpp"
+#include "gomoku.hpp"
 
-Goban::Goban(sf::RenderWindow &window) {}
+Goban::Goban(sf::RenderWindow &window) : Graphics(window) {}
 
 Goban::~Goban() {}
 

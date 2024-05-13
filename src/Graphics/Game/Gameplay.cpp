@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 13:58:01 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:12:32 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Gameplay.hpp"
+#include "gomoku.hpp"
 
-Gameplay::Gameplay(sf::RenderWindow &window) {}
+Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {}
 
 Gameplay::~Gameplay() {}
 

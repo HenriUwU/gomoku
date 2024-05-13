@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   Graphics.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:54:03 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 14:16:33 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:09:48 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GRAPHICS_HPP
-# define GRAPHICS_HPP
+#pragma once
 
 #include "gomoku.hpp"
 
 class Graphics {
-	private:
+	protected:
 		float									_cellSize;
 		float									_gridSize;
 		unsigned int							_windowWidth;
@@ -24,8 +23,6 @@ class Graphics {
 		std::pair <unsigned int, unsigned int>	_gridStartPoint;
 
 	public:
-		Graphics();
-		~Graphics();
+		Graphics(sf::RenderWindow &window);
+		virtual ~Graphics();
 };
-
-#endif
