@@ -6,20 +6,23 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 11:36:57 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:18:07 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GAMEPLAY_HPP
-# define GAMEPLAY_HPP
+#pragma once
 
-class Gameplay {
+#include "gomoku.hpp"
+#include "Graphics.hpp"
+
+class Gameplay : public Graphics {
 	private:
-		// Attributes
+		std::map<std::string, int>				_playerPositions;
+		std::map<bool, int>						_catchedStones;
 
 	public:
-		Gameplay();
+		Gameplay(sf::RenderWindow &window);
 		~Gameplay();
-};
 
-#endif
+		void	circleFollowMouse(sf::RenderWindow &window);
+};

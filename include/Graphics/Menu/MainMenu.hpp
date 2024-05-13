@@ -6,12 +6,11 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/09 18:31:19 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:13:49 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAINMENU_HPP
-# define MAINMENU_HPP
+#pragma once
 
 #include "gomoku.hpp"
 
@@ -41,5 +40,3 @@ class MainMenu {
 		void	stopMusic();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 };
-
-#endif

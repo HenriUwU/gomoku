@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gomoku.hpp                                         :+:      :+:    :+:   */
+/*   Graphics.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 14:20:08 by laprieur         ###   ########.fr       */
+/*   Created: 2024/05/13 13:54:03 by laprieur          #+#    #+#             */
+/*   Updated: 2024/05/13 14:16:33 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GOMOKU_HPP
-# define GOMOKU_HPP
+#ifndef GRAPHICS_HPP
+# define GRAPHICS_HPP
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include "gomoku.hpp"
 
-#include <iostream>
-#include <cmath>
+class Graphics {
+	private:
+		float									_cellSize;
+		float									_gridSize;
+		unsigned int							_windowWidth;
+		unsigned int							_windowHeight;
+		std::pair <unsigned int, unsigned int>	_gridStartPoint;
 
-#include "Graphics.hpp"
-#include "MainMenu.hpp"
-#include "Gameplay.hpp"
-#include "Goban.hpp"
-
-extern bool	displayMenu;
+	public:
+		Graphics();
+		~Graphics();
+};
 
 #endif

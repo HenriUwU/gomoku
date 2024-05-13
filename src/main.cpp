@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/13 11:35:25 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/13 12:49:57 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int main() {
 			window.display();
 		}
 		else {
-			Goban goban(window);
-			goban.circleFollowMouse(window);
+			Gameplay gameplay(window);
+			gameplay.circleFollowMouse(window);
 			window.display();	
 		}
 	}

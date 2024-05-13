@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 11:25:55 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:18:12 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define GOBAN_HPP
 
 #include "gomoku.hpp"
+#include "Graphics.hpp"
 
-class Goban {
+class Goban : public Graphics {
 	private:
 		float									_gridSize;
 		float									_cellSize;
@@ -27,8 +28,7 @@ class Goban {
 		Goban(sf::RenderWindow &window);
 		~Goban();
 
-		void	displayCheckerboard(sf::RenderWindow &window);
-		void	circleFollowMouse(sf::RenderWindow &window);
+		void	display(sf::RenderWindow &window);
 };
 
 #endif
