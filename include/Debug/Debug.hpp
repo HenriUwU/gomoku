@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Gameplay.hpp                                       :+:      :+:    :+:   */
+/*   Debug.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/14 14:14:41 by laprieur         ###   ########.fr       */
+/*   Created: 2024/05/14 10:09:39 by laprieur          #+#    #+#             */
+/*   Updated: 2024/05/14 11:53:29 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 #include "gomoku.hpp"
 
-class Gameplay : public Graphics {
+class Debug {
 	private:
-		std::map<std::string, int>				_playerPositions;
-		std::map<int, int>						_catchedStones; // Key = player, value = number
+		static sf::Font			_font;
 
 	public:
-		Gameplay(sf::RenderWindow &window);
-		~Gameplay();
+		Debug();
+		~Debug();
 
-		void	circleFollowMouse(sf::RenderWindow &window, sf::Event &event);
-		void	placeStone(std::string position, int player);
+		static void	init(sf::RenderWindow &window);
+		static void	actualPos(sf::RenderWindow &window, std::string position);
 };
