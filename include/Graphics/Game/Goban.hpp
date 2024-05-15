@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Goban.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/14 10:13:25 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:02:35 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ class Goban : public Graphics {
 		~Goban();
 
 		void	display(sf::RenderWindow &window);
+		void	drawPlayerPositions(sf::RenderWindow &window, std::map<std::string, int> playerPositions);
 };
