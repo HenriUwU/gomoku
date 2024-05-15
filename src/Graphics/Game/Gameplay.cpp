@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/15 13:34:45 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:37:33 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ void Gameplay::circleFollowMouse(sf::RenderWindow &window, sf::Event &event) {
 		else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			redCircle.setPosition(nearestIntersection.x - redCircle.getRadius(), nearestIntersection.y - redCircle.getRadius());
 			window.draw(circle);
-			window.draw(redCircle);
 		}
+		window.draw(circle);
+		window.draw(redCircle);
 	}
 
 	window.display();
