@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/15 15:38:40 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:02:05 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,7 @@ class Gameplay : public Graphics {
 		void	drawPlayerPositions(sf::RenderWindow& window);
 		void	circleFollowMouse(sf::RenderWindow &window, sf::Event &event);
 		void	placeStone(std::string position, int player);
+		bool	isMoveLegal(std::string position);
+
+		void	findHorizontalLine(std::string position, std::vector<int> &horizontalLine);
 };

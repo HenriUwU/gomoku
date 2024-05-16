@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/15 15:41:38 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:45:26 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,67 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 		else {
 			circle.setFillColor(sf::Color::Red);
 		}
-        circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
-        window.draw(circle);
-    }
+		circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
+		window.draw(circle);
+	}
+	Debug::currentPlayer(window, _currentPlayer);
+	char xCoord = 'A' + static_cast<int>(xIndex);
+	int yCoord = 19 - static_cast<int>(yIndex);
+	std::string position = std::string(1, xCoord) + std::to_string(yCoord);
+	Debug::currentPos(window, position);
 
-    // Place the stone on the grid if left mouse button is pressed
-    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-        if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
-            char xCoord = 'A' + static_cast<int>(xIndex);
-            int yCoord = 19 - static_cast<int>(yIndex);
-            std::string position = std::string(1, xCoord) + std::to_string(yCoord);
-
-            // Place the stone for the current player
-            placeStone(position, _currentPlayer);
-        }
-    }
+	// Place the stone on the grid if left mouse button is pressed
+	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+		if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
+			// Place the stone for the current player
+			placeStone(position, _currentPlayer);
+		}
+	}
+	// checkStatus(_currentPlayer);
 	goban.drawPlayerPositions(window, _playerPositions);
-    window.display();
+	window.display();
 }
 
-void Gameplay::placeStone(std::string position, int player) {
-	if (_playerPositions[position] != 0) {
+void	Gameplay::placeStone(std::string position, int player) {
+	if (_playerPositions[position] != 0)
 		return;
-	}
+	isMoveLegal(position);
+
 	_playerPositions[position] = player;
-	if (_currentPlayer == 1) {
+
+	if (_currentPlayer == 1)
 		_currentPlayer = 2;
-	}
-	else {
+	else
 		_currentPlayer = 1;
+}
+
+bool	Gameplay::isMoveLegal(std::string position) {
+	std::vector<int>	nearbyLines[4];
+
+	std::cout << "Je passe dans cette fonction de merde" << std::endl;
+	for (int i = 0; i < 4; i++) {
+		nearbyLines[i].push_back(_currentPlayer);
 	}
+	findHorizontalLine(position, nearbyLines[0]);
+	//findVerticalLine(nearbyLines[1]);
+	//findDiagonalLine(nearbyLines[2]);
+	//findAntiDiagonalLine(nearbyLines[3]);
+	return true;
+}
+
+void	Gameplay::findHorizontalLine(std::string position, std::vector<int> &horizontalLine) {
+	for (int i = 1; i <= 4; i++) {
+        std::stringstream ssPlus, ssMinus;
+        ssPlus << char(position[0] + i) << position[1];
+        ssMinus << char(position[0] - i) << position[1];
+        std::string newPosPlus = ssPlus.str();
+        std::string newPosMinus = ssMinus.str();
+		//horizontalLine.insert(horizontalLine.begin(), _playerPositions.at(newPosPlus));
+		horizontalLine.push_back(_playerPositions.at(newPosMinus));
+	}
+
+	for (unsigned int i = 0; i != horizontalLine.size(); i++) {
+		std::cout << horizontalLine.at(i);
+	}
+	std::cout << std::endl;
 }
