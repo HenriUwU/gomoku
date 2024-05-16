@@ -70,8 +70,8 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 void	Gameplay::placeStone(std::string position, int player) {
 	if (_playerPositions[position] != 0)
 		return;
-	isMoveLegal(position);
-
+	if (!isMoveLegal(position))
+		return;
 	_playerPositions[position] = player;
 
 	if (_currentPlayer == 1)
@@ -83,30 +83,100 @@ void	Gameplay::placeStone(std::string position, int player) {
 bool	Gameplay::isMoveLegal(std::string position) {
 	std::vector<int>	nearbyLines[4];
 
-	std::cout << "Je passe dans cette fonction de merde" << std::endl;
 	for (int i = 0; i < 4; i++) {
 		nearbyLines[i].push_back(_currentPlayer);
 	}
 	findHorizontalLine(position, nearbyLines[0]);
-	//findVerticalLine(nearbyLines[1]);
-	//findDiagonalLine(nearbyLines[2]);
-	//findAntiDiagonalLine(nearbyLines[3]);
+	findVerticalLine(position, nearbyLines[1]);
+	findDiagonalLine(position, nearbyLines[2]);
+	findAntiDiagonalLine(position, nearbyLines[3]);
 	return true;
 }
 
 void	Gameplay::findHorizontalLine(std::string position, std::vector<int> &horizontalLine) {
 	for (int i = 1; i <= 4; i++) {
-        std::stringstream ssPlus, ssMinus;
-        ssPlus << char(position[0] + i) << position[1];
-        ssMinus << char(position[0] - i) << position[1];
-        std::string newPosPlus = ssPlus.str();
-        std::string newPosMinus = ssMinus.str();
-		//horizontalLine.insert(horizontalLine.begin(), _playerPositions.at(newPosPlus));
-		horizontalLine.push_back(_playerPositions.at(newPosMinus));
+		std::stringstream ssPlus, ssMinus;
+
+		ssPlus << char(position[0] + i) << position.substr(1);
+		ssMinus << char(position[0] - i) << position.substr(1);
+		std::string newPosPlus = ssPlus.str();
+		std::string newPosMinus = ssMinus.str();
+
+		if (_playerPositions.find(newPosPlus) != _playerPositions.end())
+			horizontalLine.push_back(_playerPositions.at(newPosPlus));
+		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
+			horizontalLine.insert(horizontalLine.begin(), _playerPositions.at(newPosMinus));
 	}
 
+	std::cout << "Horizontal line: ";
 	for (unsigned int i = 0; i != horizontalLine.size(); i++) {
 		std::cout << horizontalLine.at(i);
+	}
+	std::cout << std::endl;
+}
+
+void	Gameplay::findVerticalLine(std::string position, std::vector<int> &verticalLine) {
+	for (int i = 1; i <= 4; i++) {
+		std::stringstream ssPlus, ssMinus;
+
+		ssPlus << position[0] << std::to_string(std::stoi(position.substr(1)) + i);
+		ssMinus << position[0] << std::to_string(std::stoi(position.substr(1)) - i);
+		std::string newPosPlus = ssPlus.str();
+		std::string newPosMinus = ssMinus.str();
+
+		if (_playerPositions.find(newPosPlus) != _playerPositions.end())
+			verticalLine.push_back(_playerPositions.at(newPosPlus));
+		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
+			verticalLine.insert(verticalLine.begin(), _playerPositions.at(newPosMinus));
+	}
+
+	std::cout << "Vertical line: ";
+	for (unsigned int i = 0; i != verticalLine.size(); i++) {
+		std::cout << verticalLine.at(i);
+	}
+	std::cout << std::endl;
+}
+
+void	Gameplay::findDiagonalLine(std::string position, std::vector<int> &diagonalLine) {
+	for (int i = 1; i <= 4; i++) {
+		std::stringstream ssPlus, ssMinus;
+
+		ssPlus << char(position[0] + i) << std::to_string(std::stoi(position.substr(1)) + i);
+		ssMinus << char(position[0] - i) << std::to_string(std::stoi(position.substr(1)) - i);
+		std::string newPosPlus = ssPlus.str();
+		std::string newPosMinus = ssMinus.str();
+
+		if (_playerPositions.find(newPosPlus) != _playerPositions.end())
+			diagonalLine.push_back(_playerPositions.at(newPosPlus));
+		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
+			diagonalLine.insert(diagonalLine.begin(), _playerPositions.at(newPosMinus));
+	}
+
+	std::cout << "Diagonal line: ";
+	for (unsigned int i = 0; i != diagonalLine.size(); i++) {
+		std::cout << diagonalLine.at(i);
+	}
+	std::cout << std::endl;
+}
+
+void	Gameplay::findAntiDiagonalLine(std::string position, std::vector<int> &antiDiagonalLine) {
+	for (int i = 1; i <= 4; i++) {
+		std::stringstream ssPlus, ssMinus;
+
+		ssPlus << char(position[0] + i) << std::to_string(std::stoi(position.substr(1)) - i);
+		ssMinus << char(position[0] - i) << std::to_string(std::stoi(position.substr(1)) + i);
+		std::string newPosPlus = ssPlus.str();
+		std::string newPosMinus = ssMinus.str();
+
+		if (_playerPositions.find(newPosPlus) != _playerPositions.end())
+			antiDiagonalLine.push_back(_playerPositions.at(newPosPlus));
+		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
+			antiDiagonalLine.insert(antiDiagonalLine.begin(), _playerPositions.at(newPosMinus));
+	}
+
+	std::cout << "Anti-diagonal line: ";
+	for (unsigned int i = 0; i != antiDiagonalLine.size(); i++) {
+		std::cout << antiDiagonalLine.at(i);
 	}
 	std::cout << std::endl;
 }

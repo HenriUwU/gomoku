@@ -30,4 +30,7 @@ class Gameplay : public Graphics {
 		bool	isMoveLegal(std::string position);
 
 		void	findHorizontalLine(std::string position, std::vector<int> &horizontalLine);
+		void	findVerticalLine(std::string position, std::vector<int> &verticalLine);
+		void	findDiagonalLine(std::string position, std::vector<int> &diagonalLine);
+		void	findAntiDiagonalLine(std::string position, std::vector<int> &antiDiagonalLine);
 };
