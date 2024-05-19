@@ -27,10 +27,12 @@ class Gameplay : public Graphics {
 		void	drawPlayerPositions(sf::RenderWindow& window);
 		void	circleFollowMouse(sf::RenderWindow &window, sf::Event &event);
 		void	placeStone(std::string position, int player);
-		bool	isMoveLegal(std::string position);
 
 		void	findHorizontalLine(std::string position, std::vector<int> &horizontalLine);
 		void	findVerticalLine(std::string position, std::vector<int> &verticalLine);
 		void	findDiagonalLine(std::string position, std::vector<int> &diagonalLine);
 		void	findAntiDiagonalLine(std::string position, std::vector<int> &antiDiagonalLine);
+	
+		bool	isMoveLegal(std::string position);
+		bool	isThereDoubleThree(std::vector<int>	nearbyLines[4], int player);
 };

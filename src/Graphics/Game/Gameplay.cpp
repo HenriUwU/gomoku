@@ -90,6 +90,12 @@ bool	Gameplay::isMoveLegal(std::string position) {
 	findVerticalLine(position, nearbyLines[1]);
 	findDiagonalLine(position, nearbyLines[2]);
 	findAntiDiagonalLine(position, nearbyLines[3]);
+
+	if (isThereDoubleThree(nearbyLines, _currentPlayer)) {
+		std::cout << "Illegal move : Double three detected\n";
+		return false;
+	}
+
 	return true;
 }
 
@@ -107,12 +113,6 @@ void	Gameplay::findHorizontalLine(std::string position, std::vector<int> &horizo
 		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
 			horizontalLine.insert(horizontalLine.begin(), _playerPositions.at(newPosMinus));
 	}
-
-	std::cout << "Horizontal line: ";
-	for (unsigned int i = 0; i != horizontalLine.size(); i++) {
-		std::cout << horizontalLine.at(i);
-	}
-	std::cout << std::endl;
 }
 
 void	Gameplay::findVerticalLine(std::string position, std::vector<int> &verticalLine) {
@@ -129,12 +129,6 @@ void	Gameplay::findVerticalLine(std::string position, std::vector<int> &vertical
 		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
 			verticalLine.insert(verticalLine.begin(), _playerPositions.at(newPosMinus));
 	}
-
-	std::cout << "Vertical line: ";
-	for (unsigned int i = 0; i != verticalLine.size(); i++) {
-		std::cout << verticalLine.at(i);
-	}
-	std::cout << std::endl;
 }
 
 void	Gameplay::findDiagonalLine(std::string position, std::vector<int> &diagonalLine) {
@@ -151,12 +145,6 @@ void	Gameplay::findDiagonalLine(std::string position, std::vector<int> &diagonal
 		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
 			diagonalLine.insert(diagonalLine.begin(), _playerPositions.at(newPosMinus));
 	}
-
-	std::cout << "Diagonal line: ";
-	for (unsigned int i = 0; i != diagonalLine.size(); i++) {
-		std::cout << diagonalLine.at(i);
-	}
-	std::cout << std::endl;
 }
 
 void	Gameplay::findAntiDiagonalLine(std::string position, std::vector<int> &antiDiagonalLine) {
@@ -173,10 +161,31 @@ void	Gameplay::findAntiDiagonalLine(std::string position, std::vector<int> &anti
 		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
 			antiDiagonalLine.insert(antiDiagonalLine.begin(), _playerPositions.at(newPosMinus));
 	}
+}
 
-	std::cout << "Anti-diagonal line: ";
-	for (unsigned int i = 0; i != antiDiagonalLine.size(); i++) {
-		std::cout << antiDiagonalLine.at(i);
+bool	Gameplay::isThereDoubleThree(std::vector<int>	nearbyLines[4], int player) {
+	int 	FreeThree = 0;
+	int 	opponent = (player == 1) ? 2 : 1;
+
+	for (int i = 0; i < 4; i++) {
+		if (nearbyLines[i].size() < 5)
+			continue;
+
+		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
+			if (nearbyLines[i][j] == 0) {
+				int count = 0;
+				while (j < nearbyLines[i].size() && (nearbyLines[i][j] == player || nearbyLines[i][j] == 0)) {
+					if (nearbyLines[i][j] == player && j + 1 < nearbyLines[i].size() && nearbyLines[i][j + 1] != opponent)
+						count++;
+					j++;
+				}
+				if (count >= 3)
+					FreeThree++;
+			}
+		}
 	}
-	std::cout << std::endl;
+
+	if (FreeThree >= 2)
+		return true;
+	return false;
 }
