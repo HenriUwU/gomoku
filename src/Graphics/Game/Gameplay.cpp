@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/20 15:47:46 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:11:46 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,17 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 		if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
 			// Place the stone for the current player
-			placeStone(position);
+			placeStone(position, window);
 		}
 	}
 	// checkStatus(_currentPlayer);
-	goban.drawPlayerPositions(window, _playerPositions);
+	if (displayGame) {
+		goban.drawPlayerPositions(window, _playerPositions);
+	}
 	window.display();
 }
 
-void	Gameplay::placeStone(std::string position) {
+void	Gameplay::placeStone(std::string position, sf::RenderWindow& window) {
 	if (_playerPositions[position] != 0)
 		return;
 	if (!isMoveLegal(position))
@@ -76,8 +78,9 @@ void	Gameplay::placeStone(std::string position) {
 	_playerPositions[position] = _currentPlayer;
 
 	if (isWinningMove(position)) {
-		std::cout << "Player " << _currentPlayer << " wins\n";
-		//Goban::ScoreTable(_currentPlayer);
+		Goban goban(window);
+		displayGame = false;
+		goban.scoreTable(_currentPlayer, window);
 	}
 
 	if (_currentPlayer == 1)

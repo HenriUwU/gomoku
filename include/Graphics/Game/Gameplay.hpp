@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/20 15:21:01 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:55:01 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class Gameplay : public Graphics {
 
 		void	drawPlayerPositions(sf::RenderWindow& window);
 		void	circleFollowMouse(sf::RenderWindow &window, sf::Event &event);
-		void	placeStone(std::string position);
+		void	placeStone(std::string position, sf::RenderWindow &window);
 
 		void	findHorizontalLine(std::string position, std::vector<int> &horizontalLine);
 		void	findVerticalLine(std::string position, std::vector<int> &verticalLine);

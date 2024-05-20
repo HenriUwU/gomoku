@@ -6,13 +6,14 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/15 15:38:31 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:05:02 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
 
 bool displayMenu = true;
+bool displayGame = false;
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");
@@ -31,7 +32,7 @@ int main() {
 			mainMenu.display(window);
 			window.display();
 		}
-		else {
+		else if (displayGame == true) {
 			gameplay.circleFollowMouse(window, event);
 			window.display();
 		}

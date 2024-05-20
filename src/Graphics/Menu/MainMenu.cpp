@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/20 15:51:03 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:06:26 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 	if (getSelectedItemIndex() == 1 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
 		stopMusic();
 		displayMenu = false;
+		displayGame = true;
 	}
 	if (getSelectedItemIndex() == 2 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 		std::cout << "Player vs AI" << std::endl;

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/15 15:43:28 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:29:03 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,16 @@ void	Goban::display(sf::RenderWindow &window) {
 	if (!font.loadFromFile("assets/fonts/arial.ttf")) {
 		return ;
 	}
+
+	sf::Text player1("Player 1", font, 30);
+	sf::Text player2("Player 2", font, 30);
+
+	// Calculate player name positions
+	player1.setPosition(200, 10);
+	player2.setPosition(1920 - 300, 10);
+
+	window.draw(player1);
+	window.draw(player2);
 
 	for (int i = 1; i < 20; i++) {
 		std::string number = std::to_string(i);
@@ -86,4 +96,29 @@ void	Goban::drawPlayerPositions(sf::RenderWindow &window, std::map<std::string, 
 			window.draw(playerCircle);
 		}
 	}
+}
+
+void	Goban::scoreTable(int player, sf::RenderWindow &window) {
+	sf::Font font;
+	if (!font.loadFromFile("assets/fonts/arial.ttf")) {
+		return ;
+	}
+
+	sf::Text player1("Player 1", font, 20);
+	sf::Text player2("Player 2", font, 20);
+	sf::Text player1Score(std::to_string(player), font, 20);
+	sf::Text player2Score(std::to_string(player), font, 20);
+
+	player1.setPosition(_windowWidth - 200, 50);
+	player2.setPosition(_windowWidth - 200, 100);
+	player1Score.setPosition(_windowWidth - 100, 50);
+	player2Score.setPosition(_windowWidth - 100, 100);
+
+	window.clear();
+	window.draw(player1);
+	window.draw(player2);
+	window.draw(player1Score);
+	window.draw(player2Score);
+	(void)player;
+	window.clear();
 }

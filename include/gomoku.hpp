@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gomoku.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/16 15:23:41 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:05:30 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,4 @@
 #include "Debug.hpp"
 
 extern bool	displayMenu;
+extern bool	displayGame;
