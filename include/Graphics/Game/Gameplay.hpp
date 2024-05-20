@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/16 16:02:05 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:21:01 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class Gameplay : public Graphics {
 
 		void	drawPlayerPositions(sf::RenderWindow& window);
 		void	circleFollowMouse(sf::RenderWindow &window, sf::Event &event);
-		void	placeStone(std::string position, int player);
+		void	placeStone(std::string position);
 
 		void	findHorizontalLine(std::string position, std::vector<int> &horizontalLine);
 		void	findVerticalLine(std::string position, std::vector<int> &verticalLine);
@@ -34,5 +34,6 @@ class Gameplay : public Graphics {
 		void	findAntiDiagonalLine(std::string position, std::vector<int> &antiDiagonalLine);
 	
 		bool	isMoveLegal(std::string position);
-		bool	isThereDoubleThree(std::vector<int>	nearbyLines[4], int player);
+		bool	isWinningMove(std::string position);
+		bool	isThereDoubleThree(std::vector<int>	nearbyLines[4]);
 };

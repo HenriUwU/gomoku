@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/10 11:42:06 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:51:03 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MainMenu.hpp"
 
 MainMenu::MainMenu(float width, float height) {
-	if (!_font.loadFromFile("assets/fonts/FFF_Tusj.ttf")) {
+	if (!_font.loadFromFile("assets/fonts/arial.ttf")) {
 		std::cerr << "Error while loading the font file." << std::endl;
 	}
 

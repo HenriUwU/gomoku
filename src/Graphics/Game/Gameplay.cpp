@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/16 16:45:26 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:47:46 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 		if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
 			// Place the stone for the current player
-			placeStone(position, _currentPlayer);
+			placeStone(position);
 		}
 	}
 	// checkStatus(_currentPlayer);
@@ -67,12 +67,18 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 	window.display();
 }
 
-void	Gameplay::placeStone(std::string position, int player) {
+void	Gameplay::placeStone(std::string position) {
 	if (_playerPositions[position] != 0)
 		return;
 	if (!isMoveLegal(position))
 		return;
-	_playerPositions[position] = player;
+
+	_playerPositions[position] = _currentPlayer;
+
+	if (isWinningMove(position)) {
+		std::cout << "Player " << _currentPlayer << " wins\n";
+		//Goban::ScoreTable(_currentPlayer);
+	}
 
 	if (_currentPlayer == 1)
 		_currentPlayer = 2;
@@ -91,12 +97,67 @@ bool	Gameplay::isMoveLegal(std::string position) {
 	findDiagonalLine(position, nearbyLines[2]);
 	findAntiDiagonalLine(position, nearbyLines[3]);
 
-	if (isThereDoubleThree(nearbyLines, _currentPlayer)) {
+	if (isThereDoubleThree(nearbyLines)) {
 		std::cout << "Illegal move : Double three detected\n";
 		return false;
 	}
 
 	return true;
+}
+
+bool	Gameplay::isWinningMove(std::string position) {
+	std::vector<int>	nearbyLines[4];
+
+	for (int i = 0; i < 4; i++) {
+		nearbyLines[i].push_back(_currentPlayer);
+	}
+	findHorizontalLine(position, nearbyLines[0]);
+	findVerticalLine(position, nearbyLines[1]);
+	findDiagonalLine(position, nearbyLines[2]);
+	findAntiDiagonalLine(position, nearbyLines[3]);
+
+	for (int i = 0; i < 4; i++) {
+		if (nearbyLines[i].size() < 5)
+			continue;
+
+		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
+				int count = 0;
+				while (j < nearbyLines[i].size() && nearbyLines[i][j] == _currentPlayer) {
+					if (nearbyLines[i][j] == _currentPlayer)
+						count++;
+					j++;
+				}
+				if (count >= 5)
+					return true;
+		}
+	}
+	return false;
+}
+
+bool	Gameplay::isThereDoubleThree(std::vector<int>	nearbyLines[4]) {
+	int 	FreeThree = 0;
+	int 	opponent = (_currentPlayer == 1) ? 2 : 1;
+
+	for (int i = 0; i < 4; i++) {
+		if (nearbyLines[i].size() < 5)
+			continue;
+
+		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
+			if (nearbyLines[i][j] == 0) {
+				int count = 0;
+				while (j < nearbyLines[i].size() && (nearbyLines[i][j] == _currentPlayer || nearbyLines[i][j] == 0)) {
+					if (nearbyLines[i][j] == _currentPlayer && j + 1 < nearbyLines[i].size() && nearbyLines[i][j + 1] != opponent)
+						count++;
+					j++;
+				}
+				if (count >= 3)
+					FreeThree++;
+			}
+		}
+	}
+	if (FreeThree >= 2)
+		return true;
+	return false;
 }
 
 void	Gameplay::findHorizontalLine(std::string position, std::vector<int> &horizontalLine) {
@@ -161,31 +222,4 @@ void	Gameplay::findAntiDiagonalLine(std::string position, std::vector<int> &anti
 		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
 			antiDiagonalLine.insert(antiDiagonalLine.begin(), _playerPositions.at(newPosMinus));
 	}
-}
-
-bool	Gameplay::isThereDoubleThree(std::vector<int>	nearbyLines[4], int player) {
-	int 	FreeThree = 0;
-	int 	opponent = (player == 1) ? 2 : 1;
-
-	for (int i = 0; i < 4; i++) {
-		if (nearbyLines[i].size() < 5)
-			continue;
-
-		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
-			if (nearbyLines[i][j] == 0) {
-				int count = 0;
-				while (j < nearbyLines[i].size() && (nearbyLines[i][j] == player || nearbyLines[i][j] == 0)) {
-					if (nearbyLines[i][j] == player && j + 1 < nearbyLines[i].size() && nearbyLines[i][j + 1] != opponent)
-						count++;
-					j++;
-				}
-				if (count >= 3)
-					FreeThree++;
-			}
-		}
-	}
-
-	if (FreeThree >= 2)
-		return true;
-	return false;
 }
