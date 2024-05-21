@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/21 18:15:16 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:34:18 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,16 @@ void	Goban::drawPlayerPositions(sf::RenderWindow &window, std::map<std::string, 
 			int yIndex = 19 - yCoord;
 			
 			sf::Vector2f nearestIntersection(_gridStartPoint.first + xIndex * _cellSize, _gridStartPoint.second + yIndex * _cellSize);
-			sf::CircleShape playerCircle(15.f);
+			sf::CircleShape playerCircle(13.f);
+
+			sf::Color firstPlayerColor(138, 203, 136);
+			sf::Color secondPlayerColor(254, 74, 73);
 
 			if (playerId == 1) {
-				playerCircle.setFillColor(sf::Color::Green);
+				playerCircle.setFillColor(firstPlayerColor);
 			}
 			else {
-				playerCircle.setFillColor(sf::Color::Red);
+				playerCircle.setFillColor(secondPlayerColor);
 			}
 
 			playerCircle.setPosition(nearestIntersection.x - playerCircle.getRadius(), nearestIntersection.y - playerCircle.getRadius());

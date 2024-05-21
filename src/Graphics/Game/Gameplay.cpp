@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/20 16:11:46 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:36:24 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,32 @@ Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {
 Gameplay::~Gameplay() {}
 
 void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-    float xIndex = std::round((mousePosition.x - _gridStartPoint.first) / _cellSize);
-    float yIndex = std::round((mousePosition.y - _gridStartPoint.second) / _cellSize);
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+	float xIndex = std::round((mousePosition.x - _gridStartPoint.first) / _cellSize);
+	float yIndex = std::round((mousePosition.y - _gridStartPoint.second) / _cellSize);
 
-    window.clear();
-    Goban goban(window);
-    goban.display(window);
-    Debug::init(window);
+	window.clear();
+	Goban goban(window);
+	goban.display(window);
+	Debug::init(window);
 	
 	// Draw the circle following the mouse if the mouse is on the grid
 	if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
-        sf::Vector2f nearestIntersection(_gridStartPoint.first + xIndex * _cellSize, _gridStartPoint.second + yIndex * _cellSize);
-        sf::CircleShape circle(15.f);
+		sf::Vector2f nearestIntersection(_gridStartPoint.first + xIndex * _cellSize, _gridStartPoint.second + yIndex * _cellSize);
+		sf::CircleShape circle(13.f);
+
+		sf::Color circleOutlineColor(182, 143, 64);
+		sf::Color firstPlayerColor(138, 203, 136);
+		sf::Color secondPlayerColor(254, 74, 73);
+
+		circle.setOutlineColor(circleOutlineColor);
+		circle.setOutlineThickness(2);
+		
 		if (_currentPlayer == 1) {
-        	circle.setFillColor(sf::Color::Green);
+			circle.setFillColor(firstPlayerColor);
 		}
 		else {
-			circle.setFillColor(sf::Color::Red);
+			circle.setFillColor(secondPlayerColor);
 		}
 		circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
 		window.draw(circle);
