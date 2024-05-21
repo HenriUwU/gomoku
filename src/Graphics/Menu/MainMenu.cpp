@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/20 16:06:26 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:01:04 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ MainMenu::MainMenu(float width, float height) {
 MainMenu::~MainMenu() {}
 
 void	MainMenu::display(sf::RenderWindow &window) {
-	//window.draw(_backgroundSprite);
+	
+
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		window.draw(_menu[i]);
 	}
