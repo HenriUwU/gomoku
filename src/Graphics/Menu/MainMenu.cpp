@@ -6,14 +6,14 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/21 15:01:04 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:31:38 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MainMenu.hpp"
 
 MainMenu::MainMenu(float width, float height) {
-	if (!_font.loadFromFile("assets/fonts/arial.ttf")) {
+	if (!_font.loadFromFile("assets/fonts/ChunkFive-Regular.otf")) {
 		std::cerr << "Error while loading the font file." << std::endl;
 	}
 
@@ -40,8 +40,8 @@ MainMenu::MainMenu(float width, float height) {
 	}
 
 	_menu[0].setString("Welcome to Gomoku");
-	_menu[1].setString("Player vs Player");
-	_menu[2].setString("Player vs AI");
+	_menu[1].setString("Two players");
+	_menu[2].setString("Versus AI");
 	_menu[3].setString("Quit");
 	_menu[1].setFillColor(sf::Color::Red);
 
@@ -70,7 +70,13 @@ MainMenu::MainMenu(float width, float height) {
 MainMenu::~MainMenu() {}
 
 void	MainMenu::display(sf::RenderWindow &window) {
+	sf::Color backgroundColor(46, 49, 83);
 	
+	sf::RectangleShape background(sf::Vector2f(window.getSize().x, window.getSize().y));
+	background.setFillColor(backgroundColor);
+	background.setPosition(0, 0);
+
+	window.draw(background);
 
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		window.draw(_menu[i]);

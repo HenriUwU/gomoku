@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/13 14:23:29 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:29:39 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ class MainMenu {
 		sf::Texture	_backgroundTexture;
 		sf::Sprite	_backgroundSprite;
 		sf::Music	_music;
+		std::vector<sf::Text> _rainbowText;
 
 	public:
 		MainMenu(float width, float height);
