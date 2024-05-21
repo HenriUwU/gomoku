@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/21 15:42:10 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:15:16 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ Goban::Goban(sf::RenderWindow &window) : Graphics(window) {}
 Goban::~Goban() {}
 
 void Goban::display(sf::RenderWindow &window) {
-    sf::Color gobanBackgroundColor(205, 170, 125);
-	sf::Color backgroundColor(184, 158, 20);
+    sf::Color gobanBackgroundColor(84, 84, 84);
+	sf::Color backgroundColor(48, 1, 30);
 	
 	// Draw the background
 	sf::RectangleShape background(sf::Vector2f(_windowWidth, _windowHeight));
@@ -27,13 +27,13 @@ void Goban::display(sf::RenderWindow &window) {
 	window.draw(background);
 	
     // Draw the goban background
-    sf::RectangleShape gobanBackground(sf::Vector2f(_gridSize, _gridSize));
-    gobanBackground.setPosition(_gridStartPoint.first, _gridStartPoint.second);
+    sf::RectangleShape gobanBackground(sf::Vector2f(_gridSize + 20, _gridSize + 20));
+    gobanBackground.setPosition(_gridStartPoint.first - 10, _gridStartPoint.second - 10);
     gobanBackground.setFillColor(gobanBackgroundColor);
     window.draw(gobanBackground);
 
     // Display the grid
-	sf::Color linecolor(0, 0, 0);
+	sf::Color linecolor(182, 143, 64);
     for (int i = 0; i < 19; i++) {
         sf::Vertex verticalLine[] =
         {
@@ -52,32 +52,43 @@ void Goban::display(sf::RenderWindow &window) {
     }
 
 	sf::Font font;
+	sf::Font playerFont;
+
 	if (!font.loadFromFile("assets/fonts/arial.ttf")) {
 		return;
 	}
 
-	sf::Text player1("Player 1", font, 30);
-	sf::Text player2("Player 2", font, 30);
+	if (!playerFont.loadFromFile("assets/fonts/ChunkFive-Regular.otf")) {
+		return;
+	}
+
+	sf::Text	player1("Player 1", playerFont, 25);
+	sf::Text	player2("Player 2", playerFont, 25);
+	sf::Color	playerColor(182, 204, 161);
 
 	player1.setPosition(200, 10);
 	player2.setPosition(1920 - 300, 10);
+	player1.setFillColor(playerColor);
+	player2.setFillColor(playerColor);
 
 	window.draw(player1);
 	window.draw(player2);
+
+	sf::Color coordinatesColor(182, 204, 161);
 
 	for (int i = 1; i < 20; i++) {
 		std::string number = std::to_string(i);
 		std::string letter(1, '@' + i);
 
-		sf::Text xIndexBottom(letter, font, 15);
-		sf::Text yIndexLeft(number, font, 15);
-		sf::Text xIndexTop(letter, font, 15);
-		sf::Text yIndexRight(number, font, 15);
+		sf::Text xIndexBottom(letter, font, 13);
+		sf::Text yIndexLeft(number, font, 13);
+		sf::Text xIndexTop(letter, font, 13);
+		sf::Text yIndexRight(number, font, 13);
 
-		xIndexBottom.setFillColor(sf::Color::Black);
-		yIndexLeft.setFillColor(sf::Color::Black);
-		xIndexTop.setFillColor(sf::Color::Black);
-		yIndexRight.setFillColor(sf::Color::Black);
+		xIndexBottom.setFillColor(coordinatesColor);
+		yIndexLeft.setFillColor(coordinatesColor);
+		xIndexTop.setFillColor(coordinatesColor);
+		yIndexRight.setFillColor(coordinatesColor);
 
 		// Bottom and left coordinates
 		xIndexBottom.setPosition((_windowWidth - _gridSize) / 2 + _cellSize * i - _cellSize - 7, _gridSize + 45);

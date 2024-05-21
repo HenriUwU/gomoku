@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/21 17:31:38 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:00:35 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,20 @@ MainMenu::MainMenu(float width, float height) {
 	_backgroundSprite.setScale(scaleX, scaleY);
 
 	_backgroundSprite.setPosition(0, 0);
+	sf::Color fontColor(182, 204, 161);
+	sf::Color selectedColor(182, 143, 64);
 
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		_menu[i].setFont(_font);
 		_menu[i].setCharacterSize(45);
-		_menu[i].setFillColor(sf::Color::White);
+		_menu[i].setFillColor(fontColor);
 	}
 
 	_menu[0].setString("Welcome to Gomoku");
 	_menu[1].setString("Two players");
 	_menu[2].setString("Versus AI");
 	_menu[3].setString("Quit");
-	_menu[1].setFillColor(sf::Color::Red);
+	_menu[1].setFillColor(selectedColor);
 
 	float maxMenuWidth = 0.0f;
 	for (int i = 0; i < NB_MENU_ITEMS; ++i) {
@@ -70,7 +72,7 @@ MainMenu::MainMenu(float width, float height) {
 MainMenu::~MainMenu() {}
 
 void	MainMenu::display(sf::RenderWindow &window) {
-	sf::Color backgroundColor(46, 49, 83);
+	sf::Color backgroundColor(48, 1, 30);
 	
 	sf::RectangleShape background(sf::Vector2f(window.getSize().x, window.getSize().y));
 	background.setFillColor(backgroundColor);
@@ -84,18 +86,24 @@ void	MainMenu::display(sf::RenderWindow &window) {
 }
 
 void	MainMenu::MoveUp() {
+	sf::Color fontColor(182, 204, 161);
+	sf::Color selectedColor(182, 143, 64);
+	
 	if (_selectedItemIndex - 1 >= 1) {
-		_menu[_selectedItemIndex].setFillColor(sf::Color::White);
+		_menu[_selectedItemIndex].setFillColor(fontColor);
 		_selectedItemIndex--;
-		_menu[_selectedItemIndex].setFillColor(sf::Color::Red);
+		_menu[_selectedItemIndex].setFillColor(selectedColor);
 	}
 }
 
 void	MainMenu::MoveDown() {
+	sf::Color fontColor(182, 204, 161);
+	sf::Color selectedColor(182, 143, 64);
+	
 	if (_selectedItemIndex + 1 < NB_MENU_ITEMS) {
-		_menu[_selectedItemIndex].setFillColor(sf::Color::White);
+		_menu[_selectedItemIndex].setFillColor(fontColor);
 		_selectedItemIndex++;
-		_menu[_selectedItemIndex].setFillColor(sf::Color::Red);
+		_menu[_selectedItemIndex].setFillColor(selectedColor);
 	}
 }
 
