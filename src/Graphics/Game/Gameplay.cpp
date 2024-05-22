@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/22 13:10:38 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:22:46 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,14 @@ bool	Gameplay::isCapturingMove(std::string position) {
 	findAntiDiagonalLine(2, position, nearbyLines[3]);
 	
 	int	opponent = (_currentPlayer == 1) ? 2 : 1;
+
+	for (int i = 0; i < 4; i++) {
+        std::cout << "Direction " << i << ": ";
+        for (int val : nearbyLines[i]) {
+            std::cout << val << " ";
+        }
+        std::cout << std::endl;
+    }
 	
 	for (int i = 0; i < 4; i++) {
 		if (nearbyLines[i].size() < 4)
