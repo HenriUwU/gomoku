@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/22 13:22:46 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/22 14:04:01 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,20 +241,12 @@ bool	Gameplay::isCapturingMove(std::string position) {
 	for (int i = 0; i < 4; i++) {
 		nearbyLines[i].push_back(_currentPlayer);
 	}
-	findHorizontalLine(2, position, nearbyLines[0]);
-	findVerticalLine(2, position, nearbyLines[1]);
-	findDiagonalLine(2, position, nearbyLines[2]);
-	findAntiDiagonalLine(2, position, nearbyLines[3]);
+	findHorizontalLine(3, position, nearbyLines[0]);
+	findVerticalLine(3, position, nearbyLines[1]);
+	findDiagonalLine(3, position, nearbyLines[2]);
+	findAntiDiagonalLine(3, position, nearbyLines[3]);
 	
 	int	opponent = (_currentPlayer == 1) ? 2 : 1;
-
-	for (int i = 0; i < 4; i++) {
-        std::cout << "Direction " << i << ": ";
-        for (int val : nearbyLines[i]) {
-            std::cout << val << " ";
-        }
-        std::cout << std::endl;
-    }
 	
 	for (int i = 0; i < 4; i++) {
 		if (nearbyLines[i].size() < 4)
