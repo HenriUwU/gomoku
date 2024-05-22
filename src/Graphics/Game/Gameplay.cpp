@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/21 18:36:24 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:10:38 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ bool	Gameplay::isMoveLegal(std::string position) {
 	for (int i = 0; i < 4; i++) {
 		nearbyLines[i].push_back(_currentPlayer);
 	}
-	findHorizontalLine(position, nearbyLines[0]);
-	findVerticalLine(position, nearbyLines[1]);
-	findDiagonalLine(position, nearbyLines[2]);
-	findAntiDiagonalLine(position, nearbyLines[3]);
+	findHorizontalLine(4, position, nearbyLines[0]);
+	findVerticalLine(4, position, nearbyLines[1]);
+	findDiagonalLine(4, position, nearbyLines[2]);
+	findAntiDiagonalLine(4, position, nearbyLines[3]);
 
-	if (isThereDoubleThree(nearbyLines)) {
+	if (!isCapturingMove(position) && isThereDoubleThree(nearbyLines)) {
 		std::cout << "Illegal move : Double three detected\n";
 		return false;
 	}
@@ -122,10 +122,10 @@ bool	Gameplay::isWinningMove(std::string position) {
 	for (int i = 0; i < 4; i++) {
 		nearbyLines[i].push_back(_currentPlayer);
 	}
-	findHorizontalLine(position, nearbyLines[0]);
-	findVerticalLine(position, nearbyLines[1]);
-	findDiagonalLine(position, nearbyLines[2]);
-	findAntiDiagonalLine(position, nearbyLines[3]);
+	findHorizontalLine(4, position, nearbyLines[0]);
+	findVerticalLine(4, position, nearbyLines[1]);
+	findDiagonalLine(4, position, nearbyLines[2]);
+	findAntiDiagonalLine(4, position, nearbyLines[3]);
 
 	for (int i = 0; i < 4; i++) {
 		if (nearbyLines[i].size() < 5)
@@ -171,8 +171,8 @@ bool	Gameplay::isThereDoubleThree(std::vector<int>	nearbyLines[4]) {
 	return false;
 }
 
-void	Gameplay::findHorizontalLine(std::string position, std::vector<int> &horizontalLine) {
-	for (int i = 1; i <= 4; i++) {
+void	Gameplay::findHorizontalLine(int nbStones, std::string position, std::vector<int> &horizontalLine) {
+	for (int i = 1; i <= nbStones; i++) {
 		std::stringstream ssPlus, ssMinus;
 
 		ssPlus << char(position[0] + i) << position.substr(1);
@@ -187,8 +187,8 @@ void	Gameplay::findHorizontalLine(std::string position, std::vector<int> &horizo
 	}
 }
 
-void	Gameplay::findVerticalLine(std::string position, std::vector<int> &verticalLine) {
-	for (int i = 1; i <= 4; i++) {
+void	Gameplay::findVerticalLine(int nbStones, std::string position, std::vector<int> &verticalLine) {
+	for (int i = 1; i <= nbStones; i++) {
 		std::stringstream ssPlus, ssMinus;
 
 		ssPlus << position[0] << std::to_string(std::stoi(position.substr(1)) + i);
@@ -203,8 +203,8 @@ void	Gameplay::findVerticalLine(std::string position, std::vector<int> &vertical
 	}
 }
 
-void	Gameplay::findDiagonalLine(std::string position, std::vector<int> &diagonalLine) {
-	for (int i = 1; i <= 4; i++) {
+void	Gameplay::findDiagonalLine(int nbStones, std::string position, std::vector<int> &diagonalLine) {
+	for (int i = 1; i <= nbStones; i++) {
 		std::stringstream ssPlus, ssMinus;
 
 		ssPlus << char(position[0] + i) << std::to_string(std::stoi(position.substr(1)) + i);
@@ -219,8 +219,8 @@ void	Gameplay::findDiagonalLine(std::string position, std::vector<int> &diagonal
 	}
 }
 
-void	Gameplay::findAntiDiagonalLine(std::string position, std::vector<int> &antiDiagonalLine) {
-	for (int i = 1; i <= 4; i++) {
+void	Gameplay::findAntiDiagonalLine(int nbStones, std::string position, std::vector<int> &antiDiagonalLine) {
+	for (int i = 1; i <= nbStones; i++) {
 		std::stringstream ssPlus, ssMinus;
 
 		ssPlus << char(position[0] + i) << std::to_string(std::stoi(position.substr(1)) - i);
@@ -233,4 +233,34 @@ void	Gameplay::findAntiDiagonalLine(std::string position, std::vector<int> &anti
 		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
 			antiDiagonalLine.insert(antiDiagonalLine.begin(), _playerPositions.at(newPosMinus));
 	}
+}
+
+bool	Gameplay::isCapturingMove(std::string position) {
+	std::vector<int>	nearbyLines[4];
+
+	for (int i = 0; i < 4; i++) {
+		nearbyLines[i].push_back(_currentPlayer);
+	}
+	findHorizontalLine(2, position, nearbyLines[0]);
+	findVerticalLine(2, position, nearbyLines[1]);
+	findDiagonalLine(2, position, nearbyLines[2]);
+	findAntiDiagonalLine(2, position, nearbyLines[3]);
+	
+	int	opponent = (_currentPlayer == 1) ? 2 : 1;
+	
+	for (int i = 0; i < 4; i++) {
+		if (nearbyLines[i].size() < 4)
+			continue;
+
+		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
+			if (nearbyLines[i][j] == _currentPlayer
+				&& j + 1 < nearbyLines[i].size() && nearbyLines[i][j + 1] == opponent
+				&& j + 2 < nearbyLines[i].size() && nearbyLines[i][j + 2] == opponent
+				&& j + 3 < nearbyLines[i].size() && nearbyLines[i][j + 3] == _currentPlayer) {
+					std::cout << "Pair captured" << std::endl; 
+					return true;
+				}
+		}
+	}
+	return false;
 }
