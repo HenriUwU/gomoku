@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/23 16:47:45 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:16:54 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	_gobanSprite.setTexture(_gobanTexture);
 	_gobanSprite.setScale(1, 1);
 	_gobanSprite.setPosition(1079, 40);
-	_gobanSprite.setColor(sf::Color(255, 255, 255, 150));
+	_gobanSprite.setColor(sf::Color(255, 255, 255, 255));
 	_gobanSprite.setRotation(-10);
 
 	sf::Color fontColor(182, 204, 161);
@@ -73,7 +73,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 
 	std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
-	size_t numberOfSprites = 15;
+	size_t numberOfSprites = 30;
 	initializeBackgroundSprites(numberOfSprites, window);
 }
 
@@ -86,19 +86,18 @@ void	MainMenu::display(sf::RenderWindow& window, float deltaTime) {
 	sf::RectangleShape background(sf::Vector2f(window.getSize().x, window.getSize().y));
 	background.setFillColor(backgroundColor);
 	background.setPosition(0, 0);
-
 	window.draw(background);
 
-	//_backgroundSprites.clear();
 	updateSprites(deltaTime, window);
-	
 	for (const auto &fadingSprite : _backgroundSprites) {
 		window.draw(fadingSprite.sprite);
 	}
 
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
+		
 		window.draw(_menu[i]);
 	}
+	
 	window.draw(_gobanSprite);
 }
 
@@ -116,7 +115,10 @@ void MainMenu::initializeBackgroundSprites(size_t count, const sf::RenderWindow 
         // Set a small scale for the sprite
         float scale = static_cast<float>((std::rand() % 50) / 1000.0 + 0.05); // Scale between 0.05 and 0.1
         sprite.setScale(scale, scale);
-		//sprite.setScale(0.15, 0.15);
+
+		// Set a random rotation
+		float rotation = static_cast<float>(std::rand() % 360);
+		sprite.setRotation(rotation);
 
         FadingSprite fadingSprite = { sprite, 0.0f, true };
         _backgroundSprites.push_back(fadingSprite);
