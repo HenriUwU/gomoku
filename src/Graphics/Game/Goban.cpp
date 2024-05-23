@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/21 18:34:18 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:28:51 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void Goban::display(sf::RenderWindow &window) {
     window.draw(gobanBackground);
 
     // Display the grid
-	sf::Color linecolor(182, 143, 64);
+	sf::Color linecolor(242, 244, 243);
     for (int i = 0; i < 19; i++) {
         sf::Vertex verticalLine[] =
         {
