@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/23 14:27:12 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:09:52 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 		std::cerr << "Error while loading the music file." << std::endl;
 	}
 
-	if (!_backgroundTexture.loadFromFile("assets/images/star.png")) {
+	if (!_backgroundTexture.loadFromFile("assets/images/star2.png")) {
 		std::cerr << "Error while loading the background file." << std::endl;
 	}
 
@@ -94,16 +94,17 @@ void MainMenu::initializeBackgroundSprites(size_t count, const sf::RenderWindow 
     for (size_t i = 0; i < count; ++i) {
         sf::Sprite sprite;
         sprite.setTexture(_backgroundTexture);
+		sprite.setScale(1, 1);
 
         // Set a random position within the window bounds
         float randomX = static_cast<float>(std::rand() % window.getSize().x);
         float randomY = static_cast<float>(std::rand() % window.getSize().y);
         sprite.setPosition(randomX, randomY);
 
-        // Optional: Set a random scale if desired
-        float scaleX = static_cast<float>((std::rand() % 100) / 100.0 + 0.5); // Scale between 0.5 and 1.5
-        float scaleY = static_cast<float>((std::rand() % 100) / 100.0 + 0.5);
-        sprite.setScale(scaleX, scaleY);
+        // Set a small scale for the sprite
+        float scale = static_cast<float>((std::rand() % 50) / 1000.0 + 0.05); // Scale between 0.05 and 0.1
+        sprite.setScale(scale, scale);
+		//sprite.setScale(0.15, 0.15);
 
         FadingSprite fadingSprite = { sprite, 0.0f, true };
         _backgroundSprites.push_back(fadingSprite);
