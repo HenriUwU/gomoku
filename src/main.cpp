@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/20 16:05:02 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:24:13 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ bool displayGame = false;
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");
-	MainMenu mainMenu(window.getSize().x, window.getSize().y);
+	MainMenu mainMenu(window.getSize().x, window.getSize().y, window);
 	Gameplay gameplay(window);
+
+	sf::Clock clock;
 
 	while (window.isOpen())
 	{
@@ -27,9 +29,11 @@ int main() {
 			mainMenu.handleKeys(event, window);
 		}   
 
+		float deltaTime = clock.restart().asSeconds();
+
 		if (displayMenu == true) {
 			window.clear(sf::Color::Black);
-			mainMenu.display(window);
+			mainMenu.display(window, deltaTime);
 			window.display();
 		}
 		else if (displayGame == true) {

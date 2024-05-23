@@ -6,32 +6,25 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/21 18:00:35 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:27:12 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MainMenu.hpp"
 
-MainMenu::MainMenu(float width, float height) {
+MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	if (!_font.loadFromFile("assets/fonts/ChunkFive-Regular.otf")) {
 		std::cerr << "Error while loading the font file." << std::endl;
-	}
-
-	if (!_backgroundTexture.loadFromFile("assets/images/frame1.png")) {
-		std::cerr << "Error while loading the background file." << std::endl;
 	}
 
 	if (!_music.openFromFile("assets/musics/MainMenuSong.ogg")) {
 		std::cerr << "Error while loading the music file." << std::endl;
 	}
 
-	_backgroundSprite.setTexture(_backgroundTexture);
+	if (!_backgroundTexture.loadFromFile("assets/images/star.png")) {
+		std::cerr << "Error while loading the background file." << std::endl;
+	}
 
-	float scaleX = width / _backgroundTexture.getSize().x;
-	float scaleY = height / _backgroundTexture.getSize().y;
-	_backgroundSprite.setScale(scaleX, scaleY);
-
-	_backgroundSprite.setPosition(0, 0);
 	sf::Color fontColor(182, 204, 161);
 	sf::Color selectedColor(182, 143, 64);
 
@@ -67,11 +60,16 @@ MainMenu::MainMenu(float width, float height) {
 	_selectedItemIndex = 1;
 
 	playMusic();
+
+	std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+	size_t numberOfSprites = 15;
+	initializeBackgroundSprites(numberOfSprites, window);
 }
 
 MainMenu::~MainMenu() {}
 
-void	MainMenu::display(sf::RenderWindow &window) {
+void	MainMenu::display(sf::RenderWindow &window, float deltaTime) {
 	sf::Color backgroundColor(48, 1, 30);
 	
 	sf::RectangleShape background(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -83,8 +81,60 @@ void	MainMenu::display(sf::RenderWindow &window) {
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		window.draw(_menu[i]);
 	}
+
+	//_backgroundSprites.clear();
+	updateSprites(deltaTime, window);
+	
+	for (const auto &fadingSprite : _backgroundSprites) {
+		window.draw(fadingSprite.sprite);
+	}
 }
 
+void MainMenu::initializeBackgroundSprites(size_t count, const sf::RenderWindow &window) {
+    for (size_t i = 0; i < count; ++i) {
+        sf::Sprite sprite;
+        sprite.setTexture(_backgroundTexture);
+
+        // Set a random position within the window bounds
+        float randomX = static_cast<float>(std::rand() % window.getSize().x);
+        float randomY = static_cast<float>(std::rand() % window.getSize().y);
+        sprite.setPosition(randomX, randomY);
+
+        // Optional: Set a random scale if desired
+        float scaleX = static_cast<float>((std::rand() % 100) / 100.0 + 0.5); // Scale between 0.5 and 1.5
+        float scaleY = static_cast<float>((std::rand() % 100) / 100.0 + 0.5);
+        sprite.setScale(scaleX, scaleY);
+
+        FadingSprite fadingSprite = { sprite, 0.0f, true };
+        _backgroundSprites.push_back(fadingSprite);
+    }
+}
+
+void MainMenu::updateSprites(float deltaTime, const sf::RenderWindow &window) {
+    for (auto &fadingSprite : _backgroundSprites) {
+        if (fadingSprite.fadingIn) {
+            fadingSprite.timer += deltaTime;
+            if (fadingSprite.timer >= 1.0f) {
+                fadingSprite.timer = 1.0f;
+                fadingSprite.fadingIn = false;
+            }
+        } else {
+            fadingSprite.timer -= deltaTime;
+            if (fadingSprite.timer <= 0.0f) {
+                fadingSprite.timer = 0.0f;
+                fadingSprite.fadingIn = true;
+
+                // Set a new random position within the window bounds when starting to fade in again
+                float randomX = static_cast<float>(std::rand() % window.getSize().x);
+                float randomY = static_cast<float>(std::rand() % window.getSize().y);
+                fadingSprite.sprite.setPosition(randomX, randomY);
+            }
+        }
+        sf::Color color = fadingSprite.sprite.getColor();
+        color.a = static_cast<sf::Uint8>(255 * fadingSprite.timer); // Update opacity
+        fadingSprite.sprite.setColor(color);
+    }
+}
 void	MainMenu::MoveUp() {
 	sf::Color fontColor(182, 204, 161);
 	sf::Color selectedColor(182, 143, 64);
