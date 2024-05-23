@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/23 16:02:38 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:20:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	if (!_backgroundTexture.loadFromFile("assets/images/star2.png")) {
 		std::cerr << "Error while loading the background file." << std::endl;
 	}
+
+	if (!_gobanTexture.loadFromFile("assets/images/grid.png")) {
+		std::cerr << "Error while loading the goban file." << std::endl;
+	}
+
+	_gobanSprite.setTexture(_gobanTexture);
+	_gobanSprite.setScale(1, 1);
+	_gobanSprite.setPosition(1079, 20);
+	_gobanSprite.setColor(sf::Color(255, 255, 255, 150));
+	_gobanSprite.setRotation(-10);
 
 	sf::Color fontColor(182, 204, 161);
 	sf::Color selectedColor(182, 143, 64);
@@ -89,47 +99,8 @@ void	MainMenu::display(sf::RenderWindow& window, float deltaTime) {
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		window.draw(_menu[i]);
 	}
-
-	drawMainMenuBoard(window);
+	window.draw(_gobanSprite);
 }
-
-void MainMenu::drawMainMenuBoard(sf::RenderWindow &window) {
-    unsigned int windowWidth = window.getSize().x;
-    unsigned int windowHeight = window.getSize().y;
-    float gridSize = windowHeight - 75;
-
-    // Calculate the position for the top-right corner
-    float offsetX = -20; // Adjust the horizontal margin
-    float offsetY = -20; // Adjust the vertical margin
-    float gridStartX = windowWidth - gridSize - offsetX;
-    float gridStartY = offsetY;
-
-    sf::Color gobanBackgroundColor(84, 84, 84, 100);
-    sf::RectangleShape gobanBackground(sf::Vector2f(gridSize + 20, gridSize + 20));
-    gobanBackground.setPosition(gridStartX - 10, gridStartY - 10);
-    gobanBackground.setFillColor(gobanBackgroundColor);
-    window.draw(gobanBackground);
-
-    // Display the grid
-    sf::Color linecolor(242, 244, 243);
-    for (int i = 0; i < 19; i++) {
-        sf::Vertex verticalLine[] =
-        {
-            sf::Vertex(sf::Vector2f((gridSize / 18) * i + gridStartX, gridStartY), linecolor),
-            sf::Vertex(sf::Vector2f((gridSize / 18) * i + gridStartX, gridStartY + gridSize), linecolor)
-        };
-
-        sf::Vertex horizontalLine[] =
-        {
-            sf::Vertex(sf::Vector2f(gridStartX, (gridSize / 18) * i + gridStartY), linecolor),
-            sf::Vertex(sf::Vector2f(gridStartX + gridSize, (gridSize / 18) * i + gridStartY), linecolor)
-        };
-
-        window.draw(verticalLine, 2, sf::Lines);
-        window.draw(horizontalLine, 2, sf::Lines);
-    }
-}
-
 
 void MainMenu::initializeBackgroundSprites(size_t count, const sf::RenderWindow &window) {
     for (size_t i = 0; i < count; ++i) {
