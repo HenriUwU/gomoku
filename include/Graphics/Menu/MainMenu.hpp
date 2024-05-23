@@ -6,13 +6,14 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/23 14:26:59 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:43:49 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "gomoku.hpp"
+#include "Goban.hpp"
 
 #define NB_MENU_ITEMS 4
 
@@ -46,4 +47,5 @@ class MainMenu {
 		void	playMusic();
 		void	stopMusic();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
+		void	drawMainMenuBoard(sf::RenderWindow &window);
 };

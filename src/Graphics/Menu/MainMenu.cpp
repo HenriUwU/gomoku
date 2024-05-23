@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/23 15:09:52 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:02:38 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		_menu[i].setFont(_font);
-		_menu[i].setCharacterSize(45);
+		_menu[i].setCharacterSize(50);
 		_menu[i].setFillColor(fontColor);
 	}
 
@@ -49,12 +49,12 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	float offsetX = (width - maxMenuWidth) / 2;
 	float offsetY = 1;
 
-	_menu[0].setPosition(sf::Vector2f((offsetX + (maxMenuWidth - _menu[0].getLocalBounds().width)), (height / NB_MENU_ITEMS + 1) * 0.5));        
+	_menu[0].setPosition(sf::Vector2f((offsetX + (maxMenuWidth - _menu[0].getLocalBounds().width)) - 350, (height / NB_MENU_ITEMS + 1) * 1));        
 	for (int i = 1; i < NB_MENU_ITEMS; ++i) {
 		sf::FloatRect bounds = _menu[i].getLocalBounds();
 		offsetY += 0.5;
 		float elementX = offsetX + (maxMenuWidth - bounds.width) / 2;
-		_menu[i].setPosition(sf::Vector2f(elementX, (height / NB_MENU_ITEMS + 1) * offsetY));
+		_menu[i].setPosition(sf::Vector2f(elementX - 350, (height / NB_MENU_ITEMS + 1) * offsetY + 40));
 	}
 
 	_selectedItemIndex = 1;
@@ -69,8 +69,9 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 
 MainMenu::~MainMenu() {}
 
-void	MainMenu::display(sf::RenderWindow &window, float deltaTime) {
+void	MainMenu::display(sf::RenderWindow& window, float deltaTime) {
 	sf::Color backgroundColor(48, 1, 30);
+	Goban goban(window);
 	
 	sf::RectangleShape background(sf::Vector2f(window.getSize().x, window.getSize().y));
 	background.setFillColor(backgroundColor);
@@ -78,17 +79,57 @@ void	MainMenu::display(sf::RenderWindow &window, float deltaTime) {
 
 	window.draw(background);
 
-	for (int i = 0; i < NB_MENU_ITEMS; i++) {
-		window.draw(_menu[i]);
-	}
-
 	//_backgroundSprites.clear();
 	updateSprites(deltaTime, window);
 	
 	for (const auto &fadingSprite : _backgroundSprites) {
 		window.draw(fadingSprite.sprite);
 	}
+
+	for (int i = 0; i < NB_MENU_ITEMS; i++) {
+		window.draw(_menu[i]);
+	}
+
+	drawMainMenuBoard(window);
 }
+
+void MainMenu::drawMainMenuBoard(sf::RenderWindow &window) {
+    unsigned int windowWidth = window.getSize().x;
+    unsigned int windowHeight = window.getSize().y;
+    float gridSize = windowHeight - 75;
+
+    // Calculate the position for the top-right corner
+    float offsetX = -20; // Adjust the horizontal margin
+    float offsetY = -20; // Adjust the vertical margin
+    float gridStartX = windowWidth - gridSize - offsetX;
+    float gridStartY = offsetY;
+
+    sf::Color gobanBackgroundColor(84, 84, 84, 100);
+    sf::RectangleShape gobanBackground(sf::Vector2f(gridSize + 20, gridSize + 20));
+    gobanBackground.setPosition(gridStartX - 10, gridStartY - 10);
+    gobanBackground.setFillColor(gobanBackgroundColor);
+    window.draw(gobanBackground);
+
+    // Display the grid
+    sf::Color linecolor(242, 244, 243);
+    for (int i = 0; i < 19; i++) {
+        sf::Vertex verticalLine[] =
+        {
+            sf::Vertex(sf::Vector2f((gridSize / 18) * i + gridStartX, gridStartY), linecolor),
+            sf::Vertex(sf::Vector2f((gridSize / 18) * i + gridStartX, gridStartY + gridSize), linecolor)
+        };
+
+        sf::Vertex horizontalLine[] =
+        {
+            sf::Vertex(sf::Vector2f(gridStartX, (gridSize / 18) * i + gridStartY), linecolor),
+            sf::Vertex(sf::Vector2f(gridStartX + gridSize, (gridSize / 18) * i + gridStartY), linecolor)
+        };
+
+        window.draw(verticalLine, 2, sf::Lines);
+        window.draw(horizontalLine, 2, sf::Lines);
+    }
+}
+
 
 void MainMenu::initializeBackgroundSprites(size_t count, const sf::RenderWindow &window) {
     for (size_t i = 0; i < count; ++i) {
@@ -112,30 +153,31 @@ void MainMenu::initializeBackgroundSprites(size_t count, const sf::RenderWindow 
 }
 
 void MainMenu::updateSprites(float deltaTime, const sf::RenderWindow &window) {
-    for (auto &fadingSprite : _backgroundSprites) {
-        if (fadingSprite.fadingIn) {
-            fadingSprite.timer += deltaTime;
-            if (fadingSprite.timer >= 1.0f) {
-                fadingSprite.timer = 1.0f;
-                fadingSprite.fadingIn = false;
-            }
-        } else {
-            fadingSprite.timer -= deltaTime;
-            if (fadingSprite.timer <= 0.0f) {
-                fadingSprite.timer = 0.0f;
-                fadingSprite.fadingIn = true;
+	for (auto &fadingSprite : _backgroundSprites) {
+		if (fadingSprite.fadingIn) {
+			fadingSprite.timer += deltaTime;
+			if (fadingSprite.timer >= 1.0f) {
+				fadingSprite.timer = 1.0f;
+				fadingSprite.fadingIn = false;
+		}
+	} else {
+		fadingSprite.timer -= deltaTime;
+		if (fadingSprite.timer <= 0.0f) {
+			fadingSprite.timer = 0.0f;
+			fadingSprite.fadingIn = true;
 
-                // Set a new random position within the window bounds when starting to fade in again
-                float randomX = static_cast<float>(std::rand() % window.getSize().x);
-                float randomY = static_cast<float>(std::rand() % window.getSize().y);
-                fadingSprite.sprite.setPosition(randomX, randomY);
-            }
-        }
-        sf::Color color = fadingSprite.sprite.getColor();
-        color.a = static_cast<sf::Uint8>(255 * fadingSprite.timer); // Update opacity
-        fadingSprite.sprite.setColor(color);
-    }
+		// Set a new random position within the window bounds when starting to fade in again
+		float randomX = static_cast<float>(std::rand() % window.getSize().x);
+		float randomY = static_cast<float>(std::rand() % window.getSize().y);
+		fadingSprite.sprite.setPosition(randomX, randomY);
+	}
+	}
+		sf::Color color = fadingSprite.sprite.getColor();
+		color.a = static_cast<sf::Uint8>(255 * fadingSprite.timer); // Update opacity
+		fadingSprite.sprite.setColor(color);
+	}
 }
+
 void	MainMenu::MoveUp() {
 	sf::Color fontColor(182, 204, 161);
 	sf::Color selectedColor(182, 143, 64);

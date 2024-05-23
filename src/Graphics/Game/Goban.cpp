@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/23 13:28:51 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:13:34 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void Goban::display(sf::RenderWindow &window) {
 		window.draw(yIndexRight);
 	}
 }
-
 
 void	Goban::drawPlayerPositions(sf::RenderWindow &window, std::map<std::string, int> playerPositions) {
 	for (int i = 0; i < 19; i++) {
