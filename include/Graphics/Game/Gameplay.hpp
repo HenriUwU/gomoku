@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/22 11:21:24 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/05/23 09:26:05 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ class Gameplay : public Graphics {
 		bool	isWinningMove(std::string position);
 		bool	isThereDoubleThree(std::vector<int>	nearbyLines[4]);
 		bool	isCapturingMove(std::string position);
+		void	removeCapturedPair(std::string position, int lineType, unsigned int pairIndex);
 };

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/22 14:04:01 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/23 09:48:32 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,10 +257,45 @@ bool	Gameplay::isCapturingMove(std::string position) {
 				&& j + 1 < nearbyLines[i].size() && nearbyLines[i][j + 1] == opponent
 				&& j + 2 < nearbyLines[i].size() && nearbyLines[i][j + 2] == opponent
 				&& j + 3 < nearbyLines[i].size() && nearbyLines[i][j + 3] == _currentPlayer) {
-					std::cout << "Pair captured" << std::endl; 
+					std::cout << "Pair captured" << std::endl;
+					removeCapturedPair(position, i, j);
 					return true;
 				}
 		}
 	}
 	return false;
+}
+
+void Gameplay::removeCapturedPair(std::string position, int lineType, unsigned int pairIndex) {
+    int dx, dy;
+    switch (lineType) {
+        case 0:
+            dx = 1;
+            dy = 0;
+            break;
+        case 1:
+            dx = 0;
+            dy = 1;
+            break;
+        case 2:
+            dx = 1;
+            dy = 1;
+            break;
+        case 3:
+            dx = 1;
+            dy = -1;
+            break;
+        default:
+            return;
+    }
+
+    int x = position[0] - 'A' + dx * (pairIndex - 2);
+    int y = std::stoi(position.substr(1)) - 1 + dy * (pairIndex - 2);
+
+    for (int i = 0; i <= 4; i++) {
+        std::string newPos = std::string(1, 'A' + x + dx * i) + std::to_string(y + 1 + dy * i);
+        if (_playerPositions.find(newPos) != _playerPositions.end()) {
+            _playerPositions.erase(newPos);
+        }
+    }
 }
