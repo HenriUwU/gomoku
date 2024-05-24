@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
+#    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/09 18:30:14 by laprieur          #+#    #+#              #
-#    Updated: 2024/05/14 10:48:39 by laprieur         ###   ########.fr        #
+#    Updated: 2024/05/24 12:19:29 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,9 @@ SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu
-SFML_FLAGS		:=	-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -ISFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu
+SFML_FLAGS		:=	-LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system
+RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/SFML/lib'
 
 # **************************************************************************** #
 #                                    TOOLS                                     #
@@ -43,12 +44,12 @@ MAKEFLAGS		+= --silent --no-print-directory
 all: header $(NAME)
 
 $(NAME): $(SRC_OBJS)
-	$(COMPILER) $(SRC_OBJS) $(DEBUG_FLAGS) $(SFML_FLAGS) -o $(NAME)
+	$(COMPILER) $(SRC_OBJS) $(DEBUG_FLAGS) $(SFML_FLAGS) $(RPATH_FLAGS) -o $(NAME)
 	@printf "%b" "$(BLUE)CREATED $(CYAN)$(NAME)\n"
 
 .build/%.o: %.cpp
 	mkdir -p $(@D)
-	$(COMPILER) $(DEBUG_FLAGS) $(SFML_FLAGS) -c $< -o $@
+	$(COMPILER) $(DEBUG_FLAGS) -c $< -o $@
 	@printf "%b" "$(BLUE)CREATED $(CYAN)$@\n"
 
 -include $(DEPS)

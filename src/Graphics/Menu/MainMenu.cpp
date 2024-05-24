@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/23 17:16:54 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/24 12:01:25 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	if (!_font.loadFromFile("assets/fonts/ChunkFive-Regular.otf")) {
 		std::cerr << "Error while loading the font file." << std::endl;
-	}
-
-	if (!_music.openFromFile("assets/musics/MainMenuSong.ogg")) {
-		std::cerr << "Error while loading the music file." << std::endl;
 	}
 
 	if (!_backgroundTexture.loadFromFile("assets/images/star2.png")) {
@@ -68,9 +64,6 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	}
 
 	_selectedItemIndex = 1;
-
-	playMusic();
-
 	std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
 	size_t numberOfSprites = 30;
@@ -173,17 +166,6 @@ void	MainMenu::MoveDown() {
 	}
 }
 
-void	MainMenu::playMusic()
-{
-	_music.play();
-	_music.setLoop(true);
-}
-
-void	MainMenu::stopMusic()
-{
-	_music.stop();
-}
-
 void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 	if (event.type == sf::Event::KeyReleased) {
 		if (event.key.code == sf::Keyboard::Up)
@@ -192,7 +174,6 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 			MoveDown();
 	}
 	if (getSelectedItemIndex() == 1 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
-		stopMusic();
 		displayMenu = false;
 		displayGame = true;
 	}

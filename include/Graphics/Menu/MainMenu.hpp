@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/23 16:20:40 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/24 12:00:55 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ class MainMenu {
 		std::vector<FadingSprite>	_backgroundSprites;
 		sf::Texture					_gobanTexture;
 		sf::Sprite					_gobanSprite;
-		sf::Music					_music;
 
 		void initializeBackgroundSprites(size_t count, const sf::RenderWindow &window);
 		void updateSprites(float deltaTime, const sf::RenderWindow &window);
@@ -46,7 +45,5 @@ class MainMenu {
 		void	display(sf::RenderWindow &window, float deltaTime);
 		void	MoveUp();
 		void	MoveDown();
-		void	playMusic();
-		void	stopMusic();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 };
