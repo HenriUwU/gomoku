@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/24 13:53:16 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:47:30 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,32 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 		std::cerr << "Error while loading the goban file." << std::endl;
 	}
 
+	if (!_welcomeToGomokuTexture.loadFromFile("assets/images/welcome.png")) {
+		std::cerr << "Error while loading the welcome file." << std::endl;
+	}
+
 	_gobanSprite.setTexture(_gobanTexture);
 	_gobanSprite.setScale(1, 1);
 	_gobanSprite.setPosition(1079, 40);
 	_gobanSprite.setColor(sf::Color(255, 255, 255, 150));
 	_gobanSprite.setRotation(-10);
 
+	_welcomeToGomokuSprite.setTexture(_welcomeToGomokuTexture);
+	_welcomeToGomokuSprite.setScale(0.3, 0.3);
+
 	sf::Color fontColor(182, 204, 161);
 	sf::Color selectedColor(182, 143, 64);
-
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		_menu[i].setFont(_font);
-		_menu[i].setCharacterSize(50);
+		_menu[i].setCharacterSize(45);
 		_menu[i].setFillColor(fontColor);
 	}
-
+	_selectedItemIndex = 1;
 	_menu[0].setString("Welcome to Gomoku");
 	_menu[1].setString("Two players");
 	_menu[2].setString("Versus AI");
 	_menu[3].setString("Quit");
+	_menu[1].setCharacterSize(55);
 	_menu[1].setFillColor(selectedColor);
 
 	float maxMenuWidth = 0.0f;
@@ -55,7 +62,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	float offsetX = (width - maxMenuWidth) / 2;
 	float offsetY = 1;
 
-	_menu[0].setPosition(sf::Vector2f((offsetX + (maxMenuWidth - _menu[0].getLocalBounds().width)) - 350, (height / NB_MENU_ITEMS + 1) * 1));        
+	_welcomeToGomokuSprite.setPosition(sf::Vector2f((offsetX + (maxMenuWidth - _menu[0].getLocalBounds().width)) - 410, (height / NB_MENU_ITEMS + 1) * 1));
 	for (int i = 1; i < NB_MENU_ITEMS; ++i) {
 		sf::FloatRect bounds = _menu[i].getLocalBounds();
 		offsetY += 0.5;
@@ -63,9 +70,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 		_menu[i].setPosition(sf::Vector2f(elementX - 350, (height / NB_MENU_ITEMS + 1) * offsetY + 40));
 	}
 
-	_selectedItemIndex = 1;
 	std::srand(static_cast<unsigned int>(std::time(nullptr)));
-
 	size_t numberOfSprites = 30;
 	initializeBackgroundSprites(numberOfSprites, window);
 }
@@ -86,11 +91,11 @@ void	MainMenu::display(sf::RenderWindow& window, float deltaTime) {
 		window.draw(fadingSprite.sprite);
 	}
 
-	for (int i = 0; i < NB_MENU_ITEMS; i++) {
-		
+	for (int i = 1; i < NB_MENU_ITEMS; i++) {
 		window.draw(_menu[i]);
 	}
 	
+	window.draw(_welcomeToGomokuSprite);
 	window.draw(_gobanSprite);
 }
 
@@ -147,11 +152,29 @@ void MainMenu::updateSprites(float deltaTime, const sf::RenderWindow &window) {
 void	MainMenu::MoveUp() {
 	sf::Color fontColor(182, 204, 161);
 	sf::Color selectedColor(182, 143, 64);
+
+	float maxMenuWidth = 0.0f;
+	for (int i = 0; i < NB_MENU_ITEMS; ++i) {
+		sf::FloatRect bounds = _menu[i].getLocalBounds();
+		maxMenuWidth = std::max(maxMenuWidth, bounds.width);
+	}
+
+	float offsetX = (1920 - maxMenuWidth) / 2;
+	float offsetY = 1;
 	
 	if (_selectedItemIndex - 1 >= 1) {
 		_menu[_selectedItemIndex].setFillColor(fontColor);
+		_menu[_selectedItemIndex].setCharacterSize(45);
 		_selectedItemIndex--;
 		_menu[_selectedItemIndex].setFillColor(selectedColor);
+		_menu[_selectedItemIndex].setCharacterSize(55);
+	}
+
+	for (int i = 1; i < NB_MENU_ITEMS; ++i) {
+		sf::FloatRect bounds = _menu[i].getLocalBounds();
+		offsetY += 0.5;
+		float elementX = offsetX + (maxMenuWidth - bounds.width) / 2;
+		_menu[i].setPosition(sf::Vector2f(elementX - 350, (964 / NB_MENU_ITEMS + 1) * offsetY + 40));
 	}
 }
 
@@ -159,10 +182,28 @@ void	MainMenu::MoveDown() {
 	sf::Color fontColor(182, 204, 161);
 	sf::Color selectedColor(182, 143, 64);
 	
+	float maxMenuWidth = 0.0f;
+	for (int i = 0; i < NB_MENU_ITEMS; ++i) {
+		sf::FloatRect bounds = _menu[i].getLocalBounds();
+		maxMenuWidth = std::max(maxMenuWidth, bounds.width);
+	}
+
+	float offsetX = (1920 - maxMenuWidth) / 2;
+	float offsetY = 1;
+	
 	if (_selectedItemIndex + 1 < NB_MENU_ITEMS) {
 		_menu[_selectedItemIndex].setFillColor(fontColor);
+		_menu[_selectedItemIndex].setCharacterSize(45);
 		_selectedItemIndex++;
 		_menu[_selectedItemIndex].setFillColor(selectedColor);
+		_menu[_selectedItemIndex].setCharacterSize(55);
+	}
+
+	for (int i = 1; i < NB_MENU_ITEMS; ++i) {
+		sf::FloatRect bounds = _menu[i].getLocalBounds();
+		offsetY += 0.5;
+		float elementX = offsetX + (maxMenuWidth - bounds.width) / 2;
+		_menu[i].setPosition(sf::Vector2f(elementX - 350, (964 / NB_MENU_ITEMS + 1) * offsetY + 40));
 	}
 }
 
