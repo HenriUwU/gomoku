@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/24 12:01:25 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/24 13:53:16 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	_gobanSprite.setTexture(_gobanTexture);
 	_gobanSprite.setScale(1, 1);
 	_gobanSprite.setPosition(1079, 40);
-	_gobanSprite.setColor(sf::Color(255, 255, 255, 255));
+	_gobanSprite.setColor(sf::Color(255, 255, 255, 150));
 	_gobanSprite.setRotation(-10);
 
 	sf::Color fontColor(182, 204, 161);
