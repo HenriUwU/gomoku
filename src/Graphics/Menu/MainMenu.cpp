@@ -149,7 +149,7 @@ void MainMenu::updateSprites(float deltaTime, const sf::RenderWindow &window) {
 	}
 }
 
-void	MainMenu::MoveUp() {
+void	MainMenu::MoveUp(sf::RenderWindow &window) {
 	sf::Color fontColor(182, 204, 161);
 	sf::Color selectedColor(182, 143, 64);
 
@@ -174,11 +174,11 @@ void	MainMenu::MoveUp() {
 		sf::FloatRect bounds = _menu[i].getLocalBounds();
 		offsetY += 0.5;
 		float elementX = offsetX + (maxMenuWidth - bounds.width) / 2;
-		_menu[i].setPosition(sf::Vector2f(elementX - 350, (964 / NB_MENU_ITEMS + 1) * offsetY + 40));
+		_menu[i].setPosition(sf::Vector2f(elementX - 350, (window.getSize().y / NB_MENU_ITEMS + 1) * offsetY + 40));
 	}
 }
 
-void	MainMenu::MoveDown() {
+void	MainMenu::MoveDown(sf::RenderWindow &window) {
 	sf::Color fontColor(182, 204, 161);
 	sf::Color selectedColor(182, 143, 64);
 	
@@ -203,16 +203,16 @@ void	MainMenu::MoveDown() {
 		sf::FloatRect bounds = _menu[i].getLocalBounds();
 		offsetY += 0.5;
 		float elementX = offsetX + (maxMenuWidth - bounds.width) / 2;
-		_menu[i].setPosition(sf::Vector2f(elementX - 350, (964 / NB_MENU_ITEMS + 1) * offsetY + 40));
+		_menu[i].setPosition(sf::Vector2f(elementX - 350, (window.getSize().y / NB_MENU_ITEMS + 1) * offsetY + 40));
 	}
 }
 
 void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 	if (event.type == sf::Event::KeyReleased) {
 		if (event.key.code == sf::Keyboard::Up)
-			MoveUp();
+			MoveUp(window);
 		if (event.key.code == sf::Keyboard::Down)
-			MoveDown();
+			MoveDown(window);
 	}
 	if (getSelectedItemIndex() == 1 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
 		displayMenu = false;

@@ -45,7 +45,7 @@ class MainMenu {
 		int		getSelectedItemIndex() { return _selectedItemIndex; }
 
 		void	display(sf::RenderWindow &window, float deltaTime);
-		void	MoveUp();
-		void	MoveDown();
+		void	MoveUp(sf::RenderWindow &window);
+		void	MoveDown(sf::RenderWindow &window);
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 };
