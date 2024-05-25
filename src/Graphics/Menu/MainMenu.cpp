@@ -29,6 +29,14 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 		std::cerr << "Error while loading the welcome file." << std::endl;
 	}
 
+	if (!_emojiCoolTexture.loadFromFile("assets/images/emojicool.png")) {
+		std::cerr << "Error while loading the emoji_cool file." << std::endl;
+	}
+
+	_emojiCoolSprite.setTexture(_emojiCoolTexture);
+	_emojiCoolSprite.setScale(0.5, 0.5);
+	_emojiCoolSprite.setPosition(0, 600);
+
 	_gobanSprite.setTexture(_gobanTexture);
 	_gobanSprite.setScale(1, 1);
 	_gobanSprite.setPosition(1079, 40);
@@ -97,6 +105,7 @@ void	MainMenu::display(sf::RenderWindow& window, float deltaTime) {
 	
 	window.draw(_welcomeToGomokuSprite);
 	window.draw(_gobanSprite);
+	window.draw(_emojiCoolSprite);
 }
 
 void MainMenu::initializeBackgroundSprites(size_t count, const sf::RenderWindow &window) {

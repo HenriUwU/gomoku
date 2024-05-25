@@ -34,6 +34,8 @@ class MainMenu {
 		sf::Sprite					_gobanSprite;
 		sf::Texture					_welcomeToGomokuTexture;
 		sf::Sprite					_welcomeToGomokuSprite;
+		sf::Texture					_emojiCoolTexture;
+		sf::Sprite					_emojiCoolSprite;
 
 		void initializeBackgroundSprites(size_t count, const sf::RenderWindow &window);
 		void updateSprites(float deltaTime, const sf::RenderWindow &window);
