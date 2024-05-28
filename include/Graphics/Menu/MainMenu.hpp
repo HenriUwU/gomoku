@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/24 14:01:37 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:46:46 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ class MainMenu {
 		std::vector<FadingSprite>	_backgroundSprites;
 		sf::Texture					_gobanTexture;
 		sf::Sprite					_gobanSprite;
-		sf::Texture					_welcomeToGomokuTexture;
-		sf::Sprite					_welcomeToGomokuSprite;
-		sf::Texture					_emojiCoolTexture;
-		sf::Sprite					_emojiCoolSprite;
 
 		void initializeBackgroundSprites(size_t count, const sf::RenderWindow &window);
 		void updateSprites(float deltaTime, const sf::RenderWindow &window);
