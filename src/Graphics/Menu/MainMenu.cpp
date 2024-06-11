@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/11 18:05:58 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:10:31 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,19 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	_menu[5].setCharacterSize(64.77);
 	_menu[5].setFont(_menuFont);
 	_menu[5].setFillColor(sf::Color::White);
-	_menu[5].setPosition(877, 303);
+	_menu[5].setPosition(877, 298);
 
 	_menu[6].setString("AI VERSUS");
 	_menu[6].setCharacterSize(64.77);
 	_menu[6].setFont(_menuFont);
 	_menu[6].setFillColor(sf::Color::White);
-	_menu[6].setPosition(795, 435);
+	_menu[6].setPosition(795, 430);
 
 	_menu[7].setString("EXIT");
 	_menu[7].setCharacterSize(64.77);
 	_menu[7].setFont(_menuFont);
 	_menu[7].setFillColor(sf::Color::White);
-	_menu[7].setPosition(887, 567);
+	_menu[7].setPosition(887, 559);
 
 	_menu[8].setString("More options");
 	_menu[8].setCharacterSize(30.23);
