@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/11 17:42:28 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:28:20 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ class MainMenu {
 		sf::Texture					_buttonBackgroundTexture4;
 		sf::Texture					_buttonBackgroundTexture5;
 		sf::Texture					_buttonBackgroundTexture6;
+		sf::Texture					_buttonBackgroundTextureHighlighted1;
+		sf::Texture					_buttonBackgroundTextureHighlighted2;
+		sf::Texture					_buttonBackgroundTextureHighlighted3;
+		sf::Texture					_buttonBackgroundTextureHighlighted4;
+		sf::Texture					_buttonBackgroundTextureHighlighted5;
+		sf::Texture					_buttonBackgroundTextureHighlighted6;
 		sf::Texture					_blueSquareTextureFront;
 		sf::Texture					_blueSquareTextureBehind;
 		sf::Texture					_lightBulbTexture;
@@ -40,6 +46,12 @@ class MainMenu {
 		sf::Sprite					_buttonBackground4;
 		sf::Sprite					_buttonBackground5;
 		sf::Sprite					_buttonBackground6;
+		sf::Sprite					_buttonBackgroundHighlighted1;
+		sf::Sprite					_buttonBackgroundHighlighted2;
+		sf::Sprite					_buttonBackgroundHighlighted3;
+		sf::Sprite					_buttonBackgroundHighlighted4;
+		sf::Sprite					_buttonBackgroundHighlighted5;
+		sf::Sprite					_buttonBackgroundHighlighted6;
 		sf::Sprite					_blueSquareFront1;
 		sf::Sprite					_blueSquareFront2;
 		sf::Sprite					_blueSquareFront3;

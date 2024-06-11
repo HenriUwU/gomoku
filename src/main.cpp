@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/11 16:56:07 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:12:00 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int main() {
 		}
 		else if (displayGame == true) {
 			gameplay.circleFollowMouse(window, event);
-			window.display();
 		}
 		window.display();
 	}

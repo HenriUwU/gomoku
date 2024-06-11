@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/11 18:10:31 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 20:53:18 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	if (!_blueSquareTextureBehind.loadFromFile("assets/images/Blue square behind.png")) {
 		cerr << "Error while loading the blueSquareTextureBehind file." << endl;
 	}
-	if (!_lightBulbTexture.loadFromFile("assets/images/light_bulb.png")) {
+	if (!_lightBulbTexture.loadFromFile("assets/images/i.png")) {
 		cerr << "Error while loading the lightBulbTexture file." << endl;
 	}
 	if (!_settingsWheelTexture.loadFromFile("assets/images/settings.png")) {
@@ -54,6 +54,62 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	if (!_customizationTexture.loadFromFile("assets/images/art_1.png")) {
 		cerr << "Error while loading the customizationTexture file." << endl;
 	}
+	if (!_buttonBackgroundTextureHighlighted1.loadFromFile("assets/images/Green rectangle front highlighted.png")) {
+		cerr << "Error while loading the buttonBackgroundTextureHighlighted file." << endl;
+	}
+	if (!_buttonBackgroundTextureHighlighted2.loadFromFile("assets/images/Green rectangle behind highlighted.png")) {
+		cerr << "Error while loading the buttonBackgroundTextureHighlighted2 file." << endl;
+	}
+	if (!_buttonBackgroundTextureHighlighted3.loadFromFile("assets/images/Orange rectangle front highlighted.png")) {
+		cerr << "Error while loading the buttonBackgroundTextureHighlighted3 file." << endl;
+	}
+	if (!_buttonBackgroundTextureHighlighted4.loadFromFile("assets/images/Orange rectangle behind highlighted.png")) {
+		cerr << "Error while loading the buttonBackgroundTextureHighlighted4 file." << endl;
+	}
+	if (!_buttonBackgroundTextureHighlighted5.loadFromFile("assets/images/Red rectangle front highlighted.png")) {
+		cerr << "Error while loading the buttonBackgroundTextureHighlighted5 file." << endl;
+	}
+	if (!_buttonBackgroundTextureHighlighted6.loadFromFile("assets/images/Red rectangle behind highlighted.png")) {
+		cerr << "Error while loading the buttonBackgroundTextureHighlighted6 file." << endl;
+	}
+
+	_buttonBackground1.setTexture(_buttonBackgroundTexture1);
+	_buttonBackground2.setTexture(_buttonBackgroundTexture2);
+	_buttonBackground3.setTexture(_buttonBackgroundTexture3);
+	_buttonBackground4.setTexture(_buttonBackgroundTexture4);
+	_buttonBackground5.setTexture(_buttonBackgroundTexture5);
+	_buttonBackground6.setTexture(_buttonBackgroundTexture6);
+	_blueSquareFront1.setTexture(_blueSquareTextureFront);
+	_blueSquareFront2.setTexture(_blueSquareTextureFront);
+	_blueSquareFront3.setTexture(_blueSquareTextureFront);
+	_blueSquareBehind1.setTexture(_blueSquareTextureBehind);
+	_blueSquareBehind2.setTexture(_blueSquareTextureBehind);
+	_blueSquareBehind3.setTexture(_blueSquareTextureBehind);
+	_lightBulb.setTexture(_lightBulbTexture);
+	_settingsWheel.setTexture(_settingsWheelTexture);
+	_customization.setTexture(_customizationTexture);
+	
+	_buttonBackground1.setPosition(683.64, 297.95);
+	_buttonBackground2.setPosition(683.64, 307.95);
+	_buttonBackground3.setPosition(683.64, 430.09);
+	_buttonBackground4.setPosition(683.64, 440.09);
+	_buttonBackground5.setPosition(683.64, 559.64);
+	_buttonBackground6.setPosition(683.64, 569.64);
+
+	_blueSquareBehind1.setPosition(683.64, 765.45);
+	_blueSquareFront1.setPosition(683.64, 755.45);
+	_blueSquareBehind2.setPosition(901.27, 765.45);
+	_blueSquareFront2.setPosition(901.27, 755.45);
+	_blueSquareBehind3.setPosition(1118.91, 765.45);
+	_blueSquareFront3.setPosition(1119.77, 755.45);
+
+	_customization.setScale(0.2, 0.2);
+	_settingsWheel.setScale(0.2, 0.2);	
+	//_lightBulb.setScale(0.2, 0.2);
+
+	_customization.setPosition(694, 760);
+	_settingsWheel.setPosition(909, 762);
+	_lightBulb.setPosition(1130, 760);
 
 	(void)width;
 	(void)height;
@@ -114,53 +170,16 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	_menu[8].setPosition(857, 690);
 
 	_selectedItemIndex = 5;
-	_menu[_selectedItemIndex].setFillColor(sf::Color(182, 143, 64));
+
+	_buttonBackground1.setTexture(_buttonBackgroundTextureHighlighted1);
+	_buttonBackground2.setTexture(_buttonBackgroundTextureHighlighted2);
 }
 
 MainMenu::~MainMenu() {}
 
 void	MainMenu::display(sf::RenderWindow& window) {
 	sf::RectangleShape background(sf::Vector2f(1920, 1080));
-
 	background.setFillColor(sf::Color(38, 1, 69));
-
-	_buttonBackground1.setTexture(_buttonBackgroundTexture1);
-	_buttonBackground2.setTexture(_buttonBackgroundTexture2);
-	_buttonBackground3.setTexture(_buttonBackgroundTexture3);
-	_buttonBackground4.setTexture(_buttonBackgroundTexture4);
-	_buttonBackground5.setTexture(_buttonBackgroundTexture5);
-	_buttonBackground6.setTexture(_buttonBackgroundTexture6);
-	_blueSquareFront1.setTexture(_blueSquareTextureFront);
-	_blueSquareFront2.setTexture(_blueSquareTextureFront);
-	_blueSquareFront3.setTexture(_blueSquareTextureFront);
-	_blueSquareBehind1.setTexture(_blueSquareTextureBehind);
-	_blueSquareBehind2.setTexture(_blueSquareTextureBehind);
-	_blueSquareBehind3.setTexture(_blueSquareTextureBehind);
-	_lightBulb.setTexture(_lightBulbTexture);
-	_settingsWheel.setTexture(_settingsWheelTexture);
-	_customization.setTexture(_customizationTexture);
-	
-	_buttonBackground1.setPosition(683.64, 297.95);
-	_buttonBackground2.setPosition(683.64, 307.95);
-	_buttonBackground3.setPosition(683.64, 430.09);
-	_buttonBackground4.setPosition(683.64, 440.09);
-	_buttonBackground5.setPosition(683.64, 559.64);
-	_buttonBackground6.setPosition(683.64, 569.64);
-
-	_blueSquareBehind1.setPosition(683.64, 765.45);
-	_blueSquareFront1.setPosition(683.64, 755.45);
-	_blueSquareBehind2.setPosition(901.27, 765.45);
-	_blueSquareFront2.setPosition(901.27, 755.45);
-	_blueSquareBehind3.setPosition(1118.91, 765.45);
-	_blueSquareFront3.setPosition(1119.77, 755.45);
-
-	_customization.setScale(0.2, 0.2);
-	_settingsWheel.setScale(0.2, 0.2);	
-	_lightBulb.setScale(0.2, 0.2);
-
-	_customization.setPosition(694, 760);
-	_settingsWheel.setPosition(909, 762);
-	_lightBulb.setPosition(1130, 760);
 
 	window.draw(background);
 	window.draw(_buttonBackground2);
@@ -185,17 +204,45 @@ void	MainMenu::display(sf::RenderWindow& window) {
 
 void	MainMenu::MoveUp() {
 	if (_selectedItemIndex - 1 >= 5) {
-		_menu[_selectedItemIndex].setFillColor(sf::Color::White);
+		if (_selectedItemIndex == 6) {
+			_buttonBackground3.setTexture(_buttonBackgroundTexture3);
+			_buttonBackground4.setTexture(_buttonBackgroundTexture4);
+		}
+		else if (_selectedItemIndex == 7) {
+			_buttonBackground5.setTexture(_buttonBackgroundTexture5);
+			_buttonBackground6.setTexture(_buttonBackgroundTexture6);
+		}
 		_selectedItemIndex--;
-		_menu[_selectedItemIndex].setFillColor(sf::Color(182, 143, 64));
+		if (_selectedItemIndex == 6){
+			_buttonBackground3.setTexture(_buttonBackgroundTextureHighlighted3);
+			_buttonBackground4.setTexture(_buttonBackgroundTextureHighlighted4);
+		}
+		else if (_selectedItemIndex == 5) {
+			_buttonBackground1.setTexture(_buttonBackgroundTextureHighlighted1);
+			_buttonBackground2.setTexture(_buttonBackgroundTextureHighlighted2);
+		}
 	}
 }
 
 void	MainMenu::MoveDown() {
 	if (_selectedItemIndex + 1 <= 7) {
-		_menu[_selectedItemIndex].setFillColor(sf::Color::White);
+		if (_selectedItemIndex == 5) {
+			_buttonBackground1.setTexture(_buttonBackgroundTexture1);
+			_buttonBackground2.setTexture(_buttonBackgroundTexture2);
+		}
+		else if (_selectedItemIndex == 6) {
+			_buttonBackground3.setTexture(_buttonBackgroundTexture3);
+			_buttonBackground4.setTexture(_buttonBackgroundTexture4);
+		}
 		_selectedItemIndex++;
-		_menu[_selectedItemIndex].setFillColor(sf::Color(182, 143, 64));
+		if (_selectedItemIndex == 6) {
+			_buttonBackground3.setTexture(_buttonBackgroundTextureHighlighted3);
+			_buttonBackground4.setTexture(_buttonBackgroundTextureHighlighted4);
+		}
+		else if (_selectedItemIndex == 7) {
+			_buttonBackground5.setTexture(_buttonBackgroundTextureHighlighted5);
+			_buttonBackground6.setTexture(_buttonBackgroundTextureHighlighted6);
+		}
 	}
 }
 
