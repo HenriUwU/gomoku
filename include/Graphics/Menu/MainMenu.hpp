@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/11 20:28:20 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:32:19 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ class MainMenu {
 		sf::Texture					_buttonBackgroundTextureHighlighted6;
 		sf::Texture					_blueSquareTextureFront;
 		sf::Texture					_blueSquareTextureBehind;
-		sf::Texture					_lightBulbTexture;
-		sf::Texture					_settingsWheelTexture;
-		sf::Texture					_customizationTexture;
+		sf::Texture					_helpTexture;
+		sf::Texture					_settingsTexture;
+		sf::Texture					_customTexture;
 		sf::Sprite					_buttonBackground1;
 		sf::Sprite					_buttonBackground2;
 		sf::Sprite					_buttonBackground3;
@@ -58,9 +58,9 @@ class MainMenu {
 		sf::Sprite					_blueSquareBehind1;
 		sf::Sprite					_blueSquareBehind2;
 		sf::Sprite					_blueSquareBehind3;
-		sf::Sprite					_lightBulb;
-		sf::Sprite					_settingsWheel;
-		sf::Sprite					_customization;
+		sf::Sprite					_help;
+		sf::Sprite					_settings;
+		sf::Sprite					_custom;
 
 	public:
 		MainMenu(float width, float height, sf::RenderWindow &window);

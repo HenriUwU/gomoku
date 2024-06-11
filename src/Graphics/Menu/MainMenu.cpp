@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/11 20:53:18 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:32:55 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	if (!_blueSquareTextureBehind.loadFromFile("assets/images/Blue square behind.png")) {
 		cerr << "Error while loading the blueSquareTextureBehind file." << endl;
 	}
-	if (!_lightBulbTexture.loadFromFile("assets/images/i.png")) {
-		cerr << "Error while loading the lightBulbTexture file." << endl;
+	if (!_helpTexture.loadFromFile("assets/images/help.png")) {
+		cerr << "Error while loading the helpTexture file." << endl;
 	}
-	if (!_settingsWheelTexture.loadFromFile("assets/images/settings.png")) {
-		cerr << "Error while loading the settingsWheelTexture file." << endl;
+	if (!_settingsTexture.loadFromFile("assets/images/settings.png")) {
+		cerr << "Error while loading the settingsTexture file." << endl;
 	}
-	if (!_customizationTexture.loadFromFile("assets/images/art_1.png")) {
-		cerr << "Error while loading the customizationTexture file." << endl;
+	if (!_customTexture.loadFromFile("assets/images/custom.png")) {
+		cerr << "Error while loading the customTexture file." << endl;
 	}
 	if (!_buttonBackgroundTextureHighlighted1.loadFromFile("assets/images/Green rectangle front highlighted.png")) {
 		cerr << "Error while loading the buttonBackgroundTextureHighlighted file." << endl;
@@ -85,9 +85,9 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	_blueSquareBehind1.setTexture(_blueSquareTextureBehind);
 	_blueSquareBehind2.setTexture(_blueSquareTextureBehind);
 	_blueSquareBehind3.setTexture(_blueSquareTextureBehind);
-	_lightBulb.setTexture(_lightBulbTexture);
-	_settingsWheel.setTexture(_settingsWheelTexture);
-	_customization.setTexture(_customizationTexture);
+	_help.setTexture(_helpTexture);
+	_settings.setTexture(_settingsTexture);
+	_custom.setTexture(_customTexture);
 	
 	_buttonBackground1.setPosition(683.64, 297.95);
 	_buttonBackground2.setPosition(683.64, 307.95);
@@ -103,13 +103,9 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	_blueSquareBehind3.setPosition(1118.91, 765.45);
 	_blueSquareFront3.setPosition(1119.77, 755.45);
 
-	_customization.setScale(0.2, 0.2);
-	_settingsWheel.setScale(0.2, 0.2);	
-	//_lightBulb.setScale(0.2, 0.2);
-
-	_customization.setPosition(694, 760);
-	_settingsWheel.setPosition(909, 762);
-	_lightBulb.setPosition(1130, 760);
+	_custom.setPosition(695, 766);
+	_settings.setPosition(913, 766);
+	_help.setPosition(1131, 766);
 
 	(void)width;
 	(void)height;
@@ -167,7 +163,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	_menu[8].setCharacterSize(30.23);
 	_menu[8].setFont(_gomokuFont);
 	_menu[8].setFillColor(sf::Color::White);
-	_menu[8].setPosition(857, 690);
+	_menu[8].setPosition(857, 685);
 
 	_selectedItemIndex = 5;
 
@@ -179,7 +175,11 @@ MainMenu::~MainMenu() {}
 
 void	MainMenu::display(sf::RenderWindow& window) {
 	sf::RectangleShape background(sf::Vector2f(1920, 1080));
+	sf::RectangleShape leftLine(sf::Vector2f(150, 5));
+	sf::RectangleShape rightLine(sf::Vector2f(150, 5));
 	background.setFillColor(sf::Color(38, 1, 69));
+	leftLine.setPosition(685, 705);
+	rightLine.setPosition(1085, 705);
 
 	window.draw(background);
 	window.draw(_buttonBackground2);
@@ -194,9 +194,11 @@ void	MainMenu::display(sf::RenderWindow& window) {
 	window.draw(_blueSquareFront2);
 	window.draw(_blueSquareBehind3);
 	window.draw(_blueSquareFront3);
-	window.draw(_customization);
-	window.draw(_settingsWheel);
-	window.draw(_lightBulb);
+	window.draw(leftLine);
+	window.draw(rightLine);
+	window.draw(_custom);
+	window.draw(_settings);
+	window.draw(_help);
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		window.draw(_menu[i]);
 	}
