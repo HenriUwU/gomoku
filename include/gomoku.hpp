@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gomoku.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/24 11:59:51 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:19:26 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 #include "Gameplay.hpp"
 #include "Goban.hpp"
 #include "Debug.hpp"
+
+using namespace std;
 
 extern bool	displayMenu;
 extern bool	displayGame;

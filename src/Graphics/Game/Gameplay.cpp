@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/10 15:30:58 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:12:45 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,11 @@ void	Gameplay::placeStone(std::string position, sf::RenderWindow& window) {
 }
 
 bool	Gameplay::isMoveLegal(std::string position) {
-	std::vector<int>	nearbyLines[4];
+	std::vector<std::pair<std::string, int>>	nearbyLines[4];
 
 	for (int i = 0; i < 4; i++) {
-		nearbyLines[i].push_back(_currentPlayer);
+		std::pair<std::string, int> pair = std::make_pair(position, _currentPlayer);
+		nearbyLines[i].push_back(pair);
 	}
 	findHorizontalLine(4, position, nearbyLines[0]);
 	findVerticalLine(4, position, nearbyLines[1]);
@@ -117,10 +118,11 @@ bool	Gameplay::isMoveLegal(std::string position) {
 }
 
 bool	Gameplay::isWinningMove(std::string position) {
-	std::vector<int>	nearbyLines[4];
+	std::vector<std::pair<std::string, int>>	nearbyLines[4];
 
 	for (int i = 0; i < 4; i++) {
-		nearbyLines[i].push_back(_currentPlayer);
+		std::pair<std::string, int> pair = std::make_pair(position, _currentPlayer);
+		nearbyLines[i].push_back(pair);
 	}
 	findHorizontalLine(4, position, nearbyLines[0]);
 	findVerticalLine(4, position, nearbyLines[1]);
@@ -133,8 +135,8 @@ bool	Gameplay::isWinningMove(std::string position) {
 
 		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
 				int count = 0;
-				while (j < nearbyLines[i].size() && nearbyLines[i][j] == _currentPlayer) {
-					if (nearbyLines[i][j] == _currentPlayer)
+				while (j < nearbyLines[i].size() && nearbyLines[i][j].second == _currentPlayer) {
+					if (nearbyLines[i][j].second == _currentPlayer)
 						count++;
 					j++;
 				}
@@ -145,19 +147,18 @@ bool	Gameplay::isWinningMove(std::string position) {
 	return false;
 }
 
-bool	Gameplay::isThereDoubleThree(std::vector<int> nearbyLines[4]) {
+bool	Gameplay::isThereDoubleThree(std::vector<std::pair<std::string, int>> nearbyLines[4]) {
 	int 	FreeThree = 0;
 	int 	opponent = (_currentPlayer == 1) ? 2 : 1;
 
 	for (int i = 0; i < 4; i++) {
 		if (nearbyLines[i].size() < 5)
 			continue;
-
 		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
-			if (nearbyLines[i][j] == 0) {
+			if (nearbyLines[i][j].second == 0) {
 				int count = 0;
-				while (j < nearbyLines[i].size() && (nearbyLines[i][j] == _currentPlayer || nearbyLines[i][j] == 0)) {
-					if (nearbyLines[i][j] == _currentPlayer && j + 1 < nearbyLines[i].size() && nearbyLines[i][j + 1] != opponent)
+				while (j < nearbyLines[i].size() && (nearbyLines[i][j].second == _currentPlayer || nearbyLines[i][j].second == 0)) {
+					if (nearbyLines[i][j].second == _currentPlayer && j + 1 < nearbyLines[i].size() && nearbyLines[i][j + 1].second != opponent)
 						count++;
 					j++;
 				}
@@ -171,7 +172,7 @@ bool	Gameplay::isThereDoubleThree(std::vector<int> nearbyLines[4]) {
 	return false;
 }
 
-void	Gameplay::findHorizontalLine(int nbStones, std::string position, std::vector<int> &horizontalLine) {
+void	Gameplay::findHorizontalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &horizontalLine) {
 	for (int i = 1; i <= nbStones; i++) {
 		std::stringstream ssPlus, ssMinus;
 
@@ -180,14 +181,18 @@ void	Gameplay::findHorizontalLine(int nbStones, std::string position, std::vecto
 		std::string newPosPlus = ssPlus.str();
 		std::string newPosMinus = ssMinus.str();
 
-		if (_playerPositions.find(newPosPlus) != _playerPositions.end())
-			horizontalLine.push_back(_playerPositions.at(newPosPlus));
-		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
-			horizontalLine.insert(horizontalLine.begin(), _playerPositions.at(newPosMinus));
+		if (_playerPositions.find(newPosPlus) != _playerPositions.end()) {
+			std::pair<std::string, int> pair = std::make_pair(newPosPlus, _playerPositions.at(newPosPlus));
+			horizontalLine.push_back(pair);
+		}
+		if (_playerPositions.find(newPosMinus) != _playerPositions.end()) {
+			std::pair<std::string, int> pair = std::make_pair(newPosMinus, _playerPositions.at(newPosMinus));
+			horizontalLine.insert(horizontalLine.begin(), pair);
+		}
 	}
 }
 
-void	Gameplay::findVerticalLine(int nbStones, std::string position, std::vector<int> &verticalLine) {
+void	Gameplay::findVerticalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &verticalLine) {
 	for (int i = 1; i <= nbStones; i++) {
 		std::stringstream ssPlus, ssMinus;
 
@@ -196,14 +201,18 @@ void	Gameplay::findVerticalLine(int nbStones, std::string position, std::vector<
 		std::string newPosPlus = ssPlus.str();
 		std::string newPosMinus = ssMinus.str();
 
-		if (_playerPositions.find(newPosPlus) != _playerPositions.end())
-			verticalLine.push_back(_playerPositions.at(newPosPlus));
-		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
-			verticalLine.insert(verticalLine.begin(), _playerPositions.at(newPosMinus));
+		if (_playerPositions.find(newPosPlus) != _playerPositions.end()) {
+			std::pair<std::string, int> pair = std::make_pair(newPosPlus, _playerPositions.at(newPosPlus));
+			verticalLine.push_back(pair);
+		}
+		if (_playerPositions.find(newPosMinus) != _playerPositions.end()) {
+			std::pair<std::string, int> pair = std::make_pair(newPosMinus, _playerPositions.at(newPosMinus));
+			verticalLine.insert(verticalLine.begin(), pair);
+		}
 	}
 }
 
-void	Gameplay::findDiagonalLine(int nbStones, std::string position, std::vector<int> &diagonalLine) {
+void	Gameplay::findDiagonalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &diagonalLine) {
 	for (int i = 1; i <= nbStones; i++) {
 		std::stringstream ssPlus, ssMinus;
 
@@ -212,14 +221,18 @@ void	Gameplay::findDiagonalLine(int nbStones, std::string position, std::vector<
 		std::string newPosPlus = ssPlus.str();
 		std::string newPosMinus = ssMinus.str();
 
-		if (_playerPositions.find(newPosPlus) != _playerPositions.end())
-			diagonalLine.push_back(_playerPositions.at(newPosPlus));
-		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
-			diagonalLine.insert(diagonalLine.begin(), _playerPositions.at(newPosMinus));
+		if (_playerPositions.find(newPosPlus) != _playerPositions.end()) {
+			std::pair<std::string, int> pair = std::make_pair(newPosPlus, _playerPositions.at(newPosPlus));
+			diagonalLine.push_back(pair);
+		}
+		if (_playerPositions.find(newPosMinus) != _playerPositions.end()) {
+			std::pair<std::string, int> pair = std::make_pair(newPosMinus, _playerPositions.at(newPosMinus));
+			diagonalLine.insert(diagonalLine.begin(), pair);
+		}
 	}
 }
 
-void	Gameplay::findAntiDiagonalLine(int nbStones, std::string position, std::vector<int> &antiDiagonalLine) {
+void	Gameplay::findAntiDiagonalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &antiDiagonalLine) {
 	for (int i = 1; i <= nbStones; i++) {
 		std::stringstream ssPlus, ssMinus;
 
@@ -228,110 +241,53 @@ void	Gameplay::findAntiDiagonalLine(int nbStones, std::string position, std::vec
 		std::string newPosPlus = ssPlus.str();
 		std::string newPosMinus = ssMinus.str();
 
-		if (_playerPositions.find(newPosPlus) != _playerPositions.end())
-			antiDiagonalLine.push_back(_playerPositions.at(newPosPlus));
-		if (_playerPositions.find(newPosMinus) != _playerPositions.end())
-			antiDiagonalLine.insert(antiDiagonalLine.begin(), _playerPositions.at(newPosMinus));
+		if (_playerPositions.find(newPosPlus) != _playerPositions.end()) {
+			std::pair<std::string, int> pair = std::make_pair(newPosPlus, _playerPositions.at(newPosPlus));
+			antiDiagonalLine.push_back(pair);
+		}
+		if (_playerPositions.find(newPosMinus) != _playerPositions.end()) {
+			std::pair<std::string, int> pair = std::make_pair(newPosMinus, _playerPositions.at(newPosMinus));
+			antiDiagonalLine.insert(antiDiagonalLine.begin(), pair);
+		}
 	}
 }
 
 bool	Gameplay::isCapturingMove(std::string position) {
+	std::vector<std::pair<std::string, int>> nearbyLines[4];
 	int 	opponent = (_currentPlayer == 1) ? 2 : 1;
+	int		nbCaptures = 0;
 	
-	// Verify horizontal axis left
-	if (position[0] - 3 >= 'A') {
-		std::stringstream tmpPos0, tmpPos1, tmpPos2;
-		tmpPos0 << char(position[0] - 3) + std::to_string(std::stoi(position.substr(1)));
-		tmpPos1 << char(position[0] - 2) + std::to_string(std::stoi(position.substr(1)));
-		tmpPos2 << char(position[0] - 1) + std::to_string(std::stoi(position.substr(1)));
-		if (_playerPositions.at(tmpPos0.str()) == _currentPlayer && _playerPositions.at(tmpPos1.str()) == opponent && _playerPositions.at(tmpPos2.str()) == opponent) {
-			_playerPositions.at(tmpPos1.str()) = 0;
-			_playerPositions.at(tmpPos2.str()) = 0;
-		}
+	for (int i = 0; i < 4; i++) {
+		std::pair<std::string, int> pair = std::make_pair(position, _currentPlayer);
+		nearbyLines[i].push_back(pair);
 	}
-	// Verify horizontal axis right
-	if (position[0] + 3 <= 'S') {
-		std::stringstream tmpPos0, tmpPos1, tmpPos2;
-		tmpPos0 << char(position[0] + 3) + std::to_string(std::stoi(position.substr(1)));
-		tmpPos1 << char(position[0] + 2) + std::to_string(std::stoi(position.substr(1)));
-		tmpPos2 << char(position[0] + 1) + std::to_string(std::stoi(position.substr(1)));
-		if (_playerPositions.at(tmpPos0.str()) == _currentPlayer && _playerPositions.at(tmpPos1.str()) == opponent && _playerPositions.at(tmpPos2.str()) == opponent) {
-			_playerPositions.at(tmpPos1.str()) = 0;
-			_playerPositions.at(tmpPos2.str()) = 0;
-		}
+	findVerticalLine(3, position, nearbyLines[0]);
+	findHorizontalLine(3, position, nearbyLines[1]);
+	findDiagonalLine(3, position, nearbyLines[2]);
+	findAntiDiagonalLine(3, position, nearbyLines[3]);
+	
+	for (int i = 0; i < 4; i++) {
+		std::cout << "Next Vector" << std::endl;
+		for (unsigned int j = 0; j < nearbyLines[i].size(); j++)
+			std::cout << "Pos : " << nearbyLines[i][j].first << " | value :" << nearbyLines[i][j].second << std::endl;
+		std::cout << std::endl;
 	}
 	
-	// Verify vertical left
-	if (std::stoi(position.substr(1)) - 3 >= 1) {
-		std::stringstream tmpPos0, tmpPos1, tmpPos2;
-		tmpPos0 << char(position[0]) + std::to_string(std::stoi(position.substr(1)) - 3);
-		tmpPos1 << char(position[0]) + std::to_string(std::stoi(position.substr(1)) - 2);
-		tmpPos2 << char(position[0]) + std::to_string(std::stoi(position.substr(1)) - 1);
-		if (_playerPositions.at(tmpPos0.str()) == _currentPlayer && _playerPositions.at(tmpPos1.str()) == opponent && _playerPositions.at(tmpPos2.str()) == opponent) {
-			_playerPositions.at(tmpPos1.str()) = 0;
-			_playerPositions.at(tmpPos2.str()) = 0;
+	for (int i = 0; i < 4; i++) {
+		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
+			if (j < nearbyLines[i].size() - 3) {
+				if (nearbyLines[i][j].second == _currentPlayer
+				&& nearbyLines[i][j + 1].second == opponent
+				&& nearbyLines[i][j + 2].second == opponent
+				&& nearbyLines[i][j + 3].second == _currentPlayer) {
+					nbCaptures++;
+					_playerPositions.at(nearbyLines[i][j + 1].first) = 0;
+					_playerPositions.at(nearbyLines[i][j + 2].first) = 0;
+				}
+			}
 		}
 	}
-	if (std::stoi(position.substr(1)) + 3 <= 19) {
-		std::stringstream tmpPos0, tmpPos1, tmpPos2;
-		tmpPos0 << char(position[0]) + std::to_string(std::stoi(position.substr(1)) + 3);
-		tmpPos1 << char(position[0]) + std::to_string(std::stoi(position.substr(1)) + 2);
-		tmpPos2 << char(position[0]) + std::to_string(std::stoi(position.substr(1)) + 1);
-		if (_playerPositions.at(tmpPos0.str()) == _currentPlayer && _playerPositions.at(tmpPos1.str()) == opponent && _playerPositions.at(tmpPos2.str()) == opponent) {
-			_playerPositions.at(tmpPos1.str()) = 0;
-			_playerPositions.at(tmpPos2.str()) = 0;
-		}
-	}
-	
-	// Verify anti diagonal left axis
-	if (position[0] - 3 >= 'A' && std::stoi(position.substr(1)) + 3 <= 19) {
-		std::stringstream tmpPos0, tmpPos1, tmpPos2;
-		tmpPos0 << char(position[0] - 3) + std::to_string(std::stoi(position.substr(1)) + 3);
-		tmpPos1 << char(position[0] - 2) + std::to_string(std::stoi(position.substr(1)) + 2);
-		tmpPos2 << char(position[0] - 1) + std::to_string(std::stoi(position.substr(1)) + 1);
-		if (_playerPositions.at(tmpPos0.str()) == _currentPlayer && _playerPositions.at(tmpPos1.str()) == opponent && _playerPositions.at(tmpPos2.str()) == opponent) {
-			_playerPositions.at(tmpPos1.str()) = 0;
-			_playerPositions.at(tmpPos2.str()) = 0;
-		}
-	}
-	// Verify anti diagonal right axis
-	if (position[0] + 3 <= 'S' && std::stoi(position.substr(1)) - 3 >= 1) {
-		std::stringstream tmpPos0, tmpPos1, tmpPos2;
-		tmpPos0 << char(position[0] + 3) + std::to_string(std::stoi(position.substr(1)) - 3);
-		tmpPos1 << char(position[0] + 2) + std::to_string(std::stoi(position.substr(1)) - 2);
-		tmpPos2 << char(position[0] + 1) + std::to_string(std::stoi(position.substr(1)) - 1);
-		if (_playerPositions.at(tmpPos0.str()) == _currentPlayer && _playerPositions.at(tmpPos1.str()) == opponent && _playerPositions.at(tmpPos2.str()) == opponent) {
-			_playerPositions.at(tmpPos1.str()) = 0;
-			_playerPositions.at(tmpPos2.str()) = 0;
-		}
-	}
-	
-	// Verify diagonal left axis
-	if (position[0] - 3 >= 'A' && std::stoi(position.substr(1)) - 3 >= 1) {
-		std::stringstream tmpPos0, tmpPos1, tmpPos2;
-		tmpPos0 << char(position[0] - 3) + std::to_string(std::stoi(position.substr(1)) - 3);
-		tmpPos1 << char(position[0] - 2) + std::to_string(std::stoi(position.substr(1)) - 2);
-		tmpPos2 << char(position[0] - 1) + std::to_string(std::stoi(position.substr(1)) - 1);
-		if (_playerPositions.at(tmpPos0.str()) == _currentPlayer && _playerPositions.at(tmpPos1.str()) == opponent && _playerPositions.at(tmpPos2.str()) == opponent) {
-			_playerPositions.at(tmpPos1.str()) = 0;
-			_playerPositions.at(tmpPos2.str()) = 0;
-		}
-	}
-	// Verify diagonal right axis
-	if (position[0] + 3 <= 'S' && std::stoi(position.substr(1)) + 3 <= 19) {
-		std::stringstream tmpPos0, tmpPos1, tmpPos2;
-		tmpPos0 << char(position[0] + 3) + std::to_string(std::stoi(position.substr(1)) + 3);
-		tmpPos1 << char(position[0] + 2) + std::to_string(std::stoi(position.substr(1)) + 2);
-		tmpPos2 << char(position[0] + 1) + std::to_string(std::stoi(position.substr(1)) + 1);
-		if (_playerPositions.at(tmpPos0.str()) == _currentPlayer && _playerPositions.at(tmpPos1.str()) == opponent && _playerPositions.at(tmpPos2.str()) == opponent) {
-			_playerPositions.at(tmpPos1.str()) = 0;
-			_playerPositions.at(tmpPos2.str()) = 0;
-		}
-	}
-
+	if (nbCaptures > 0)
+		return true;
 	return false;
 }
-
-/* void Gameplay::removeCapturedPair(std::string position, int lineType, unsigned int pairIndex) {
-
-} */
