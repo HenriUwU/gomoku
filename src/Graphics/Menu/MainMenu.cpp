@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/05/28 15:18:36 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:44:02 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MainMenu.hpp"
 
+using namespace std;
+
 MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	if (!_font.loadFromFile("assets/fonts/ChunkFive-Regular.otf")) {
-		std::cerr << "Error while loading the font file." << std::endl;
+		cerr << "Error while loading the font file." << endl;
 	}
 
 	if (!_backgroundTexture.loadFromFile("assets/images/star2.png")) {
-		std::cerr << "Error while loading the background file." << std::endl;
+		cerr << "Error while loading the background file." << endl;
 	}
 
 	if (!_gobanTexture.loadFromFile("assets/images/grid.png")) {
-		std::cerr << "Error while loading the goban file." << std::endl;
+		cerr << "Error while loading the goban file." << endl;
 	}
 	
 	_gobanSprite.setTexture(_gobanTexture);
@@ -50,7 +52,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	float maxMenuWidth = 0.0f;
 	for (int i = 0; i < NB_MENU_ITEMS; ++i) {
 		sf::FloatRect bounds = _menu[i].getLocalBounds();
-		maxMenuWidth = std::max(maxMenuWidth, bounds.width);
+		maxMenuWidth = max(maxMenuWidth, bounds.width);
 	}
 
 	float offsetX = (width - maxMenuWidth) / 2;
@@ -64,7 +66,7 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 		_menu[i].setPosition(sf::Vector2f(elementX - 350, (height / NB_MENU_ITEMS + 1) * offsetY + 40));
 	}
 
-	std::srand(static_cast<unsigned int>(std::time(nullptr)));
+	srand(static_cast<unsigned int>(time(nullptr)));
 	size_t numberOfSprites = 30;
 	initializeBackgroundSprites(numberOfSprites, window);
 }
@@ -99,8 +101,8 @@ void MainMenu::initializeBackgroundSprites(size_t count, const sf::RenderWindow 
 		sprite.setScale(0.1, 0.1);
 
         // Set a random position within the window bounds
-        float randomX = static_cast<float>(std::rand() % window.getSize().x);
-        float randomY = static_cast<float>(std::rand() % window.getSize().y);
+        float randomX = static_cast<float>(rand() % window.getSize().x);
+        float randomY = static_cast<float>(rand() % window.getSize().y);
         sprite.setPosition(randomX, randomY);
 
         FadingSprite fadingSprite = { sprite, 0.0f, true };
@@ -124,8 +126,8 @@ void MainMenu::updateSprites(float deltaTime, const sf::RenderWindow &window) {
 
 		// Set a new random position within the window bounds when starting to fade in again
 		(void)window;
-/* 		float randomX = static_cast<float>(std::rand() % window.getSize().x);
-		float randomY = static_cast<float>(std::rand() % window.getSize().y);
+/* 		float randomX = static_cast<float>(rand() % window.getSize().x);
+		float randomY = static_cast<float>(rand() % window.getSize().y);
 		fadingSprite.sprite.setPosition(randomX, randomY); */
 	}
 	}
@@ -142,7 +144,7 @@ void	MainMenu::MoveUp(sf::RenderWindow &window) {
 	float maxMenuWidth = 0.0f;
 	for (int i = 0; i < NB_MENU_ITEMS; ++i) {
 		sf::FloatRect bounds = _menu[i].getLocalBounds();
-		maxMenuWidth = std::max(maxMenuWidth, bounds.width);
+		maxMenuWidth = max(maxMenuWidth, bounds.width);
 	}
 
 	float offsetX = (1920 - maxMenuWidth) / 2;
@@ -171,7 +173,7 @@ void	MainMenu::MoveDown(sf::RenderWindow &window) {
 	float maxMenuWidth = 0.0f;
 	for (int i = 0; i < NB_MENU_ITEMS; ++i) {
 		sf::FloatRect bounds = _menu[i].getLocalBounds();
-		maxMenuWidth = std::max(maxMenuWidth, bounds.width);
+		maxMenuWidth = max(maxMenuWidth, bounds.width);
 	}
 
 	float offsetX = (1920 - maxMenuWidth) / 2;
@@ -205,7 +207,7 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 		displayGame = true;
 	}
 	if (getSelectedItemIndex() == 2 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
-		std::cout << "Player vs AI" << std::endl;
+		cout << "Player vs AI" << endl;
 	if (getSelectedItemIndex() == 3 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 		window.close();
 	if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape))

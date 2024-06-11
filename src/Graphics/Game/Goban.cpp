@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Goban.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/23 15:13:34 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:43:25 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
+
+using namespace std;
 
 Goban::Goban(sf::RenderWindow &window) : Graphics(window) {}
 
@@ -77,8 +79,8 @@ void Goban::display(sf::RenderWindow &window) {
 	sf::Color coordinatesColor(182, 204, 161);
 
 	for (int i = 1; i < 20; i++) {
-		std::string number = std::to_string(i);
-		std::string letter(1, '@' + i);
+		string number = to_string(i);
+		string letter(1, '@' + i);
 
 		sf::Text xIndexBottom(letter, font, 13);
 		sf::Text yIndexLeft(number, font, 13);
@@ -105,11 +107,11 @@ void Goban::display(sf::RenderWindow &window) {
 	}
 }
 
-void	Goban::drawPlayerPositions(sf::RenderWindow &window, std::map<std::string, int> playerPositions) {
+void	Goban::drawPlayerPositions(sf::RenderWindow &window, map<string, int> playerPositions) {
 	for (int i = 0; i < 19; i++) {
 		char character = 'A' + i;
 		for (int j = 1; j < 20; j++) {
-			std::string position = std::string(1, character) + std::to_string(j);
+			string position = string(1, character) + to_string(j);
 			int playerId = playerPositions[position];
 			
 			// if there is no stone on this position, skip
@@ -119,7 +121,7 @@ void	Goban::drawPlayerPositions(sf::RenderWindow &window, std::map<std::string, 
 
 			// convert the position to x and y indices
 			char xCoord = position[0];
-			int yCoord = std::stoi(position.substr(1));
+			int yCoord = stoi(position.substr(1));
 			int xIndex = xCoord - 'A';
 			int yIndex = 19 - yCoord;
 			
@@ -150,8 +152,8 @@ void	Goban::scoreTable(int player, sf::RenderWindow &window) {
 
 	sf::Text player1("Player 1", font, 20);
 	sf::Text player2("Player 2", font, 20);
-	sf::Text player1Score(std::to_string(player), font, 20);
-	sf::Text player2Score(std::to_string(player), font, 20);
+	sf::Text player1Score(to_string(player), font, 20);
+	sf::Text player2Score(to_string(player), font, 20);
 
 	player1.setPosition(_windowWidth - 200, 50);
 	player2.setPosition(_windowWidth - 200, 100);

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Debug.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:08:50 by laprieur          #+#    #+#             */
-/*   Updated: 2024/05/20 16:25:50 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:45:24 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Debug.hpp"
 
-sf::Font			Debug::_font;
+using namespace std;
+sf::Font		Debug::_font;
 
 Debug::Debug() {}
 
@@ -27,7 +28,7 @@ void	Debug::init(sf::RenderWindow &window) {
 	window.draw(debug);
 }
 
-void	Debug::currentPos(sf::RenderWindow &window, std::string position) {
+void	Debug::currentPos(sf::RenderWindow &window, string position) {
 	sf::Text	currentPos("current pos = " + position, _font, 15);
 
 	currentPos.setFillColor(sf::Color::White);
@@ -36,7 +37,7 @@ void	Debug::currentPos(sf::RenderWindow &window, std::string position) {
 }
 
 void	Debug::currentPlayer(sf::RenderWindow &window, int player) {
-	sf::Text	currentPlayer("current player = " + std::to_string(player), _font, 15);
+	sf::Text	currentPlayer("current player = " + to_string(player), _font, 15);
 
 	currentPlayer.setFillColor(sf::Color::White);
 	currentPlayer.setPosition(30, 860);
