@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/09 18:30:14 by laprieur          #+#    #+#              #
-#    Updated: 2024/05/24 13:54:14 by hsebille         ###   ########.fr        #
+#    Updated: 2024/06/11 12:56:37 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,13 @@ NAME			:= Gomoku
 #                                 INGREDIENTS                                  #
 # **************************************************************************** #
 
-SRC				:=	src/main.cpp					\
-					src/Debug/Debug.cpp				\
-					src/Graphics/Graphics.cpp		\
-					src/Graphics/Game/Gameplay.cpp	\
-					src/Graphics/Game/Goban.cpp		\
-					src/Graphics/Menu/MainMenu.cpp	\
+SRC				:=	src/main.cpp							\
+					src/Debug/Debug.cpp						\
+					src/Graphics/Graphics.cpp				\
+					src/Graphics/Game/Gameplay.cpp			\
+					src/Graphics/Game/Goban.cpp				\
+					src/Graphics/Menu/MainMenu.cpp			\
+					src/Graphics/Game/Gameplay_utils.cpp	\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)

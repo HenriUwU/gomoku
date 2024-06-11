@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/11 11:24:21 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:14:43 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ class Gameplay : public Graphics {
 		bool	isWinningMove(std::string position);
 		bool	isThereDoubleThree(std::vector<std::pair<std::string, int>> nearbyLines[4]);
 		bool	isCapturingMove(std::string position);
-		void	removeCapturedPair(std::string position, int lineType, unsigned int pairIndex);
+		bool	isAlignmentBreakable(std::vector<std::pair<std::string, int>> &line, int alignmentIndex);
 };

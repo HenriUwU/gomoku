@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/11 12:42:39 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:00:00 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {
 			_playerPositions.insert(pair<string, int>(position, 0));
 		}
 	}
-
 	_currentPlayer = 1;
 }
 
@@ -126,6 +125,7 @@ bool	Gameplay::isWinningMove(string position) {
 		pair<string, int> pair = make_pair(position, _currentPlayer);
 		nearbyLines[i].push_back(pair);
 	}
+
 	findHorizontalLine(4, position, nearbyLines[0]);
 	findVerticalLine(4, position, nearbyLines[1]);
 	findDiagonalLine(4, position, nearbyLines[2]);
@@ -142,7 +142,7 @@ bool	Gameplay::isWinningMove(string position) {
 						count++;
 					j++;
 				}
-				if (count >= 5/*  && !isAlignmentBreakable(position) */)
+				if (count >= 5 && !isAlignmentBreakable(nearbyLines[i], i))
 					return true;
 		}
 	}
@@ -174,86 +174,6 @@ bool	Gameplay::isThereDoubleThree(vector<pair<string, int>> nearbyLines[4]) {
 	return false;
 }
 
-void	Gameplay::findHorizontalLine(int nbStones, string position, vector<pair<string, int>> &horizontalLine) {
-	for (int i = 1; i <= nbStones; i++) {
-		stringstream ssPlus, ssMinus;
-
-		ssPlus << char(position[0] + i) << position.substr(1);
-		ssMinus << char(position[0] - i) << position.substr(1);
-		string newPosPlus = ssPlus.str();
-		string newPosMinus = ssMinus.str();
-
-		if (_playerPositions.find(newPosPlus) != _playerPositions.end()) {
-			pair<string, int> pair = make_pair(newPosPlus, _playerPositions.at(newPosPlus));
-			horizontalLine.push_back(pair);
-		}
-		if (_playerPositions.find(newPosMinus) != _playerPositions.end()) {
-			pair<string, int> pair = make_pair(newPosMinus, _playerPositions.at(newPosMinus));
-			horizontalLine.insert(horizontalLine.begin(), pair);
-		}
-	}
-}
-
-void	Gameplay::findVerticalLine(int nbStones, string position, vector<pair<string, int>> &verticalLine) {
-	for (int i = 1; i <= nbStones; i++) {
-		stringstream ssPlus, ssMinus;
-
-		ssPlus << position[0] << to_string(stoi(position.substr(1)) + i);
-		ssMinus << position[0] << to_string(stoi(position.substr(1)) - i);
-		string newPosPlus = ssPlus.str();
-		string newPosMinus = ssMinus.str();
-
-		if (_playerPositions.find(newPosPlus) != _playerPositions.end()) {
-			pair<string, int> pair = make_pair(newPosPlus, _playerPositions.at(newPosPlus));
-			verticalLine.push_back(pair);
-		}
-		if (_playerPositions.find(newPosMinus) != _playerPositions.end()) {
-			pair<string, int> pair = make_pair(newPosMinus, _playerPositions.at(newPosMinus));
-			verticalLine.insert(verticalLine.begin(), pair);
-		}
-	}
-}
-
-void	Gameplay::findDiagonalLine(int nbStones, string position, vector<pair<string, int>> &diagonalLine) {
-	for (int i = 1; i <= nbStones; i++) {
-		stringstream ssPlus, ssMinus;
-
-		ssPlus << char(position[0] + i) << to_string(stoi(position.substr(1)) + i);
-		ssMinus << char(position[0] - i) << to_string(stoi(position.substr(1)) - i);
-		string newPosPlus = ssPlus.str();
-		string newPosMinus = ssMinus.str();
-
-		if (_playerPositions.find(newPosPlus) != _playerPositions.end()) {
-			pair<string, int> pair = make_pair(newPosPlus, _playerPositions.at(newPosPlus));
-			diagonalLine.push_back(pair);
-		}
-		if (_playerPositions.find(newPosMinus) != _playerPositions.end()) {
-			pair<string, int> pair = make_pair(newPosMinus, _playerPositions.at(newPosMinus));
-			diagonalLine.insert(diagonalLine.begin(), pair);
-		}
-	}
-}
-
-void	Gameplay::findAntiDiagonalLine(int nbStones, string position, vector<pair<string, int>> &antiDiagonalLine) {
-	for (int i = 1; i <= nbStones; i++) {
-		stringstream ssPlus, ssMinus;
-
-		ssPlus << char(position[0] + i) << to_string(stoi(position.substr(1)) - i);
-		ssMinus << char(position[0] - i) << to_string(stoi(position.substr(1)) + i);
-		string newPosPlus = ssPlus.str();
-		string newPosMinus = ssMinus.str();
-
-		if (_playerPositions.find(newPosPlus) != _playerPositions.end()) {
-			pair<string, int> pair = make_pair(newPosPlus, _playerPositions.at(newPosPlus));
-			antiDiagonalLine.push_back(pair);
-		}
-		if (_playerPositions.find(newPosMinus) != _playerPositions.end()) {
-			pair<string, int> pair = make_pair(newPosMinus, _playerPositions.at(newPosMinus));
-			antiDiagonalLine.insert(antiDiagonalLine.begin(), pair);
-		}
-	}
-}
-
 bool	Gameplay::isCapturingMove(string position) {
 	vector<pair<string, int>> nearbyLines[4];
 	int 	opponent = (_currentPlayer == 1) ? 2 : 1;
@@ -269,13 +189,6 @@ bool	Gameplay::isCapturingMove(string position) {
 	findAntiDiagonalLine(3, position, nearbyLines[3]);
 	
 	for (int i = 0; i < 4; i++) {
-		cout << "Next Vector" << endl;
-		for (unsigned int j = 0; j < nearbyLines[i].size(); j++)
-			cout << "Pos : " << nearbyLines[i][j].first << " | value :" << nearbyLines[i][j].second << endl;
-		cout << endl;
-	}
-	
-	for (int i = 0; i < 4; i++) {
 		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
 			if (j < nearbyLines[i].size() - 3) {
 				if (nearbyLines[i][j].second == _currentPlayer
@@ -285,6 +198,7 @@ bool	Gameplay::isCapturingMove(string position) {
 					nbCaptures++;
 					_playerPositions.at(nearbyLines[i][j + 1].first) = 0;
 					_playerPositions.at(nearbyLines[i][j + 2].first) = 0;
+					_catchedStones[_currentPlayer] += 2;
 				}
 			}
 		}
