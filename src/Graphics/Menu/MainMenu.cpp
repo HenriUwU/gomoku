@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/11 12:44:02 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:53:18 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,200 +15,208 @@
 using namespace std;
 
 MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
-	if (!_font.loadFromFile("assets/fonts/ChunkFive-Regular.otf")) {
-		cerr << "Error while loading the font file." << endl;
+	if (!_gomokuFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-Black.ttf")) {
+		cerr << "Error while loading the gomokuFont file." << endl;
+	}
+	if (!_menuFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-BlackItalic.ttf")) {
+		cerr << "Error while loading the menuFont file." << endl;
+	}
+	if (!_buttonBackgroundTexture1.loadFromFile("assets/images/Green rectangle front.png")) {
+		cerr << "Error while loading the buttonBackgroundTexture file." << endl;
+	}
+	if (!_buttonBackgroundTexture2.loadFromFile("assets/images/Green rectangle behind.png")) {
+		cerr << "Error while loading the buttonBackgroundTexture2 file." << endl;
+	}
+	if (!_buttonBackgroundTexture3.loadFromFile("assets/images/Orange rectangle front.png")) {
+		cerr << "Error while loading the buttonBackgroundTexture3 file." << endl;
+	}
+	if (!_buttonBackgroundTexture4.loadFromFile("assets/images/Orange rectangle behind.png")) {
+		cerr << "Error while loading the buttonBackgroundTexture4 file." << endl;
+	}
+	if (!_buttonBackgroundTexture5.loadFromFile("assets/images/Red rectangle front.png")) {
+		cerr << "Error while loading the buttonBackgroundTexture5 file." << endl;
+	}
+	if (!_buttonBackgroundTexture6.loadFromFile("assets/images/Red rectangle behind.png")) {
+		cerr << "Error while loading the buttonBackgroundTexture6 file." << endl;
+	}
+	if (!_blueSquareTextureFront.loadFromFile("assets/images/Blue square front.png")) {
+		cerr << "Error while loading the blueSquareTexture file." << endl;
+	}
+	if (!_blueSquareTextureBehind.loadFromFile("assets/images/Blue square behind.png")) {
+		cerr << "Error while loading the blueSquareTextureBehind file." << endl;
+	}
+	if (!_lightBulbTexture.loadFromFile("assets/images/light_bulb.png")) {
+		cerr << "Error while loading the lightBulbTexture file." << endl;
+	}
+	if (!_settingsWheelTexture.loadFromFile("assets/images/settings.png")) {
+		cerr << "Error while loading the settingsWheelTexture file." << endl;
+	}
+	if (!_customizationTexture.loadFromFile("assets/images/art_1.png")) {
+		cerr << "Error while loading the customizationTexture file." << endl;
 	}
 
-	if (!_backgroundTexture.loadFromFile("assets/images/star2.png")) {
-		cerr << "Error while loading the background file." << endl;
-	}
+	(void)width;
+	(void)height;
+	(void)window;
 
-	if (!_gobanTexture.loadFromFile("assets/images/grid.png")) {
-		cerr << "Error while loading the goban file." << endl;
-	}
-	
-	_gobanSprite.setTexture(_gobanTexture);
-	_gobanSprite.setScale(1, 1);
-	_gobanSprite.setPosition(1079, 40);
-	_gobanSprite.setColor(sf::Color(255, 255, 255, 150));
-	_gobanSprite.setRotation(-10);
+	_menu[0].setString("Go");
+	_menu[0].setCharacterSize(140.48);
+	_menu[0].setFont(_gomokuFont);
+	_menu[0].setFillColor(sf::Color(141, 82, 190));
+	_menu[0].setPosition(684, 60);
 
-	sf::Color fontColor(182, 204, 161);
-	sf::Color selectedColor(182, 143, 64);
-	for (int i = 0; i < NB_MENU_ITEMS; i++) {
-		_menu[i].setFont(_font);
-		_menu[i].setCharacterSize(45);
-		_menu[i].setFillColor(fontColor);
-	}
-	_selectedItemIndex = 1;
-	_menu[0].setString("Welcome to Gomoku");
-	_menu[0].setCharacterSize(50);
-	_menu[1].setString("Two players");
-	_menu[2].setString("Versus AI");
-	_menu[3].setString("Quit");
-	_menu[1].setCharacterSize(55);
-	_menu[1].setFillColor(selectedColor);
+	_menu[1].setString("moku");
+	_menu[1].setCharacterSize(140.48);
+	_menu[1].setFont(_gomokuFont);
+	_menu[1].setFillColor(sf::Color(208, 87, 47));
+	_menu[1].setPosition(865, 60);
 
-	float maxMenuWidth = 0.0f;
-	for (int i = 0; i < NB_MENU_ITEMS; ++i) {
-		sf::FloatRect bounds = _menu[i].getLocalBounds();
-		maxMenuWidth = max(maxMenuWidth, bounds.width);
-	}
+	_menu[2].setString("Go");
+	_menu[2].setCharacterSize(140.48);
+	_menu[2].setFont(_gomokuFont);
+	_menu[2].setFillColor(sf::Color(248, 231, 254));
+	_menu[2].setPosition(684, 50);
 
-	float offsetX = (width - maxMenuWidth) / 2;
-	float offsetY = 1;
+	_menu[3].setString("moku");
+	_menu[3].setCharacterSize(140.48);
+	_menu[3].setFont(_gomokuFont);
+	_menu[3].setFillColor(sf::Color(255, 164, 94));
+	_menu[3].setPosition(865, 50);
 
-	_menu[0].setPosition(sf::Vector2f(offsetX - 350, (height / NB_MENU_ITEMS + 1) * 1 /* - 100 */));
-	for (int i = 1; i < NB_MENU_ITEMS; ++i) {
-		sf::FloatRect bounds = _menu[i].getLocalBounds();
-		offsetY += 0.5;
-		float elementX = offsetX + (maxMenuWidth - bounds.width) / 2;
-		_menu[i].setPosition(sf::Vector2f(elementX - 350, (height / NB_MENU_ITEMS + 1) * offsetY + 40));
-	}
+	_menu[4].setString("by hsebille & laprieur");
+	_menu[4].setCharacterSize(30.23);
+	_menu[4].setFont(_gomokuFont);
+	_menu[4].setFillColor(sf::Color::White);
+	_menu[4].setPosition(800, 242);
 
-	srand(static_cast<unsigned int>(time(nullptr)));
-	size_t numberOfSprites = 30;
-	initializeBackgroundSprites(numberOfSprites, window);
+	_menu[5].setString("1 VS 1");
+	_menu[5].setCharacterSize(64.77);
+	_menu[5].setFont(_menuFont);
+	_menu[5].setFillColor(sf::Color::White);
+	_menu[5].setPosition(877, 323);
+
+	_menu[6].setString("AI VERSUS");
+	_menu[6].setCharacterSize(64.77);
+	_menu[6].setFont(_menuFont);
+	_menu[6].setFillColor(sf::Color::White);
+	_menu[6].setPosition(795, 455);
+
+	_menu[7].setString("EXIT");
+	_menu[7].setCharacterSize(64.77);
+	_menu[7].setFont(_menuFont);
+	_menu[7].setFillColor(sf::Color::White);
+	_menu[7].setPosition(887, 587);
+
+	_menu[8].setString("More options");
+	_menu[8].setCharacterSize(30.23);
+	_menu[8].setFont(_gomokuFont);
+	_menu[8].setFillColor(sf::Color::White);
+	_menu[8].setPosition(857, 700);
+
+	_selectedItemIndex = 5;
+	_menu[_selectedItemIndex].setFillColor(sf::Color(182, 143, 64));
 }
 
 MainMenu::~MainMenu() {}
 
-void	MainMenu::display(sf::RenderWindow& window, float deltaTime) {
-	sf::Color backgroundColor(48, 1, 30);
-	Goban goban(window);
+void	MainMenu::display(sf::RenderWindow& window) {
+	sf::RectangleShape background(sf::Vector2f(1920, 1080));
+
+	background.setFillColor(sf::Color(38, 1, 69));
+
+	_buttonBackground1.setTexture(_buttonBackgroundTexture1);
+	_buttonBackground2.setTexture(_buttonBackgroundTexture2);
+	_buttonBackground3.setTexture(_buttonBackgroundTexture3);
+	_buttonBackground4.setTexture(_buttonBackgroundTexture4);
+	_buttonBackground5.setTexture(_buttonBackgroundTexture5);
+	_buttonBackground6.setTexture(_buttonBackgroundTexture6);
+	_blueSquareFront1.setTexture(_blueSquareTextureFront);
+	_blueSquareFront2.setTexture(_blueSquareTextureFront);
+	_blueSquareFront3.setTexture(_blueSquareTextureFront);
+	_blueSquareBehind1.setTexture(_blueSquareTextureBehind);
+	_blueSquareBehind2.setTexture(_blueSquareTextureBehind);
+	_blueSquareBehind3.setTexture(_blueSquareTextureBehind);
+	_lightBulb.setTexture(_lightBulbTexture);
+	_settingsWheel.setTexture(_settingsWheelTexture);
+	_customization.setTexture(_customizationTexture);
 	
-	sf::RectangleShape background(sf::Vector2f(window.getSize().x, window.getSize().y));
-	background.setFillColor(backgroundColor);
-	background.setPosition(0, 0);
+	_buttonBackground1.setPosition(683.64, 317.95);
+	_buttonBackground2.setPosition(683.64, 327.95);
+	_buttonBackground3.setPosition(683.64, 450.09);
+	_buttonBackground4.setPosition(683.64, 460.09);
+	_buttonBackground5.setPosition(683.64, 579.64);
+	_buttonBackground6.setPosition(683.64, 589.64);
+
+	_blueSquareBehind1.setPosition(683.64, 775.45);
+	_blueSquareFront1.setPosition(683.64, 765.45);
+	_blueSquareBehind2.setPosition(901.27, 775.45);
+	_blueSquareFront2.setPosition(901.27, 765.45);
+	_blueSquareBehind3.setPosition(1118.91, 775.45);
+	_blueSquareFront3.setPosition(1119.77, 765.45);
+
+	_customization.setScale(0.2, 0.2);
+	_settingsWheel.setScale(0.2, 0.2);	
+	_lightBulb.setScale(0.2, 0.2);
+
+	_customization.setPosition(694, 770);
+	_settingsWheel.setPosition(909, 772);
+	_lightBulb.setPosition(1130, 770);
+
 	window.draw(background);
-
-	updateSprites(deltaTime, window);
-	for (const auto &fadingSprite : _backgroundSprites) {
-		window.draw(fadingSprite.sprite);
-	}
-
+	window.draw(_buttonBackground2);
+	window.draw(_buttonBackground1);
+	window.draw(_buttonBackground4);
+	window.draw(_buttonBackground3);
+	window.draw(_buttonBackground6);
+	window.draw(_buttonBackground5);
+	window.draw(_blueSquareBehind1);
+	window.draw(_blueSquareFront1);
+	window.draw(_blueSquareBehind2);
+	window.draw(_blueSquareFront2);
+	window.draw(_blueSquareBehind3);
+	window.draw(_blueSquareFront3);
+	window.draw(_customization);
+	window.draw(_settingsWheel);
+	window.draw(_lightBulb);
 	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		window.draw(_menu[i]);
 	}
-	window.draw(_gobanSprite);
 }
 
-void MainMenu::initializeBackgroundSprites(size_t count, const sf::RenderWindow &window) {
-	
-    for (size_t i = 0; i < count; ++i) {
-        sf::Sprite sprite;
-        sprite.setTexture(_backgroundTexture);
-		sprite.setScale(0.1, 0.1);
-
-        // Set a random position within the window bounds
-        float randomX = static_cast<float>(rand() % window.getSize().x);
-        float randomY = static_cast<float>(rand() % window.getSize().y);
-        sprite.setPosition(randomX, randomY);
-
-        FadingSprite fadingSprite = { sprite, 0.0f, true };
-        _backgroundSprites.push_back(fadingSprite);
-    }
-}
-
-void MainMenu::updateSprites(float deltaTime, const sf::RenderWindow &window) {
-	for (auto &fadingSprite : _backgroundSprites) {
-		if (fadingSprite.fadingIn) {
-			fadingSprite.timer += deltaTime;
-			if (fadingSprite.timer >= 1.0f) {
-				fadingSprite.timer = 1.0f;
-				fadingSprite.fadingIn = false;
-		}
-	} else {
-		fadingSprite.timer -= deltaTime;
-		if (fadingSprite.timer <= 0.0f) {
-			fadingSprite.timer = 0.0f;
-			fadingSprite.fadingIn = true;
-
-		// Set a new random position within the window bounds when starting to fade in again
-		(void)window;
-/* 		float randomX = static_cast<float>(rand() % window.getSize().x);
-		float randomY = static_cast<float>(rand() % window.getSize().y);
-		fadingSprite.sprite.setPosition(randomX, randomY); */
-	}
-	}
-		sf::Color color = fadingSprite.sprite.getColor();
-		color.a = static_cast<sf::Uint8>(255 * fadingSprite.timer); // Update opacity
-		fadingSprite.sprite.setColor(color);
-	}
-}
-
-void	MainMenu::MoveUp(sf::RenderWindow &window) {
-	sf::Color fontColor(182, 204, 161);
-	sf::Color selectedColor(182, 143, 64);
-
-	float maxMenuWidth = 0.0f;
-	for (int i = 0; i < NB_MENU_ITEMS; ++i) {
-		sf::FloatRect bounds = _menu[i].getLocalBounds();
-		maxMenuWidth = max(maxMenuWidth, bounds.width);
-	}
-
-	float offsetX = (1920 - maxMenuWidth) / 2;
-	float offsetY = 1;
-	
-	if (_selectedItemIndex - 1 >= 1) {
-		_menu[_selectedItemIndex].setFillColor(fontColor);
-		_menu[_selectedItemIndex].setCharacterSize(45);
+void	MainMenu::MoveUp() {
+	if (_selectedItemIndex - 1 >= 5) {
+		_menu[_selectedItemIndex].setFillColor(sf::Color::White);
 		_selectedItemIndex--;
-		_menu[_selectedItemIndex].setFillColor(selectedColor);
-		_menu[_selectedItemIndex].setCharacterSize(55);
-	}
-
-	for (int i = 1; i < NB_MENU_ITEMS; ++i) {
-		sf::FloatRect bounds = _menu[i].getLocalBounds();
-		offsetY += 0.5;
-		float elementX = offsetX + (maxMenuWidth - bounds.width) / 2;
-		_menu[i].setPosition(sf::Vector2f(elementX - 350, (window.getSize().y / NB_MENU_ITEMS + 1) * offsetY + 40));
+		_menu[_selectedItemIndex].setFillColor(sf::Color(182, 143, 64));
 	}
 }
 
-void	MainMenu::MoveDown(sf::RenderWindow &window) {
-	sf::Color fontColor(182, 204, 161);
-	sf::Color selectedColor(182, 143, 64);
-	
-	float maxMenuWidth = 0.0f;
-	for (int i = 0; i < NB_MENU_ITEMS; ++i) {
-		sf::FloatRect bounds = _menu[i].getLocalBounds();
-		maxMenuWidth = max(maxMenuWidth, bounds.width);
-	}
-
-	float offsetX = (1920 - maxMenuWidth) / 2;
-	float offsetY = 1;
-	
-	if (_selectedItemIndex + 1 < NB_MENU_ITEMS) {
-		_menu[_selectedItemIndex].setFillColor(fontColor);
-		_menu[_selectedItemIndex].setCharacterSize(45);
+void	MainMenu::MoveDown() {
+	if (_selectedItemIndex + 1 <= 7) {
+		_menu[_selectedItemIndex].setFillColor(sf::Color::White);
 		_selectedItemIndex++;
-		_menu[_selectedItemIndex].setFillColor(selectedColor);
-		_menu[_selectedItemIndex].setCharacterSize(55);
-	}
-
-	for (int i = 1; i < NB_MENU_ITEMS; ++i) {
-		sf::FloatRect bounds = _menu[i].getLocalBounds();
-		offsetY += 0.5;
-		float elementX = offsetX + (maxMenuWidth - bounds.width) / 2;
-		_menu[i].setPosition(sf::Vector2f(elementX - 350, (window.getSize().y / NB_MENU_ITEMS + 1) * offsetY + 40));
+		_menu[_selectedItemIndex].setFillColor(sf::Color(182, 143, 64));
 	}
 }
 
-void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
+void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu) {
 	if (event.type == sf::Event::KeyReleased) {
-		if (event.key.code == sf::Keyboard::Up)
-			MoveUp(window);
-		if (event.key.code == sf::Keyboard::Down)
-			MoveDown(window);
+		if (event.key.code == sf::Keyboard::Up) {
+			MoveUp();
+			mainMenu.display(window);
+		}
+		if (event.key.code == sf::Keyboard::Down) {
+			MoveDown();
+			mainMenu.display(window);
+		}
 	}
-	if (getSelectedItemIndex() == 1 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
+	if (getSelectedItemIndex() == 5 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
 		displayMenu = false;
 		displayGame = true;
 	}
-	if (getSelectedItemIndex() == 2 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+	if (getSelectedItemIndex() == 6 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 		cout << "Player vs AI" << endl;
-	if (getSelectedItemIndex() == 3 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+	if (getSelectedItemIndex() == 7 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 		window.close();
 	if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape))
 		window.close();
