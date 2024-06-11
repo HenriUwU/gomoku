@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/11 17:53:18 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:05:58 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,55 +63,55 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	_menu[0].setCharacterSize(140.48);
 	_menu[0].setFont(_gomokuFont);
 	_menu[0].setFillColor(sf::Color(141, 82, 190));
-	_menu[0].setPosition(684, 60);
+	_menu[0].setPosition(684, 40);
 
 	_menu[1].setString("moku");
 	_menu[1].setCharacterSize(140.48);
 	_menu[1].setFont(_gomokuFont);
 	_menu[1].setFillColor(sf::Color(208, 87, 47));
-	_menu[1].setPosition(865, 60);
+	_menu[1].setPosition(865, 40);
 
 	_menu[2].setString("Go");
 	_menu[2].setCharacterSize(140.48);
 	_menu[2].setFont(_gomokuFont);
 	_menu[2].setFillColor(sf::Color(248, 231, 254));
-	_menu[2].setPosition(684, 50);
+	_menu[2].setPosition(684, 30);
 
 	_menu[3].setString("moku");
 	_menu[3].setCharacterSize(140.48);
 	_menu[3].setFont(_gomokuFont);
 	_menu[3].setFillColor(sf::Color(255, 164, 94));
-	_menu[3].setPosition(865, 50);
+	_menu[3].setPosition(865, 30);
 
 	_menu[4].setString("by hsebille & laprieur");
 	_menu[4].setCharacterSize(30.23);
 	_menu[4].setFont(_gomokuFont);
 	_menu[4].setFillColor(sf::Color::White);
-	_menu[4].setPosition(800, 242);
+	_menu[4].setPosition(800, 222);
 
 	_menu[5].setString("1 VS 1");
 	_menu[5].setCharacterSize(64.77);
 	_menu[5].setFont(_menuFont);
 	_menu[5].setFillColor(sf::Color::White);
-	_menu[5].setPosition(877, 323);
+	_menu[5].setPosition(877, 303);
 
 	_menu[6].setString("AI VERSUS");
 	_menu[6].setCharacterSize(64.77);
 	_menu[6].setFont(_menuFont);
 	_menu[6].setFillColor(sf::Color::White);
-	_menu[6].setPosition(795, 455);
+	_menu[6].setPosition(795, 435);
 
 	_menu[7].setString("EXIT");
 	_menu[7].setCharacterSize(64.77);
 	_menu[7].setFont(_menuFont);
 	_menu[7].setFillColor(sf::Color::White);
-	_menu[7].setPosition(887, 587);
+	_menu[7].setPosition(887, 567);
 
 	_menu[8].setString("More options");
 	_menu[8].setCharacterSize(30.23);
 	_menu[8].setFont(_gomokuFont);
 	_menu[8].setFillColor(sf::Color::White);
-	_menu[8].setPosition(857, 700);
+	_menu[8].setPosition(857, 690);
 
 	_selectedItemIndex = 5;
 	_menu[_selectedItemIndex].setFillColor(sf::Color(182, 143, 64));
@@ -140,27 +140,27 @@ void	MainMenu::display(sf::RenderWindow& window) {
 	_settingsWheel.setTexture(_settingsWheelTexture);
 	_customization.setTexture(_customizationTexture);
 	
-	_buttonBackground1.setPosition(683.64, 317.95);
-	_buttonBackground2.setPosition(683.64, 327.95);
-	_buttonBackground3.setPosition(683.64, 450.09);
-	_buttonBackground4.setPosition(683.64, 460.09);
-	_buttonBackground5.setPosition(683.64, 579.64);
-	_buttonBackground6.setPosition(683.64, 589.64);
+	_buttonBackground1.setPosition(683.64, 297.95);
+	_buttonBackground2.setPosition(683.64, 307.95);
+	_buttonBackground3.setPosition(683.64, 430.09);
+	_buttonBackground4.setPosition(683.64, 440.09);
+	_buttonBackground5.setPosition(683.64, 559.64);
+	_buttonBackground6.setPosition(683.64, 569.64);
 
-	_blueSquareBehind1.setPosition(683.64, 775.45);
-	_blueSquareFront1.setPosition(683.64, 765.45);
-	_blueSquareBehind2.setPosition(901.27, 775.45);
-	_blueSquareFront2.setPosition(901.27, 765.45);
-	_blueSquareBehind3.setPosition(1118.91, 775.45);
-	_blueSquareFront3.setPosition(1119.77, 765.45);
+	_blueSquareBehind1.setPosition(683.64, 765.45);
+	_blueSquareFront1.setPosition(683.64, 755.45);
+	_blueSquareBehind2.setPosition(901.27, 765.45);
+	_blueSquareFront2.setPosition(901.27, 755.45);
+	_blueSquareBehind3.setPosition(1118.91, 765.45);
+	_blueSquareFront3.setPosition(1119.77, 755.45);
 
 	_customization.setScale(0.2, 0.2);
 	_settingsWheel.setScale(0.2, 0.2);	
 	_lightBulb.setScale(0.2, 0.2);
 
-	_customization.setPosition(694, 770);
-	_settingsWheel.setPosition(909, 772);
-	_lightBulb.setPosition(1130, 770);
+	_customization.setPosition(694, 760);
+	_settingsWheel.setPosition(909, 762);
+	_lightBulb.setPosition(1130, 760);
 
 	window.draw(background);
 	window.draw(_buttonBackground2);
