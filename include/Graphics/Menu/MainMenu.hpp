@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/12 14:39:09 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:11:33 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "gomoku.hpp"
 #include "Goban.hpp"
 
-#define NB_MENU_ITEMS 12
+#define NB_MENU_ITEMS 9
 
 class MainMenu {
 	private:
@@ -56,6 +56,8 @@ class MainMenu {
 		void	display(sf::RenderWindow &window);
 		void	MoveUp();
 		void	MoveDown();
+		void	MoveLeft();
+		void	MoveRight();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu);
 		void	handleMouseMovement(sf::Vector2i mousePos);
 };

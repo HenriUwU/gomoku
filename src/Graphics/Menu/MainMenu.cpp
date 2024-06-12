@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/12 15:02:21 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:21:04 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	MainMenu::display(sf::RenderWindow& window) {
 	window.draw(_settings);
 	window.draw(_help);
 	
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < NB_MENU_ITEMS; i++) {
 		window.draw(_menu[i]);
 	}
 }
@@ -172,7 +172,7 @@ void	MainMenu::MoveUp() {
 		_selectedItemIndex = 5;
 		_greenButton.setTexture(_greenButtonHighlightedTexture);
 	}
-	if (_selectedItemIndex - 1 >= 5) {
+	if (_selectedItemIndex - 1 >= 5 && _selectedItemIndex <= 7) {
 		if (_selectedItemIndex == 6)
 			_orangeButton.setTexture(_orangeButtonTexture);
 		else if (_selectedItemIndex == 7)
@@ -182,6 +182,16 @@ void	MainMenu::MoveUp() {
 			_orangeButton.setTexture(_orangeButtonHighlightedTexture);
 		else if (_selectedItemIndex == 5)
 			_greenButton.setTexture(_greenButtonHighlightedTexture);
+	}
+	if (_selectedItemIndex > 7 && _selectedItemIndex < 11) {
+		if (_selectedItemIndex == 8)
+			_blueButtonCustom.setTexture(_blueButtonTexture);
+		else if (_selectedItemIndex == 9)
+			_blueButtonSettings.setTexture(_blueButtonTexture);
+		else if (_selectedItemIndex == 10)
+			_blueButtonHelp.setTexture(_blueButtonTexture);
+		_selectedItemIndex = 7;
+		_redButton.setTexture(_redButtonHighlightedTexture);
 	}
 }
 
@@ -201,6 +211,39 @@ void	MainMenu::MoveDown() {
 		else if (_selectedItemIndex == 7)
 			_redButton.setTexture(_redButtonHighlightedTexture);
 	}
+	else if (_selectedItemIndex == 7) {
+		_redButton.setTexture(_redButtonTexture);
+		_blueButtonCustom.setTexture(_blueButtonHighlightedTexture);
+		_selectedItemIndex++;
+	}
+}
+
+void	MainMenu::MoveLeft() {
+	if (_selectedItemIndex > 8) {
+		if (_selectedItemIndex == 10)
+			_blueButtonHelp.setTexture(_blueButtonTexture);
+		else if (_selectedItemIndex == 9)
+			_blueButtonSettings.setTexture(_blueButtonTexture);
+		_selectedItemIndex--;
+		if (_selectedItemIndex == 9)
+			_blueButtonSettings.setTexture(_blueButtonHighlightedTexture);
+		else if (_selectedItemIndex == 8)
+			_blueButtonCustom.setTexture(_blueButtonHighlightedTexture);
+	}
+}
+
+void	MainMenu::MoveRight() {
+	if (_selectedItemIndex < 10 && _selectedItemIndex > 7) {
+		if (_selectedItemIndex == 8)
+			_blueButtonCustom.setTexture(_blueButtonTexture);
+		else if (_selectedItemIndex == 9)
+			_blueButtonSettings.setTexture(_blueButtonTexture);
+		_selectedItemIndex++;
+		if (_selectedItemIndex == 9)
+			_blueButtonSettings.setTexture(_blueButtonHighlightedTexture);
+		else if (_selectedItemIndex == 10)
+			_blueButtonHelp.setTexture(_blueButtonHighlightedTexture);
+	}
 }
 
 void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu) {
@@ -213,6 +256,10 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &
 			MoveUp();
 		if (event.key.code == sf::Keyboard::Down)
 			MoveDown();
+		if (event.key.code == sf::Keyboard::Left)
+			MoveLeft();
+		if (event.key.code == sf::Keyboard::Right)
+			MoveRight();
 	}
 	if ((getSelectedItemIndex() == 5 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 		|| (getSelectedItemIndex() == 5 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
