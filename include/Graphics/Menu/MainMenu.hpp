@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/12 14:01:49 by laprieur         ###   ########.fr       */
+/*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
+/*   Updated: 2024/06/12 14:15:27 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ class MainMenu {
 		void	MoveUp();
 		void	MoveDown();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu);
+		void	handleMouseMovement(sf::Vector2i mousePos);
 };

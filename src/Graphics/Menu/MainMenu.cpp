@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/12 14:02:06 by laprieur         ###   ########.fr       */
+/*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
+/*   Updated: 2024/06/12 14:15:09 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,11 @@ void	MainMenu::display(sf::RenderWindow& window) {
 }
 
 void	MainMenu::MoveUp() {
+	if (_selectedItemIndex == -1) {
+		_selectedItemIndex = 5;
+		_buttonBackground1.setTexture(_buttonBackgroundTextureHighlighted1);
+		_buttonBackground2.setTexture(_buttonBackgroundTextureHighlighted2);
+	}
 	if (_selectedItemIndex - 1 >= 5) {
 		if (_selectedItemIndex == 6)
 			_orangeButton.setTexture(_orangeButtonTexture);
@@ -179,6 +184,11 @@ void	MainMenu::MoveUp() {
 }
 
 void	MainMenu::MoveDown() {
+	if (_selectedItemIndex == -1) {
+		_selectedItemIndex = 5;
+		_buttonBackground1.setTexture(_buttonBackgroundTextureHighlighted1);
+		_buttonBackground2.setTexture(_buttonBackgroundTextureHighlighted2);		
+	}
 	if (_selectedItemIndex + 1 <= 7) {
 		if (_selectedItemIndex == 5)
 			_greenButton.setTexture(_greenButtonTexture);
@@ -193,24 +203,54 @@ void	MainMenu::MoveDown() {
 }
 
 void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu) {
-	if (event.type == sf::Event::KeyReleased) {
-		if (event.key.code == sf::Keyboard::Up) {
-			MoveUp();
-			mainMenu.display(window);
-		}
-		if (event.key.code == sf::Keyboard::Down) {
-			MoveDown();
-			mainMenu.display(window);
-		}
+	if (event.type == sf::Event::MouseMoved) {
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+		mainMenu.handleMouseMovement(mousePos);
 	}
-	if (getSelectedItemIndex() == 5 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
+	if (event.type == sf::Event::KeyReleased) {
+		if (event.key.code == sf::Keyboard::Up)
+			MoveUp();
+		if (event.key.code == sf::Keyboard::Down)
+			MoveDown();
+	}
+	if ((getSelectedItemIndex() == 5 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+		|| (getSelectedItemIndex() == 5 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
 		displayMenu = false;
 		displayGame = true;
 	}
-	if (getSelectedItemIndex() == 6 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+	if ((getSelectedItemIndex() == 6 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+		|| (getSelectedItemIndex() == 6 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
 		cout << "Player vs AI" << endl;
-	if (getSelectedItemIndex() == 7 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+	if ((getSelectedItemIndex() == 7 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+		|| (getSelectedItemIndex() == 7 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
 		window.close();
 	if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape))
 		window.close();
+}
+
+void MainMenu::handleMouseMovement(sf::Vector2i mousePos) {
+ 	if (_menu[5].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_buttonBackground1.setTexture(_buttonBackgroundTextureHighlighted1);
+		_buttonBackground2.setTexture(_buttonBackgroundTextureHighlighted2);
+		_selectedItemIndex = 5;
+	}
+	else if (_menu[6].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_buttonBackground3.setTexture(_buttonBackgroundTextureHighlighted3);
+		_buttonBackground4.setTexture(_buttonBackgroundTextureHighlighted4);
+		_selectedItemIndex = 6;
+	}
+	else if (_menu[7].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_buttonBackground5.setTexture(_buttonBackgroundTextureHighlighted5);
+		_buttonBackground6.setTexture(_buttonBackgroundTextureHighlighted6);
+		_selectedItemIndex = 7;
+	}
+	else {
+		_buttonBackground1.setTexture(_buttonBackgroundTexture1);
+		_buttonBackground2.setTexture(_buttonBackgroundTexture2);
+		_buttonBackground3.setTexture(_buttonBackgroundTexture3);
+		_buttonBackground4.setTexture(_buttonBackgroundTexture4);
+		_buttonBackground5.setTexture(_buttonBackgroundTexture5);
+		_buttonBackground6.setTexture(_buttonBackgroundTexture6);
+		_selectedItemIndex = -1;
+	}
 }
