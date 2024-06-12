@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/11 23:32:19 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:01:49 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,41 +23,25 @@ class MainMenu {
 		sf::Font					_gomokuFont;
 		sf::Font					_menuFont;
 		sf::Text					_menu[NB_MENU_ITEMS];
-		sf::Texture					_buttonBackgroundTexture1;
-		sf::Texture					_buttonBackgroundTexture2;
-		sf::Texture					_buttonBackgroundTexture3;
-		sf::Texture					_buttonBackgroundTexture4;
-		sf::Texture					_buttonBackgroundTexture5;
-		sf::Texture					_buttonBackgroundTexture6;
-		sf::Texture					_buttonBackgroundTextureHighlighted1;
-		sf::Texture					_buttonBackgroundTextureHighlighted2;
-		sf::Texture					_buttonBackgroundTextureHighlighted3;
-		sf::Texture					_buttonBackgroundTextureHighlighted4;
-		sf::Texture					_buttonBackgroundTextureHighlighted5;
-		sf::Texture					_buttonBackgroundTextureHighlighted6;
-		sf::Texture					_blueSquareTextureFront;
-		sf::Texture					_blueSquareTextureBehind;
+		sf::Texture					_greenButtonTexture;
+		sf::Texture					_orangeButtonTexture;
+		sf::Texture					_redButtonTexture;
+		sf::Texture					_greenButtonHighlightedTexture;
+		sf::Texture					_orangeButtonHighlightedTexture;
+		sf::Texture					_redButtonHighlightedTexture;
+		sf::Texture					_blueButtonTexture;
 		sf::Texture					_helpTexture;
 		sf::Texture					_settingsTexture;
 		sf::Texture					_customTexture;
-		sf::Sprite					_buttonBackground1;
-		sf::Sprite					_buttonBackground2;
-		sf::Sprite					_buttonBackground3;
-		sf::Sprite					_buttonBackground4;
-		sf::Sprite					_buttonBackground5;
-		sf::Sprite					_buttonBackground6;
-		sf::Sprite					_buttonBackgroundHighlighted1;
-		sf::Sprite					_buttonBackgroundHighlighted2;
-		sf::Sprite					_buttonBackgroundHighlighted3;
-		sf::Sprite					_buttonBackgroundHighlighted4;
-		sf::Sprite					_buttonBackgroundHighlighted5;
-		sf::Sprite					_buttonBackgroundHighlighted6;
-		sf::Sprite					_blueSquareFront1;
-		sf::Sprite					_blueSquareFront2;
-		sf::Sprite					_blueSquareFront3;
-		sf::Sprite					_blueSquareBehind1;
-		sf::Sprite					_blueSquareBehind2;
-		sf::Sprite					_blueSquareBehind3;
+		sf::Sprite					_greenButton;
+		sf::Sprite					_orangeButton;
+		sf::Sprite					_redButton;
+		sf::Sprite					_greenButtonHighlighted;
+		sf::Sprite					_orangeButtonHighlighted;
+		sf::Sprite					_redButtonHighlighted;
+		sf::Sprite					_blueButtonCustom;
+		sf::Sprite					_blueButtonSettings;
+		sf::Sprite					_blueButtonHelp;
 		sf::Sprite					_help;
 		sf::Sprite					_settings;
 		sf::Sprite					_custom;
