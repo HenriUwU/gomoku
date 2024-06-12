@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/12 14:15:09 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:22:21 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,34 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	if (!_menuFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-BlackItalic.ttf")) {
 		cerr << "Error while loading the menuFont file." << endl;
 	}
-	if (!_greenButtonTexture.loadFromFile("assets/images/green_button.png")) {
+	if (!_greenButtonTexture.loadFromFile("assets/images/buttons/green_button.png")) {
 		cerr << "Error while loading the green button file." << endl;
 	}
-	if (!_orangeButtonTexture.loadFromFile("assets/images/orange_button.png")) {
+	if (!_orangeButtonTexture.loadFromFile("assets/images/buttons/orange_button.png")) {
 		cerr << "Error while loading the orange button file." << endl;
 	}
-	if (!_redButtonTexture.loadFromFile("assets/images/red_button.png")) {
+	if (!_redButtonTexture.loadFromFile("assets/images/buttons/red_button.png")) {
 		cerr << "Error while loading the red button file." << endl;
 	}
-	if (!_blueButtonTexture.loadFromFile("assets/images/blue_button.png")) {
+	if (!_blueButtonTexture.loadFromFile("assets/images/buttons/blue_button.png")) {
 		cerr << "Error while loading the blueSquareTextureBehind file." << endl;
 	}
-	if (!_helpTexture.loadFromFile("assets/images/help.png")) {
+	if (!_helpTexture.loadFromFile("assets/images/icons/help.png")) {
 		cerr << "Error while loading the helpTexture file." << endl;
 	}
-	if (!_settingsTexture.loadFromFile("assets/images/settings.png")) {
+	if (!_settingsTexture.loadFromFile("assets/images/icons/settings.png")) {
 		cerr << "Error while loading the settingsTexture file." << endl;
 	}
-	if (!_customTexture.loadFromFile("assets/images/custom.png")) {
+	if (!_customTexture.loadFromFile("assets/images/icons/custom.png")) {
 		cerr << "Error while loading the customTexture file." << endl;
 	}
-	if (!_greenButtonHighlightedTexture.loadFromFile("assets/images/green_button_highlight.png")) {
+	if (!_greenButtonHighlightedTexture.loadFromFile("assets/images/buttons/green_button_highlight.png")) {
 		cerr << "Error while loading the buttonBackgroundTextureHighlighted2 file." << endl;
 	}
-	if (!_orangeButtonHighlightedTexture.loadFromFile("assets/images/orange_button_highlight.png")) {
+	if (!_orangeButtonHighlightedTexture.loadFromFile("assets/images/buttons/orange_button_highlight.png")) {
 		cerr << "Error while loading the buttonBackgroundTextureHighlighted2 file." << endl;
 	}
-	if (!_redButtonHighlightedTexture.loadFromFile("assets/images/red_button_highlighted.png")) {
+	if (!_redButtonHighlightedTexture.loadFromFile("assets/images/buttons/red_button_highlight.png")) {
 		cerr << "Error while loading the buttonBackgroundTextureHighlighted2 file." << endl;
 	}
 
@@ -167,8 +167,7 @@ void	MainMenu::display(sf::RenderWindow& window) {
 void	MainMenu::MoveUp() {
 	if (_selectedItemIndex == -1) {
 		_selectedItemIndex = 5;
-		_buttonBackground1.setTexture(_buttonBackgroundTextureHighlighted1);
-		_buttonBackground2.setTexture(_buttonBackgroundTextureHighlighted2);
+		_greenButton.setTexture(_greenButtonHighlightedTexture);
 	}
 	if (_selectedItemIndex - 1 >= 5) {
 		if (_selectedItemIndex == 6)
@@ -185,9 +184,8 @@ void	MainMenu::MoveUp() {
 
 void	MainMenu::MoveDown() {
 	if (_selectedItemIndex == -1) {
-		_selectedItemIndex = 5;
-		_buttonBackground1.setTexture(_buttonBackgroundTextureHighlighted1);
-		_buttonBackground2.setTexture(_buttonBackgroundTextureHighlighted2);		
+		_selectedItemIndex = 5;	
+		_greenButton.setTexture(_greenButtonHighlightedTexture);
 	}
 	if (_selectedItemIndex + 1 <= 7) {
 		if (_selectedItemIndex == 5)
@@ -230,27 +228,21 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &
 
 void MainMenu::handleMouseMovement(sf::Vector2i mousePos) {
  	if (_menu[5].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_buttonBackground1.setTexture(_buttonBackgroundTextureHighlighted1);
-		_buttonBackground2.setTexture(_buttonBackgroundTextureHighlighted2);
+		_greenButton.setTexture(_greenButtonHighlightedTexture);
 		_selectedItemIndex = 5;
 	}
 	else if (_menu[6].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_buttonBackground3.setTexture(_buttonBackgroundTextureHighlighted3);
-		_buttonBackground4.setTexture(_buttonBackgroundTextureHighlighted4);
+		_orangeButton.setTexture(_orangeButtonHighlightedTexture);
 		_selectedItemIndex = 6;
 	}
 	else if (_menu[7].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_buttonBackground5.setTexture(_buttonBackgroundTextureHighlighted5);
-		_buttonBackground6.setTexture(_buttonBackgroundTextureHighlighted6);
+		_redButton.setTexture(_redButtonHighlightedTexture);
 		_selectedItemIndex = 7;
 	}
 	else {
-		_buttonBackground1.setTexture(_buttonBackgroundTexture1);
-		_buttonBackground2.setTexture(_buttonBackgroundTexture2);
-		_buttonBackground3.setTexture(_buttonBackgroundTexture3);
-		_buttonBackground4.setTexture(_buttonBackgroundTexture4);
-		_buttonBackground5.setTexture(_buttonBackgroundTexture5);
-		_buttonBackground6.setTexture(_buttonBackgroundTexture6);
+		_greenButton.setTexture(_greenButtonTexture);
+		_orangeButton.setTexture(_orangeButtonTexture);
+		_redButton.setTexture(_redButtonTexture);
 		_selectedItemIndex = -1;
 	}
 }
