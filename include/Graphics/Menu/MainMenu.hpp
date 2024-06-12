@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 18:21:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/11 23:32:19 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:24:16 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ class MainMenu {
 		void	MoveUp();
 		void	MoveDown();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu);
+		void	handleMouseMovement(sf::Vector2i mousePos);
 };
