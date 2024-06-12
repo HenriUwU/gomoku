@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/12 14:22:21 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:02:21 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	}
 	if (!_blueButtonTexture.loadFromFile("assets/images/buttons/blue_button.png")) {
 		cerr << "Error while loading the blueSquareTextureBehind file." << endl;
+	}
+	if (!_blueButtonHighlightedTexture.loadFromFile("assets/images/buttons/blue_button_highlight.png")) {
+		cerr << "Error while loading the buttonBackgroundTextureHighlighted file." << endl;
 	}
 	if (!_helpTexture.loadFromFile("assets/images/icons/help.png")) {
 		cerr << "Error while loading the helpTexture file." << endl;
@@ -159,7 +162,7 @@ void	MainMenu::display(sf::RenderWindow& window) {
 	window.draw(_settings);
 	window.draw(_help);
 	
-	for (int i = 0; i < NB_MENU_ITEMS; i++) {
+	for (int i = 0; i < 9; i++) {
 		window.draw(_menu[i]);
 	}
 }
@@ -184,7 +187,7 @@ void	MainMenu::MoveUp() {
 
 void	MainMenu::MoveDown() {
 	if (_selectedItemIndex == -1) {
-		_selectedItemIndex = 5;	
+		_selectedItemIndex = 4;	
 		_greenButton.setTexture(_greenButtonHighlightedTexture);
 	}
 	if (_selectedItemIndex + 1 <= 7) {
@@ -222,27 +225,54 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &
 	if ((getSelectedItemIndex() == 7 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 		|| (getSelectedItemIndex() == 7 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
 		window.close();
+	if ((getSelectedItemIndex() == 8 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+		|| (getSelectedItemIndex() == 8 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
+		cout << "Customisation" << endl;
+	}
+	if ((getSelectedItemIndex() == 9 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+		|| (getSelectedItemIndex() == 9 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
+		cout << "Settings" << endl;
+	}
+	if ((getSelectedItemIndex() == 10 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+		|| (getSelectedItemIndex() == 10 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
+		cout << "Help" << endl;
+	}
 	if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape))
 		window.close();
 }
 
 void MainMenu::handleMouseMovement(sf::Vector2i mousePos) {
- 	if (_menu[5].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+ 	if (_greenButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_greenButton.setTexture(_greenButtonHighlightedTexture);
 		_selectedItemIndex = 5;
 	}
-	else if (_menu[6].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	else if (_orangeButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_orangeButton.setTexture(_orangeButtonHighlightedTexture);
 		_selectedItemIndex = 6;
 	}
-	else if (_menu[7].getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	else if (_redButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_redButton.setTexture(_redButtonHighlightedTexture);
 		_selectedItemIndex = 7;
+	}
+	else if (_blueButtonCustom.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_blueButtonCustom.setTexture(_blueButtonHighlightedTexture);
+		_selectedItemIndex = 8;
+	}
+	else if (_blueButtonSettings.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_blueButtonSettings.setTexture(_blueButtonHighlightedTexture);
+		_selectedItemIndex = 9;
+	}
+	else if (_blueButtonHelp.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_blueButtonHelp.setTexture(_blueButtonHighlightedTexture);
+		_selectedItemIndex = 10;
 	}
 	else {
 		_greenButton.setTexture(_greenButtonTexture);
 		_orangeButton.setTexture(_orangeButtonTexture);
 		_redButton.setTexture(_redButtonTexture);
+		_blueButtonCustom.setTexture(_blueButtonTexture);
+		_blueButtonSettings.setTexture(_blueButtonTexture);
+		_blueButtonHelp.setTexture(_blueButtonTexture);
 		_selectedItemIndex = -1;
 	}
 }

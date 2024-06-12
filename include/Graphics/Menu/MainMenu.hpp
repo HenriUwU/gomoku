@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/12 14:15:27 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:39:09 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "gomoku.hpp"
 #include "Goban.hpp"
 
-#define NB_MENU_ITEMS 9
+#define NB_MENU_ITEMS 12
 
 class MainMenu {
 	private:
@@ -29,6 +29,7 @@ class MainMenu {
 		sf::Texture					_greenButtonHighlightedTexture;
 		sf::Texture					_orangeButtonHighlightedTexture;
 		sf::Texture					_redButtonHighlightedTexture;
+		sf::Texture					_blueButtonHighlightedTexture;
 		sf::Texture					_blueButtonTexture;
 		sf::Texture					_helpTexture;
 		sf::Texture					_settingsTexture;
