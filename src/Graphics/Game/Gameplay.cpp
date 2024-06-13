@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/13 16:30:33 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:53:13 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {
 		}
 	}
 	_currentPlayer = 1;
+	
+	if (!_blackStoneTexture.loadFromFile("assets/images/stones/black.png"))
+		cerr << "Error while loading the blackStoneTexture file." << endl;
+	if (!_whiteStoneTexture.loadFromFile("assets/images/stones/white.png"))
+		cerr << "Error while loading the whiteStoneTexture file." << endl;
 }
 
 Gameplay::~Gameplay() {}
@@ -39,24 +44,16 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 	// Draw the circle following the mouse if the mouse is on the grid
 	if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
 		sf::Vector2f nearestIntersection(_gridStartPoint.first + xIndex * _cellSize, _gridStartPoint.second + yIndex * _cellSize);
-		sf::CircleShape circle(13.f);
-
-		sf::Color circleOutlineColor(182, 143, 64);
-		sf::Color firstPlayerColor(138, 203, 136);
-		sf::Color secondPlayerColor(254, 74, 73);
-
-		circle.setOutlineColor(circleOutlineColor);
-		circle.setOutlineThickness(2);
 		
-		if (_currentPlayer == 1) {
-			circle.setFillColor(firstPlayerColor);
-		}
-		else {
-			circle.setFillColor(secondPlayerColor);
-		}
-		circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
-		window.draw(circle);
+		if (_currentPlayer == 1)
+			_stoneSprite.setTexture(_blackStoneTexture);
+		else
+			_stoneSprite.setTexture(_whiteStoneTexture);
+		
+		_stoneSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+		window.draw(_stoneSprite);
 	}
+	
 	char xCoord = 'A' + static_cast<int>(xIndex);
 	int yCoord = 19 - static_cast<int>(yIndex);
 	string position = string(1, xCoord) + to_string(yCoord);

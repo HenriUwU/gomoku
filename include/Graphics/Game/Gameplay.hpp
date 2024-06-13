@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/11 13:14:43 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:50:23 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 
 class Gameplay : public Graphics {
 	private:
-		int										_currentPlayer;
-		std::map<std::string, int>				_playerPositions;
-		std::map<int, int>						_catchedStones; // Key = player, value = number
+		int							_currentPlayer;
+		std::map<std::string, int>	_playerPositions;
+		std::map<int, int>			_catchedStones; // Key = player, value = number
+		
+		sf::Texture					_blackStoneTexture;
+		sf::Texture					_whiteStoneTexture;
+		sf::Sprite					_stoneSprite;
 
 	public:
 		Gameplay(sf::RenderWindow &window);

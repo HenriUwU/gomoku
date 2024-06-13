@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Goban.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/13 16:36:30 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:19:34 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void	Goban::drawPlayerPositions(sf::RenderWindow &window, map<string, int> playe
 			sf::Vector2f nearestIntersection(_gridStartPoint.first + xIndex * _cellSize, _gridStartPoint.second + yIndex * _cellSize);
 			sf::CircleShape playerCircle(13.f);
 
-			sf::Color firstPlayerColor(138, 203, 136);
-			sf::Color secondPlayerColor(254, 74, 73);
+			sf::Color firstPlayerColor(0, 0, 0);
+			sf::Color secondPlayerColor(255, 255, 255);
 
 			if (playerId == 1) {
 				playerCircle.setFillColor(firstPlayerColor);
