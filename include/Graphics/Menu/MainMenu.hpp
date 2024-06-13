@@ -62,7 +62,7 @@ class MainMenu {
 		void	MoveDown();
 		void	MoveLeft();
 		void	MoveRight();
-		void	handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu);
+		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 		void	handleMouseMovement(sf::Vector2i mousePos);
 		void	helpPage(sf::RenderWindow &window);
 };

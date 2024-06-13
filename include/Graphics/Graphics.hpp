@@ -29,12 +29,13 @@ class Graphics {
 		sf::Texture							    _avatar4;
 		sf::Texture							    _avatar5;
 		sf::Texture							    _avatar6;
+		sf::Texture							    _returnArrowTexture;
+		sf::Texture							    _returnArrowHighlightTexture;
 		sf::Sprite								_firstPlayerAvatar;
 		sf::Sprite								_secondPlayerAvatar;
+		sf::Sprite								_returnArrow;
 
 	public:
 		Graphics(sf::RenderWindow &window);
 		virtual ~Graphics();
-
-		// std::string	getCoordinates(float x, float y);
 };

@@ -22,4 +22,5 @@ class Goban : public Graphics {
 		void	display(sf::RenderWindow &window);
 		void	drawPlayerPositions(sf::RenderWindow &window, std::map<std::string, int> playerPositions);
 		void	scoreTable(int player, sf::RenderWindow &window);
+		void	returnButton(sf::Event &event, sf::RenderWindow &window);
 };

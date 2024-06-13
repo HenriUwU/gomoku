@@ -46,9 +46,12 @@ Graphics::Graphics(sf::RenderWindow &window) {
 	if (!_avatar6.loadFromFile("assets/images/avatars/woman_face.png")) {
 		cerr << "Error: could not load avatar6 texture" << endl;
 	}
-
-	
-	
+	if (!_returnArrowTexture.loadFromFile("assets/images/buttons/return_arrow.png")) {
+		return ;
+	}
+	if (!_returnArrowHighlightTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png")) {
+		return ;
+	}
 }
 
 Graphics::~Graphics() {}

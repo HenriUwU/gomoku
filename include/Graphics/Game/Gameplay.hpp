@@ -24,6 +24,7 @@ class Gameplay : public Graphics {
 		Gameplay(sf::RenderWindow &window);
 		~Gameplay();
 
+		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 		void	drawPlayerPositions(sf::RenderWindow& window);
 		void	circleFollowMouse(sf::RenderWindow &window, sf::Event &event);
 		void	placeStone(std::string position, sf::RenderWindow &window);

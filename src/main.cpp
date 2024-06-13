@@ -20,6 +20,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");
 	MainMenu mainMenu(window.getSize().x, window.getSize().y, window);
 	Gameplay gameplay(window);
+	Goban goban(window);
 	sf::Texture cursorTexture;
 	sf::Sprite cursor;
 
@@ -34,7 +35,8 @@ int main() {
 	{
 		sf::Event event;
 		while (window.pollEvent(event)) {
-			mainMenu.handleKeys(event, window, mainMenu);
+			mainMenu.handleKeys(event, window);
+			gameplay.handleKeys(event, window);
 		}   
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		cursor.setPosition(mousePos.x, mousePos.y);
@@ -42,7 +44,8 @@ int main() {
 			mainMenu.display(window);
 		}
 		else if (displayGame == true) {
-			gameplay.circleFollowMouse(window, event);
+			goban.display(window);
+			goban.returnButton(event, window);
 		}
 		else if (displayHelp == true) {
 			mainMenu.helpPage(window);
