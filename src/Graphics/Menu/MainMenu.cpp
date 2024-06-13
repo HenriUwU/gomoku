@@ -236,11 +236,11 @@ void	MainMenu::MoveRight() {
 	}
 }
 
-void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu) {
+void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 	if (displayMenu == true) {
 		if (event.type == sf::Event::MouseMoved) {
 			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-			mainMenu.handleMouseMovement(mousePos);
+			handleMouseMovement(mousePos);
 		}
 		if (event.type == sf::Event::KeyReleased) {
 			if (event.key.code == sf::Keyboard::Up)

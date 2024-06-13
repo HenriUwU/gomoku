@@ -72,6 +72,15 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 	window.display();
 }
 
+void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
+	Goban goban(window);
+
+	(void)event;
+	if (displayGame == true) {
+
+	}
+}
+
 void	Gameplay::placeStone(string position, sf::RenderWindow& window) {
 	if (_playerPositions[position] != 0)
 		return;

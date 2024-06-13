@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 13:53:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/13 19:13:44 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/13 19:20:38 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ Graphics::Graphics(sf::RenderWindow &window) {
 		cerr << "Error while loading the 'wink.png' file." << endl;
 	if (!_laureAvatarTexture.loadFromFile("assets/images/avatars/laure.png"))
 		cerr << "Error while loading the 'woman.png' file." << endl;
+	if (!_returnArrowTexture.loadFromFile("assets/images/buttons/return_arrow.png")) {
+		return ;
+	}
+	if (!_returnArrowHighlightTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png")) {
+		return ;
+	}
 }
 
 Graphics::~Graphics() {}
