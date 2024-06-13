@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/13 15:02:38 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:22:22 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,7 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &
 		|| (getSelectedItemIndex() == 5 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
 		displayMenu = false;
 		displayGame = true;
+		_selectedItemIndex = -1;
 	}
 	if ((getSelectedItemIndex() == 6 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 		|| (getSelectedItemIndex() == 6 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/13 14:25:50 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:47:48 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ bool displayHelp = false;
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");
 	MainMenu mainMenu(window.getSize().x, window.getSize().y, window);
-	Gameplay gameplay(window);;
+	Gameplay gameplay(window);
 	sf::Texture cursorTexture;
+	sf::Sprite cursor;
+
 	if (!cursorTexture.loadFromFile("assets/images/icons/cursor.png")) {
 		std::cerr << "Error: could not load cursor texture" << std::endl;
 		return 1;
 	}
-	sf::Sprite cursor;
 	cursor.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
 

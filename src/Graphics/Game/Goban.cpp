@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Goban.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/11 12:43:25 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:36:30 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,92 +19,63 @@ Goban::Goban(sf::RenderWindow &window) : Graphics(window) {}
 Goban::~Goban() {}
 
 void Goban::display(sf::RenderWindow &window) {
-    sf::Color gobanBackgroundColor(84, 84, 84);
-	sf::Color backgroundColor(48, 1, 30);
+	sf::RectangleShape	background(sf::Vector2f(_windowWidth, _windowHeight));
+	sf::Texture			returnArrowTexture;
+	sf::Texture 		gobanTexture;
+	sf::Sprite			goban;
+	sf::Sprite			returnArrow;
+	sf::Text			backToMenu("Back to menu", _exo2Italic, 20);
+	sf::Text			player1("Player 1", _exo2Italic, 85);
+	sf::Text			player2("Player 2", _exo2Italic, 85);
+	sf::Text			capturedStones("Captured stones:", _exo2Italic, 22);
+	sf::Text			capturedStones2("Captured stones:", _exo2Italic, 22);
+	sf::Text			totalTimer("Total play time:", _exo2Italic, 22);
+	sf::Text			totalTimer2("Total play time:", _exo2Italic, 22);
+	sf::Text			lastMoveTimer("Last move time:", _exo2Italic, 22);
+	sf::Text			lastMoveTimer2("Last move time:", _exo2Italic, 22);
 	
-	// Draw the background
-	sf::RectangleShape background(sf::Vector2f(_windowWidth, _windowHeight));
-	background.setFillColor(backgroundColor);
+	if (!gobanTexture.loadFromFile("assets/images/icons/Goban.png")) {
+		return ;
+	}
+	if (!returnArrowTexture.loadFromFile("assets/images/buttons/return_arrow.png")) {
+		return ;
+	}
+	background.setFillColor(sf::Color(38, 1, 69));
+
+	goban.setTexture(gobanTexture);
+	returnArrow.setTexture(returnArrowTexture);
+	_firstPlayerAvatar.setTexture(_avatar1);
+	_secondPlayerAvatar.setTexture(_avatar2);
+	
 	background.setPosition(0, 0);
-	window.draw(background);
+	returnArrow.setPosition(34, 34);
+	backToMenu.setPosition(114, 54);
+	goban.setPosition(477, 0);
+	player1.setPosition(72, 445);
+	player2.setPosition(1509, 445);
+	capturedStones.setPosition(138, 575);
+	capturedStones2.setPosition(1580, 575);
+	totalTimer.setPosition(138, 605);
+	totalTimer2.setPosition(1580, 605);
+	lastMoveTimer.setPosition(138, 635);
+	lastMoveTimer2.setPosition(1580, 635);
+	_firstPlayerAvatar.setPosition(167, 278);
+	_secondPlayerAvatar.setPosition(1607, 278);
 	
-    // Draw the goban background
-    sf::RectangleShape gobanBackground(sf::Vector2f(_gridSize + 20, _gridSize + 20));
-    gobanBackground.setPosition(_gridStartPoint.first - 10, _gridStartPoint.second - 10);
-    gobanBackground.setFillColor(gobanBackgroundColor);
-    window.draw(gobanBackground);
-
-    // Display the grid
-	sf::Color linecolor(242, 244, 243);
-    for (int i = 0; i < 19; i++) {
-        sf::Vertex verticalLine[] =
-        {
-            sf::Vertex(sf::Vector2f((_gridSize / 18) * i + _gridStartPoint.first, _gridStartPoint.second), linecolor),
-            sf::Vertex(sf::Vector2f((_gridSize / 18) * i + _gridStartPoint.first, _gridStartPoint.second + _gridSize), linecolor)
-        };
-
-        sf::Vertex horizontalLine[] =
-        {
-            sf::Vertex(sf::Vector2f(_gridStartPoint.first, (_gridSize / 18) * i + _gridStartPoint.second), linecolor),
-            sf::Vertex(sf::Vector2f(_gridStartPoint.first + _gridSize, (_gridSize / 18) * i + _gridStartPoint.second), linecolor)
-        };
-
-        window.draw(verticalLine, 2, sf::Lines);
-        window.draw(horizontalLine, 2, sf::Lines);
-    }
-
-	sf::Font font;
-	sf::Font playerFont;
-
-	if (!font.loadFromFile("assets/fonts/arial.ttf")) {
-		return;
-	}
-
-	if (!playerFont.loadFromFile("assets/fonts/ChunkFive-Regular.otf")) {
-		return;
-	}
-
-	sf::Text	player1("Player 1", playerFont, 25);
-	sf::Text	player2("Player 2", playerFont, 25);
-	sf::Color	playerColor(182, 204, 161);
-
-	player1.setPosition(200, 10);
-	player2.setPosition(1920 - 300, 10);
-	player1.setFillColor(playerColor);
-	player2.setFillColor(playerColor);
-
+	window.draw(background);
+	window.draw(backToMenu);
+	window.draw(returnArrow);
+	window.draw(goban);
 	window.draw(player1);
 	window.draw(player2);
-
-	sf::Color coordinatesColor(182, 204, 161);
-
-	for (int i = 1; i < 20; i++) {
-		string number = to_string(i);
-		string letter(1, '@' + i);
-
-		sf::Text xIndexBottom(letter, font, 13);
-		sf::Text yIndexLeft(number, font, 13);
-		sf::Text xIndexTop(letter, font, 13);
-		sf::Text yIndexRight(number, font, 13);
-
-		xIndexBottom.setFillColor(coordinatesColor);
-		yIndexLeft.setFillColor(coordinatesColor);
-		xIndexTop.setFillColor(coordinatesColor);
-		yIndexRight.setFillColor(coordinatesColor);
-
-		// Bottom and left coordinates
-		xIndexBottom.setPosition((_windowWidth - _gridSize) / 2 + _cellSize * i - _cellSize - 7, _gridSize + 45);
-		yIndexLeft.setPosition((_windowWidth - _gridSize) / 2 - 40, _gridSize - _cellSize * i + _cellSize + 25);
-
-		// Top and right coordinates
-		xIndexTop.setPosition((_windowWidth - _gridSize) / 2 + _cellSize * i - _cellSize - 7, _gridStartPoint.second - 30);
-		yIndexRight.setPosition((_windowWidth - _gridSize) / 2 + _gridSize + 10, _gridSize - _cellSize * i + _cellSize + 25);
-
-		window.draw(xIndexBottom);
-		window.draw(yIndexLeft);
-		window.draw(xIndexTop);
-		window.draw(yIndexRight);
-	}
+	window.draw(capturedStones);
+	window.draw(capturedStones2);
+	window.draw(totalTimer);
+	window.draw(totalTimer2);
+	window.draw(lastMoveTimer);
+	window.draw(lastMoveTimer2);
+	window.draw(_firstPlayerAvatar);
+	window.draw(_secondPlayerAvatar);
 }
 
 void	Goban::drawPlayerPositions(sf::RenderWindow &window, map<string, int> playerPositions) {

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/11 14:00:00 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:30:33 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	float xIndex = round((mousePosition.x - _gridStartPoint.first) / _cellSize);
 	float yIndex = round((mousePosition.y - _gridStartPoint.second) / _cellSize);
+	Goban goban(window);
 
 	window.clear();
-	Goban goban(window);
 	goban.display(window);
-	Debug::init(window);
 	
 	// Draw the circle following the mouse if the mouse is on the grid
 	if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
@@ -58,11 +57,9 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 		circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
 		window.draw(circle);
 	}
-	Debug::currentPlayer(window, _currentPlayer);
 	char xCoord = 'A' + static_cast<int>(xIndex);
 	int yCoord = 19 - static_cast<int>(yIndex);
 	string position = string(1, xCoord) + to_string(yCoord);
-	Debug::currentPos(window, position);
 
 	// Place the stone on the grid if left mouse button is pressed
 	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
