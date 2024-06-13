@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/12 15:21:04 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:02:38 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
 	}
 	if (!_redButtonHighlightedTexture.loadFromFile("assets/images/buttons/red_button_highlight.png")) {
 		cerr << "Error while loading the buttonBackgroundTextureHighlighted2 file." << endl;
+	}
+	if (!_arrowTexture.loadFromFile("assets/images/buttons/return_arrow.png")) {
+		cerr << "Error while loading the returnArrowTexture file." << endl;
+	}
+	if (!_arrowTextureHighlighted.loadFromFile("assets/images/buttons/return_arrow_highlight.png")) {
+		cerr << "Error while loading the returnArrowTextureHighlighted file." << endl;
 	}
 
 	_greenButton.setTexture(_greenButtonTexture);
@@ -247,19 +253,21 @@ void	MainMenu::MoveRight() {
 }
 
 void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu) {
-	if (event.type == sf::Event::MouseMoved) {
-		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-		mainMenu.handleMouseMovement(mousePos);
-	}
-	if (event.type == sf::Event::KeyReleased) {
-		if (event.key.code == sf::Keyboard::Up)
-			MoveUp();
-		if (event.key.code == sf::Keyboard::Down)
-			MoveDown();
-		if (event.key.code == sf::Keyboard::Left)
-			MoveLeft();
-		if (event.key.code == sf::Keyboard::Right)
-			MoveRight();
+	if (displayMenu == true) {
+		if (event.type == sf::Event::MouseMoved) {
+			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+			mainMenu.handleMouseMovement(mousePos);
+		}
+		if (event.type == sf::Event::KeyReleased) {
+			if (event.key.code == sf::Keyboard::Up)
+				MoveUp();
+			if (event.key.code == sf::Keyboard::Down)
+				MoveDown();
+			if (event.key.code == sf::Keyboard::Left)
+				MoveLeft();
+			if (event.key.code == sf::Keyboard::Right)
+				MoveRight();
+		}
 	}
 	if ((getSelectedItemIndex() == 5 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 		|| (getSelectedItemIndex() == 5 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
@@ -282,7 +290,9 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &
 	}
 	if ((getSelectedItemIndex() == 10 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 		|| (getSelectedItemIndex() == 10 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-		cout << "Help" << endl;
+		displayMenu = false;
+		displayHelp = true;
+		_selectedItemIndex = -1;
 	}
 	if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape))
 		window.close();

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/12 15:11:33 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:00:48 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ class MainMenu {
 		sf::Texture					_helpTexture;
 		sf::Texture					_settingsTexture;
 		sf::Texture					_customTexture;
+		sf::Texture					_arrowTexture;
+		sf::Texture					_arrowTextureHighlighted;
 		sf::Sprite					_greenButton;
 		sf::Sprite					_orangeButton;
 		sf::Sprite					_redButton;
@@ -46,6 +48,8 @@ class MainMenu {
 		sf::Sprite					_help;
 		sf::Sprite					_settings;
 		sf::Sprite					_custom;
+		sf::Sprite					_returnArrow;
+		sf::Sprite					_nextPageArrow;
 
 	public:
 		MainMenu(float width, float height, sf::RenderWindow &window);
@@ -60,4 +64,5 @@ class MainMenu {
 		void	MoveRight();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window, MainMenu &mainMenu);
 		void	handleMouseMovement(sf::Vector2i mousePos);
+		void	helpPage(sf::RenderWindow &window);
 };
