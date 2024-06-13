@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/13 17:19:34 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/13 19:14:12 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void Goban::display(sf::RenderWindow &window) {
 	sf::Texture 		gobanTexture;
 	sf::Sprite			goban;
 	sf::Sprite			returnArrow;
-	sf::Text			backToMenu("Back to menu", _exo2Italic, 20);
-	sf::Text			player1("Player 1", _exo2Italic, 85);
-	sf::Text			player2("Player 2", _exo2Italic, 85);
-	sf::Text			capturedStones("Captured stones:", _exo2Italic, 22);
-	sf::Text			capturedStones2("Captured stones:", _exo2Italic, 22);
-	sf::Text			totalTimer("Total play time:", _exo2Italic, 22);
-	sf::Text			totalTimer2("Total play time:", _exo2Italic, 22);
-	sf::Text			lastMoveTimer("Last move time:", _exo2Italic, 22);
-	sf::Text			lastMoveTimer2("Last move time:", _exo2Italic, 22);
+	sf::Text			backToMenu("Back to menu", _ex02BlackItalicFont, 20);
+	sf::Text			player1("Player 1", _ex02BlackItalicFont, 85);
+	sf::Text			player2("Player 2", _ex02BlackItalicFont, 85);
+	sf::Text			capturedStones("Captured stones:", _ex02BlackItalicFont, 22);
+	sf::Text			capturedStones2("Captured stones:", _ex02BlackItalicFont, 22);
+	sf::Text			totalTimer("Total play time:", _ex02BlackItalicFont, 22);
+	sf::Text			totalTimer2("Total play time:", _ex02BlackItalicFont, 22);
+	sf::Text			lastMoveTimer("Last move time:", _ex02BlackItalicFont, 22);
+	sf::Text			lastMoveTimer2("Last move time:", _ex02BlackItalicFont, 22);
 	
 	if (!gobanTexture.loadFromFile("assets/images/icons/Goban.png")) {
 		return ;
@@ -44,8 +44,8 @@ void Goban::display(sf::RenderWindow &window) {
 
 	goban.setTexture(gobanTexture);
 	returnArrow.setTexture(returnArrowTexture);
-	_firstPlayerAvatar.setTexture(_avatar1);
-	_secondPlayerAvatar.setTexture(_avatar2);
+	_firstPlayerAvatar.setTexture(_lanceAvatarTexture);
+	_secondPlayerAvatar.setTexture(_hericAvatarTexture);
 	
 	background.setPosition(0, 0);
 	returnArrow.setPosition(34, 34);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/13 15:00:48 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:30:59 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,40 @@
 class MainMenu {
 	private:
 		int							_selectedItemIndex;
-		sf::Font					_gomokuFont;
-		sf::Font					_menuFont;
-		sf::Text					_menu[NB_MENU_ITEMS];
+		// Fonts
+		sf::Font					_exo2BlackFont;
+		sf::Font					_ex02BlackItalicFont;
+		// Texts
+		sf::Text					_menuText[NB_MENU_ITEMS];
+		// Textures
 		sf::Texture					_greenButtonTexture;
 		sf::Texture					_orangeButtonTexture;
 		sf::Texture					_redButtonTexture;
+		sf::Texture					_blueButtonTexture;
 		sf::Texture					_greenButtonHighlightedTexture;
 		sf::Texture					_orangeButtonHighlightedTexture;
 		sf::Texture					_redButtonHighlightedTexture;
 		sf::Texture					_blueButtonHighlightedTexture;
-		sf::Texture					_blueButtonTexture;
-		sf::Texture					_helpTexture;
-		sf::Texture					_settingsTexture;
-		sf::Texture					_customTexture;
-		sf::Texture					_arrowTexture;
-		sf::Texture					_arrowTextureHighlighted;
-		sf::Sprite					_greenButton;
-		sf::Sprite					_orangeButton;
-		sf::Sprite					_redButton;
-		sf::Sprite					_greenButtonHighlighted;
-		sf::Sprite					_orangeButtonHighlighted;
-		sf::Sprite					_redButtonHighlighted;
-		sf::Sprite					_blueButtonCustom;
-		sf::Sprite					_blueButtonSettings;
-		sf::Sprite					_blueButtonHelp;
-		sf::Sprite					_help;
-		sf::Sprite					_settings;
-		sf::Sprite					_custom;
-		sf::Sprite					_returnArrow;
-		sf::Sprite					_nextPageArrow;
+		sf::Texture					_customIconTexture;
+		sf::Texture					_settingsIconTexture;
+		sf::Texture					_helpIconTexture;
+		sf::Texture					_arrowIconTexture;
+		sf::Texture					_arrowIconHighlightedTexture;
+		// Sprites
+		sf::Sprite					_greenButtonSprite;
+		sf::Sprite					_orangeButtonSprite;
+		sf::Sprite					_redButtonSprite;
+		sf::Sprite					_greenButtonHighlightedSprite;
+		sf::Sprite					_orangeButtonHighlightedSprite;
+		sf::Sprite					_redButtonHighlightedSprite;
+		sf::Sprite					_blueButtonCustomSprite;
+		sf::Sprite					_blueButtonSettingsSprite;
+		sf::Sprite					_blueButtonHelpSprite;
+		sf::Sprite					_customIconSprite;
+		sf::Sprite					_settingsIconSprite;
+		sf::Sprite					_helpIconSprite;
+		sf::Sprite					_leftArrowIconSprite;
+		sf::Sprite					_rightArrowIconSprite;
 
 	public:
 		MainMenu(float width, float height, sf::RenderWindow &window);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   HelpPage.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/13 15:33:33 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:34:14 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MainMenu.hpp"
 
-static void	helpPageOne(sf::Font _gomokuFont, sf::Font _menuFont, sf::RenderWindow &window) {
+static void	helpPageOne(sf::Font _exo2BlackFont, sf::Font _ex02BlackItalicFont, sf::RenderWindow &window) {
 	sf::Text	rules;
 	sf::Text	gobanSizeExplanation;
 	sf::Text	howToPlay;
@@ -27,12 +27,12 @@ static void	helpPageOne(sf::Font _gomokuFont, sf::Font _menuFont, sf::RenderWind
 	nextPage.setString("Next page");
 	backToMenu.setString("Back to menu");
 	
-	rules.setFont(_gomokuFont);
-	gobanSizeExplanation.setFont(_menuFont);
-	howToPlay.setFont(_gomokuFont);
-	howToPlayExplanation.setFont(_menuFont);
-	nextPage.setFont(_menuFont);
-	backToMenu.setFont(_menuFont);
+	rules.setFont(_exo2BlackFont);
+	gobanSizeExplanation.setFont(_ex02BlackItalicFont);
+	howToPlay.setFont(_exo2BlackFont);
+	howToPlayExplanation.setFont(_ex02BlackItalicFont);
+	nextPage.setFont(_ex02BlackItalicFont);
+	backToMenu.setFont(_ex02BlackItalicFont);
 
 	rules.setCharacterSize(125);
 	gobanSizeExplanation.setCharacterSize(35);
@@ -66,32 +66,32 @@ static void	helpPageOne(sf::Font _gomokuFont, sf::Font _menuFont, sf::RenderWind
 void	MainMenu::helpPage(sf::RenderWindow &window) {
 	int	page = 1;
 
-	_returnArrow.setTexture(_arrowTexture);
-	_nextPageArrow.setTexture(_arrowTexture);
-	_nextPageArrow.setRotation(180);
-	_returnArrow.setPosition(54, 54);
-	_nextPageArrow.setPosition(1866, 900);
+	_leftArrowIconSprite.setTexture(_arrowIconTexture);
+	_rightArrowIconSprite.setTexture(_arrowIconTexture);
+	_rightArrowIconSprite.setRotation(180);
+	_leftArrowIconSprite.setPosition(54, 54);
+	_rightArrowIconSprite.setPosition(1866, 900);
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
 	window.clear(sf::Color(38, 1, 69));
-	if (_returnArrow.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_returnArrow.setTexture(_arrowTextureHighlighted);
+	if (_leftArrowIconSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_leftArrowIconSprite.setTexture(_arrowIconHighlightedTexture);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			displayHelp = false;
 			displayMenu = true;
 		}
 	}
-	else if (_nextPageArrow.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_nextPageArrow.setTexture(_arrowTextureHighlighted);
+	else if (_rightArrowIconSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_rightArrowIconSprite.setTexture(_arrowIconHighlightedTexture);
 	}
 	else {
-		_returnArrow.setTexture(_arrowTexture);
-		_nextPageArrow.setTexture(_arrowTexture);
+		_leftArrowIconSprite.setTexture(_arrowIconTexture);
+		_rightArrowIconSprite.setTexture(_arrowIconTexture);
 	}
 
 	if (page == 1)
-		helpPageOne(_gomokuFont, _menuFont, window);
+		helpPageOne(_exo2BlackFont, _ex02BlackItalicFont, window);
 
-	window.draw(_returnArrow);
-	window.draw(_nextPageArrow);
+	window.draw(_leftArrowIconSprite);
+	window.draw(_rightArrowIconSprite);
 }
