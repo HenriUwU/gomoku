@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/13 16:30:33 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:20:04 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 		sf::CircleShape circle(13.f);
 
 		sf::Color circleOutlineColor(182, 143, 64);
-		sf::Color firstPlayerColor(138, 203, 136);
-		sf::Color secondPlayerColor(254, 74, 73);
+		sf::Color firstPlayerColor(0, 0, 0);
+		sf::Color secondPlayerColor(255, 255, 255);
 
 		circle.setOutlineColor(circleOutlineColor);
 		circle.setOutlineThickness(2);
