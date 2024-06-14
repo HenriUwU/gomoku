@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/13 17:53:13 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:04:47 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,10 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 }
 
 void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
-	Goban goban(window);
-
+	(void)window;
 	(void)event;
-	if (displayGame == true) {
 
+	if (displayGame == true) {
 	}
 }
 
