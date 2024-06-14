@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HelpPage.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/13 18:34:14 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:00:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ void	MainMenu::helpPage(sf::RenderWindow &window) {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
 	window.clear(sf::Color(38, 1, 69));
+
 	if (_leftArrowIconSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_leftArrowIconSprite.setTexture(_arrowIconHighlightedTexture);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			displayHelp = false;
-			displayMenu = true;
+			gameState = MENU;
 		}
 	}
 	else if (_rightArrowIconSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {

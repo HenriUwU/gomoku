@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 11:15:25 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:01:06 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ void	MainMenu::MoveRight() {
 }
 
 void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
-	if (displayMenu == true) {
+	if (gameState == MENU) {
 		if (event.type == sf::Event::MouseMoved) {
 			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 			handleMouseMovement(mousePos);
@@ -254,28 +254,30 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 		}
 		if ((getSelectedItemIndex() == 5 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 			|| (getSelectedItemIndex() == 5 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			displayMenu = false;
-			displayGame = true;
+			gameState = GAME;
 			_selectedItemIndex = -1;
 		}
 		if ((getSelectedItemIndex() == 6 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
-			|| (getSelectedItemIndex() == 6 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
-			cout << "Player vs AI" << endl;
+			|| (getSelectedItemIndex() == 6 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
+			gameState = VS_IA;
+			_selectedItemIndex = -1;		
+		}
 		if ((getSelectedItemIndex() == 7 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 			|| (getSelectedItemIndex() == 7 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
 			window.close();
 		if ((getSelectedItemIndex() == 8 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 			|| (getSelectedItemIndex() == 8 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			cout << "Customisation" << endl;
+			gameState = CUSTOM;
+			_selectedItemIndex = -1;
 		}
 		if ((getSelectedItemIndex() == 9 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 			|| (getSelectedItemIndex() == 9 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			cout << "Settings" << endl;
+			gameState = SETTINGS;
+			_selectedItemIndex = -1;
 		}
 		if ((getSelectedItemIndex() == 10 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 			|| (getSelectedItemIndex() == 10 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			displayMenu = false;
-			displayHelp = true;
+			gameState = HELP;
 			_selectedItemIndex = -1;
 		}
 	}

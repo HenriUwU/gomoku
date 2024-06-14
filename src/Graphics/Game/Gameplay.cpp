@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 12:06:29 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:46:32 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {
 		}
 	}
 	_currentPlayer = 1;
-	_gridPosition = sf::Vector2f(525, 48);
+	_gridPosition = sf::Vector2f(524, 48);
 	_gridSize = 937;
 	_cellSize = _gridSize / 19.4f;
 	
@@ -43,13 +43,12 @@ void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
 	(void)window;
 	(void)event;
 
-	if (displayGame == true) {
-		mouseHover(window, event);
+	if (gameState == GAME) {
+		//mouseHover(window, event);
 	}
 }
 
-void Gameplay::mouseHover(sf::RenderWindow& window, sf::Event& event) {
-	(void)event;
+void Gameplay::mouseHover(sf::RenderWindow& window) {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
 
@@ -113,7 +112,7 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 		}
 	}
 	// checkStatus(_currentPlayer);
-	if (displayGame) {
+	if (gameState == GAME) {
 		goban.drawPlayerPositions(window, _playerPositions);
 	}
 	window.display();
@@ -129,7 +128,6 @@ void	Gameplay::placeStone(string position, sf::RenderWindow& window) {
 
 	if (isWinningMove(position)) {
 		Goban goban(window);
-		displayGame = false;
 	}
 
 	if (_currentPlayer == 1)

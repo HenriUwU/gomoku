@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 11:26:37 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:23:35 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ void Goban::returnButton(sf::Event &event, sf::RenderWindow &window) {
     }
     if (event.type == sf::Event::MouseButtonPressed) {
         if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
-            displayMenu = true;
-            displayGame = false;
+			gameState = MENU;
         }
     }
 }

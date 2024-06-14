@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/13 14:26:27 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:20:20 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 #include "Goban.hpp"
 #include "Debug.hpp"
 
-extern bool	displayMenu;
-extern bool	displayGame;
-extern bool	displayHelp;
+typedef enum {
+	MENU,
+	GAME,
+	VS_IA,
+	CUSTOM,
+	HELP,
+	SETTINGS,
+} GameState;
+
+extern GameState	gameState;
