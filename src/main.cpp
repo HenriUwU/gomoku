@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/14 11:03:01 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:53:20 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int main() {
 		while (window.pollEvent(event)) {
 			mainMenu.handleKeys(event, window);
 			gameplay.handleKeys(event, window);
+			if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape))
+				window.close();
 		}   
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		cursor.setPosition(mousePos.x, mousePos.y);
@@ -44,8 +46,8 @@ int main() {
 			mainMenu.display(window);
 		}
 		else if (displayGame == true) {
-			goban.display(window);
-			goban.returnButton(event, window);
+			goban.display(event, window);
+			gameplay.mouseHover(window, event);
 		}
 		else if (displayHelp == true) {
 			mainMenu.helpPage(window);

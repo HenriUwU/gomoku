@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 11:04:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:06:29 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,70 @@ Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {
 		}
 	}
 	_currentPlayer = 1;
+	_gridPosition = sf::Vector2f(525, 48);
+	_gridSize = 937;
+	_cellSize = _gridSize / 19.4f;
+	
 	
 	if (!_blackStoneTexture.loadFromFile("assets/images/stones/black.png"))
 		cerr << "Error while loading the blackStoneTexture file." << endl;
 	if (!_whiteStoneTexture.loadFromFile("assets/images/stones/white.png"))
 		cerr << "Error while loading the whiteStoneTexture file." << endl;
+
+	_blackStone.setTexture(_blackStoneTexture);
+	_whiteStone.setTexture(_whiteStoneTexture);
 }
 
 Gameplay::~Gameplay() {}
+
+void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
+	(void)window;
+	(void)event;
+
+	if (displayGame == true) {
+		mouseHover(window, event);
+	}
+}
+
+void Gameplay::mouseHover(sf::RenderWindow& window, sf::Event& event) {
+	(void)event;
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
+
+    // Check if the mouse is within the grid bounds
+    if (worldPos.x >= _gridPosition.x && worldPos.x <= _gridPosition.x + _gridSize &&
+        worldPos.y >= _gridPosition.y && worldPos.y <= _gridPosition.y + _gridSize) {
+        
+        // Calculate the nearest intersection
+        float relativeX = worldPos.x - _gridPosition.x;
+        float relativeY = worldPos.y - _gridPosition.y;
+
+        int col = static_cast<int>(relativeX / _cellSize);
+        int row = static_cast<int>(relativeY / _cellSize);
+
+        float nearestX = _gridPosition.x + col * _cellSize;
+        float nearestY = _gridPosition.y + row * _cellSize;
+
+        // Place the stone sprite at the nearest intersection with lower opacity
+        _blackStone.setPosition(nearestX - _blackStone.getGlobalBounds().width / 2, nearestY - _blackStone.getGlobalBounds().height / 2);
+    } else {
+        // If the mouse is not within the grid, place the stone offscreen
+        _blackStone.setPosition(-_blackStone.getGlobalBounds().width, -_blackStone.getGlobalBounds().height);
+    }
+
+    // Draw the stone sprite
+    window.draw(_blackStone);
+}
+
 
 void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	float xIndex = round((mousePosition.x - _gridStartPoint.first) / _cellSize);
 	float yIndex = round((mousePosition.y - _gridStartPoint.second) / _cellSize);
 	Goban goban(window);
-
+	sf::Sprite	_stoneSprite;
 	window.clear();
-	goban.display(window);
+	//goban.display(window);
 	
 	// Draw the circle following the mouse if the mouse is on the grid
 	if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
@@ -72,14 +119,6 @@ void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
 	window.display();
 }
 
-void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
-	(void)window;
-	(void)event;
-
-	if (displayGame == true) {
-	}
-}
-
 void	Gameplay::placeStone(string position, sf::RenderWindow& window) {
 	if (_playerPositions[position] != 0)
 		return;
@@ -91,7 +130,6 @@ void	Gameplay::placeStone(string position, sf::RenderWindow& window) {
 	if (isWinningMove(position)) {
 		Goban goban(window);
 		displayGame = false;
-		goban.scoreTable(_currentPlayer, window);
 	}
 
 	if (_currentPlayer == 1)

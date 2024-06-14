@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 11:04:12 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:26:37 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,13 @@ Goban::Goban(sf::RenderWindow &window) : Graphics(window) {
 
 Goban::~Goban() {}
 
-void Goban::display(sf::RenderWindow &window) {
+void Goban::display(sf::Event& event, sf::RenderWindow &window) {
 	sf::RectangleShape	background(sf::Vector2f(_windowWidth, _windowHeight));
 	background.setFillColor(sf::Color(38, 1, 69));
 
 	background.setPosition(0, 0);
 	
+	returnButton(event, window);
 	window.draw(background);
 	window.draw(_backToMenu);
 	window.draw(_returnArrow);
@@ -112,18 +113,20 @@ void Goban::display(sf::RenderWindow &window) {
 	window.draw(_secondPlayerAvatar);
 }
 
-void	Goban::returnButton(sf::Event &event, sf::RenderWindow &window) {
-	(void)window;
-	if (_returnArrow.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
-		_returnArrow.setTexture(_returnArrowHighlightTexture);
-		if (event.type == sf::Event::MouseButtonPressed) {
-			displayMenu = true;
-			displayGame = false;
-		}
-	}
-	else {
-		_returnArrow.setTexture(_returnArrowTexture);
-	}
+void Goban::returnButton(sf::Event &event, sf::RenderWindow &window) {
+    if (event.type == sf::Event::MouseMoved) {
+        if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
+            _returnArrow.setTexture(_returnArrowHighlightTexture);
+        } else {
+            _returnArrow.setTexture(_returnArrowTexture);
+        }
+    }
+    if (event.type == sf::Event::MouseButtonPressed) {
+        if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
+            displayMenu = true;
+            displayGame = false;
+        }
+    }
 }
 
 void	Goban::drawPlayerPositions(sf::RenderWindow &window, map<string, int> playerPositions) {
@@ -161,29 +164,4 @@ void	Goban::drawPlayerPositions(sf::RenderWindow &window, map<string, int> playe
 			window.draw(playerCircle);
 		}
 	}
-}
-
-void	Goban::scoreTable(int player, sf::RenderWindow &window) {
-	sf::Font font;
-	if (!font.loadFromFile("assets/fonts/arial.ttf")) {
-		return ;
-	}
-
-	sf::Text player1("Player 1", font, 20);
-	sf::Text player2("Player 2", font, 20);
-	sf::Text player1Score(to_string(player), font, 20);
-	sf::Text player2Score(to_string(player), font, 20);
-
-	player1.setPosition(_windowWidth - 200, 50);
-	player2.setPosition(_windowWidth - 200, 100);
-	player1Score.setPosition(_windowWidth - 100, 50);
-	player2Score.setPosition(_windowWidth - 100, 100);
-
-	window.clear();
-	window.draw(player1);
-	window.draw(player2);
-	window.draw(player1Score);
-	window.draw(player2Score);
-	(void)player;
-	window.clear();
 }
