@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/09 18:30:14 by laprieur          #+#    #+#              #
-#    Updated: 2024/06/17 12:19:09 by hsebille         ###   ########.fr        #
+#    Updated: 2024/06/17 13:50:35 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ SRC				:=	src/main.cpp							\
 					src/Graphics/Menu/SettingsPage.cpp		\
 					src/Graphics/Menu/CustomPage.cpp		\
 					src/Graphics/Menu/MainMenuInit.cpp		\
-					src/Graphics/Menu/CustomPageInit.cpp	\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 14:46:32 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:50:52 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {
 	_gridPosition = sf::Vector2f(524, 48);
 	_gridSize = 937;
 	_cellSize = _gridSize / 19.4f;
-	
 	
 	if (!_blackStoneTexture.loadFromFile("assets/images/stones/black.png"))
 		cerr << "Error while loading the blackStoneTexture file." << endl;

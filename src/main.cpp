@@ -6,17 +6,21 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 10:49:07 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:33:48 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
 
 GameState	gameState = MENU;
+BoardColor	boardColor = AZURE;
+Avatar		playerOneAvatar = TOMMY;
+Avatar		playerTwoAvatar = LAURE;
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");
-	MainMenu mainMenu(window.getSize().x, window.getSize().y, window);
+	MainMenu mainMenu;
+	CustomPage customPage;
 	Gameplay gameplay(window);
 	Goban goban(window);
 	sf::Texture cursorTexture;
@@ -26,6 +30,7 @@ int main() {
 		std::cerr << "Error: could not load cursor texture" << std::endl;
 		return 1;
 	}
+
 	cursor.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
 
@@ -50,7 +55,7 @@ int main() {
 				gameplay.mouseHover(window);
 				break;
 			case CUSTOM:
-				mainMenu.customPage(window);
+				customPage.display(window);
 				break;
 			case SETTINGS:
 				mainMenu.settingsPage(window);

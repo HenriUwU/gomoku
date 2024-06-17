@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 14:20:20 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:33:39 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include "Gameplay.hpp"
 #include "Goban.hpp"
 #include "Debug.hpp"
+#include "CustomPage.hpp"
 
 typedef enum {
 	MENU,
@@ -36,4 +37,27 @@ typedef enum {
 	SETTINGS,
 } GameState;
 
+typedef enum {
+	AZURE,
+	Yellow,
+	RED,
+	ORANGE,
+	PINK,
+	GREEN,
+	GRAY,
+	BLACK,
+} BoardColor;
+
+typedef enum {
+	TOMMY,
+	LAURE,
+	ALEX,
+	HERIC,
+	MOUSSE,
+	GUNTHER,
+} Avatar;
+
 extern GameState	gameState;
+extern BoardColor	boardColor;
+extern Avatar		playerOneAvatar;
+extern Avatar		playerTwoAvatar;

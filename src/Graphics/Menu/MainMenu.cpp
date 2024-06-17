@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 12:25:52 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:45:08 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 
 using namespace std;
 
-MainMenu::MainMenu(float width, float height, sf::RenderWindow &window) {
+MainMenu::MainMenu() {
 	mainMenuInit();
-	customPageInit();
-
-	(void)width;
-	(void)height;
-	(void)window;
 }
 
 MainMenu::~MainMenu() {}
