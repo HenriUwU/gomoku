@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 12:50:52 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:26:26 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {
 		}
 	}
 	_currentPlayer = 1;
-	_gridPosition = sf::Vector2f(524, 48);
-	_gridSize = 937;
-	_cellSize = _gridSize / 19.4f;
+	_gridPosition = sf::Vector2f(527 - 48, 50 - 48);
+	_gridSize = 964;
+	_cellSize = 48;
 	
 	if (!_blackStoneTexture.loadFromFile("assets/images/stones/black.png"))
 		cerr << "Error while loading the blackStoneTexture file." << endl;

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 14:23:35 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:32:36 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ Goban::Goban(sf::RenderWindow &window) : Graphics(window) {
 		cerr << "Error while loading the 'return_arrow.png' file." << endl;
 	if (!_returnArrowHighlightTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
 		cerr << "Error while loading the 'return_arrow_highlight' file." << endl;
-	if (!_gobanTexture.loadFromFile("assets/images/icons/Goban.png"))
-		return ;
+	if (!_gobanTexture.loadFromFile("assets/images/boards/chessBoardGray.png"))
+		cerr << "Error while loading the 'chessBoardYellow.png' file." << endl;
+	if (!_gridTexture.loadFromFile("assets/images/boards/grid.png"))
+		cerr << "Error while loading the 'grid.png' file." << endl;
 
 	_backToMenu.setString("Back to menu");
 	_player1.setString("Player 1");
@@ -72,11 +74,13 @@ Goban::Goban(sf::RenderWindow &window) : Graphics(window) {
 	_secondPlayerAvatar.setTexture(_hericAvatarTexture);
 	_returnArrow.setTexture(_returnArrowTexture);
 	_goban.setTexture(_gobanTexture);
+	_grid.setTexture(_gridTexture);
 
 	_firstPlayerAvatar.setPosition(167, 278);
 	_secondPlayerAvatar.setPosition(1607, 278);
 	_returnArrow.setPosition(34, 34);
 	_goban.setPosition(477, 0);
+	_grid.setPosition(525, 48);
 	_backToMenu.setPosition(114, 54);
 	_player1.setPosition(72, 445);
 	_player2.setPosition(1509, 445);
@@ -111,6 +115,7 @@ void Goban::display(sf::Event& event, sf::RenderWindow &window) {
 	window.draw(_lastMoveTimer2);
 	window.draw(_firstPlayerAvatar);
 	window.draw(_secondPlayerAvatar);
+	window.draw(_grid);
 }
 
 void Goban::returnButton(sf::Event &event, sf::RenderWindow &window) {
