@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/14 14:57:45 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:49:07 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,18 @@ int main() {
 				goban.display(event, window);
 				gameplay.mouseHover(window);
 				break;
-			case HELP:
-				mainMenu.helpPage(window);
+			case CUSTOM:
+				mainMenu.customPage(window);
 				break;
 			case SETTINGS:
 				mainMenu.settingsPage(window);
 				break;
+			case HELP:
+				mainMenu.helpPage(window);
+				break;
 			default:
 				break;
 		}
-/* 		if (gameState == MENU) {
-			mainMenu.display(window);
-		}
-		else if (gameState == GAME) {
-			goban.display(event, window);
-			gameplay.mouseHover(window);
-		}
-		else if (gameState == HELP) {
-			mainMenu.helpPage(window);
-		}
-		else if (gameState == SETTINGS) {
-			mainMenu.settingsPage(window);
-		} */
 		window.draw(cursor);
 		window.display();
 	}

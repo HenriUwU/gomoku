@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 14:55:04 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 10:48:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ class MainMenu {
 		void	MoveRight();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 		void	handleMouseMovement(sf::Vector2i mousePos);
-		void	helpPage(sf::RenderWindow &window);
+
+		void	customPage(sf::RenderWindow &window);
 		void	settingsPage(sf::RenderWindow &window);
+		void	helpPage(sf::RenderWindow &window);
 };
