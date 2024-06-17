@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 15:09:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:57:28 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ BoardColor		boardColor = NOBOARD;
 Avatar			playerOneAvatar = NOAVATAR;
 Avatar			playerTwoAvatar = NOAVATAR;
 StonesColors	stonesColor = NOSTONECOLOR;
+GameMode		gameMode = NOGAMEMODE;
+AIMode			aiMode = NOAIMODE;
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");

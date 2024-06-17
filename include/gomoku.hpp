@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 16:41:29 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:57:11 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,26 @@ typedef enum {
 	TurquoiseGreenAndIndigo,
 } StonesColors;
 
+typedef enum {
+	NOGAMEMODE,
+	STANDARD,
+	PRO,
+	SWAP,
+	SWAP2,
+} GameMode;
+
+typedef enum {
+	NOAIMODE,
+	IMPOSSIBLE,
+	AGGRESSIVE,
+	PASSIVE,
+	DEFENSIVE,
+} AIMode;
+
 extern GameState	gameState;
 extern BoardColor	boardColor;
 extern Avatar		playerOneAvatar;
 extern Avatar		playerTwoAvatar;
 extern StonesColors	stonesColor;
+extern GameMode		gameMode;
+extern AIMode		aiMode;
