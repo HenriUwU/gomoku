@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 12:38:30 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 14:01:49 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:27:32 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,12 @@ class CustomPage {
 		sf::Texture		_boardColorPinkTexture;
 		sf::Texture		_boardColorRedTexture;
 		sf::Texture		_boardColorYellowTexture;
-		sf::Texture		_boardColorAzureSelectedTexture;
-		sf::Texture		_boardColorBlackSelectedTexture;
-		sf::Texture		_boardColorGraySelectedTexture;
-		sf::Texture		_boardColorGreenSelectedTexture;
-		sf::Texture		_boardColorOrangeSelectedTexture;
-		sf::Texture		_boardColorPinkSelectedTexture;
-		sf::Texture		_boardColorRedSelectedTexture;
-		sf::Texture		_boardColorYellowSelectedTexture;
 		sf::Texture		_avatarAlexTexture;
 		sf::Texture		_avatarGuntherTexture;
 		sf::Texture		_avatarHericTexture;
 		sf::Texture		_avatarLaureTexture;
 		sf::Texture		_avatarMousseTexture;
 		sf::Texture		_avatarTommyTexture;
-		sf::Texture		_avatarAlexSelectedTexture;
-		sf::Texture		_avatarGuntherSelectedTexture;
-		sf::Texture		_avatarHericSelectedTexture;
-		sf::Texture		_avatarLaureSelectedTexture;
-		sf::Texture		_avatarMousseSelectedTexture;
-		sf::Texture		_avatarTommySelectedTexture;
 		sf::Texture		_stoneColorBandWTexture;
 		sf::Texture		_stoneColorBandYTexture;
 		sf::Texture		_stoneColorDGandLGTexture;
@@ -56,16 +42,10 @@ class CustomPage {
 		sf::Texture		_stoneColorPandFYTexture;
 		sf::Texture		_stoneColorSandCTexture;
 		sf::Texture		_stoneColorTGandITexture;
-		sf::Texture		_stoneColorBandWSelectedTexture;
-		sf::Texture		_stoneColorBandYSelectedTexture;
-		sf::Texture		_stoneColorDGandLGSelectedTexture;
-		sf::Texture		_stoneColorGandRSelectedTexture;
-		sf::Texture		_stoneColorOandVSelectedTexture;
-		sf::Texture		_stoneColorPandFYSelectedTexture;
-		sf::Texture		_stoneColorSandCSelectedTexture;
-		sf::Texture		_stoneColorTGandISelectedTexture;
 		sf::Texture		_returnButtonTexture;
 		sf::Texture		_returnButtonHighlightedTexture;
+		sf::Texture		_selectionHaloTexture;
+		sf::Texture		_avatarSelectorTexture;
 		sf::Sprite		_artist;
 		sf::Sprite		_boardColorAzure;
 		sf::Sprite		_boardColorBlack;
@@ -90,6 +70,9 @@ class CustomPage {
 		sf::Sprite		_stoneColorSandC;
 		sf::Sprite		_stoneColorTGandI;
 		sf::Sprite		_returnButton;
+		sf::Sprite		_stonesSelection;
+		sf::Sprite		_avatarsSelection;
+		sf::Sprite		_boardSelection;
 		sf::Text		_custom;
 		sf::Text		_customShadow;
 		sf::Text		_showYourArtisticSoul;
@@ -127,4 +110,7 @@ class CustomPage {
 		void	customPageInit();
 		void	display(sf::RenderWindow& window);
 		void	handleKeys(sf::RenderWindow& window);
+		void	handleStonesSelection(sf::RenderWindow& window);
+		void	handleBoardSelection(sf::RenderWindow& window);
+		void	handleAvatarsSelection(sf::RenderWindow& window);
 };

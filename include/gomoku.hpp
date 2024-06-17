@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 13:33:39 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:41:29 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ typedef enum {
 } GameState;
 
 typedef enum {
+	NOBOARD,
 	AZURE,
-	Yellow,
+	YELLOW,
 	RED,
 	ORANGE,
 	PINK,
@@ -49,6 +50,7 @@ typedef enum {
 } BoardColor;
 
 typedef enum {
+	NOAVATAR,
 	TOMMY,
 	LAURE,
 	ALEX,
@@ -57,7 +59,20 @@ typedef enum {
 	GUNTHER,
 } Avatar;
 
+typedef enum {
+	NOSTONECOLOR,
+	BlackAndWhite,
+	GreenAndRed,
+	SalmonAndCoral,
+	PinkAndFluoYellow,
+	BlackAndYellow,
+	OrangeAndViolet,
+	DarkGreenAndLightGreen,
+	TurquoiseGreenAndIndigo,
+} StonesColors;
+
 extern GameState	gameState;
 extern BoardColor	boardColor;
 extern Avatar		playerOneAvatar;
 extern Avatar		playerTwoAvatar;
+extern StonesColors	stonesColor;

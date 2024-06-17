@@ -6,16 +6,17 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 13:33:48 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:09:47 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
 
-GameState	gameState = MENU;
-BoardColor	boardColor = AZURE;
-Avatar		playerOneAvatar = TOMMY;
-Avatar		playerTwoAvatar = LAURE;
+GameState		gameState = MENU;
+BoardColor		boardColor = NOBOARD;
+Avatar			playerOneAvatar = NOAVATAR;
+Avatar			playerTwoAvatar = NOAVATAR;
+StonesColors	stonesColor = NOSTONECOLOR;
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");

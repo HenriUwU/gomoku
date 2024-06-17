@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 10:33:47 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 14:03:10 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:42:29 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,59 @@ void	CustomPage::display(sf::RenderWindow& window) {
 	avatarsSecondBar.setPosition(1037, 508);
 	boardColorFirstBar.setPosition(682, 727);
 	boardColorSecondBar.setPosition(1031, 727);
+
+	if (stonesColor == NOSTONECOLOR)
+		_stonesSelection.setPosition(-100, -100);
+	if (stonesColor == BlackAndWhite)
+		_stonesSelection.setPosition(691 - 8, 379 - 8);
+	if (stonesColor == BlackAndYellow)
+		_stonesSelection.setPosition(971 - 8, 379 - 8);
+	if (stonesColor == DarkGreenAndLightGreen)
+		_stonesSelection.setPosition(1110 - 8, 379 - 8);
+	if (stonesColor == GreenAndRed)
+		_stonesSelection.setPosition(761 - 8, 379 - 8);
+	if (stonesColor == OrangeAndViolet)
+		_stonesSelection.setPosition(1041 - 8, 379 - 8);
+	if (stonesColor == PinkAndFluoYellow)
+		_stonesSelection.setPosition(901 - 8, 379 - 8);
+	if (stonesColor == SalmonAndCoral)
+		_stonesSelection.setPosition(831 - 8, 379 - 8);
+	if (stonesColor == TurquoiseGreenAndIndigo)
+		_stonesSelection.setPosition(1179 - 8, 379 - 8);
+
+	if (boardColor == NOBOARD)
+		_boardSelection.setPosition(-100, -100);
+	if (boardColor == AZURE)
+		_boardSelection.setPosition(691 - 8, 776 - 8);
+	if (boardColor == BLACK)
+		_boardSelection.setPosition(1179 - 8, 776 - 8);
+	if (boardColor == GRAY)
+		_boardSelection.setPosition(1110 - 8, 776 - 8);
+	if (boardColor == GREEN)
+		_boardSelection.setPosition(1041 - 8, 776 - 8);
+	if (boardColor == ORANGE)
+		_boardSelection.setPosition(901 - 8, 776 - 8);
+	if (boardColor == PINK)
+		_boardSelection.setPosition(971 - 8, 776 - 8);
+	if (boardColor == RED)
+		_boardSelection.setPosition(831 - 8, 776 - 8);
+	if (boardColor == YELLOW)
+		_boardSelection.setPosition(761 - 8, 776 - 8);
+
+	if (playerOneAvatar == NOAVATAR)
+		_avatarsSelection.setPosition(-100, -100);
+	if (playerOneAvatar == ALEX)
+		_avatarsSelection.setPosition(877 - 8, 563 - 8);
+	if (playerOneAvatar == GUNTHER)
+		_avatarsSelection.setPosition(1154 - 8, 563 - 8);
+	if (playerOneAvatar == HERIC)
+		_avatarsSelection.setPosition(970 - 8, 563 - 8);
+	if (playerOneAvatar == LAURE)
+		_avatarsSelection.setPosition(784 - 8, 563 - 8);
+	if (playerOneAvatar == MOUSSE)
+		_avatarsSelection.setPosition(1063 - 8, 563 - 8);
+	if (playerOneAvatar == TOMMY)
+		_avatarsSelection.setPosition(691 - 8, 563 - 8);
 
 	handleKeys(window);
 	
@@ -101,16 +154,175 @@ void	CustomPage::display(sf::RenderWindow& window) {
 
 	window.draw(_artist);
 	window.draw(_returnButton);
+	window.draw(_stonesSelection);
+	window.draw(_boardSelection);
+	window.draw(_avatarsSelection);
 }
 
 void	CustomPage::handleKeys(sf::RenderWindow &window) {
 	if (_returnButton.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		_returnButton.setTexture(_returnButtonHighlightedTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			gameState = MENU;
-		}
-	} else {
+	}
+	else {
 		_returnButton.setTexture(_returnButtonTexture);
+	}
+	handleStonesSelection(window);
+	handleBoardSelection(window);
+	handleAvatarsSelection(window);
+}
+
+void	CustomPage::handleStonesSelection(sf::RenderWindow& window) {
+	if (_stoneColorBandW.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (stonesColor == NOSTONECOLOR)
+			_stonesSelection.setPosition(691 - 8, 379 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			stonesColor = BlackAndWhite;
+	}
+	else if (_stoneColorBandY.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (stonesColor == NOSTONECOLOR)
+			_stonesSelection.setPosition(971 - 8, 379 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			stonesColor = BlackAndYellow;
+	}
+	else if (_stoneColorDGandLG.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (stonesColor == NOSTONECOLOR)
+			_stonesSelection.setPosition(1110 - 8, 379 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			stonesColor = DarkGreenAndLightGreen;
+	}
+	else if (_stoneColorGandR.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (stonesColor == NOSTONECOLOR)
+			_stonesSelection.setPosition(761 - 8, 379 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			stonesColor = GreenAndRed;
+	}
+	else if (_stoneColorOandV.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (stonesColor == NOSTONECOLOR)
+			_stonesSelection.setPosition(1041 - 8, 379 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			stonesColor = OrangeAndViolet;
+	}
+	else if (_stoneColorPandFY.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (stonesColor == NOSTONECOLOR)
+			_stonesSelection.setPosition(901 - 8, 379 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			stonesColor = PinkAndFluoYellow;
+	}
+	else if (_stoneColorSandC.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (stonesColor == NOSTONECOLOR)
+			_stonesSelection.setPosition(831 - 8, 379 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			stonesColor = SalmonAndCoral;
+	}
+	else if (_stoneColorTGandI.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (stonesColor == NOSTONECOLOR)
+			_stonesSelection.setPosition(1179 - 8, 379 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			stonesColor = TurquoiseGreenAndIndigo;
+	}
+	else {
+		if (stonesColor == NOSTONECOLOR)
+		_stonesSelection.setPosition(-100, -100);
+	}
+}
+
+void	CustomPage::handleAvatarsSelection(sf::RenderWindow& window) {
+	if (_avatarAlex.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (playerOneAvatar == NOAVATAR)
+			_avatarsSelection.setPosition(877 - 8, 563 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			playerOneAvatar = ALEX;
+	}
+	else if (_avatarGunther.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (playerOneAvatar == NOAVATAR)
+			_avatarsSelection.setPosition(1154 - 8, 563 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			playerOneAvatar = GUNTHER;
+	}
+	else if (_avatarHeric.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (playerOneAvatar == NOAVATAR)
+			_avatarsSelection.setPosition(970 - 8, 563 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			playerOneAvatar = HERIC;
+	}
+	else if (_avatarLaure.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (playerOneAvatar == NOAVATAR)
+			_avatarsSelection.setPosition(784 - 8, 563 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			playerOneAvatar = LAURE;
+	}
+	else if (_avatarMousse.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (playerOneAvatar == NOAVATAR)
+			_avatarsSelection.setPosition(1063 - 8, 563 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			playerOneAvatar = MOUSSE;
+	}
+	else if (_avatarTommy.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (playerOneAvatar == NOAVATAR)
+			_avatarsSelection.setPosition(691 - 8, 563 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			playerOneAvatar = TOMMY;
+	}
+	else {
+		if (playerOneAvatar == NOAVATAR)
+			_avatarsSelection.setPosition(-100, -100);
+	}
+}
+
+void	CustomPage::handleBoardSelection(sf::RenderWindow& window) {
+	if (_boardColorAzure.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (boardColor == NOBOARD)
+			_boardSelection.setPosition(691 - 8, 776 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			boardColor = AZURE;
+	}
+	else if (_boardColorBlack.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (boardColor == NOBOARD)
+			_boardSelection.setPosition(1179 - 8, 776 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			boardColor = BLACK;
+	}
+	else if (_boardColorGray.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (boardColor == NOBOARD)
+			_boardSelection.setPosition(1110 - 8, 776 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			boardColor = GRAY;
+	}
+	else if (_boardColorGreen.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (boardColor == NOBOARD)
+			_boardSelection.setPosition(1041 - 8, 776 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			boardColor = GREEN;
+	}
+	else if (_boardColorOrange.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (boardColor == NOBOARD)
+			_boardSelection.setPosition(901 - 8, 776 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			boardColor = ORANGE;
+	}
+	else if (_boardColorPink.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (boardColor == NOBOARD)
+			_boardSelection.setPosition(971 - 8, 776 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			boardColor = PINK;
+	}
+	else if (_boardColorRed.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (boardColor == NOBOARD)
+			_boardSelection.setPosition(831 - 8, 776 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			boardColor = RED;
+	}
+	else if (_boardColorYellow.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+		if (boardColor == NOBOARD)
+			_boardSelection.setPosition(761 - 8, 776 - 8);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			boardColor = YELLOW;
+	}
+	else {
+		if (boardColor == NOBOARD)
+			_boardSelection.setPosition(-100, -100);
 	}
 }
 
@@ -133,22 +345,6 @@ void	CustomPage::customPageInit() {
 		std::cerr << "Error: could not load board color red texture" << std::endl;
 	if (!_boardColorYellowTexture.loadFromFile("assets/images/boardSelection/Yellow.png"))
 		std::cerr << "Error: could not load board color yellow texture" << std::endl;
-	if (!_boardColorAzureSelectedTexture.loadFromFile("assets/images/boardSelection/Azure (selected).png"))
-		std::cerr << "Error: could not load board color azure selected texture" << std::endl;
-	if (!_boardColorBlackSelectedTexture.loadFromFile("assets/images/boardSelection/Black (selected).png"))
-		std::cerr << "Error: could not load board color black selected texture" << std::endl;
-	if (!_boardColorGraySelectedTexture.loadFromFile("assets/images/boardSelection/Gray (selected).png"))
-		std::cerr << "Error: could not load board color gray selected texture" << std::endl;
-	if (!_boardColorGreenSelectedTexture.loadFromFile("assets/images/boardSelection/Green (selected).png"))
-		std::cerr << "Error: could not load board color green selected texture" << std::endl;
-	if (!_boardColorOrangeSelectedTexture.loadFromFile("assets/images/boardSelection/Orange (selected).png"))
-		std::cerr << "Error: could not load board color orange selected texture" << std::endl;
-	if (!_boardColorPinkSelectedTexture.loadFromFile("assets/images/boardSelection/Pink (selected).png"))
-		std::cerr << "Error: could not load board color pink selected texture" << std::endl;
-	if (!_boardColorRedSelectedTexture.loadFromFile("assets/images/boardSelection/Red (selected).png"))
-		std::cerr << "Error: could not load board color red selected texture" << std::endl;
-	if (!_boardColorYellowSelectedTexture.loadFromFile("assets/images/boardSelection/Yellow (selected).png"))
-		std::cerr << "Error: could not load board color yellow selected texture" << std::endl;
 	if (!_avatarAlexTexture.loadFromFile("assets/images/avatarSelection/Alex.png"))
 		std::cerr << "Error: could not load avatar alex texture" << std::endl;
 	if (!_avatarGuntherTexture.loadFromFile("assets/images/avatarSelection/Gunther.png"))
@@ -161,18 +357,6 @@ void	CustomPage::customPageInit() {
 		std::cerr << "Error: could not load avatar mousse texture" << std::endl;
 	if (!_avatarTommyTexture.loadFromFile("assets/images/avatarSelection/Tommy.png"))
 		std::cerr << "Error: could not load avatar tommy texture" << std::endl;
-	if (!_avatarAlexSelectedTexture.loadFromFile("assets/images/avatarSelection/Alex (selected).png"))
-		std::cerr << "Error: could not load avatar alex selected texture" << std::endl;
-	if (!_avatarGuntherSelectedTexture.loadFromFile("assets/images/avatarSelection/Gunther (selected).png"))
-		std::cerr << "Error: could not load avatar gunther selected texture" << std::endl;
-	if (!_avatarHericSelectedTexture.loadFromFile("assets/images/avatarSelection/Heric (selected).png"))
-		std::cerr << "Error: could not load avatar heric selected texture" << std::endl;
-	if (!_avatarLaureSelectedTexture.loadFromFile("assets/images/avatarSelection/Laure (selected).png"))
-		std::cerr << "Error: could not load avatar laure selected texture" << std::endl;
-	if (!_avatarMousseSelectedTexture.loadFromFile("assets/images/avatarSelection/Mousse (selected).png"))
-		std::cerr << "Error: could not load avatar mousse selected texture" << std::endl;
-	if (!_avatarTommySelectedTexture.loadFromFile("assets/images/avatarSelection/Tommy (selected).png"))
-		std::cerr << "Error: could not load avatar tommy selected texture" << std::endl;
 	if (!_stoneColorBandWTexture.loadFromFile("assets/images/stoneSelection/B&W.png"))
 		std::cerr << "Error: could not load stone color B&W texture" << std::endl;
 	if (!_stoneColorBandYTexture.loadFromFile("assets/images/stoneSelection/B&Y.png"))
@@ -189,22 +373,6 @@ void	CustomPage::customPageInit() {
 		std::cerr << "Error: could not load stone color S&C texture" << std::endl;
 	if (!_stoneColorTGandITexture.loadFromFile("assets/images/stoneSelection/TG&I.png"))
 		std::cerr << "Error: could not load stone color TG&I texture" << std::endl;
-	if (!_stoneColorBandWSelectedTexture.loadFromFile("assets/images/stoneSelection/B&W (selected).png"))
-		std::cerr << "Error: could not load stone color B&W selected texture" << std::endl;
-	if (!_stoneColorBandYSelectedTexture.loadFromFile("assets/images/stoneSelection/B&Y (selected).png"))
-		std::cerr << "Error: could not load stone color B&Y selected texture" << std::endl;
-	if (!_stoneColorDGandLGSelectedTexture.loadFromFile("assets/images/stoneSelection/DG&LG (selected).png"))
-		std::cerr << "Error: could not load stone color DG&LG selected texture" << std::endl;
-	if (!_stoneColorGandRSelectedTexture.loadFromFile("assets/images/stoneSelection/G&R (selected).png"))
-		std::cerr << "Error: could not load stone color G&R selected texture" << std::endl;
-	if (!_stoneColorOandVSelectedTexture.loadFromFile("assets/images/stoneSelection/O&V (selected).png"))
-		std::cerr << "Error: could not load stone color O&V selected texture" << std::endl;
-	if (!_stoneColorPandFYSelectedTexture.loadFromFile("assets/images/stoneSelection/P&FY (selected).png"))
-		std::cerr << "Error: could not load stone color P&FY selected texture" << std::endl;
-	if (!_stoneColorSandCSelectedTexture.loadFromFile("assets/images/stoneSelection/S&C (selected).png"))
-		std::cerr << "Error: could not load stone color S&C selected texture" << std::endl;
-	if (!_stoneColorTGandISelectedTexture.loadFromFile("assets/images/stoneSelection/TG&I (selected).png"))
-		std::cerr << "Error: could not load stone color TG&I selected texture" << std::endl;
 	if (!_returnButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
 		std::cerr << "Error: could not load return button texture" << std::endl;
 	if (!_returnButtonHighlightedTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
@@ -213,6 +381,10 @@ void	CustomPage::customPageInit() {
 		std::cerr << "Error: could not load Exo2-Black font" << std::endl;
 	if (!_exo2BlackItalicFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-BlackItalic.ttf"))
 		std::cerr << "Error: could not load Exo2-BlackItalic font" << std::endl;
+	if (!_selectionHaloTexture.loadFromFile("assets/images/icons/selector.png"))
+		std::cerr << "Error: could not load selection halo texture" << std::endl;
+	if (!_avatarSelectorTexture.loadFromFile("assets/images/icons/avatar_selector.png"))
+		std::cerr << "Error: could not load avatar selector texture" << std::endl;
 
 	_artist.setTexture(_artistTexture);
 	_boardColorAzure.setTexture(_boardColorAzureTexture);
@@ -238,6 +410,9 @@ void	CustomPage::customPageInit() {
 	_stoneColorSandC.setTexture(_stoneColorSandCTexture);
 	_stoneColorTGandI.setTexture(_stoneColorTGandITexture);
 	_returnButton.setTexture(_returnButtonTexture);
+	_stonesSelection.setTexture(_selectionHaloTexture);
+	_boardSelection.setTexture(_selectionHaloTexture);
+	_avatarsSelection.setTexture(_avatarSelectorTexture);
 
 	_avatarAlex.setPosition(877, 563);
 	_avatarGunther.setPosition(1154, 563);

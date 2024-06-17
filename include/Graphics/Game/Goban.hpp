@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 14:30:41 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:37:02 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,17 @@ class Goban : public Graphics {
 		sf::Texture								_guntherAvatarTexture;
 		sf::Texture								_hericAvatarTexture;
 		sf::Texture								_laureAvatarTexture;
-		sf::Texture 							_gobanTexture;
 		sf::Texture								_returnArrowTexture;
 		sf::Texture								_returnArrowHighlightTexture;
 		sf::Texture								_gridTexture;
+		sf::Texture 							_gobanAzureTexture;
+		sf::Texture 							_gobanBlackTexture;
+		sf::Texture 							_gobanGrayTexture;
+		sf::Texture 							_gobanGreenTexture;
+		sf::Texture 							_gobanOrangeTexture;
+		sf::Texture 							_gobanPinkTexture;
+		sf::Texture 							_gobanRedTexture;
+		sf::Texture 							_gobanYellowTexture;
 		// Sprites
 		sf::Sprite								_firstPlayerAvatar;
 		sf::Sprite								_secondPlayerAvatar;

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 14:32:36 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:41:11 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,22 @@ Goban::Goban(sf::RenderWindow &window) : Graphics(window) {
 		cerr << "Error while loading the 'return_arrow.png' file." << endl;
 	if (!_returnArrowHighlightTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
 		cerr << "Error while loading the 'return_arrow_highlight' file." << endl;
-	if (!_gobanTexture.loadFromFile("assets/images/boards/chessBoardGray.png"))
-		cerr << "Error while loading the 'chessBoardYellow.png' file." << endl;
+	if (!_gobanAzureTexture.loadFromFile("assets/images/boards/gobanAzure.png"))
+		cerr << "Error while loading the 'gobanYellow.png' file." << endl;
+	if (!_gobanBlackTexture.loadFromFile("assets/images/boards/gobanBlack.png"))
+		cerr << "Error while loading the 'gobanBlack.png' file." << endl;
+	if (!_gobanGrayTexture.loadFromFile("assets/images/boards/gobanGray.png"))
+		cerr << "Error while loading the 'gobanGray.png' file." << endl;
+	if (!_gobanGreenTexture.loadFromFile("assets/images/boards/gobanGreen.png"))
+		cerr << "Error while loading the 'gobanGreen.png' file." << endl;
+	if (!_gobanOrangeTexture.loadFromFile("assets/images/boards/gobanOrange.png"))
+		cerr << "Error while loading the 'gobanOrange.png' file." << endl;
+	if (!_gobanPinkTexture.loadFromFile("assets/images/boards/gobanPink.png"))
+		cerr << "Error while loading the 'gobanPink.png' file." << endl;
+	if (!_gobanRedTexture.loadFromFile("assets/images/boards/gobanRed.png"))
+		cerr << "Error while loading the 'gobanRed.png' file." << endl;
+	if (!_gobanYellowTexture.loadFromFile("assets/images/boards/gobanYellow.png"))
+		cerr << "Error while loading the 'gobanYellow.png' file." << endl;
 	if (!_gridTexture.loadFromFile("assets/images/boards/grid.png"))
 		cerr << "Error while loading the 'grid.png' file." << endl;
 
@@ -73,7 +87,7 @@ Goban::Goban(sf::RenderWindow &window) : Graphics(window) {
 	_firstPlayerAvatar.setTexture(_lanceAvatarTexture);
 	_secondPlayerAvatar.setTexture(_hericAvatarTexture);
 	_returnArrow.setTexture(_returnArrowTexture);
-	_goban.setTexture(_gobanTexture);
+	_goban.setTexture(_gobanAzureTexture);
 	_grid.setTexture(_gridTexture);
 
 	_firstPlayerAvatar.setPosition(167, 278);
@@ -99,6 +113,31 @@ void Goban::display(sf::Event& event, sf::RenderWindow &window) {
 	background.setFillColor(sf::Color(38, 1, 69));
 
 	background.setPosition(0, 0);
+
+	if (boardColor == AZURE) {
+		_goban.setTexture(_gobanAzureTexture);
+	}
+	else if (boardColor == BLACK) {
+		_goban.setTexture(_gobanBlackTexture);
+	}
+	else if (boardColor == GRAY) {
+		_goban.setTexture(_gobanGrayTexture);
+	}
+	else if (boardColor == GREEN) {
+		_goban.setTexture(_gobanGreenTexture);
+	}
+	else if (boardColor == ORANGE) {
+		_goban.setTexture(_gobanOrangeTexture);
+	}
+	else if (boardColor == PINK) {
+		_goban.setTexture(_gobanPinkTexture);
+	}
+	else if (boardColor == RED) {
+		_goban.setTexture(_gobanRedTexture);
+	}
+	else if (boardColor == YELLOW) {
+		_goban.setTexture(_gobanYellowTexture);
+	}
 	
 	returnButton(event, window);
 	window.draw(background);
