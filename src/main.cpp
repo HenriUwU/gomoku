@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 16:57:28 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:23:56 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");
 	MainMenu mainMenu;
 	CustomPage customPage;
+	SettingsPage settingsPage;
 	Gameplay gameplay(window);
 	Goban goban(window);
 	sf::Texture cursorTexture;
@@ -61,7 +62,7 @@ int main() {
 				customPage.display(window);
 				break;
 			case SETTINGS:
-				mainMenu.settingsPage(window);
+				settingsPage.display(window);
 				break;
 			case HELP:
 				mainMenu.helpPage(window);

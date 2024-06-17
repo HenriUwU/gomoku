@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 16:57:11 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:14:47 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include "Goban.hpp"
 #include "Debug.hpp"
 #include "CustomPage.hpp"
+#include "SettingsPage.hpp"
 
 typedef enum {
 	MENU,

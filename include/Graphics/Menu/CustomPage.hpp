@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 12:38:30 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 16:27:32 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:06:36 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 class CustomPage {
 	private:
-		//--- Custom Page ---//
 		sf::Font		_exo2BlackFont;
 		sf::Font		_exo2BlackItalicFont;
 		sf::Texture		_artistTexture;
