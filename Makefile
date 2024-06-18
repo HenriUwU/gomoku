@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/09 18:30:14 by laprieur          #+#    #+#              #
-#    Updated: 2024/06/17 13:50:35 by hsebille         ###   ########.fr        #
+#    Updated: 2024/06/18 14:03:07 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,13 @@ SRC				:=	src/main.cpp							\
 					src/Graphics/Menu/SettingsPage.cpp		\
 					src/Graphics/Menu/CustomPage.cpp		\
 					src/Graphics/Menu/MainMenuInit.cpp		\
+					src/Graphics/AnimatedGIF.cpp			\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -ISFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -ISFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Istb
 SFML_FLAGS		:=	-LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system
 RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/SFML/lib'
 

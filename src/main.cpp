@@ -6,11 +6,12 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 17:23:56 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:03:25 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
+#include "AnimatedGIF.hpp"
 
 GameState		gameState = MENU;
 BoardColor		boardColor = NOBOARD;
@@ -37,6 +38,9 @@ int main() {
 
 	cursor.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
+
+	AnimatedGIF gif("assets/images/gay.gif");
+	sf::Sprite gifSprite;
 
 	while (window.isOpen())
 	{
@@ -70,7 +74,9 @@ int main() {
 			default:
 				break;
 		}
+		gif.update(gifSprite);
 		window.draw(cursor);
+		window.draw(gifSprite);
 		window.display();
 	}
 }
