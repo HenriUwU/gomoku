@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 14:47:05 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 21:40:18 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,9 @@ void Goban::display(sf::Event& event, sf::RenderWindow &window) {
 	returnButton(event, window);
 
 	window.clear(sf::Color(38, 1, 69));
-	window.draw(_backToMenu);
+	window.draw(_gamePage);
 	window.draw(_returnArrow);
 	window.draw(_goban);
-	window.draw(_player1);
-	window.draw(_player2);
-	window.draw(_capturedStones);
-	window.draw(_capturedStones2);
-	window.draw(_totalTimer);
-	window.draw(_totalTimer2);
-	window.draw(_lastMoveTimer);
-	window.draw(_lastMoveTimer2);
 	window.draw(_firstPlayerAvatar);
 	window.draw(_secondPlayerAvatar);
 	window.draw(_grid);
@@ -118,10 +110,6 @@ void	Goban::drawPlayerPositions(sf::RenderWindow &window, map<string, int> playe
 }
 
 void	Goban::gobanInit() {
-	if (!_exo2BlackFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-Black.ttf"))
-		cerr << "Error while loading the 'Exo2-Black.ttf' file." << endl;
-	if (!_ex02BlackItalicFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-BlackItalic.ttf"))
-		cerr << "Error while loading the 'Exo2-BlackItalic.ttf' file." << endl;
 	if (!_lanceAvatarTexture.loadFromFile("assets/images/avatars/lance.png"))
 		cerr << "Error while loading the 'lance.png' file." << endl;
 	if (!_tommyAvatarTexture.loadFromFile("assets/images/avatars/tommy.png"))
@@ -156,55 +144,19 @@ void	Goban::gobanInit() {
 		cerr << "Error while loading the 'gobanYellow.png' file." << endl;
 	if (!_gridTexture.loadFromFile("assets/images/boards/grid.png"))
 		cerr << "Error while loading the 'grid.png' file." << endl;
-
-	_backToMenu.setString("Back to menu");
-	_player1.setString("Player 1");
-	_player2.setString("Player 2");
-	_capturedStones.setString("Captured stones:");
-	_capturedStones2.setString("Captured stones:");
-	_totalTimer.setString("Total play time:");
-	_totalTimer2.setString("Total play time:");
-	_lastMoveTimer.setString("Last move time:");
-	_lastMoveTimer2.setString("Last move time:");
-
-	_backToMenu.setFont(_ex02BlackItalicFont);
-	_player1.setFont(_ex02BlackItalicFont);
-	_player2.setFont(_ex02BlackItalicFont);
-	_capturedStones.setFont(_ex02BlackItalicFont);
-	_capturedStones2.setFont(_ex02BlackItalicFont);
-	_totalTimer.setFont(_ex02BlackItalicFont);
-	_totalTimer2.setFont(_ex02BlackItalicFont);
-	_lastMoveTimer.setFont(_ex02BlackItalicFont);
-	_lastMoveTimer2.setFont(_ex02BlackItalicFont);
-
-	_backToMenu.setCharacterSize(20);
-	_player1.setCharacterSize(85);
-	_player2.setCharacterSize(85);
-	_capturedStones.setCharacterSize(22);
-	_capturedStones2.setCharacterSize(22);
-	_totalTimer.setCharacterSize(22);
-	_totalTimer2.setCharacterSize(22);
-	_lastMoveTimer.setCharacterSize(22);
-	_lastMoveTimer2.setCharacterSize(22);
+	if (!_gamePageTexture.loadFromFile("assets/gamePages/Game_Gomoku.png"))
+		cerr << "Error while loading the 'gamePage.png' file." << endl;
 
 	_firstPlayerAvatar.setTexture(_lanceAvatarTexture);
 	_secondPlayerAvatar.setTexture(_hericAvatarTexture);
 	_returnArrow.setTexture(_returnArrowTexture);
 	_goban.setTexture(_gobanAzureTexture);
 	_grid.setTexture(_gridTexture);
+	_gamePage.setTexture(_gamePageTexture);
 
 	_firstPlayerAvatar.setPosition(167, 278);
 	_secondPlayerAvatar.setPosition(1607, 278);
-	_returnArrow.setPosition(34, 34);
 	_goban.setPosition(477, 0);
 	_grid.setPosition(525, 48);
-	_backToMenu.setPosition(114, 54);
-	_player1.setPosition(72, 445);
-	_player2.setPosition(1509, 445);
-	_capturedStones.setPosition(138, 575);
-	_capturedStones2.setPosition(1580, 575);
-	_totalTimer.setPosition(138, 605);
-	_totalTimer2.setPosition(1580, 605);
-	_lastMoveTimer.setPosition(138, 635);
-	_lastMoveTimer2.setPosition(1580, 635);
+	_returnArrow.setPosition(100, 100);
 }

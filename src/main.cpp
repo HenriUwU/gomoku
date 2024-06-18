@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 20:45:31 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:03:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ AIMode			aiMode = NOAIMODE;
 HelpPageState	helpPageState = RULES;
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");
-	MainMenu mainMenu;
-	CustomPage customPage;
-	SettingsPage settingsPage;
-	HelpPage helpPage;
-	Gameplay gameplay(window);
-	Goban goban(window);
-	sf::Texture cursorTexture;
-	sf::Sprite cursor;
+	sf::RenderWindow	window(sf::VideoMode(1920, 1080), "Gomoku");
+	sf::Texture			cursorTexture;
+	sf::Sprite			cursor;
+	MainMenu			mainMenu;
+	CustomPage			customPage;
+	SettingsPage		settingsPage;
+	HelpPage			helpPage;
+	Gameplay			gameplay(window);
+	Goban				goban(window);
 
 	if (!cursorTexture.loadFromFile("assets/images/icons/cursor.png")) {
 		std::cerr << "Error: could not load cursor texture" << std::endl;
