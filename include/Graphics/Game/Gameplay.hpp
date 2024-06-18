@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 11:19:55 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:40:19 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ class Gameplay : public Graphics {
 	private:
 		int							_currentPlayer;
 		std::map<std::string, int>	_playerPositions;
-		std::map<int, int>			_catchedStones; // Key = player, value = number
+		std::map<int, int>			_catchedStones;
 		sf::Vector2f				_gridPosition;
 		float						_gridSize;
 		float						_cellSize;
-		
-		// Textures
+
 		sf::Texture					_blackStoneTexture;
 		sf::Texture					_whiteStoneTexture;
 		sf::Texture					_coralStoneTexture;
@@ -39,8 +38,6 @@ class Gameplay : public Graphics {
 		sf::Texture					_redStoneTexture;
 		sf::Texture					_salmonStoneTexture;
 		sf::Texture					_turquoiseGreenStoneTexture;
-
-		// Sprites
 		sf::Sprite					_firstStone;
 		sf::Sprite					_secondStone;
 

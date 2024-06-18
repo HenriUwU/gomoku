@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SettingsPage.cpp                                   :+:      :+:    :+:   */
+/*   SettingsMenu.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 21:01:27 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:47:25 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "SettingsPage.hpp"
+#include "SettingsMenu.hpp"
 
-SettingsPage::SettingsPage() {
-	settingsPageInit();
+SettingsMenu::SettingsMenu() {
+	init();
 }
 
-SettingsPage::~SettingsPage() {}
+SettingsMenu::~SettingsMenu() {}
 
-void	SettingsPage::display(sf::RenderWindow& window) {
+void	SettingsMenu::display(sf::RenderWindow& window) {
 	handleKeys(window);
 
 	if (moveSuggestion == ENABLED)
@@ -31,20 +31,17 @@ void	SettingsPage::display(sf::RenderWindow& window) {
 		_box2.setTexture(_boxTexture);
 		_box3.setTexture(_boxTexture);
 		_box4.setTexture(_boxTexture);
-	}
-	else if (aiMode == PASSIVE) {
+	} else if (aiMode == PASSIVE) {
 		_box2.setTexture(_boxCheckedTexture);
 		_box1.setTexture(_boxTexture);
 		_box3.setTexture(_boxTexture);
 		_box4.setTexture(_boxTexture);
-	}
-	else if (aiMode == AGGRESSIVE) {
+	} else if (aiMode == AGGRESSIVE) {
 		_box3.setTexture(_boxCheckedTexture);
 		_box4.setTexture(_boxTexture);
 		_box2.setTexture(_boxTexture);
 		_box1.setTexture(_boxTexture);
-	}
-	else if (aiMode == DEFENSIVE) {
+	} else if (aiMode == DEFENSIVE) {
 		_box4.setTexture(_boxCheckedTexture);
 		_box1.setTexture(_boxTexture);
 		_box2.setTexture(_boxTexture);
@@ -63,7 +60,7 @@ void	SettingsPage::display(sf::RenderWindow& window) {
 	window.draw(_switch);
 }
 
-void	SettingsPage::handleKeys(sf::RenderWindow& window) {
+void	SettingsMenu::handleKeys(sf::RenderWindow& window) {
 	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
 
 	if (_returnButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -71,8 +68,7 @@ void	SettingsPage::handleKeys(sf::RenderWindow& window) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			gameState = MENU;
 		}
-	}
-	else
+	} else
 		_returnButton.setTexture(_returnButtonTexture);
 
 	if (_switch.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -89,40 +85,32 @@ void	SettingsPage::handleKeys(sf::RenderWindow& window) {
 	handleAiMode(mousePos);
 }
 
-void	SettingsPage::handleVolume(sf::Vector2i mousePos) {
+void	SettingsMenu::handleVolume(sf::Vector2i mousePos) {
 	(void)mousePos;
 }
 
-void	SettingsPage::handleAiMode(sf::Vector2i mousePos) {
+void	SettingsMenu::handleAiMode(sf::Vector2i mousePos) {
 	if (_box1.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
 			_box1.setTexture(_boxCheckedTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = IMPOSSIBLE;
-		}
-	}
-	else if (_box2.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	} else if (_box2.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
 			_box2.setTexture(_boxCheckedTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = PASSIVE;
-		}
-	}
-	else if (_box3.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	} else if (_box3.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
 			_box3.setTexture(_boxCheckedTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = AGGRESSIVE;
-		}
-	}
-	else if (_box4.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	} else if (_box4.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
 			_box4.setTexture(_boxCheckedTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = DEFENSIVE;
-		}
-	}
-	else if (aiMode == NOAIMODE) {
+	} else if (aiMode == NOAIMODE) {
 		_box1.setTexture(_boxTexture);
 		_box2.setTexture(_boxTexture);
 		_box3.setTexture(_boxTexture);
@@ -130,7 +118,7 @@ void	SettingsPage::handleAiMode(sf::Vector2i mousePos) {
 	}
 }
 
-void	SettingsPage::settingsPageInit() {
+void	SettingsMenu::init() {
 	if (!_boxTexture.loadFromFile("assets/images/icons/box.png"))
 		std::cerr << "Error: could not load box texture" << std::endl;
 	if (!_boxCheckedTexture.loadFromFile("assets/images/icons/box_checked.png"))
@@ -141,7 +129,7 @@ void	SettingsPage::settingsPageInit() {
 		std::cerr << "Error: could not load return button texture" << std::endl;
 	if (!_returnButtonHoverTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
 		std::cerr << "Error: could not load return button hover texture" << std::endl;
-	if (!_settingsTexture.loadFromFile("assets/settingsPage/Settings_Gomoku.png"))
+	if (!_settingsTexture.loadFromFile("assets/settingsMenu/Settings_Gomoku.png"))
 		std::cerr << "Error: could not load settings texture" << std::endl;
 	if (!_switchTextureOn.loadFromFile("assets/images/buttons/On_Switch.png"))
 		std::cerr << "Error: could not load switch texture" << std::endl;

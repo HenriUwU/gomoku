@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 22:03:53 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:41:08 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ Avatar			playerTwoAvatar = NOAVATAR;
 StonesColors	stonesColor = NOSTONECOLOR;
 MoveSuggestion	moveSuggestion = ENABLED;
 AIMode			aiMode = NOAIMODE;
-HelpPageState	helpPageState = RULES;
+HelpMenuState	helpMenuState = RULES;
 
 int main() {
 	sf::RenderWindow	window(sf::VideoMode(1920, 1080), "Gomoku");
 	sf::Texture			cursorTexture;
-	sf::Sprite			cursor;
+	sf::Sprite			cursorSprite;
 	MainMenu			mainMenu;
-	CustomPage			customPage;
-	SettingsPage		settingsPage;
-	HelpPage			helpPage;
+	CustomMenu			customMenu;
+	SettingsMenu		settingsMenu;
+	HelpMenu			helpMenu;
 	Gameplay			gameplay(window);
 	Goban				goban(window);
 
@@ -37,9 +37,8 @@ int main() {
 		return 1;
 	}
 
-	cursor.setTexture(cursorTexture);
+	cursorSprite.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
-
 	while (window.isOpen())
 	{
 		window.clear();
@@ -51,7 +50,7 @@ int main() {
 				window.close();
 		}   
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-		cursor.setPosition(mousePos.x, mousePos.y);
+		cursorSprite.setPosition(mousePos.x, mousePos.y);
 		switch (gameState) {
 			case MENU:
 				mainMenu.display(window);
@@ -61,18 +60,18 @@ int main() {
 				gameplay.mouseHover(window);
 				break;
 			case CUSTOM:
-				customPage.display(window);
+				customMenu.display(window);
 				break;
 			case SETTINGS:
-				settingsPage.display(window);
+				settingsMenu.display(window);
 				break;
 			case HELP:
-				helpPage.display(window);
+				helpMenu.display(window);
 				break;
 			default:
 				break;
 		}
-		window.draw(cursor);
+		window.draw(cursorSprite);
 		window.display();
 	}
 }

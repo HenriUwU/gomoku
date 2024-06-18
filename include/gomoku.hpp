@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 20:45:23 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:41:22 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 #include "Gameplay.hpp"
 #include "Goban.hpp"
 #include "Debug.hpp"
-#include "CustomPage.hpp"
-#include "SettingsPage.hpp"
-#include "HelpPage.hpp"
+#include "CustomMenu.hpp"
+#include "SettingsMenu.hpp"
+#include "HelpMenu.hpp"
 #include "AnimatedGIF.hpp"
 
 typedef enum {
@@ -91,7 +91,7 @@ typedef enum {
 	RULES,
 	CAPTURES,
 	DOUBLETHREE,
-} HelpPageState;
+} HelpMenuState;
 
 extern GameState		gameState;
 extern BoardColor		boardColor;
@@ -100,4 +100,4 @@ extern Avatar			playerTwoAvatar;
 extern StonesColors		stonesColor;
 extern MoveSuggestion	moveSuggestion;
 extern AIMode			aiMode;
-extern HelpPageState	helpPageState;
+extern HelpMenuState	helpMenuState;

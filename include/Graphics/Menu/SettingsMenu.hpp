@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SettingsPage.hpp                                   :+:      :+:    :+:   */
+/*   SettingsMenu.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:05:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 20:46:25 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:26:34 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "gomoku.hpp"
 
-class SettingsPage {
+class SettingsMenu {
 	private:
 		sf::Texture		_settingsTexture;
 		sf::Texture		_boxTexture;
@@ -45,10 +45,10 @@ class SettingsPage {
 		sf::Sprite		_switch;
 
 	public:
-		SettingsPage();
-		~SettingsPage();
+		SettingsMenu();
+		~SettingsMenu();
 
-		void settingsPageInit();
+		void init();
 		void display(sf::RenderWindow &window);		
 		void handleKeys(sf::RenderWindow &window);
 		void handleGameMode(sf::Vector2i mousePos);

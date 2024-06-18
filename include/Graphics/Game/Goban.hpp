@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 21:38:12 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:41:58 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 class Goban : public Graphics {
 	private:
-		sf::Texture		_lanceAvatarTexture;
+		sf::Texture		_mousseAvatarTexture;
 		sf::Texture		_tommyAvatarTexture;
 		sf::Texture		_alexAvatarTexture;
 		sf::Texture		_guntherAvatarTexture;
@@ -45,8 +45,7 @@ class Goban : public Graphics {
 		Goban(sf::RenderWindow &window);
 		~Goban();
 
+		void	init();
 		void	display(sf::Event& event, sf::RenderWindow &window);
-		void	gobanInit();
-		void	drawPlayerPositions(sf::RenderWindow &window, std::map<std::string, int> playerPositions);
 		void	returnButton(sf::Event &event, sf::RenderWindow &window);
 };

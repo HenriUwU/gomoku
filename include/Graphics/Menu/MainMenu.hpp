@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 14:52:45 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:12:17 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ class MainMenu {
 
 		int		getSelectedItemIndex() { return _selectedItemIndex; }
 
+		void	init();
 		void	display(sf::RenderWindow &window);
 		void	MoveUp();
 		void	MoveDown();
@@ -64,5 +65,4 @@ class MainMenu {
 		void	MoveRight();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 		void	handleMouseMovement(sf::Vector2i mousePos);
-		void	mainMenuInit();
 };

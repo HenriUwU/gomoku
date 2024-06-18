@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CustomPage.cpp                                     :+:      :+:    :+:   */
+/*   CustomMenu.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 10:33:47 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 21:15:32 by hsebille         ###   ########.fr       */
+/*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
+/*   Updated: 2024/06/18 22:47:17 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CustomPage.hpp"
+#include "CustomMenu.hpp"
 
-CustomPage::CustomPage() {
-	customPageInit();
+CustomMenu::CustomMenu() {
+	init();
 }
 
-CustomPage::~CustomPage() {}
+CustomMenu::~CustomMenu() {}
 
-void	CustomPage::display(sf::RenderWindow& window) {
+void	CustomMenu::display(sf::RenderWindow& window) {
 	if (stonesColor == NOSTONECOLOR)
 		_stonesSelection.setPosition(-100, -100);
 	if (stonesColor == BlackAndWhite)
@@ -75,7 +75,7 @@ void	CustomPage::display(sf::RenderWindow& window) {
 	handleKeys(window);
 	
 	window.clear(sf::Color(38, 1, 69));
-	window.draw(_customPage);
+	window.draw(_CustomMenu);
 	window.draw(_stoneColorBandW);
 	window.draw(_stoneColorBandY);
 	window.draw(_stoneColorDGandLG);
@@ -107,174 +107,145 @@ void	CustomPage::display(sf::RenderWindow& window) {
 	window.draw(_avatarsSelection);
 }
 
-void	CustomPage::handleKeys(sf::RenderWindow &window) {
+void	CustomMenu::handleKeys(sf::RenderWindow &window) {
 	if (_returnButton.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		_returnButton.setTexture(_returnButtonHighlightedTexture);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			gameState = MENU;
-	}
-	else {
+	} else
 		_returnButton.setTexture(_returnButtonTexture);
-	}
+
 	handleStonesSelection(window);
 	handleBoardSelection(window);
 	handleAvatarsSelection(window);
 }
 
-void	CustomPage::handleStonesSelection(sf::RenderWindow& window) {
+void	CustomMenu::handleStonesSelection(sf::RenderWindow& window) {
 	if (_stoneColorBandW.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (stonesColor == NOSTONECOLOR)
 			_stonesSelection.setPosition(691 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			stonesColor = BlackAndWhite;
-	}
-	else if (_stoneColorBandY.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_stoneColorBandY.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (stonesColor == NOSTONECOLOR)
 			_stonesSelection.setPosition(971 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			stonesColor = BlackAndYellow;
-	}
-	else if (_stoneColorDGandLG.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_stoneColorDGandLG.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (stonesColor == NOSTONECOLOR)
 			_stonesSelection.setPosition(1110 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			stonesColor = DarkGreenAndLightGreen;
-	}
-	else if (_stoneColorGandR.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_stoneColorGandR.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (stonesColor == NOSTONECOLOR)
 			_stonesSelection.setPosition(761 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			stonesColor = GreenAndRed;
-	}
-	else if (_stoneColorOandV.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_stoneColorOandV.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (stonesColor == NOSTONECOLOR)
 			_stonesSelection.setPosition(1041 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			stonesColor = OrangeAndViolet;
-	}
-	else if (_stoneColorPandFY.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_stoneColorPandFY.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (stonesColor == NOSTONECOLOR)
 			_stonesSelection.setPosition(901 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			stonesColor = PinkAndFluoYellow;
-	}
-	else if (_stoneColorSandC.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_stoneColorSandC.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (stonesColor == NOSTONECOLOR)
 			_stonesSelection.setPosition(831 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			stonesColor = SalmonAndCoral;
-	}
-	else if (_stoneColorTGandI.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_stoneColorTGandI.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (stonesColor == NOSTONECOLOR)
 			_stonesSelection.setPosition(1179 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			stonesColor = TurquoiseGreenAndIndigo;
-	}
-	else {
-		if (stonesColor == NOSTONECOLOR)
-		_stonesSelection.setPosition(-100, -100);
-	}
+	} else if (stonesColor == NOSTONECOLOR)
+			_stonesSelection.setPosition(-100, -100);
 }
 
-void	CustomPage::handleAvatarsSelection(sf::RenderWindow& window) {
+void	CustomMenu::handleAvatarsSelection(sf::RenderWindow& window) {
 	if (_avatarAlex.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (playerOneAvatar == NOAVATAR)
 			_avatarsSelection.setPosition(877 - 8, 563 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			playerOneAvatar = ALEX;
-	}
-	else if (_avatarGunther.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_avatarGunther.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (playerOneAvatar == NOAVATAR)
 			_avatarsSelection.setPosition(1154 - 8, 563 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			playerOneAvatar = GUNTHER;
-	}
-	else if (_avatarHeric.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_avatarHeric.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (playerOneAvatar == NOAVATAR)
 			_avatarsSelection.setPosition(970 - 8, 563 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			playerOneAvatar = HERIC;
-	}
-	else if (_avatarLaure.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_avatarLaure.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (playerOneAvatar == NOAVATAR)
 			_avatarsSelection.setPosition(784 - 8, 563 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			playerOneAvatar = LAURE;
-	}
-	else if (_avatarMousse.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_avatarMousse.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (playerOneAvatar == NOAVATAR)
 			_avatarsSelection.setPosition(1063 - 8, 563 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			playerOneAvatar = MOUSSE;
-	}
-	else if (_avatarTommy.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_avatarTommy.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (playerOneAvatar == NOAVATAR)
 			_avatarsSelection.setPosition(691 - 8, 563 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			playerOneAvatar = TOMMY;
-	}
-	else {
-		if (playerOneAvatar == NOAVATAR)
+	} else if (playerOneAvatar == NOAVATAR)
 			_avatarsSelection.setPosition(-100, -100);
-	}
 }
 
-void	CustomPage::handleBoardSelection(sf::RenderWindow& window) {
+void	CustomMenu::handleBoardSelection(sf::RenderWindow& window) {
 	if (_boardColorAzure.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (boardColor == NOBOARD)
 			_boardSelection.setPosition(691 - 8, 776 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			boardColor = AZURE;
-	}
-	else if (_boardColorBlack.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_boardColorBlack.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (boardColor == NOBOARD)
 			_boardSelection.setPosition(1179 - 8, 776 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			boardColor = BLACK;
-	}
-	else if (_boardColorGray.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_boardColorGray.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (boardColor == NOBOARD)
 			_boardSelection.setPosition(1110 - 8, 776 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			boardColor = GRAY;
-	}
-	else if (_boardColorGreen.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_boardColorGreen.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (boardColor == NOBOARD)
 			_boardSelection.setPosition(1041 - 8, 776 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			boardColor = GREEN;
-	}
-	else if (_boardColorOrange.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_boardColorOrange.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (boardColor == NOBOARD)
 			_boardSelection.setPosition(901 - 8, 776 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			boardColor = ORANGE;
-	}
-	else if (_boardColorPink.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_boardColorPink.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (boardColor == NOBOARD)
 			_boardSelection.setPosition(971 - 8, 776 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			boardColor = PINK;
-	}
-	else if (_boardColorRed.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_boardColorRed.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (boardColor == NOBOARD)
 			_boardSelection.setPosition(831 - 8, 776 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			boardColor = RED;
-	}
-	else if (_boardColorYellow.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
+	} else if (_boardColorYellow.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		if (boardColor == NOBOARD)
 			_boardSelection.setPosition(761 - 8, 776 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			boardColor = YELLOW;
-	}
-	else {
-		if (boardColor == NOBOARD)
+	} else if (boardColor == NOBOARD)
 			_boardSelection.setPosition(-100, -100);
-	}
 }
 
-void	CustomPage::customPageInit() {
+void	CustomMenu::init() {
 	if (!_boardColorAzureTexture.loadFromFile("assets/images/boardSelection/Azure.png"))
 		std::cerr << "Error: could not load board color azure texture" << std::endl;
 	if (!_boardColorBlackTexture.loadFromFile("assets/images/boardSelection/Black.png"))
@@ -327,7 +298,7 @@ void	CustomPage::customPageInit() {
 		std::cerr << "Error: could not load selection halo texture" << std::endl;
 	if (!_avatarSelectorTexture.loadFromFile("assets/images/icons/avatar_selector.png"))
 		std::cerr << "Error: could not load avatar selector texture" << std::endl;
-	if (!_customPageTexture.loadFromFile("assets/customPage/Custom_Gomoku.png"))
+	if (!_CustomMenuTexture.loadFromFile("assets/customMenu/Custom_Gomoku.png"))
 		std::cerr << "Error: could not load custom page texture" << std::endl;
 
 	_boardColorAzure.setTexture(_boardColorAzureTexture);
@@ -356,7 +327,7 @@ void	CustomPage::customPageInit() {
 	_stonesSelection.setTexture(_selectionHaloTexture);
 	_boardSelection.setTexture(_selectionHaloTexture);
 	_avatarsSelection.setTexture(_avatarSelectorTexture);
-	_customPage.setTexture(_customPageTexture);
+	_CustomMenu.setTexture(_CustomMenuTexture);
 
 	_avatarAlex.setPosition(877, 563);
 	_avatarGunther.setPosition(1154, 563);

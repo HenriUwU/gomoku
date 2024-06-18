@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 20:31:37 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:39:43 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {
 			_playerPositions.insert(pair<string, int>(position, 0));
 		}
 	}
+	
 	_currentPlayer = 1;
 	_gridPosition = sf::Vector2f(527 - 48, 50 - 48);
 	_gridSize = 964;
@@ -77,116 +78,59 @@ void Gameplay::mouseHover(sf::RenderWindow& window) {
 	if (stonesColor == BlackAndWhite) {
 		_firstStone.setTexture(_blackStoneTexture);
 		_secondStone.setTexture(_whiteStoneTexture);
-	}
-	else if (stonesColor == GreenAndRed) {
+	} else if (stonesColor == GreenAndRed) {
 		_firstStone.setTexture(_greenStoneTexture);
 		_secondStone.setTexture(_redStoneTexture);
-	}
-	else if (stonesColor == SalmonAndCoral) {
+	} else if (stonesColor == SalmonAndCoral) {
 		_firstStone.setTexture(_salmonStoneTexture);
 		_secondStone.setTexture(_coralStoneTexture);
-	}
-	else if (stonesColor == PinkAndFluoYellow) {
+	} else if (stonesColor == PinkAndFluoYellow) {
 		_firstStone.setTexture(_pinkStoneTexture);
 		_secondStone.setTexture(_fluoYellowStoneTexture);
-	}
-	else if (stonesColor == BlackAndYellow) {
+	} else if (stonesColor == BlackAndYellow) {
 		_firstStone.setTexture(_blackStoneTexture);
 		_secondStone.setTexture(_yellowStoneTexture);
-	}
-	else if (stonesColor == OrangeAndViolet) {
+	} else if (stonesColor == OrangeAndViolet) {
 		_firstStone.setTexture(_orangeStoneTexture);
 		_secondStone.setTexture(_violetStoneTexture);
-	}
-	else if (stonesColor == DarkGreenAndLightGreen) {
+	} else if (stonesColor == DarkGreenAndLightGreen) {
 		_firstStone.setTexture(_darkGreenStoneTexture);
 		_secondStone.setTexture(_lightGreenStoneTexture);
-	}
-	else if (stonesColor == TurquoiseGreenAndIndigo) {
+	} else if (stonesColor == TurquoiseGreenAndIndigo) {
 		_firstStone.setTexture(_turquoiseGreenStoneTexture);
 		_secondStone.setTexture(_indigoStoneTexture);
 	}
 	
-    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-    sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+	sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
 
-    // Check if the mouse is within the grid bounds
-    if (worldPos.x >= _gridPosition.x && worldPos.x <= _gridPosition.x + _gridSize &&
-        worldPos.y >= _gridPosition.y && worldPos.y <= _gridPosition.y + _gridSize) {
-        
-        // Calculate the nearest intersection
-        float relativeX = worldPos.x - _gridPosition.x;
-        float relativeY = worldPos.y - _gridPosition.y;
+	if (worldPos.x >= _gridPosition.x && worldPos.x <= _gridPosition.x + _gridSize &&
+		worldPos.y >= _gridPosition.y && worldPos.y <= _gridPosition.y + _gridSize) {
 
-        int col = static_cast<int>(relativeX / _cellSize);
-        int row = static_cast<int>(relativeY / _cellSize);
+		float relativeX = worldPos.x - _gridPosition.x;
+		float relativeY = worldPos.y - _gridPosition.y;
 
-        float nearestX = _gridPosition.x + col * _cellSize;
-        float nearestY = _gridPosition.y + row * _cellSize;
+		int col = static_cast<int>(relativeX / _cellSize);
+		int row = static_cast<int>(relativeY / _cellSize);
 
-        // Place the stone sprite at the nearest intersection with lower opacity
-        _firstStone.setPosition(nearestX - _firstStone.getGlobalBounds().width / 2, nearestY - _firstStone.getGlobalBounds().height / 2);
-    } else {
-        // If the mouse is not within the grid, place the stone offscreen
-        _firstStone.setPosition(-_firstStone.getGlobalBounds().width, -_firstStone.getGlobalBounds().height);
-    }
+		float nearestX = _gridPosition.x + col * _cellSize;
+		float nearestY = _gridPosition.y + row * _cellSize;
 
-    // Draw the stone sprite
-    window.draw(_firstStone);
-}
+		_firstStone.setPosition(nearestX - _firstStone.getGlobalBounds().width / 2, nearestY - _firstStone.getGlobalBounds().height / 2);
+	} else
+		_firstStone.setPosition(-_firstStone.getGlobalBounds().width, -_firstStone.getGlobalBounds().height);
 
-
-void Gameplay::circleFollowMouse(sf::RenderWindow& window, sf::Event& event) {
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	float xIndex = round((mousePosition.x - _gridStartPoint.first) / _cellSize);
-	float yIndex = round((mousePosition.y - _gridStartPoint.second) / _cellSize);
-	Goban goban(window);
-	sf::Sprite	_stoneSprite;
-	window.clear();
-	//goban.display(window);
-	
-	// Draw the circle following the mouse if the mouse is on the grid
-	if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
-		sf::Vector2f nearestIntersection(_gridStartPoint.first + xIndex * _cellSize, _gridStartPoint.second + yIndex * _cellSize);
-		
-		if (_currentPlayer == 1)
-			_stoneSprite.setTexture(_blackStoneTexture);
-		else
-			_stoneSprite.setTexture(_whiteStoneTexture);
-		
-		_stoneSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
-		window.draw(_stoneSprite);
-	}
-	
-	char xCoord = 'A' + static_cast<int>(xIndex);
-	int yCoord = 19 - static_cast<int>(yIndex);
-	string position = string(1, xCoord) + to_string(yCoord);
-
-	// Place the stone on the grid if left mouse button is pressed
-	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
-		if (xIndex >= 0 && xIndex < 19 && yIndex >= 0 && yIndex < 19) {
-			// Place the stone for the current player
-			placeStone(position, window);
-		}
-	}
-	// checkStatus(_currentPlayer);
-	if (gameState == GAME) {
-		goban.drawPlayerPositions(window, _playerPositions);
-	}
-	window.display();
+	window.draw(_firstStone);
 }
 
 void	Gameplay::placeStone(string position, sf::RenderWindow& window) {
-	if (_playerPositions[position] != 0)
-		return;
-	if (!isMoveLegal(position))
+	if (_playerPositions[position] != 0 || !isMoveLegal(position))
 		return;
 
 	_playerPositions[position] = _currentPlayer;
 
-	if (isWinningMove(position)) {
+	if (isWinningMove(position))
 		Goban goban(window);
-	}
 
 	if (_currentPlayer == 1)
 		_currentPlayer = 2;
@@ -201,6 +145,7 @@ bool	Gameplay::isMoveLegal(string position) {
 		pair<string, int> pair = make_pair(position, _currentPlayer);
 		nearbyLines[i].push_back(pair);
 	}
+	
 	findHorizontalLine(4, position, nearbyLines[0]);
 	findVerticalLine(4, position, nearbyLines[1]);
 	findDiagonalLine(4, position, nearbyLines[2]);
@@ -210,7 +155,6 @@ bool	Gameplay::isMoveLegal(string position) {
 		cout << "Illegal move : Double three detected\n";
 		return false;
 	}
-
 	return true;
 }
 
@@ -230,7 +174,6 @@ bool	Gameplay::isWinningMove(string position) {
 	for (int i = 0; i < 4; i++) {
 		if (nearbyLines[i].size() < 5)
 			continue;
-
 		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
 				int count = 0;
 				while (j < nearbyLines[i].size() && nearbyLines[i][j].second == _currentPlayer) {
@@ -279,6 +222,7 @@ bool	Gameplay::isCapturingMove(string position) {
 		pair<string, int> pair = make_pair(position, _currentPlayer);
 		nearbyLines[i].push_back(pair);
 	}
+	
 	findVerticalLine(3, position, nearbyLines[0]);
 	findHorizontalLine(3, position, nearbyLines[1]);
 	findDiagonalLine(3, position, nearbyLines[2]);

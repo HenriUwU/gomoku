@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/09 18:30:14 by laprieur          #+#    #+#              #
-#    Updated: 2024/06/18 17:28:33 by hsebille         ###   ########.fr        #
+#    Updated: 2024/06/18 22:14:59 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,10 @@ SRC				:=	src/main.cpp							\
 					src/Graphics/Game/Gameplay.cpp			\
 					src/Graphics/Game/Goban.cpp				\
 					src/Graphics/Menu/MainMenu.cpp			\
-					src/Graphics/Menu/HelpPage.cpp			\
+					src/Graphics/Menu/HelpMenu.cpp			\
 					src/Graphics/Game/Gameplay_utils.cpp	\
-					src/Graphics/Menu/SettingsPage.cpp		\
-					src/Graphics/Menu/CustomPage.cpp		\
-					src/Graphics/Menu/MainMenuInit.cpp		\
+					src/Graphics/Menu/SettingsMenu.cpp		\
+					src/Graphics/Menu/CustomMenu.cpp		\
 					src/Graphics/AnimatedGIF.cpp			\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)

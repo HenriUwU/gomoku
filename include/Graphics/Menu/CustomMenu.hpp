@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CustomPage.hpp                                     :+:      :+:    :+:   */
+/*   CustomMenu.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 12:38:30 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 21:11:08 by hsebille         ###   ########.fr       */
+/*   Created: 2024/06/18 22:14:18 by hsebille          #+#    #+#             */
+/*   Updated: 2024/06/18 22:16:13 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "gomoku.hpp"
 
-class CustomPage {
+class CustomMenu {
 	private:
 		sf::Texture		_boardColorAzureTexture;
 		sf::Texture		_boardColorBlackTexture;
@@ -42,7 +42,7 @@ class CustomPage {
 		sf::Texture		_returnButtonHighlightedTexture;
 		sf::Texture		_selectionHaloTexture;
 		sf::Texture		_avatarSelectorTexture;
-		sf::Texture		_customPageTexture;
+		sf::Texture		_CustomMenuTexture;
 		sf::Sprite		_boardColorAzure;
 		sf::Sprite		_boardColorBlack;
 		sf::Sprite		_boardColorGray;
@@ -69,13 +69,13 @@ class CustomPage {
 		sf::Sprite		_stonesSelection;
 		sf::Sprite		_avatarsSelection;
 		sf::Sprite		_boardSelection;
-		sf::Sprite		_customPage;
+		sf::Sprite		_CustomMenu;
 
 	public:
-		CustomPage();
-		~CustomPage();
+		CustomMenu();
+		~CustomMenu();
 
-		void	customPageInit();
+		void	init();
 		void	display(sf::RenderWindow& window);
 		void	handleKeys(sf::RenderWindow& window);
 		void	handleStonesSelection(sf::RenderWindow& window);

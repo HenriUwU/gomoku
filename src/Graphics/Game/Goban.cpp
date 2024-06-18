@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 21:40:18 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 22:47:33 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,28 @@
 using namespace std;
 
 Goban::Goban(sf::RenderWindow &window) : Graphics(window) {
-	gobanInit();
+	init();
 }
 
 Goban::~Goban() {}
 
 void Goban::display(sf::Event& event, sf::RenderWindow &window) {
-	if (boardColor == AZURE) {
+	if (boardColor == AZURE)
 		_goban.setTexture(_gobanAzureTexture);
-	}
-	else if (boardColor == BLACK) {
+	else if (boardColor == BLACK)
 		_goban.setTexture(_gobanBlackTexture);
-	}
-	else if (boardColor == GRAY) {
+	else if (boardColor == GRAY)
 		_goban.setTexture(_gobanGrayTexture);
-	}
-	else if (boardColor == GREEN) {
+	else if (boardColor == GREEN)
 		_goban.setTexture(_gobanGreenTexture);
-	}
-	else if (boardColor == ORANGE) {
+	else if (boardColor == ORANGE)
 		_goban.setTexture(_gobanOrangeTexture);
-	}
-	else if (boardColor == PINK) {
+	else if (boardColor == PINK)
 		_goban.setTexture(_gobanPinkTexture);
-	}
-	else if (boardColor == RED) {
+	else if (boardColor == RED)
 		_goban.setTexture(_gobanRedTexture);
-	}
-	else if (boardColor == YELLOW) {
+	else if (boardColor == YELLOW)
 		_goban.setTexture(_gobanYellowTexture);
-	}
 	
 	returnButton(event, window);
 
@@ -59,59 +51,19 @@ void Goban::display(sf::Event& event, sf::RenderWindow &window) {
 
 void Goban::returnButton(sf::Event &event, sf::RenderWindow &window) {
     if (event.type == sf::Event::MouseMoved) {
-        if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
+        if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
             _returnArrow.setTexture(_returnArrowHighlightTexture);
-        } else {
+        else
             _returnArrow.setTexture(_returnArrowTexture);
-        }
     }
-    if (event.type == sf::Event::MouseButtonPressed) {
-        if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
+    if (event.type == sf::Event::MouseButtonPressed)
+        if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
 			gameState = MENU;
-        }
-    }
 }
 
-void	Goban::drawPlayerPositions(sf::RenderWindow &window, map<string, int> playerPositions) {
-	for (int i = 0; i < 19; i++) {
-		char character = 'A' + i;
-		for (int j = 1; j < 20; j++) {
-			string position = string(1, character) + to_string(j);
-			int playerId = playerPositions[position];
-			
-			// if there is no stone on this position, skip
-			if (playerId == 0) {
-				continue;
-			}
-
-			// convert the position to x and y indices
-			char xCoord = position[0];
-			int yCoord = stoi(position.substr(1));
-			int xIndex = xCoord - 'A';
-			int yIndex = 19 - yCoord;
-			
-			sf::Vector2f nearestIntersection(_gridStartPoint.first + xIndex * _cellSize, _gridStartPoint.second + yIndex * _cellSize);
-			sf::CircleShape playerCircle(13.f);
-
-			sf::Color firstPlayerColor(0, 0, 0);
-			sf::Color secondPlayerColor(255, 255, 255);
-
-			if (playerId == 1) {
-				playerCircle.setFillColor(firstPlayerColor);
-			}
-			else {
-				playerCircle.setFillColor(secondPlayerColor);
-			}
-
-			playerCircle.setPosition(nearestIntersection.x - playerCircle.getRadius(), nearestIntersection.y - playerCircle.getRadius());
-			window.draw(playerCircle);
-		}
-	}
-}
-
-void	Goban::gobanInit() {
-	if (!_lanceAvatarTexture.loadFromFile("assets/images/avatars/lance.png"))
-		cerr << "Error while loading the 'lance.png' file." << endl;
+void	Goban::init() {
+	if (!_mousseAvatarTexture.loadFromFile("assets/images/avatars/mousse.png"))
+		cerr << "Error while loading the 'mousse.png' file." << endl;
 	if (!_tommyAvatarTexture.loadFromFile("assets/images/avatars/tommy.png"))
 		cerr << "Error while loading the 'tommy.png' file." << endl;
 	if (!_alexAvatarTexture.loadFromFile("assets/images/avatars/alex.png"))
@@ -144,10 +96,10 @@ void	Goban::gobanInit() {
 		cerr << "Error while loading the 'gobanYellow.png' file." << endl;
 	if (!_gridTexture.loadFromFile("assets/images/boards/grid.png"))
 		cerr << "Error while loading the 'grid.png' file." << endl;
-	if (!_gamePageTexture.loadFromFile("assets/gamePages/Game_Gomoku.png"))
+	if (!_gamePageTexture.loadFromFile("assets/game/Game_Gomoku.png"))
 		cerr << "Error while loading the 'gamePage.png' file." << endl;
 
-	_firstPlayerAvatar.setTexture(_lanceAvatarTexture);
+	_firstPlayerAvatar.setTexture(_mousseAvatarTexture);
 	_secondPlayerAvatar.setTexture(_hericAvatarTexture);
 	_returnArrow.setTexture(_returnArrowTexture);
 	_goban.setTexture(_gobanAzureTexture);
