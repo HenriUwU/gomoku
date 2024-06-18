@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:05:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 17:17:32 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:52:36 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ class SettingsPage {
 		sf::Texture		_boxCheckedTexture;
 		sf::Texture		_speakerTexture;
 		sf::Texture		_volume_100Texture;
+		sf::Texture		_volume_90Texture;
+		sf::Texture		_volume_80Texture;
+		sf::Texture		_volume_70Texture;
+		sf::Texture		_volume_60Texture;
+		sf::Texture		_volume_50Texture;
+		sf::Texture		_volume_40Texture;
+		sf::Texture		_volume_30Texture;
+		sf::Texture		_volume_20Texture;
+		sf::Texture		_volume_10Texture;
+		sf::Texture		_volume_0Texture;
 		sf::Texture		_sparklesTexture;
 		sf::Texture		_returnButtonTexture;
 		sf::Texture		_returnButtonHoverTexture;
@@ -45,4 +55,7 @@ class SettingsPage {
 		void settingsPageInit();
 		void display(sf::RenderWindow &window);		
 		void handleKeys(sf::RenderWindow &window);
+		void handleGameMode(sf::Vector2i mousePos);
+		void handleAiMode(sf::Vector2i mousePos);
+		void handleVolume(sf::Vector2i mousePos);
 };

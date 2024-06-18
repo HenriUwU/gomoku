@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 17:38:48 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:55:56 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,53 +17,6 @@ SettingsPage::SettingsPage() {
 }
 
 SettingsPage::~SettingsPage() {}
-
-void	SettingsPage::settingsPageInit() {
-	if (!_boxTexture.loadFromFile("assets/images/icons/box.png"))
-		std::cerr << "Error: could not load box texture" << std::endl;
-	if (!_boxCheckedTexture.loadFromFile("assets/images/icons/box_checked.png"))
-		std::cerr << "Error: could not load box checked texture" << std::endl;
-	if (!_speakerTexture.loadFromFile("assets/images/icons/speaker.png"))
-		std::cerr << "Error: could not load speaker texture" << std::endl;
-	if (!_volume_100Texture.loadFromFile("assets/images/icons/volume_100.png"))
-		std::cerr << "Error: could not load volume 100 texture" << std::endl;
-	if (!_sparklesTexture.loadFromFile("assets/images/icons/sparkles.png"))
-		std::cerr << "Error: could not load sparkles texture" << std::endl;
-	if (!_exo2BlackFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-Black.ttf"))
-		std::cerr << "Error: could not load Exo2-Black font" << std::endl;
-	if (!_exo2BlackItalicFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-BlackItalic.ttf"))
-		std::cerr << "Error: could not load Exo2-BlackItalic font" << std::endl;
-	if (!_returnButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
-		std::cerr << "Error: could not load return button texture" << std::endl;
-	if (!_returnButtonHoverTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
-		std::cerr << "Error: could not load return button hover texture" << std::endl;
-
-	_box.setTexture(_boxTexture);
-	_box2.setTexture(_boxTexture);
-	_box3.setTexture(_boxTexture);
-	_box4.setTexture(_boxTexture);
-	_box5.setTexture(_boxTexture);
-	_box6.setTexture(_boxTexture);
-	_box7.setTexture(_boxTexture);
-	_box8.setTexture(_boxTexture);
-	_speaker.setTexture(_speakerTexture);
-	_volume.setTexture(_volume_100Texture);
-	_sparkles.setTexture(_sparklesTexture);
-	_returnButton.setTexture(_returnButtonTexture);
-
-	_box.setPosition(683, 493);
-	_box2.setPosition(683, 579);
-	_box3.setPosition(990, 493);
-	_box4.setPosition(990, 579);
-	_box5.setPosition(683, 724);
-	_box6.setPosition(683, 810);
-	_box7.setPosition(990, 723);
-	_box8.setPosition(990, 810);
-	_speaker.setPosition(684, 315);
-	_volume.setPosition(787, 335);
-	_sparkles.setPosition(1123, 254);
-	_returnButton.setPosition(34, 34);
-}
 
 void	SettingsPage::display(sf::RenderWindow& window) {
 	sf::RectangleShape	leftLine(sf::Vector2f(171, 5));
@@ -202,7 +155,17 @@ void	SettingsPage::handleKeys(sf::RenderWindow& window) {
 	}
 	else
 		_returnButton.setTexture(_returnButtonTexture);
+	
+	handleGameMode(mousePos);
+	handleAiMode(mousePos);
+	handleVolume(mousePos);
+}
 
+void	SettingsPage::handleVolume(sf::Vector2i mousePos) {
+	(void)mousePos;
+}
+
+void	SettingsPage::handleGameMode(sf::Vector2i mousePos) {
 	if (_box.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (gameMode == NOGAMEMODE)
 			_box.setTexture(_boxCheckedTexture);
@@ -237,7 +200,9 @@ void	SettingsPage::handleKeys(sf::RenderWindow& window) {
 		_box3.setTexture(_boxTexture);
 		_box4.setTexture(_boxTexture);
 	}
-	
+}
+
+void	SettingsPage::handleAiMode(sf::Vector2i mousePos) {
 	if (_box5.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
 			_box5.setTexture(_boxCheckedTexture);
@@ -272,4 +237,51 @@ void	SettingsPage::handleKeys(sf::RenderWindow& window) {
 		_box7.setTexture(_boxTexture);
 		_box8.setTexture(_boxTexture);
 	}
+}
+
+void	SettingsPage::settingsPageInit() {
+	if (!_boxTexture.loadFromFile("assets/images/icons/box.png"))
+		std::cerr << "Error: could not load box texture" << std::endl;
+	if (!_boxCheckedTexture.loadFromFile("assets/images/icons/box_checked.png"))
+		std::cerr << "Error: could not load box checked texture" << std::endl;
+	if (!_speakerTexture.loadFromFile("assets/images/icons/speaker.png"))
+		std::cerr << "Error: could not load speaker texture" << std::endl;
+	if (!_volume_100Texture.loadFromFile("assets/images/icons/volume_100.png"))
+		std::cerr << "Error: could not load volume 100 texture" << std::endl;
+	if (!_sparklesTexture.loadFromFile("assets/images/icons/sparkles.png"))
+		std::cerr << "Error: could not load sparkles texture" << std::endl;
+	if (!_exo2BlackFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-Black.ttf"))
+		std::cerr << "Error: could not load Exo2-Black font" << std::endl;
+	if (!_exo2BlackItalicFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-BlackItalic.ttf"))
+		std::cerr << "Error: could not load Exo2-BlackItalic font" << std::endl;
+	if (!_returnButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
+		std::cerr << "Error: could not load return button texture" << std::endl;
+	if (!_returnButtonHoverTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
+		std::cerr << "Error: could not load return button hover texture" << std::endl;
+
+	_box.setTexture(_boxTexture);
+	_box2.setTexture(_boxTexture);
+	_box3.setTexture(_boxTexture);
+	_box4.setTexture(_boxTexture);
+	_box5.setTexture(_boxTexture);
+	_box6.setTexture(_boxTexture);
+	_box7.setTexture(_boxTexture);
+	_box8.setTexture(_boxTexture);
+	_speaker.setTexture(_speakerTexture);
+	_volume.setTexture(_volume_100Texture);
+	_sparkles.setTexture(_sparklesTexture);
+	_returnButton.setTexture(_returnButtonTexture);
+
+	_box.setPosition(683, 493);
+	_box2.setPosition(683, 579);
+	_box3.setPosition(990, 493);
+	_box4.setPosition(990, 579);
+	_box5.setPosition(683, 724);
+	_box6.setPosition(683, 810);
+	_box7.setPosition(990, 723);
+	_box8.setPosition(990, 810);
+	_speaker.setPosition(684, 315);
+	_volume.setPosition(787, 335);
+	_sparkles.setPosition(1123, 254);
+	_returnButton.setPosition(34, 34);
 }

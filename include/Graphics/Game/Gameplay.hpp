@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/14 13:57:15 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:19:55 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,23 @@ class Gameplay : public Graphics {
 		// Textures
 		sf::Texture					_blackStoneTexture;
 		sf::Texture					_whiteStoneTexture;
+		sf::Texture					_coralStoneTexture;
+		sf::Texture					_darkGreenStoneTexture;
+		sf::Texture					_lightGreenStoneTexture;
+		sf::Texture					_violetStoneTexture;
+		sf::Texture					_yellowStoneTexture;
+		sf::Texture					_fluoYellowStoneTexture;
+		sf::Texture					_pinkStoneTexture;
+		sf::Texture					_greenStoneTexture;
+		sf::Texture					_indigoStoneTexture;
+		sf::Texture					_orangeStoneTexture;
+		sf::Texture					_redStoneTexture;
+		sf::Texture					_salmonStoneTexture;
+		sf::Texture					_turquoiseGreenStoneTexture;
 
 		// Sprites
-		sf::Sprite					_blackStone;
-		sf::Sprite					_whiteStone;
+		sf::Sprite					_firstStone;
+		sf::Sprite					_secondStone;
 
 	public:
 		Gameplay(sf::RenderWindow &window);
