@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 18:28:24 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:45:31 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ BoardColor		boardColor = NOBOARD;
 Avatar			playerOneAvatar = NOAVATAR;
 Avatar			playerTwoAvatar = NOAVATAR;
 StonesColors	stonesColor = NOSTONECOLOR;
-GameMode		gameMode = NOGAMEMODE;
+MoveSuggestion	moveSuggestion = ENABLED;
 AIMode			aiMode = NOAIMODE;
 HelpPageState	helpPageState = RULES;
 

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 17:28:51 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:45:23 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,9 @@ typedef enum {
 } StonesColors;
 
 typedef enum {
-	NOGAMEMODE,
-	STANDARD,
-	PRO,
-	SWAP,
-	SWAP2,
-} GameMode;
+	ENABLED,
+	DISABLED,
+} MoveSuggestion;
 
 typedef enum {
 	NOAIMODE,
@@ -93,6 +90,7 @@ typedef enum {
 typedef enum {
 	RULES,
 	CAPTURES,
+	DOUBLETHREE,
 } HelpPageState;
 
 extern GameState		gameState;
@@ -100,6 +98,6 @@ extern BoardColor		boardColor;
 extern Avatar			playerOneAvatar;
 extern Avatar			playerTwoAvatar;
 extern StonesColors		stonesColor;
-extern GameMode			gameMode;
+extern MoveSuggestion	moveSuggestion;
 extern AIMode			aiMode;
 extern HelpPageState	helpPageState;

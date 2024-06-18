@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 12:38:30 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/17 17:06:36 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 21:11:08 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 
 class CustomPage {
 	private:
-		sf::Font		_exo2BlackFont;
-		sf::Font		_exo2BlackItalicFont;
-		sf::Texture		_artistTexture;
 		sf::Texture		_boardColorAzureTexture;
 		sf::Texture		_boardColorBlackTexture;
 		sf::Texture		_boardColorGrayTexture;
@@ -45,7 +42,7 @@ class CustomPage {
 		sf::Texture		_returnButtonHighlightedTexture;
 		sf::Texture		_selectionHaloTexture;
 		sf::Texture		_avatarSelectorTexture;
-		sf::Sprite		_artist;
+		sf::Texture		_customPageTexture;
 		sf::Sprite		_boardColorAzure;
 		sf::Sprite		_boardColorBlack;
 		sf::Sprite		_boardColorGray;
@@ -72,35 +69,7 @@ class CustomPage {
 		sf::Sprite		_stonesSelection;
 		sf::Sprite		_avatarsSelection;
 		sf::Sprite		_boardSelection;
-		sf::Text		_custom;
-		sf::Text		_customShadow;
-		sf::Text		_showYourArtisticSoul;
-		sf::Text		_stonesColor;
-		sf::Text		_avatars;
-		sf::Text		_boards;
-		sf::Text		_BandW;
-		sf::Text		_BandY;
-		sf::Text		_DGandLG;
-		sf::Text		_GandR;
-		sf::Text		_OandV;
-		sf::Text		_PandFY;
-		sf::Text		_SandC;		
-		sf::Text		_TGandI;
-		sf::Text		_Alex;
-		sf::Text		_Gunther;
-		sf::Text		_Heric;
-		sf::Text		_Laure;
-		sf::Text		_Mousse;
-		sf::Text		_Tommy;
-		sf::Text		_Azure;
-		sf::Text		_Black;
-		sf::Text		_Gray;
-		sf::Text		_Green;
-		sf::Text		_Orange;
-		sf::Text		_Pink;
-		sf::Text		_Red;
-		sf::Text		_Yellow;
-		sf::Text		_backToMenu;
+		sf::Sprite		_customPage;
 
 	public:
 		CustomPage();
