@@ -6,12 +6,11 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 14:03:25 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:28:24 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
-#include "AnimatedGIF.hpp"
 
 GameState		gameState = MENU;
 BoardColor		boardColor = NOBOARD;
@@ -20,12 +19,14 @@ Avatar			playerTwoAvatar = NOAVATAR;
 StonesColors	stonesColor = NOSTONECOLOR;
 GameMode		gameMode = NOGAMEMODE;
 AIMode			aiMode = NOAIMODE;
+HelpPageState	helpPageState = RULES;
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Gomoku");
 	MainMenu mainMenu;
 	CustomPage customPage;
 	SettingsPage settingsPage;
+	HelpPage helpPage;
 	Gameplay gameplay(window);
 	Goban goban(window);
 	sf::Texture cursorTexture;
@@ -38,9 +39,6 @@ int main() {
 
 	cursor.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
-
-	AnimatedGIF gif("assets/images/gay.gif");
-	sf::Sprite gifSprite;
 
 	while (window.isOpen())
 	{
@@ -69,14 +67,12 @@ int main() {
 				settingsPage.display(window);
 				break;
 			case HELP:
-				mainMenu.helpPage(window);
+				helpPage.display(window);
 				break;
 			default:
 				break;
 		}
-		gif.update(gifSprite);
 		window.draw(cursor);
-		window.draw(gifSprite);
 		window.display();
 	}
 }

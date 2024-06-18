@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 16:37:02 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:43:09 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ class Goban : public Graphics {
 		~Goban();
 
 		void	display(sf::Event& event, sf::RenderWindow &window);
+		void	gobanInit();
 		void	drawPlayerPositions(sf::RenderWindow &window, std::map<std::string, int> playerPositions);
 		void	returnButton(sf::Event &event, sf::RenderWindow &window);
 };

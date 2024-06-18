@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 13:50:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:52:45 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 class MainMenu {
 	private:
-		//--- Main Menu ---//
 		int				_selectedItemIndex;
 		sf::Font		_exo2BlackFont;
 		sf::Font		_ex02BlackItalicFont;
@@ -65,9 +64,5 @@ class MainMenu {
 		void	MoveRight();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 		void	handleMouseMovement(sf::Vector2i mousePos);
-
 		void	mainMenuInit();
-
-		void	settingsPage(sf::RenderWindow &window);
-		void	helpPage(sf::RenderWindow &window);
 };

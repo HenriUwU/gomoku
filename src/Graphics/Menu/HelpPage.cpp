@@ -6,92 +6,70 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/14 15:00:53 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:15:36 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MainMenu.hpp"
+#include "HelpPage.hpp"
 
-static void	helpPageOne(sf::Font _exo2BlackFont, sf::Font _ex02BlackItalicFont, sf::RenderWindow &window) {
-	sf::Text	rules;
-	sf::Text	gobanSizeExplanation;
-	sf::Text	howToPlay;
-	sf::Text	howToPlayExplanation;
-	sf::Text	nextPage;
-	sf::Text	backToMenu;
-
-	rules.setString("Rules");
-	gobanSizeExplanation.setString("The game is played on a 19x19 goban, and there is no limit to the number of stone.");
-	howToPlay.setString("That's nice. But how do you play the game?");
-	howToPlayExplanation.setString("Two players take turns placing stones of their\ncolor on an intersection of the board,\nand the game ends when one player manages\nto align five stones (there's actually a rule that\nyou'll see a bit further that can override this one).");
-	nextPage.setString("Next page");
-	backToMenu.setString("Back to menu");
-	
-	rules.setFont(_exo2BlackFont);
-	gobanSizeExplanation.setFont(_ex02BlackItalicFont);
-	howToPlay.setFont(_exo2BlackFont);
-	howToPlayExplanation.setFont(_ex02BlackItalicFont);
-	nextPage.setFont(_ex02BlackItalicFont);
-	backToMenu.setFont(_ex02BlackItalicFont);
-
-	rules.setCharacterSize(125);
-	gobanSizeExplanation.setCharacterSize(35);
-	howToPlay.setCharacterSize(35);
-	howToPlayExplanation.setCharacterSize(35);
-	nextPage.setCharacterSize(20);
-	backToMenu.setCharacterSize(20);
-	
-	rules.setFillColor(sf::Color(193, 167, 252));
-	gobanSizeExplanation.setFillColor(sf::Color::White);
-	howToPlay.setFillColor(sf::Color(193, 167, 252));
-	howToPlayExplanation.setFillColor(sf::Color::White);
-	nextPage.setFillColor(sf::Color::White);
-	backToMenu.setFillColor(sf::Color::White);
-	
-	rules.setPosition(789, 30);
-	gobanSizeExplanation.setPosition(54, 219);
-	howToPlay.setPosition(54, 400);
-	howToPlayExplanation.setPosition(54, 474);
-	nextPage.setPosition(1685, 855);
-	backToMenu.setPosition(135, 75);
-
-	window.draw(rules);
-	window.draw(gobanSizeExplanation);
-	window.draw(howToPlay);
-	window.draw(howToPlayExplanation);
-	window.draw(nextPage);
-	window.draw(backToMenu);
+HelpPage::HelpPage() {
+	helpPageInit();
 }
 
-void	MainMenu::helpPage(sf::RenderWindow &window) {
-	int	page = 1;
+HelpPage::~HelpPage() {}
 
-	_leftArrowIconSprite.setTexture(_arrowIconTexture);
-	_rightArrowIconSprite.setTexture(_arrowIconTexture);
-	_rightArrowIconSprite.setRotation(180);
-	_leftArrowIconSprite.setPosition(54, 54);
-	_rightArrowIconSprite.setPosition(1866, 900);
+void	HelpPage::display(sf::RenderWindow &window) {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+	if (_leftArrow.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_leftArrow.setTexture(_arrowButtonHighlightedTexture);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && helpPageState == RULES) {
+			gameState = MENU;
+		}
+		else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && helpPageState == CAPTURES) {
+			helpPageState = RULES;
+			sf::sleep(sf::milliseconds(200));
+		}
+	}
+	else if (_rightArrow.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_rightArrow.setTexture(_arrowButtonHighlightedTexture);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			if (helpPageState == RULES)
+				helpPageState = CAPTURES;
+		}
+	}
+	else {
+		_leftArrow.setTexture(_arrowButtonTexture);
+		_rightArrow.setTexture(_arrowButtonTexture);
+	}
 
 	window.clear(sf::Color(38, 1, 69));
 
-	if (_leftArrowIconSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_leftArrowIconSprite.setTexture(_arrowIconHighlightedTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			gameState = MENU;
-		}
-	}
-	else if (_rightArrowIconSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_rightArrowIconSprite.setTexture(_arrowIconHighlightedTexture);
-	}
-	else {
-		_leftArrowIconSprite.setTexture(_arrowIconTexture);
-		_rightArrowIconSprite.setTexture(_arrowIconTexture);
-	}
+	if (helpPageState == RULES)
+		window.draw(_rulesPage);
+	if (helpPageState == CAPTURES)
+		window.draw(_capturesPage);
 
-	if (page == 1)
-		helpPageOne(_exo2BlackFont, _ex02BlackItalicFont, window);
+	window.draw(_leftArrow);
+	window.draw(_rightArrow);
+}
 
-	window.draw(_leftArrowIconSprite);
-	window.draw(_rightArrowIconSprite);
+void	HelpPage::helpPageInit() {
+	if (!_rulesPageTexture.loadFromFile("assets/helpPages/Rules_Gomoku.png"))
+		std::cerr << "Error: could not load rules page texture" << std::endl;
+	if (!_capturesPageTexture.loadFromFile("assets/helpPages/Capture_Gomoku.png"))
+		std::cerr << "Error: could not load captures page texture" << std::endl;
+	if (!_arrowButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
+		std::cerr << "Error: could not load arrow button texture" << std::endl;
+	if (!_arrowButtonHighlightedTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
+		std::cerr << "Error: could not load arrow button highlighted texture" << std::endl;
+
+	_rulesPage.setTexture(_rulesPageTexture);
+	_capturesPage.setTexture(_capturesPageTexture);
+	_leftArrow.setTexture(_arrowButtonTexture);
+	_rightArrow.setTexture(_arrowButtonTexture);
+
+	_rightArrow.setRotation(180);
+	_leftArrow.setPosition(34, 34);
+	_rightArrow.setPosition(1886, 930);
 }

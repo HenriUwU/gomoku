@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 17:14:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:28:51 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 #include "Debug.hpp"
 #include "CustomPage.hpp"
 #include "SettingsPage.hpp"
+#include "HelpPage.hpp"
+#include "AnimatedGIF.hpp"
 
 typedef enum {
 	MENU,
@@ -88,10 +90,16 @@ typedef enum {
 	DEFENSIVE,
 } AIMode;
 
-extern GameState	gameState;
-extern BoardColor	boardColor;
-extern Avatar		playerOneAvatar;
-extern Avatar		playerTwoAvatar;
-extern StonesColors	stonesColor;
-extern GameMode		gameMode;
-extern AIMode		aiMode;
+typedef enum {
+	RULES,
+	CAPTURES,
+} HelpPageState;
+
+extern GameState		gameState;
+extern BoardColor		boardColor;
+extern Avatar			playerOneAvatar;
+extern Avatar			playerTwoAvatar;
+extern StonesColors		stonesColor;
+extern GameMode			gameMode;
+extern AIMode			aiMode;
+extern HelpPageState	helpPageState;

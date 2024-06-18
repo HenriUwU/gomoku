@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/17 12:45:08 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:47:52 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@ MainMenu::MainMenu() {
 MainMenu::~MainMenu() {}
 
 void	MainMenu::display(sf::RenderWindow& window) {
-	sf::RectangleShape background(sf::Vector2f(1920, 1080));
 	sf::RectangleShape leftLine(sf::Vector2f(150, 5));
 	sf::RectangleShape rightLine(sf::Vector2f(150, 5));
-	background.setFillColor(sf::Color(38, 1, 69));
 	leftLine.setPosition(685, 705);
 	rightLine.setPosition(1085, 705);
 
-	window.draw(background);
+	window.clear(sf::Color(38, 1, 69));
 	window.draw(_greenButtonSprite);
 	window.draw(_orangeButtonSprite);
 	window.draw(_redButtonSprite);
