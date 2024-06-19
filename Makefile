@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/06/19 12:50:42 by hsebille         ###   ########.fr        #
+#    Updated: 2024/06/19 12:55:33 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,8 @@ SRC				:=	src/main.cpp							\
 					src/Graphics/Game/Gameplay_utils.cpp	\
 					src/Graphics/Menu/SettingsMenu.cpp		\
 					src/Graphics/Menu/CustomMenu.cpp		\
-					src/Graphics/Menu/Menu.cpp				\
 					src/Graphics/GIF/AnimatedGIF.cpp		\
-					#src/Graphics/Game/Bitboard.cpp			\
+					src/Graphics/Game/Bitboard.cpp			\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
