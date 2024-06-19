@@ -6,7 +6,7 @@
 #    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/09 18:30:14 by laprieur          #+#    #+#              #
-#    Updated: 2024/06/19 12:08:59 by laprieur         ###   ########.fr        #
+#    Updated: 2024/06/19 12:13:09 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,9 @@ SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -ISFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/Graphics/GIF -Istb
-SFML_FLAGS		:=	-LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system
-RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/SFML/lib'
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -Ilib/SFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/Graphics/GIF -Ilib/stb
+SFML_FLAGS		:=	-Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
+RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
 
 # **************************************************************************** #
 #                                    TOOLS                                     #
