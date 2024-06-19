@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/19 09:59:22 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:58:40 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,56 +22,55 @@ void	SettingsMenu::display(sf::RenderWindow& window) {
 	handleKeys(window);
 
 	if (moveSuggestion == ENABLED)
-		_switch.setTexture(_switchTextureOn);
+		_switchButtonSprite.setTexture(_switchOnButtonTexture);
 	else
-		_switch.setTexture(_switchTextureOff);
+		_switchButtonSprite.setTexture(_switchOffButtonTexture);
 
 	if (aiMode == IMPOSSIBLE) {
-		_box1.setTexture(_boxCheckedTexture);
-		_box2.setTexture(_boxTexture);
-		_box3.setTexture(_boxTexture);
-		_box4.setTexture(_boxTexture);
+		_boxImpossibleAISprite.setTexture(_boxCheckedTexture);
+		_boxAggressiveAISprite.setTexture(_boxTexture);
+		_boxPassiveAISprite.setTexture(_boxTexture);
+		_boxDefensiveAISprite.setTexture(_boxTexture);
 	} else if (aiMode == PASSIVE) {
-		_box2.setTexture(_boxCheckedTexture);
-		_box1.setTexture(_boxTexture);
-		_box3.setTexture(_boxTexture);
-		_box4.setTexture(_boxTexture);
+		_boxAggressiveAISprite.setTexture(_boxCheckedTexture);
+		_boxImpossibleAISprite.setTexture(_boxTexture);
+		_boxPassiveAISprite.setTexture(_boxTexture);
+		_boxDefensiveAISprite.setTexture(_boxTexture);
 	} else if (aiMode == AGGRESSIVE) {
-		_box3.setTexture(_boxCheckedTexture);
-		_box4.setTexture(_boxTexture);
-		_box2.setTexture(_boxTexture);
-		_box1.setTexture(_boxTexture);
+		_boxPassiveAISprite.setTexture(_boxCheckedTexture);
+		_boxDefensiveAISprite.setTexture(_boxTexture);
+		_boxAggressiveAISprite.setTexture(_boxTexture);
+		_boxImpossibleAISprite.setTexture(_boxTexture);
 	} else if (aiMode == DEFENSIVE) {
-		_box4.setTexture(_boxCheckedTexture);
-		_box1.setTexture(_boxTexture);
-		_box2.setTexture(_boxTexture);
-		_box3.setTexture(_boxTexture);
+		_boxDefensiveAISprite.setTexture(_boxCheckedTexture);
+		_boxImpossibleAISprite.setTexture(_boxTexture);
+		_boxAggressiveAISprite.setTexture(_boxTexture);
+		_boxPassiveAISprite.setTexture(_boxTexture);
 	}
 
 	window.clear(sf::Color(38, 1, 69));
-	window.draw(_settings);
-	window.draw(_box1);
-	window.draw(_box2);
-	window.draw(_box3);
-	window.draw(_box4);
-	window.draw(_speaker);
-	window.draw(_volume);
-	window.draw(_returnButton);
-	window.draw(_switch);
+	window.draw(_settingsMenuSprite);
+	window.draw(_backwardButtonSprite);
+	window.draw(_volumeBarSprite);
+	window.draw(_switchButtonSprite);
+	window.draw(_boxImpossibleAISprite);
+	window.draw(_boxAggressiveAISprite);
+	window.draw(_boxPassiveAISprite);
+	window.draw(_boxDefensiveAISprite);
 }
 
 void	SettingsMenu::handleKeys(sf::RenderWindow& window) {
 	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
 
-	if (_returnButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_returnButton.setTexture(_returnButtonHoverTexture);
+	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			gameState = MENU;
 		}
 	} else
-		_returnButton.setTexture(_returnButtonTexture);
+		_backwardButtonSprite.setTexture(_backwardButtonTexture);
 
-	if (_switch.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	if (_switchButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			if (moveSuggestion == ENABLED)
 				moveSuggestion = DISABLED;
@@ -90,65 +89,65 @@ void	SettingsMenu::handleVolume(sf::Vector2i mousePos) {
 }
 
 void	SettingsMenu::handleAiMode(sf::Vector2i mousePos) {
-	if (_box1.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	if (_boxImpossibleAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_box1.setTexture(_boxCheckedTexture);
+			_boxImpossibleAISprite.setTexture(_boxCheckedTexture);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = IMPOSSIBLE;
-	} else if (_box2.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	} else if (_boxAggressiveAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_box2.setTexture(_boxCheckedTexture);
+			_boxAggressiveAISprite.setTexture(_boxCheckedTexture);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = PASSIVE;
-	} else if (_box3.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	} else if (_boxPassiveAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_box3.setTexture(_boxCheckedTexture);
+			_boxPassiveAISprite.setTexture(_boxCheckedTexture);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = AGGRESSIVE;
-	} else if (_box4.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	} else if (_boxDefensiveAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_box4.setTexture(_boxCheckedTexture);
+			_boxDefensiveAISprite.setTexture(_boxCheckedTexture);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = DEFENSIVE;
 	} else if (aiMode == NOAIMODE) {
-		_box1.setTexture(_boxTexture);
-		_box2.setTexture(_boxTexture);
-		_box3.setTexture(_boxTexture);
-		_box4.setTexture(_boxTexture);
+		_boxImpossibleAISprite.setTexture(_boxTexture);
+		_boxAggressiveAISprite.setTexture(_boxTexture);
+		_boxPassiveAISprite.setTexture(_boxTexture);
+		_boxDefensiveAISprite.setTexture(_boxTexture);
 	}
 }
 
 void	SettingsMenu::init() {
+	if (!_settingsMenuTexture.loadFromFile("assets/settingsMenu/Settings_Gomoku.png"))
+		std::cerr << "Error: could not load settings texture" << std::endl;
+	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
+		std::cerr << "Error: could not load return button texture" << std::endl;
+	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
+		std::cerr << "Error: could not load return button hover texture" << std::endl;
+	if (!_volume100Texture.loadFromFile("assets/images/icons/volume_100.png"))
+		std::cerr << "Error: could not load volume 100 texture" << std::endl;
+	if (!_switchOnButtonTexture.loadFromFile("assets/images/buttons/On_Switch.png"))
+		std::cerr << "Error: could not load switch texture" << std::endl;
+	if (!_switchOffButtonTexture.loadFromFile("assets/images/buttons/Off_Switch.png"))
+		std::cerr << "Error: could not load switch texture" << std::endl;
 	if (!_boxTexture.loadFromFile("assets/images/icons/box.png"))
 		std::cerr << "Error: could not load box texture" << std::endl;
 	if (!_boxCheckedTexture.loadFromFile("assets/images/icons/box_checked.png"))
 		std::cerr << "Error: could not load box checked texture" << std::endl;
-	if (!_volume100Texture.loadFromFile("assets/images/icons/volume_100.png"))
-		std::cerr << "Error: could not load volume 100 texture" << std::endl;
-	if (!_returnButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
-		std::cerr << "Error: could not load return button texture" << std::endl;
-	if (!_returnButtonHoverTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
-		std::cerr << "Error: could not load return button hover texture" << std::endl;
-	if (!_settingsTexture.loadFromFile("assets/settingsMenu/Settings_Gomoku.png"))
-		std::cerr << "Error: could not load settings texture" << std::endl;
-	if (!_switchTextureOn.loadFromFile("assets/images/buttons/On_Switch.png"))
-		std::cerr << "Error: could not load switch texture" << std::endl;
-	if (!_switchTextureOff.loadFromFile("assets/images/buttons/Off_Switch.png"))
-		std::cerr << "Error: could not load switch texture" << std::endl;
 
-	_settings.setTexture(_settingsTexture);
-	_box1.setTexture(_boxTexture);
-	_box2.setTexture(_boxTexture);
-	_box3.setTexture(_boxTexture);
-	_box4.setTexture(_boxTexture);
-	_volume.setTexture(_volume100Texture);
-	_returnButton.setTexture(_returnButtonTexture);
+	_settingsMenuSprite.setTexture(_settingsMenuTexture);
+	_backwardButtonSprite.setTexture(_backwardButtonTexture);
+	_volumeBarSprite.setTexture(_volume100Texture);
+	_boxImpossibleAISprite.setTexture(_boxTexture);
+	_boxAggressiveAISprite.setTexture(_boxTexture);
+	_boxPassiveAISprite.setTexture(_boxTexture);
+	_boxDefensiveAISprite.setTexture(_boxTexture);
 
-	_box1.setPosition(683, 724);
-	_box2.setPosition(683, 810);
-	_box3.setPosition(990, 723);
-	_box4.setPosition(990, 810);
-	_volume.setPosition(787, 335);
-	_returnButton.setPosition(100, 104);
-	_switch.setPosition(890, 582);
+	_backwardButtonSprite.setPosition(100, 104);
+	_volumeBarSprite.setPosition(787, 335);
+	_switchButtonSprite.setPosition(890, 582);
+	_boxImpossibleAISprite.setPosition(683, 724);
+	_boxAggressiveAISprite.setPosition(683, 810);
+	_boxPassiveAISprite.setPosition(990, 723);
+	_boxDefensiveAISprite.setPosition(990, 810);
 }
