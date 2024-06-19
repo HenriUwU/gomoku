@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 10:00:50 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:36:02 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	MainMenu::display(sf::RenderWindow& window) {
 void	MainMenu::MoveUp() {
 	if (_selectedItemIndex == -1) {
 		_selectedItemIndex = 5;
-		_greenButtonSprite.setTexture(_greenButtonHighlightedTexture);
+		_greenButtonSprite.setTexture(_greenHoveredButtonTexture);
 	}
 	if (_selectedItemIndex - 1 >= 5 && _selectedItemIndex <= 7) {
 		if (_selectedItemIndex == 6)
@@ -55,9 +55,9 @@ void	MainMenu::MoveUp() {
 			_redButtonSprite.setTexture(_redButtonTexture);
 		_selectedItemIndex--;
 		if (_selectedItemIndex == 6)
-			_orangeButtonSprite.setTexture(_orangeButtonHighlightedTexture);
+			_orangeButtonSprite.setTexture(_orangeHoveredButtonTexture);
 		else if (_selectedItemIndex == 5)
-			_greenButtonSprite.setTexture(_greenButtonHighlightedTexture);
+			_greenButtonSprite.setTexture(_greenHoveredButtonTexture);
 	}
 	if (_selectedItemIndex > 7 && _selectedItemIndex < 11) {
 		if (_selectedItemIndex == 8)
@@ -67,14 +67,14 @@ void	MainMenu::MoveUp() {
 		else if (_selectedItemIndex == 10)
 			_blueButtonHelpSprite.setTexture(_blueButtonTexture);
 		_selectedItemIndex = 7;
-		_redButtonSprite.setTexture(_redButtonHighlightedTexture);
+		_redButtonSprite.setTexture(_redHoveredButtonTexture);
 	}
 }
 
 void	MainMenu::MoveDown() {
 	if (_selectedItemIndex == -1) {
 		_selectedItemIndex = 4;	
-		_greenButtonSprite.setTexture(_greenButtonHighlightedTexture);
+		_greenButtonSprite.setTexture(_greenHoveredButtonTexture);
 	}
 	if (_selectedItemIndex + 1 <= 7) {
 		if (_selectedItemIndex == 5)
@@ -83,12 +83,12 @@ void	MainMenu::MoveDown() {
 			_orangeButtonSprite.setTexture(_orangeButtonTexture);
 		_selectedItemIndex++;
 		if (_selectedItemIndex == 6)
-			_orangeButtonSprite.setTexture(_orangeButtonHighlightedTexture);
+			_orangeButtonSprite.setTexture(_orangeHoveredButtonTexture);
 		else if (_selectedItemIndex == 7)
-			_redButtonSprite.setTexture(_redButtonHighlightedTexture);
+			_redButtonSprite.setTexture(_redHoveredButtonTexture);
 	} else if (_selectedItemIndex == 7) {
 		_redButtonSprite.setTexture(_redButtonTexture);
-		_blueButtonCustomSprite.setTexture(_blueButtonHighlightedTexture);
+		_blueButtonCustomSprite.setTexture(_blueHoveredButtonTexture);
 		_selectedItemIndex++;
 	}
 }
@@ -101,9 +101,9 @@ void	MainMenu::MoveLeft() {
 			_blueButtonSettingsSprite.setTexture(_blueButtonTexture);
 		_selectedItemIndex--;
 		if (_selectedItemIndex == 9)
-			_blueButtonSettingsSprite.setTexture(_blueButtonHighlightedTexture);
+			_blueButtonSettingsSprite.setTexture(_blueHoveredButtonTexture);
 		else if (_selectedItemIndex == 8)
-			_blueButtonCustomSprite.setTexture(_blueButtonHighlightedTexture);
+			_blueButtonCustomSprite.setTexture(_blueHoveredButtonTexture);
 	}
 }
 
@@ -115,9 +115,9 @@ void	MainMenu::MoveRight() {
 			_blueButtonSettingsSprite.setTexture(_blueButtonTexture);
 		_selectedItemIndex++;
 		if (_selectedItemIndex == 9)
-			_blueButtonSettingsSprite.setTexture(_blueButtonHighlightedTexture);
+			_blueButtonSettingsSprite.setTexture(_blueHoveredButtonTexture);
 		else if (_selectedItemIndex == 10)
-			_blueButtonHelpSprite.setTexture(_blueButtonHighlightedTexture);
+			_blueButtonHelpSprite.setTexture(_blueHoveredButtonTexture);
 	}
 }
 
@@ -170,22 +170,22 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 
 void MainMenu::handleMouseMovement(sf::Vector2i mousePos) {
  	if (_greenButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_greenButtonSprite.setTexture(_greenButtonHighlightedTexture);
+		_greenButtonSprite.setTexture(_greenHoveredButtonTexture);
 		_selectedItemIndex = 5;
 	} else if (_orangeButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_orangeButtonSprite.setTexture(_orangeButtonHighlightedTexture);
+		_orangeButtonSprite.setTexture(_orangeHoveredButtonTexture);
 		_selectedItemIndex = 6;
 	} else if (_redButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_redButtonSprite.setTexture(_redButtonHighlightedTexture);
+		_redButtonSprite.setTexture(_redHoveredButtonTexture);
 		_selectedItemIndex = 7;
 	} else if (_blueButtonCustomSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_blueButtonCustomSprite.setTexture(_blueButtonHighlightedTexture);
+		_blueButtonCustomSprite.setTexture(_blueHoveredButtonTexture);
 		_selectedItemIndex = 8;
 	} else if (_blueButtonSettingsSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_blueButtonSettingsSprite.setTexture(_blueButtonHighlightedTexture);
+		_blueButtonSettingsSprite.setTexture(_blueHoveredButtonTexture);
 		_selectedItemIndex = 9;
 	} else if (_blueButtonHelpSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_blueButtonHelpSprite.setTexture(_blueButtonHighlightedTexture);
+		_blueButtonHelpSprite.setTexture(_blueHoveredButtonTexture);
 		_selectedItemIndex = 10;
 	} else {
 		_greenButtonSprite.setTexture(_greenButtonTexture);
@@ -211,13 +211,13 @@ void	MainMenu::init() {
 		cerr << "Error while loading the 'red_button.png' file." << endl;
 	if (!_blueButtonTexture.loadFromFile("assets/images/buttons/blue_button.png"))
 		cerr << "Error while loading the 'blue_button.png' file." << endl;
-	if (!_greenButtonHighlightedTexture.loadFromFile("assets/images/buttons/green_button_highlight.png"))
+	if (!_greenHoveredButtonTexture.loadFromFile("assets/images/buttons/green_button_highlight.png"))
 		cerr << "Error while loading the 'green_button_highlight.png' file." << endl;
-	if (!_orangeButtonHighlightedTexture.loadFromFile("assets/images/buttons/orange_button_highlight.png"))
+	if (!_orangeHoveredButtonTexture.loadFromFile("assets/images/buttons/orange_button_highlight.png"))
 		cerr << "Error while loading the 'orange_button_highlight.png' file." << endl;
-	if (!_redButtonHighlightedTexture.loadFromFile("assets/images/buttons/red_button_highlight.png"))
+	if (!_redHoveredButtonTexture.loadFromFile("assets/images/buttons/red_button_highlight.png"))
 		cerr << "Error while loading the 'red_button_highlight.png' file." << endl;
-	if (!_blueButtonHighlightedTexture.loadFromFile("assets/images/buttons/blue_button_highlight.png"))
+	if (!_blueHoveredButtonTexture.loadFromFile("assets/images/buttons/blue_button_highlight.png"))
 		cerr << "Error while loading the 'blue_button_highlight.png' file." << endl;
 	if (!_customIconTexture.loadFromFile("assets/images/icons/custom.png"))
 		cerr << "Error while loading the 'custom.png' file." << endl;
@@ -301,5 +301,5 @@ void	MainMenu::init() {
 	_menuText[8].setPosition(857, 685);
 
 	_selectedItemIndex = 5;
-	_greenButtonSprite.setTexture(_greenButtonHighlightedTexture);
+	_greenButtonSprite.setTexture(_greenHoveredButtonTexture);
 }

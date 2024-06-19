@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/09 18:30:14 by laprieur          #+#    #+#              #
-#    Updated: 2024/06/19 11:38:21 by hsebille         ###   ########.fr        #
+#    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
+#    Updated: 2024/06/19 12:50:42 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,16 +25,17 @@ SRC				:=	src/main.cpp							\
 					src/Graphics/Game/Gameplay_utils.cpp	\
 					src/Graphics/Menu/SettingsMenu.cpp		\
 					src/Graphics/Menu/CustomMenu.cpp		\
-					src/Graphics/AnimatedGIF.cpp			\
 					src/Graphics/Menu/Menu.cpp				\
+					src/Graphics/GIF/AnimatedGIF.cpp		\
+					#src/Graphics/Game/Bitboard.cpp			\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -ISFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Istb
-SFML_FLAGS		:=	-LSFML/lib -lsfml-graphics -lsfml-window -lsfml-system
-RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/SFML/lib'
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -Ilib/SFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/Graphics/GIF -Ilib/stb
+SFML_FLAGS		:=	-Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
+RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
 
 # **************************************************************************** #
 #                                    TOOLS                                     #
