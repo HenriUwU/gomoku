@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
+#    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/09 18:30:14 by laprieur          #+#    #+#              #
-#    Updated: 2024/06/19 10:44:47 by laprieur         ###   ########.fr        #
+#    Updated: 2024/06/19 11:38:21 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC				:=	src/main.cpp							\
 					src/Graphics/Menu/SettingsMenu.cpp		\
 					src/Graphics/Menu/CustomMenu.cpp		\
 					src/Graphics/AnimatedGIF.cpp			\
+					src/Graphics/Menu/Menu.cpp				\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
