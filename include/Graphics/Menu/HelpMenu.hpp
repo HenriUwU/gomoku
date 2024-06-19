@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HelpMenu.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:50:31 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 22:25:11 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:06:37 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ class HelpMenu {
 	private:
 		sf::Texture		_rulesPageTexture;
 		sf::Texture		_capturesPageTexture;
-		sf::Texture		_doubleThreePageTexture;
-		sf::Texture		_leftArrowButtonTexture;
-		sf::Texture		_leftArrowButtonHighlightedTexture;
-		sf::Texture		_rightArrowButtonTexture;
-		sf::Texture		_rightArrowButtonHighlightedTexture;
-		sf::Sprite		_rulesPage;
-		sf::Sprite		_capturesPage;
-		sf::Sprite		_doubleThreePage;
-		sf::Sprite		_leftArrow;
-		sf::Sprite		_rightArrow;
+		sf::Texture		_doubleThreesPageTexture;
+		sf::Texture		_backwardButtonTexture;
+		sf::Texture		_backwardHoveredButtonTexture;
+		sf::Texture		_forwardButtonTexture;
+		sf::Texture		_forwardHoveredButtonTexture;
+		sf::Sprite		_rulesPageSprite;
+		sf::Sprite		_capturesPageSprite;
+		sf::Sprite		_doubleThreesPageSprite;
+		sf::Sprite		_backwardButtonSprite;
+		sf::Sprite		_forwardButtonSprite;
 
 	public:
 		HelpMenu();
