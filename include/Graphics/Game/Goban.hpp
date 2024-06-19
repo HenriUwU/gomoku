@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Goban.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 22:41:58 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:46:28 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "gomoku.hpp"
 
-class Goban : public Graphics {
+class Goban {
 	private:
 		sf::Texture		_mousseAvatarTexture;
 		sf::Texture		_tommyAvatarTexture;
@@ -42,7 +42,7 @@ class Goban : public Graphics {
 		sf::Sprite		_gamePage;
 
 	public:
-		Goban(sf::RenderWindow &window);
+		Goban();
 		~Goban();
 
 		void	init();

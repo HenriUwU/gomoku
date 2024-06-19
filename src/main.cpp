@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 22:41:08 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:46:16 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int main() {
 	CustomMenu			customMenu;
 	SettingsMenu		settingsMenu;
 	HelpMenu			helpMenu;
-	Gameplay			gameplay(window);
-	Goban				goban(window);
+	Gameplay			gameplay;
+	Goban				goban;
 
 	if (!cursorTexture.loadFromFile("assets/images/icons/cursor.png")) {
 		std::cerr << "Error: could not load cursor texture" << std::endl;

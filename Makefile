@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
+#    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/09 18:30:14 by laprieur          #+#    #+#              #
-#    Updated: 2024/06/18 22:14:59 by hsebille         ###   ########.fr        #
+#    Updated: 2024/06/19 10:44:47 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ NAME			:= Gomoku
 
 SRC				:=	src/main.cpp							\
 					src/Debug/Debug.cpp						\
-					src/Graphics/Graphics.cpp				\
 					src/Graphics/Game/Gameplay.cpp			\
 					src/Graphics/Game/Goban.cpp				\
 					src/Graphics/Menu/MainMenu.cpp			\

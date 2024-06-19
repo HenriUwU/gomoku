@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 22:12:17 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:01:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ class MainMenu {
 		sf::Texture		_customIconTexture;
 		sf::Texture		_settingsIconTexture;
 		sf::Texture		_helpIconTexture;
-		sf::Texture		_arrowIconTexture;
-		sf::Texture		_arrowIconHighlightedTexture;
 		sf::Sprite		_greenButtonSprite;
 		sf::Sprite		_orangeButtonSprite;
 		sf::Sprite		_redButtonSprite;
@@ -48,8 +46,6 @@ class MainMenu {
 		sf::Sprite		_customIconSprite;
 		sf::Sprite		_settingsIconSprite;
 		sf::Sprite		_helpIconSprite;
-		sf::Sprite		_leftArrowIconSprite;
-		sf::Sprite		_rightArrowIconSprite;
 
 	public:
 		MainMenu();

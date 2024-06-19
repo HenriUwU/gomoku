@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 22:39:43 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:47:31 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Gameplay::Gameplay(sf::RenderWindow& window) : Graphics(window) {
+Gameplay::Gameplay() {
 	for (int i = 0; i < 19; i++) {
 		int character = 'A' + i;
 		for (int j = 1; j < 20; j++) {
@@ -127,10 +127,11 @@ void	Gameplay::placeStone(string position, sf::RenderWindow& window) {
 	if (_playerPositions[position] != 0 || !isMoveLegal(position))
 		return;
 
+	(void)window;
 	_playerPositions[position] = _currentPlayer;
 
 	if (isWinningMove(position))
-		Goban goban(window);
+		Goban goban;
 
 	if (_currentPlayer == 1)
 		_currentPlayer = 2;

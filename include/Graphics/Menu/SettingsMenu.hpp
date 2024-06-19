@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   SettingsMenu.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:05:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 22:26:34 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 09:58:59 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ class SettingsMenu {
 		sf::Texture		_settingsTexture;
 		sf::Texture		_boxTexture;
 		sf::Texture		_boxCheckedTexture;
-		sf::Texture		_volume_100Texture;
-		sf::Texture		_volume_90Texture;
-		sf::Texture		_volume_80Texture;
-		sf::Texture		_volume_70Texture;
-		sf::Texture		_volume_60Texture;
-		sf::Texture		_volume_50Texture;
-		sf::Texture		_volume_40Texture;
-		sf::Texture		_volume_30Texture;
-		sf::Texture		_volume_20Texture;
-		sf::Texture		_volume_10Texture;
-		sf::Texture		_volume_0Texture;
+		sf::Texture		_volume100Texture;
+		sf::Texture		_volume90Texture;
+		sf::Texture		_volume80Texture;
+		sf::Texture		_volume70Texture;
+		sf::Texture		_volume60Texture;
+		sf::Texture		_volume50Texture;
+		sf::Texture		_volume40Texture;
+		sf::Texture		_volume30Texture;
+		sf::Texture		_volume20Texture;
+		sf::Texture		_volume10Texture;
+		sf::Texture		_volume0Texture;
 		sf::Texture		_returnButtonTexture;
 		sf::Texture		_returnButtonHoverTexture;
 		sf::Texture		_switchTextureOn;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 22:40:19 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:45:59 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "gomoku.hpp"
 
-class Gameplay : public Graphics {
+class Gameplay {
 	private:
 		int							_currentPlayer;
 		std::map<std::string, int>	_playerPositions;
@@ -42,7 +42,7 @@ class Gameplay : public Graphics {
 		sf::Sprite					_secondStone;
 
 	public:
-		Gameplay(sf::RenderWindow &window);
+		Gameplay();
 		~Gameplay();
 
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);

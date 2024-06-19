@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   SettingsMenu.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/18 22:47:25 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 09:59:22 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	SettingsMenu::init() {
 		std::cerr << "Error: could not load box texture" << std::endl;
 	if (!_boxCheckedTexture.loadFromFile("assets/images/icons/box_checked.png"))
 		std::cerr << "Error: could not load box checked texture" << std::endl;
-	if (!_volume_100Texture.loadFromFile("assets/images/icons/volume_100.png"))
+	if (!_volume100Texture.loadFromFile("assets/images/icons/volume_100.png"))
 		std::cerr << "Error: could not load volume 100 texture" << std::endl;
 	if (!_returnButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
 		std::cerr << "Error: could not load return button texture" << std::endl;
@@ -141,7 +141,7 @@ void	SettingsMenu::init() {
 	_box2.setTexture(_boxTexture);
 	_box3.setTexture(_boxTexture);
 	_box4.setTexture(_boxTexture);
-	_volume.setTexture(_volume_100Texture);
+	_volume.setTexture(_volume100Texture);
 	_returnButton.setTexture(_returnButtonTexture);
 
 	_box1.setPosition(683, 724);

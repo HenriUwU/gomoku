@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MainMenu.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/18 22:19:52 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 10:00:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,10 +225,6 @@ void	MainMenu::init() {
 		cerr << "Error while loading the 'settings.png' file." << endl;
 	if (!_helpIconTexture.loadFromFile("assets/images/icons/help.png"))
 		cerr << "Error while loading the 'help.png' file." << endl;
-	if (!_arrowIconTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
-		cerr << "Error while loading the 'return_arrow.png' file." << endl;
-	if (!_arrowIconHighlightedTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
-		cerr << "Error while loading the 'return_arrow_highlight.png' file." << endl;
 	
 	_greenButtonSprite.setTexture(_greenButtonTexture);
 	_orangeButtonSprite.setTexture(_orangeButtonTexture);
