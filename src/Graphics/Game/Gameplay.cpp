@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 10:47:31 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:38:33 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ Gameplay::Gameplay() {
 	}
 	
 	_currentPlayer = 1;
-	_gridPosition = sf::Vector2f(527 - 48, 50 - 48);
-	_gridSize = 964;
-	_cellSize = 48;
+    _gridPosition = sf::Vector2f(525, 48);
+    _gridSize = 868;
+    _cellSize = _gridSize / 19.0f;
 	
 	if (!_blackStoneTexture.loadFromFile("assets/images/stones/black.png"))
 		cerr << "Error while loading the blackStoneTexture file." << endl;
@@ -70,11 +70,39 @@ void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
 	(void)event;
 
 	if (gameState == GAME) {
+		if (event.type == sf::Event::MouseButtonPressed) {
+            if (event.mouseButton.button == sf::Mouse::Left) {
+                mouseClick(event.mouseButton, window);
+            }
+        }
 		//mouseHover(window, event);
 	}
 }
 
-void Gameplay::mouseHover(sf::RenderWindow& window) {
+void Gameplay::mouseClick(const sf::Event::MouseButtonEvent& mouseEvent, sf::RenderWindow& window) {
+    sf::Vector2i mousePos(mouseEvent.x, mouseEvent.y);
+    sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
+
+    if (worldPos.x >= _gridPosition.x && worldPos.x <= _gridPosition.x + _gridSize &&
+        worldPos.y >= _gridPosition.y && worldPos.y <= _gridPosition.y + _gridSize) {
+
+        // Calculate grid coordinates
+        float relativeX = worldPos.x - _gridPosition.x;
+        float relativeY = worldPos.y - _gridPosition.y;
+        int col = static_cast<int>(relativeX / _cellSize);
+        int row = static_cast<int>(relativeY / _cellSize);
+
+        // Convert grid coordinates to position string (e.g., "A1", "B2", etc.)
+        char character = 'A' + col;
+        string position = string(1, character) + to_string(row + 1); // +1 to convert to 1-based index
+
+        // Place stone if the position is legal
+        placeStone(position, window);
+    }
+}
+
+void	Gameplay::mouseHover(sf::RenderWindow &window) {
+	
 	if (stonesColor == BlackAndWhite) {
 		_firstStone.setTexture(_blackStoneTexture);
 		_secondStone.setTexture(_whiteStoneTexture);
@@ -100,27 +128,34 @@ void Gameplay::mouseHover(sf::RenderWindow& window) {
 		_firstStone.setTexture(_turquoiseGreenStoneTexture);
 		_secondStone.setTexture(_indigoStoneTexture);
 	}
+
+	sf::CircleShape	circle(13.f);
+	circle.setFillColor(sf::Color::Green);
+
+	float cellSize = 48;
+	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
+
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+	sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
 	
-	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-	sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
+	if (mousePosition.x > 525 + 868 || mousePosition.y > 48 + 868)
+		return ;
+	
+	float xIndex = std::round((mousePosition.x - startPoint.first) / cellSize);
+	float yIndex = std::round((mousePosition.y - startPoint.second) / cellSize);
+	
+	float relativeX = worldPos.x - startPoint.first;
+    float relativeY = worldPos.y - startPoint.second;
 
-	if (worldPos.x >= _gridPosition.x && worldPos.x <= _gridPosition.x + _gridSize &&
-		worldPos.y >= _gridPosition.y && worldPos.y <= _gridPosition.y + _gridSize) {
+	int col = static_cast<int>(relativeX / _cellSize);
+    int row = static_cast<int>(relativeY / _cellSize);
 
-		float relativeX = worldPos.x - _gridPosition.x;
-		float relativeY = worldPos.y - _gridPosition.y;
+	std::cout << "Mouse clicked on grid position: (" << col << ", " << row << ")" << std::endl;
 
-		int col = static_cast<int>(relativeX / _cellSize);
-		int row = static_cast<int>(relativeY / _cellSize);
+	sf::Vector2f nearestIntersection(startPoint.first + xIndex * cellSize, startPoint.second + yIndex * cellSize);
+	circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
 
-		float nearestX = _gridPosition.x + col * _cellSize;
-		float nearestY = _gridPosition.y + row * _cellSize;
-
-		_firstStone.setPosition(nearestX - _firstStone.getGlobalBounds().width / 2, nearestY - _firstStone.getGlobalBounds().height / 2);
-	} else
-		_firstStone.setPosition(-_firstStone.getGlobalBounds().width, -_firstStone.getGlobalBounds().height);
-
-	window.draw(_firstStone);
+	window.draw(circle);
 }
 
 void	Gameplay::placeStone(string position, sf::RenderWindow& window) {
