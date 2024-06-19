@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 10:45:59 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:34:01 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ class Gameplay {
 		~Gameplay();
 
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
-		void	mouseHover(sf::RenderWindow &window);
+		void	mouseClick(const sf::Event::MouseButtonEvent& mouseEvent, sf::RenderWindow& window);
+		// void	mouseHover(sf::RenderWindow &window);
 		void	drawPlayerPositions(sf::RenderWindow& window);
-		void	circleFollowMouse(sf::RenderWindow &window, sf::Event &event);
-		void	placeStone(std::string position, sf::RenderWindow &window);
+		void	mouseHover(sf::RenderWindow &window);
+		void	placeStone(std::string position, sf::RenderWindow& window);
+
 
 		void	findHorizontalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &horizontalLine);
 		void	findVerticalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &verticalLine);
