@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 15:51:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/19 13:16:27 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:25:34 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ int main() {
 	HelpMenu			helpMenu;
 	Gameplay			gameplay;
 	Goban				goban;
+	Bitboard			bitboard;
 
 	if (!cursorTexture.loadFromFile("assets/images/icons/cursor.png")) {
 		std::cerr << "Error: could not load cursor texture" << std::endl;
 		return 1;
 	}
-
+	
+	bitboard.printBoard();
 	cursorSprite.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
 	while (window.isOpen())
