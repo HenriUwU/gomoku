@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/19 11:58:40 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:07:29 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	SettingsMenu::handleAiMode(sf::Vector2i mousePos) {
 }
 
 void	SettingsMenu::init() {
-	if (!_settingsMenuTexture.loadFromFile("assets/settingsMenu/Settings_Gomoku.png"))
+	if (!_settingsMenuTexture.loadFromFile("assets/images/menu/settings/settingsMenuTexture.png"))
 		std::cerr << "Error: could not load settings texture" << std::endl;
 	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
 		std::cerr << "Error: could not load return button texture" << std::endl;

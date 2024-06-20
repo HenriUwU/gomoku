@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 14:38:33 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:33:47 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,35 @@ Gameplay::Gameplay() {
     _gridSize = 868;
     _cellSize = _gridSize / 19.0f;
 	
-	if (!_blackStoneTexture.loadFromFile("assets/images/stones/black.png"))
+	if (!_blackStoneTexture.loadFromFile("assets/images/stones/blackStoneTexture.png"))
 		cerr << "Error while loading the blackStoneTexture file." << endl;
-	if (!_whiteStoneTexture.loadFromFile("assets/images/stones/white.png"))
+	if (!_whiteStoneTexture.loadFromFile("assets/images/stones/whiteStoneTexture.png"))
 		cerr << "Error while loading the whiteStoneTexture file." << endl;
-	if (!_coralStoneTexture.loadFromFile("assets/images/stones/coral.png"))
+	if (!_coralStoneTexture.loadFromFile("assets/images/stones/coralStoneTexture.png"))
 		cerr << "Error while loading the coralStoneTexture file." << endl;
-	if (!_darkGreenStoneTexture.loadFromFile("assets/images/stones/darkGreen.png"))
+	if (!_darkGreenStoneTexture.loadFromFile("assets/images/stones/darkGreenStoneTexture.png"))
 		cerr << "Error while loading the darkGreenStoneTexture file." << endl;
-	if (!_lightGreenStoneTexture.loadFromFile("assets/images/stones/lightGreen.png"))
+	if (!_lightGreenStoneTexture.loadFromFile("assets/images/stones/lightGreenStoneTexture.png"))
 		cerr << "Error while loading the lightGreenStoneTexture file." << endl;
-	if (!_violetStoneTexture.loadFromFile("assets/images/stones/violet.png"))
+	if (!_violetStoneTexture.loadFromFile("assets/images/stones/violetStoneTexture.png"))
 		cerr << "Error while loading the violetStoneTexture file." << endl;
-	if (!_yellowStoneTexture.loadFromFile("assets/images/stones/yellow.png"))
+	if (!_yellowStoneTexture.loadFromFile("assets/images/stones/yellowStoneTexture.png"))
 		cerr << "Error while loading the yellowStoneTexture file." << endl;
-	if (!_fluoYellowStoneTexture.loadFromFile("assets/images/stones/fluoYellow.png"))
+	if (!_fluoYellowStoneTexture.loadFromFile("assets/images/stones/fluoYellowStoneTexture.png"))
 		cerr << "Error while loading the fluoYellowStoneTexture file." << endl;
-	if (!_pinkStoneTexture.loadFromFile("assets/images/stones/pink.png"))
+	if (!_pinkStoneTexture.loadFromFile("assets/images/stones/pinkStoneTexture.png"))
 		cerr << "Error while loading the pinkStoneTexture file." << endl;
-	if (!_greenStoneTexture.loadFromFile("assets/images/stones/green.png"))
+	if (!_greenStoneTexture.loadFromFile("assets/images/stones/greenStoneTexture.png"))
 		cerr << "Error while loading the greenStoneTexture file." << endl;
-	if (!_indigoStoneTexture.loadFromFile("assets/images/stones/indigo.png"))
+	if (!_indigoStoneTexture.loadFromFile("assets/images/stones/indigoStoneTexture.png"))
 		cerr << "Error while loading the indigoStoneTexture file." << endl;
-	if (!_orangeStoneTexture.loadFromFile("assets/images/stones/orange.png"))
+	if (!_orangeStoneTexture.loadFromFile("assets/images/stones/orangeStoneTexture.png"))
 		cerr << "Error while loading the orangeStoneTexture file." << endl;
-	if (!_redStoneTexture.loadFromFile("assets/images/stones/red.png"))
+	if (!_redStoneTexture.loadFromFile("assets/images/stones/redStoneTexture.png"))
 		cerr << "Error while loading the redStoneTexture file." << endl;
-	if (!_salmonStoneTexture.loadFromFile("assets/images/stones/salmon.png"))
+	if (!_salmonStoneTexture.loadFromFile("assets/images/stones/salmonStoneTexture.png"))
 		cerr << "Error while loading the salmonStoneTexture file." << endl;
-	if (!_turquoiseGreenStoneTexture.loadFromFile("assets/images/stones/turquoiseGreen.png"))
+	if (!_turquoiseGreenStoneTexture.loadFromFile("assets/images/stones/turquoiseGreenStoneTexture.png"))
 		cerr << "Error while loading the turquoiseGreenStoneTexture file." << endl;
 
 	_firstStone.setTexture(_blackStoneTexture);
@@ -136,7 +136,7 @@ void	Gameplay::mouseHover(sf::RenderWindow &window) {
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
 
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
+	// sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
 	
 	if (mousePosition.x > 525 + 868 || mousePosition.y > 48 + 868)
 		return ;
@@ -144,13 +144,11 @@ void	Gameplay::mouseHover(sf::RenderWindow &window) {
 	float xIndex = std::round((mousePosition.x - startPoint.first) / cellSize);
 	float yIndex = std::round((mousePosition.y - startPoint.second) / cellSize);
 	
-	float relativeX = worldPos.x - startPoint.first;
-    float relativeY = worldPos.y - startPoint.second;
+/* 	float relativeX = worldPos.x - startPoint.first;
+    float relativeY = worldPos.y - startPoint.second; */
 
-	int col = static_cast<int>(relativeX / _cellSize);
-    int row = static_cast<int>(relativeY / _cellSize);
-
-	std::cout << "Mouse clicked on grid position: (" << col << ", " << row << ")" << std::endl;
+	/* int col = static_cast<int>(relativeX / _cellSize);
+    int row = static_cast<int>(relativeY / _cellSize); */
 
 	sf::Vector2f nearestIntersection(startPoint.first + xIndex * cellSize, startPoint.second + yIndex * cellSize);
 	circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());

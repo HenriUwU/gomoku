@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 11:36:02 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:26:35 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,9 +199,9 @@ void MainMenu::handleMouseMovement(sf::Vector2i mousePos) {
 }
 
 void	MainMenu::init() {
-	if (!_exo2BlackFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-Black.ttf"))
+	if (!_exo2BlackFont.loadFromFile("assets/fonts/Exo_2/Exo2-Black.ttf"))
 		cerr << "Error while loading the 'Exo2-Black.ttf' file." << endl;
-	if (!_ex02BlackItalicFont.loadFromFile("assets/fonts/Exo_2/static/Exo2-BlackItalic.ttf"))
+	if (!_ex02BlackItalicFont.loadFromFile("assets/fonts/Exo_2/Exo2-BlackItalic.ttf"))
 		cerr << "Error while loading the 'Exo2-BlackItalic.ttf' file." << endl;
 	if (!_greenButtonTexture.loadFromFile("assets/images/buttons/green_button.png"))
 		cerr << "Error while loading the 'green_button.png' file." << endl;

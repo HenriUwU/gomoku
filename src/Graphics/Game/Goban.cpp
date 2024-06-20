@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 10:46:34 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:11:25 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	Goban::init() {
 		cerr << "Error while loading the 'gobanYellow.png' file." << endl;
 	if (!_gridTexture.loadFromFile("assets/images/boards/grid.png"))
 		cerr << "Error while loading the 'grid.png' file." << endl;
-	if (!_gamePageTexture.loadFromFile("assets/game/Game_Gomoku.png"))
+	if (!_gamePageTexture.loadFromFile("assets/images/game/gamePageTexture.png"))
 		cerr << "Error while loading the 'gamePage.png' file." << endl;
 
 	_firstPlayerAvatar.setTexture(_mousseAvatarTexture);
