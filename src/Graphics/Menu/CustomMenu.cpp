@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/19 11:32:19 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:10:39 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ void	CustomMenu::handleBoardSelection(sf::RenderWindow& window) {
 }
 
 void	CustomMenu::init() {
-	if (!_customMenuTexture.loadFromFile("assets/customMenu/Custom_Gomoku.png"))
+	if (!_customMenuTexture.loadFromFile("assets/images/menu/custom/customMenuTexture.png"))
 		std::cerr << "Error: could not load custom page texture" << std::endl;
 	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
 		std::cerr << "Error: could not load return button texture" << std::endl;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Goban.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 17:13:00 by hsebille         ###   ########.fr       */
+/*   Created: 2024/06/20 10:51:46 by laprieur          #+#    #+#             */
+/*   Updated: 2024/06/20 11:04:38 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,11 @@ void	Goban::init() {
 		cerr << "Error while loading the 'gobanYellow.png' file." << endl;
 	if (!_gridTexture.loadFromFile("assets/images/boards/grid.png"))
 		cerr << "Error while loading the 'grid.png' file." << endl;
-	if (!_gamePageTexture.loadFromFile("assets/game/Game_Gomoku.png"))
+	if (!_gamePageTexture.loadFromFile("assets/images/game/gamePageTexture.png"))
 		cerr << "Error while loading the 'gamePage.png' file." << endl;
-	if (!_firstStoneTexture.loadFromFile("assets/images/stones/black.png"))
+	if (!_firstStoneTexture.loadFromFile("assets/images/stones/blackStoneTexture.png"))
 		cerr << "Error while loading the 'firstStone.png' file." << endl;
-	if (!_secondStoneTexture.loadFromFile("assets/images/stones/white.png"))
+	if (!_secondStoneTexture.loadFromFile("assets/images/stones/whiteStoneTexture.png"))
 		cerr << "Error while loading the 'secondStone.png' file." << endl;
 
 	_firstPlayerAvatar.setTexture(_mousseAvatarTexture);
