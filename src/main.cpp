@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/19 15:28:39 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:46:35 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int main() {
 		return 1;
 	}
 	
-	bitboard.printBoard();
 	cursorSprite.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
 	while (window.isOpen())
@@ -47,7 +46,6 @@ int main() {
 		sf::Event event;
 		while (window.pollEvent(event)) {
 			mainMenu.handleKeys(event, window);
-			gameplay.handleKeys(event, window);
 			if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape))
 				window.close();
 		}   
@@ -58,8 +56,8 @@ int main() {
 				mainMenu.display(window);
 				break;
 			case GAME:
-				goban.display(event, window);
-				gameplay.mouseHover(window);
+				goban.display(event, window, bitboard);
+				gameplay.mouseHover(window, bitboard);
 				break;
 			case CUSTOM:
 				customMenu.display(window);

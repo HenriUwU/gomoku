@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:37:47 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/19 15:19:59 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/20 10:47:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,28 @@
 
 Bitboard::Bitboard() {
 	//--- Initialize the bitboards and set all bits to 0 ---//
-	_firstPlayerBoard.fill(0);
-	_secondPlayerBoard.fill(0);
+	_firstPlayerBoardLines.fill(0);
+	_secondPlayerBoardLines.fill(0);
+	_firstPlayerBoardColumns.fill(0);
+	_secondPlayerBoardColumns.fill(0);
 }
 
 Bitboard::~Bitboard() {}
 
-void	Bitboard::placeStone(int x, int y, int player) {
+bool	Bitboard::placeStone(int x, int y, int player) {
 	uint32_t	mask;
 	
 	mask = uint32_t(1) << x;
 
 	//--- Verfify if cell is empty ---//
-	if ((_firstPlayerBoard[y] & mask) || (_secondPlayerBoard[y] & mask))
-		return;
-	
+	if (getBit(x, y) != 0)
+		return (false);
 	//--- Place the stone ---//
 	if (player == 1)
-		_firstPlayerBoard[y] |= mask;
+		_firstPlayerBoardLines[y] |= mask;
 	else
-		_secondPlayerBoard[y] |= mask;
+		_secondPlayerBoardLines[y] |= mask;
+	return (true);
 }
 
 void	Bitboard::printBoard() {
@@ -41,9 +43,9 @@ void	Bitboard::printBoard() {
 		for (int x = 0; x < BOARD_SIZE; ++x) {
 			uint32_t mask = uint32_t(1) << x;
 
-			if (_firstPlayerBoard[y] & mask) {
+			if (_firstPlayerBoardLines[y] & mask) {
 				std::cout << "1 ";
-			} else if (_secondPlayerBoard[y] & mask) {
+			} else if (_secondPlayerBoardLines[y] & mask) {
 				std::cout << "2 ";
 			} else {
 				std::cout << ". ";
@@ -51,4 +53,16 @@ void	Bitboard::printBoard() {
 		}
 		std::cout << "\n";
 	}
+}
+
+int	Bitboard::getBit(int x, int y) const {
+	uint32_t	mask;
+
+	mask = uint32_t(1) << x;
+	if (_firstPlayerBoardLines[y] & mask)
+		return (1);
+	else if (_secondPlayerBoardLines[y] & mask)
+		return (2);
+		
+	return (0);
 }
