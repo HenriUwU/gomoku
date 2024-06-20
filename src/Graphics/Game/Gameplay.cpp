@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/20 10:46:33 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:27:15 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,9 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 	_firstStone.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
 	_secondStone.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
 
-	sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
+	sf::Vector2i stonePos(nearestIntersection.x, nearestIntersection.y);
+
+	sf::Vector2f worldPos = window.mapPixelToCoords(stonePos);
 		
 	float relativeX = worldPos.x - startPoint.first;
     float relativeY = worldPos.y - startPoint.second;
@@ -145,8 +147,10 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 	int col = static_cast<int>(relativeX / _cellSize);
     int row = static_cast<int>(relativeY / _cellSize);
 
-	if (bitboard.getBit(col, row) != 0)
-		return ;
+	if (col >= 0 && col < 19 && row >= 0 && row < 19) {
+		if (bitboard.getBit(col, row) != 0)
+			return ;
+	}
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		std::cout << "Mouse clicked on grid position: (" << col << ", " << row << ")" << std::endl;
