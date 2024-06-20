@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 11:19:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/20 10:33:47 by laprieur         ###   ########.fr       */
+/*   Created: 2024/06/20 10:50:26 by laprieur          #+#    #+#             */
+/*   Updated: 2024/06/20 10:51:32 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
 	(void)event;
 
 	if (gameState == GAME) {
-		if (event.type == sf::Event::MouseButtonPressed) {
-            if (event.mouseButton.button == sf::Mouse::Left) {
-                mouseClick(event.mouseButton, window);
-            }
-        }
 		//mouseHover(window, event);
 	}
 }
@@ -97,12 +92,10 @@ void Gameplay::mouseClick(const sf::Event::MouseButtonEvent& mouseEvent, sf::Ren
         string position = string(1, character) + to_string(row + 1); // +1 to convert to 1-based index
 
         // Place stone if the position is legal
-        placeStone(position, window);
     }
 }
 
-void	Gameplay::mouseHover(sf::RenderWindow &window) {
-	
+void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 	if (stonesColor == BlackAndWhite) {
 		_firstStone.setTexture(_blackStoneTexture);
 		_secondStone.setTexture(_whiteStoneTexture);
@@ -129,47 +122,48 @@ void	Gameplay::mouseHover(sf::RenderWindow &window) {
 		_secondStone.setTexture(_indigoStoneTexture);
 	}
 
-	sf::CircleShape	circle(13.f);
-	circle.setFillColor(sf::Color::Green);
-
 	float cellSize = 48;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
 
-	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-	// sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
-	
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);	
 	if (mousePosition.x > 525 + 868 || mousePosition.y > 48 + 868)
 		return ;
 	
 	float xIndex = std::round((mousePosition.x - startPoint.first) / cellSize);
 	float yIndex = std::round((mousePosition.y - startPoint.second) / cellSize);
-	
-/* 	float relativeX = worldPos.x - startPoint.first;
-    float relativeY = worldPos.y - startPoint.second; */
-
-	/* int col = static_cast<int>(relativeX / _cellSize);
-    int row = static_cast<int>(relativeY / _cellSize); */
 
 	sf::Vector2f nearestIntersection(startPoint.first + xIndex * cellSize, startPoint.second + yIndex * cellSize);
-	circle.setPosition(nearestIntersection.x - circle.getRadius(), nearestIntersection.y - circle.getRadius());
+	_firstStone.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+	_secondStone.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
 
-	window.draw(circle);
-}
+	sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
+		
+	float relativeX = worldPos.x - startPoint.first;
+    float relativeY = worldPos.y - startPoint.second;
 
-void	Gameplay::placeStone(string position, sf::RenderWindow& window) {
-	if (_playerPositions[position] != 0 || !isMoveLegal(position))
-		return;
+	int col = static_cast<int>(relativeX / _cellSize);
+    int row = static_cast<int>(relativeY / _cellSize);
 
-	(void)window;
-	_playerPositions[position] = _currentPlayer;
+	if (bitboard.getBit(col, row) != 0)
+		return ;
 
-	if (isWinningMove(position))
-		Goban goban;
-
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		std::cout << "Mouse clicked on grid position: (" << col << ", " << row << ")" << std::endl;
+		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
+			if (bitboard.placeStone(col, row, _currentPlayer)) {
+				if (_currentPlayer == 1)
+					_currentPlayer = 2;
+				else
+					_currentPlayer = 1;
+			}
+		}
+		bitboard.printBoard();
+		sf::sleep(sf::milliseconds(100));
+	}
 	if (_currentPlayer == 1)
-		_currentPlayer = 2;
+		window.draw(_firstStone);
 	else
-		_currentPlayer = 1;
+		window.draw(_secondStone);
 }
 
 bool	Gameplay::isMoveLegal(string position) {

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/13 11:22:21 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/20 10:11:25 by laprieur         ###   ########.fr       */
+/*   Created: 2024/06/20 10:51:46 by laprieur          #+#    #+#             */
+/*   Updated: 2024/06/20 10:51:47 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Goban::Goban() {
 
 Goban::~Goban() {}
 
-void Goban::display(sf::Event& event, sf::RenderWindow &window) {
+void Goban::display(sf::Event& event, sf::RenderWindow &window, Bitboard& bitboard) {
 	if (boardColor == AZURE)
 		_goban.setTexture(_gobanAzureTexture);
 	else if (boardColor == BLACK)
@@ -47,6 +47,7 @@ void Goban::display(sf::Event& event, sf::RenderWindow &window) {
 	window.draw(_firstPlayerAvatar);
 	window.draw(_secondPlayerAvatar);
 	window.draw(_grid);
+	drawStones(window, bitboard);
 }
 
 void Goban::returnButton(sf::Event &event, sf::RenderWindow &window) {
@@ -59,6 +60,23 @@ void Goban::returnButton(sf::Event &event, sf::RenderWindow &window) {
     if (event.type == sf::Event::MouseButtonPressed)
         if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
 			gameState = MENU;
+}
+
+void	Goban::drawStones(sf::RenderWindow& window, Bitboard& bitboard) {
+	sf::Vector2i gridPosition = sf::Vector2i(527, 50);
+	
+	for (int y = 0; y < 19; y++) {
+		for (int x = 0; x < 19; x++) {
+			if (bitboard.getBit(x, y) == 1) {
+				_firstStone.setPosition(gridPosition.x + x * 48 - 13, gridPosition.y + y * 48 - 13);
+				window.draw(_firstStone);
+			}
+			else if (bitboard.getBit(x, y) == 2) {
+				_secondStone.setPosition(gridPosition.x + x * 48 - 13, gridPosition.y + y * 48 - 13);
+				window.draw(_secondStone);
+			}
+		}
+	}
 }
 
 void	Goban::init() {
@@ -98,6 +116,10 @@ void	Goban::init() {
 		cerr << "Error while loading the 'grid.png' file." << endl;
 	if (!_gamePageTexture.loadFromFile("assets/images/game/gamePageTexture.png"))
 		cerr << "Error while loading the 'gamePage.png' file." << endl;
+	if (!_firstStoneTexture.loadFromFile("assets/images/stones/black.png"))
+		cerr << "Error while loading the 'firstStone.png' file." << endl;
+	if (!_secondStoneTexture.loadFromFile("assets/images/stones/white.png"))
+		cerr << "Error while loading the 'secondStone.png' file." << endl;
 
 	_firstPlayerAvatar.setTexture(_mousseAvatarTexture);
 	_secondPlayerAvatar.setTexture(_hericAvatarTexture);
@@ -105,6 +127,8 @@ void	Goban::init() {
 	_goban.setTexture(_gobanAzureTexture);
 	_grid.setTexture(_gridTexture);
 	_gamePage.setTexture(_gamePageTexture);
+	_firstStone.setTexture(_firstStoneTexture);
+	_secondStone.setTexture(_secondStoneTexture);
 
 	_firstPlayerAvatar.setPosition(167, 278);
 	_secondPlayerAvatar.setPosition(1607, 278);
