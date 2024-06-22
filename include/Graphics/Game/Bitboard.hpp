@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/20 13:15:44 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:27:24 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ class Bitboard {
 		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardColumns;
 		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardColumns;
 		
-		std::array<uint32_t, BOARD_SIZE * 2 -1>	_firstPlayerBoardDiagonals;
-		std::array<uint32_t, BOARD_SIZE * 2 -1>	_secondPlayerBoardDiagonals;
+		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardDiagonals;
+		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardDiagonals;
 
-		std::array<uint32_t, BOARD_SIZE * 2 -1>	_firstPlayerBoardAntiDiagonals;
-		std::array<uint32_t, BOARD_SIZE * 2 -1>	_secondPlayerBoardAntiDiagonals;		
-	
+		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardAntiDiagonals;
+		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardAntiDiagonals;		
+
 	public:
 		Bitboard();
 		~Bitboard();
@@ -43,5 +43,5 @@ class Bitboard {
 		void		printBoard();
 		void		createColumns();
 		void		createDiagonals();
-		void 		createAntiDiagonals();
+		void		createAntiDiagonals();
 };
