@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/24 12:05:30 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:34:06 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ class Gameplay {
 		Gameplay();
 		~Gameplay();
 
+		void	selectTextures();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
-		void	mouseClick(const sf::Event::MouseButtonEvent& mouseEvent, sf::RenderWindow& window);
 		void	drawPlayerPositions(sf::RenderWindow& window);
 		void	mouseHover(sf::RenderWindow &window, Bitboard &bitboard);
 

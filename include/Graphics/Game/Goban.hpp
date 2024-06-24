@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:35 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/24 12:03:43 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:49:48 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class Goban {
 		sf::Texture		_laureAvatarTexture;
 		sf::Texture		_backwardButtonTexture;
 		sf::Texture		_backwardHoveredButtonTexture;
-		sf::Texture		_gridTexture;
+		sf::Texture		_gridAndIndexTexture;
 		sf::Texture 	_azureBoardTexture;
 		sf::Texture 	_blackBoardTexture;
 		sf::Texture 	_grayBoardTexture;
@@ -42,7 +42,7 @@ class Goban {
 		sf::Sprite		_secondPlayerAvatarSprite;
 		sf::Sprite		_gobanSprite;
 		sf::Sprite		_backwardButtonSprite;
-		sf::Sprite		_gridSprite;
+		sf::Sprite		_gridAndIndexSprite;
 		sf::Sprite		_gamePageSprite;
 		sf::Sprite		_firstPlayerStoneSprite;
 		sf::Sprite		_secondPlayerStoneSprite;

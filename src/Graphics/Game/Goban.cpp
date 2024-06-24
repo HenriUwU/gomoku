@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:51:46 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/24 12:11:03 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:56:10 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void Goban::display(sf::Event& event, sf::RenderWindow &window, Bitboard& bitboa
 	window.draw(_gobanSprite);
 	window.draw(_firstPlayerAvatarSprite);
 	window.draw(_secondPlayerAvatarSprite);
-	window.draw(_gridSprite);
+	window.draw(_gridAndIndexSprite);
 	drawStones(window, bitboard);
 }
 
@@ -112,7 +112,7 @@ void	Goban::init() {
 		cerr << "Error while loading the 'redBoardTexture.png' file." << endl;
 	if (!_yellowBoardTexture.loadFromFile("assets/images/game/boards/yellowBoardTexture.png"))
 		cerr << "Error while loading the 'yellowBoardTexture.png' file." << endl;
-	if (!_gridTexture.loadFromFile("assets/images/game/gridTexture.png"))
+	if (!_gridAndIndexTexture.loadFromFile("assets/images/game/gridAndIndexTexture.png"))
 		cerr << "Error while loading the 'grid.png' file." << endl;
 	if (!_gamePageTexture.loadFromFile("assets/images/game/gamePageTexture.png"))
 		cerr << "Error while loading the 'gamePage.png' file." << endl;
@@ -125,7 +125,7 @@ void	Goban::init() {
 	_secondPlayerAvatarSprite.setTexture(_hericAvatarTexture);
 	_backwardButtonSprite.setTexture(_backwardButtonTexture);
 	_gobanSprite.setTexture(_azureBoardTexture);
-	_gridSprite.setTexture(_gridTexture);
+	_gridAndIndexSprite.setTexture(_gridAndIndexTexture);
 	_gamePageSprite.setTexture(_gamePageTexture);
 	_firstPlayerStoneSprite.setTexture(_firstStoneTexture);
 	_secondPlayerStoneSprite.setTexture(_secondStoneTexture);
@@ -133,6 +133,6 @@ void	Goban::init() {
 	_firstPlayerAvatarSprite.setPosition(167, 278);
 	_secondPlayerAvatarSprite.setPosition(1607, 278);
 	_gobanSprite.setPosition(477, 0);
-	_gridSprite.setPosition(525, 48);
+	_gridAndIndexSprite.setPosition(477, 0);
 	_backwardButtonSprite.setPosition(100, 100);
 }

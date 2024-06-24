@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:00:34 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/24 12:09:24 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:35:43 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,37 +65,7 @@ Gameplay::Gameplay() {
 
 Gameplay::~Gameplay() {}
 
-void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
-	(void)window;
-	(void)event;
-
-	if (gameState == GAME) {
-		//mouseHover(window, event);
-	}
-}
-
-void Gameplay::mouseClick(const sf::Event::MouseButtonEvent& mouseEvent, sf::RenderWindow& window) {
-    sf::Vector2i mousePos(mouseEvent.x, mouseEvent.y);
-    sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
-
-    if (worldPos.x >= _gridPosition.x && worldPos.x <= _gridPosition.x + _gridSize &&
-        worldPos.y >= _gridPosition.y && worldPos.y <= _gridPosition.y + _gridSize) {
-
-        // Calculate grid coordinates
-        float relativeX = worldPos.x - _gridPosition.x;
-        float relativeY = worldPos.y - _gridPosition.y;
-        int col = static_cast<int>(relativeX / _cellSize);
-        int row = static_cast<int>(relativeY / _cellSize);
-
-        // Convert grid coordinates to position string (e.g., "A1", "B2", etc.)
-        char character = 'A' + col;
-        string position = string(1, character) + to_string(row + 1); // +1 to convert to 1-based index
-
-        // Place stone if the position is legal
-    }
-}
-
-void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
+void	Gameplay::selectTextures() {
 	if (stonesColor == BlackAndWhite) {
 		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_whiteStoneTexture);
@@ -121,6 +91,19 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 		_firstPlayerStoneSprite.setTexture(_turquoiseGreenStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_indigoStoneTexture);
 	}
+}
+
+void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
+	(void)window;
+	(void)event;
+
+	if (gameState == GAME) {
+		//mouseHover(window, event);
+	}
+}
+
+void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
+	selectTextures();
 
 	float cellSize = 48;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
@@ -152,7 +135,6 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 	}
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-		std::cout << "Mouse clicked on grid position: (" << col << ", " << row << ")" << std::endl;
 		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
 			if (bitboard.placeStone(col, row, _currentPlayer)) {
 				if (_currentPlayer == 1)
