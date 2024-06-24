@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/20 10:07:29 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:57:49 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,19 +120,19 @@ void	SettingsMenu::handleAiMode(sf::Vector2i mousePos) {
 void	SettingsMenu::init() {
 	if (!_settingsMenuTexture.loadFromFile("assets/images/menu/settings/settingsMenuTexture.png"))
 		std::cerr << "Error: could not load settings texture" << std::endl;
-	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
+	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/backwardButtonTexture.png"))
 		std::cerr << "Error: could not load return button texture" << std::endl;
-	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
+	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/backwardHoveredButtonTexture.png"))
 		std::cerr << "Error: could not load return button hover texture" << std::endl;
-	if (!_volume100Texture.loadFromFile("assets/images/icons/volume_100.png"))
+	if (!_volume100Texture.loadFromFile("assets/images/menu/settings/volume/volume100Texture.png"))
 		std::cerr << "Error: could not load volume 100 texture" << std::endl;
-	if (!_switchOnButtonTexture.loadFromFile("assets/images/buttons/On_Switch.png"))
+	if (!_switchOnButtonTexture.loadFromFile("assets/images/menu/settings/moveSuggestion/switchOnButtonTexture.png"))
 		std::cerr << "Error: could not load switch texture" << std::endl;
-	if (!_switchOffButtonTexture.loadFromFile("assets/images/buttons/Off_Switch.png"))
+	if (!_switchOffButtonTexture.loadFromFile("assets/images/menu/settings/moveSuggestion/switchOffButtonTexture.png"))
 		std::cerr << "Error: could not load switch texture" << std::endl;
-	if (!_boxTexture.loadFromFile("assets/images/icons/box.png"))
+	if (!_boxTexture.loadFromFile("assets/images/menu/settings/aiMode/boxTexture.png"))
 		std::cerr << "Error: could not load box texture" << std::endl;
-	if (!_boxCheckedTexture.loadFromFile("assets/images/icons/box_checked.png"))
+	if (!_boxCheckedTexture.loadFromFile("assets/images/menu/settings/aiMode/boxCheckedTexture.png"))
 		std::cerr << "Error: could not load box checked texture" << std::endl;
 
 	_settingsMenuSprite.setTexture(_settingsMenuTexture);

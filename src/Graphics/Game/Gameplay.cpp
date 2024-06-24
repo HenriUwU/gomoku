@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:00:34 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/22 16:54:10 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:09:24 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,39 +28,39 @@ Gameplay::Gameplay() {
     _gridSize = 868;
     _cellSize = _gridSize / 19.0f;
 	
-	if (!_blackStoneTexture.loadFromFile("assets/images/stones/blackStoneTexture.png"))
+	if (!_blackStoneTexture.loadFromFile("assets/images/game/stones/blackStoneTexture.png"))
 		cerr << "Error while loading the blackStoneTexture file." << endl;
-	if (!_whiteStoneTexture.loadFromFile("assets/images/stones/whiteStoneTexture.png"))
+	if (!_whiteStoneTexture.loadFromFile("assets/images/game/stones/whiteStoneTexture.png"))
 		cerr << "Error while loading the whiteStoneTexture file." << endl;
-	if (!_coralStoneTexture.loadFromFile("assets/images/stones/coralStoneTexture.png"))
+	if (!_coralStoneTexture.loadFromFile("assets/images/game/stones/coralStoneTexture.png"))
 		cerr << "Error while loading the coralStoneTexture file." << endl;
-	if (!_darkGreenStoneTexture.loadFromFile("assets/images/stones/darkGreenStoneTexture.png"))
+	if (!_darkGreenStoneTexture.loadFromFile("assets/images/game/stones/darkGreenStoneTexture.png"))
 		cerr << "Error while loading the darkGreenStoneTexture file." << endl;
-	if (!_lightGreenStoneTexture.loadFromFile("assets/images/stones/lightGreenStoneTexture.png"))
+	if (!_lightGreenStoneTexture.loadFromFile("assets/images/game/stones/lightGreenStoneTexture.png"))
 		cerr << "Error while loading the lightGreenStoneTexture file." << endl;
-	if (!_violetStoneTexture.loadFromFile("assets/images/stones/violetStoneTexture.png"))
+	if (!_violetStoneTexture.loadFromFile("assets/images/game/stones/violetStoneTexture.png"))
 		cerr << "Error while loading the violetStoneTexture file." << endl;
-	if (!_yellowStoneTexture.loadFromFile("assets/images/stones/yellowStoneTexture.png"))
+	if (!_yellowStoneTexture.loadFromFile("assets/images/game/stones/yellowStoneTexture.png"))
 		cerr << "Error while loading the yellowStoneTexture file." << endl;
-	if (!_fluoYellowStoneTexture.loadFromFile("assets/images/stones/fluoYellowStoneTexture.png"))
+	if (!_fluoYellowStoneTexture.loadFromFile("assets/images/game/stones/fluoYellowStoneTexture.png"))
 		cerr << "Error while loading the fluoYellowStoneTexture file." << endl;
-	if (!_pinkStoneTexture.loadFromFile("assets/images/stones/pinkStoneTexture.png"))
+	if (!_pinkStoneTexture.loadFromFile("assets/images/game/stones/pinkStoneTexture.png"))
 		cerr << "Error while loading the pinkStoneTexture file." << endl;
-	if (!_greenStoneTexture.loadFromFile("assets/images/stones/greenStoneTexture.png"))
+	if (!_greenStoneTexture.loadFromFile("assets/images/game/stones/greenStoneTexture.png"))
 		cerr << "Error while loading the greenStoneTexture file." << endl;
-	if (!_indigoStoneTexture.loadFromFile("assets/images/stones/indigoStoneTexture.png"))
+	if (!_indigoStoneTexture.loadFromFile("assets/images/game/stones/indigoStoneTexture.png"))
 		cerr << "Error while loading the indigoStoneTexture file." << endl;
-	if (!_orangeStoneTexture.loadFromFile("assets/images/stones/orangeStoneTexture.png"))
+	if (!_orangeStoneTexture.loadFromFile("assets/images/game/stones/orangeStoneTexture.png"))
 		cerr << "Error while loading the orangeStoneTexture file." << endl;
-	if (!_redStoneTexture.loadFromFile("assets/images/stones/redStoneTexture.png"))
+	if (!_redStoneTexture.loadFromFile("assets/images/game/stones/redStoneTexture.png"))
 		cerr << "Error while loading the redStoneTexture file." << endl;
-	if (!_salmonStoneTexture.loadFromFile("assets/images/stones/salmonStoneTexture.png"))
+	if (!_salmonStoneTexture.loadFromFile("assets/images/game/stones/salmonStoneTexture.png"))
 		cerr << "Error while loading the salmonStoneTexture file." << endl;
-	if (!_turquoiseGreenStoneTexture.loadFromFile("assets/images/stones/turquoiseGreenStoneTexture.png"))
+	if (!_turquoiseGreenStoneTexture.loadFromFile("assets/images/game/stones/turquoiseGreenStoneTexture.png"))
 		cerr << "Error while loading the turquoiseGreenStoneTexture file." << endl;
 
-	_firstStone.setTexture(_blackStoneTexture);
-	_secondStone.setTexture(_whiteStoneTexture);
+	_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
+	_secondPlayerStoneSprite.setTexture(_whiteStoneTexture);
 }
 
 Gameplay::~Gameplay() {}
@@ -97,29 +97,29 @@ void Gameplay::mouseClick(const sf::Event::MouseButtonEvent& mouseEvent, sf::Ren
 
 void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 	if (stonesColor == BlackAndWhite) {
-		_firstStone.setTexture(_blackStoneTexture);
-		_secondStone.setTexture(_whiteStoneTexture);
+		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
+		_secondPlayerStoneSprite.setTexture(_whiteStoneTexture);
 	} else if (stonesColor == GreenAndRed) {
-		_firstStone.setTexture(_greenStoneTexture);
-		_secondStone.setTexture(_redStoneTexture);
+		_firstPlayerStoneSprite.setTexture(_greenStoneTexture);
+		_secondPlayerStoneSprite.setTexture(_redStoneTexture);
 	} else if (stonesColor == SalmonAndCoral) {
-		_firstStone.setTexture(_salmonStoneTexture);
-		_secondStone.setTexture(_coralStoneTexture);
+		_firstPlayerStoneSprite.setTexture(_salmonStoneTexture);
+		_secondPlayerStoneSprite.setTexture(_coralStoneTexture);
 	} else if (stonesColor == PinkAndFluoYellow) {
-		_firstStone.setTexture(_pinkStoneTexture);
-		_secondStone.setTexture(_fluoYellowStoneTexture);
+		_firstPlayerStoneSprite.setTexture(_pinkStoneTexture);
+		_secondPlayerStoneSprite.setTexture(_fluoYellowStoneTexture);
 	} else if (stonesColor == BlackAndYellow) {
-		_firstStone.setTexture(_blackStoneTexture);
-		_secondStone.setTexture(_yellowStoneTexture);
+		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
+		_secondPlayerStoneSprite.setTexture(_yellowStoneTexture);
 	} else if (stonesColor == OrangeAndViolet) {
-		_firstStone.setTexture(_orangeStoneTexture);
-		_secondStone.setTexture(_violetStoneTexture);
+		_firstPlayerStoneSprite.setTexture(_orangeStoneTexture);
+		_secondPlayerStoneSprite.setTexture(_violetStoneTexture);
 	} else if (stonesColor == DarkGreenAndLightGreen) {
-		_firstStone.setTexture(_darkGreenStoneTexture);
-		_secondStone.setTexture(_lightGreenStoneTexture);
+		_firstPlayerStoneSprite.setTexture(_darkGreenStoneTexture);
+		_secondPlayerStoneSprite.setTexture(_lightGreenStoneTexture);
 	} else if (stonesColor == TurquoiseGreenAndIndigo) {
-		_firstStone.setTexture(_turquoiseGreenStoneTexture);
-		_secondStone.setTexture(_indigoStoneTexture);
+		_firstPlayerStoneSprite.setTexture(_turquoiseGreenStoneTexture);
+		_secondPlayerStoneSprite.setTexture(_indigoStoneTexture);
 	}
 
 	float cellSize = 48;
@@ -133,8 +133,8 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 	float yIndex = std::round((mousePosition.y - startPoint.second) / cellSize);
 
 	sf::Vector2f nearestIntersection(startPoint.first + xIndex * cellSize, startPoint.second + yIndex * cellSize);
-	_firstStone.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
-	_secondStone.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+	_firstPlayerStoneSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+	_secondPlayerStoneSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
 
 	sf::Vector2i stonePos(nearestIntersection.x, nearestIntersection.y);
 
@@ -165,9 +165,9 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 		sf::sleep(sf::milliseconds(100));
 	}
 	if (_currentPlayer == 1)
-		window.draw(_firstStone);
+		window.draw(_firstPlayerStoneSprite);
 	else
-		window.draw(_secondStone);
+		window.draw(_secondPlayerStoneSprite);
 }
 
 bool	Gameplay::isMoveLegal(string position) {

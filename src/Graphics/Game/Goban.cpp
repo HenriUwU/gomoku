@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:51:46 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/20 11:04:38 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:11:03 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,43 +22,43 @@ Goban::~Goban() {}
 
 void Goban::display(sf::Event& event, sf::RenderWindow &window, Bitboard& bitboard) {
 	if (boardColor == AZURE)
-		_goban.setTexture(_gobanAzureTexture);
+		_gobanSprite.setTexture(_azureBoardTexture);
 	else if (boardColor == BLACK)
-		_goban.setTexture(_gobanBlackTexture);
+		_gobanSprite.setTexture(_blackBoardTexture);
 	else if (boardColor == GRAY)
-		_goban.setTexture(_gobanGrayTexture);
+		_gobanSprite.setTexture(_grayBoardTexture);
 	else if (boardColor == GREEN)
-		_goban.setTexture(_gobanGreenTexture);
+		_gobanSprite.setTexture(_greenBoardTexture);
 	else if (boardColor == ORANGE)
-		_goban.setTexture(_gobanOrangeTexture);
+		_gobanSprite.setTexture(_orangeBoardTexture);
 	else if (boardColor == PINK)
-		_goban.setTexture(_gobanPinkTexture);
+		_gobanSprite.setTexture(_pinkBoardTexture);
 	else if (boardColor == RED)
-		_goban.setTexture(_gobanRedTexture);
+		_gobanSprite.setTexture(_redBoardTexture);
 	else if (boardColor == YELLOW)
-		_goban.setTexture(_gobanYellowTexture);
+		_gobanSprite.setTexture(_yellowBoardTexture);
 	
 	returnButton(event, window);
 
 	window.clear(sf::Color(38, 1, 69));
-	window.draw(_gamePage);
-	window.draw(_returnArrow);
-	window.draw(_goban);
-	window.draw(_firstPlayerAvatar);
-	window.draw(_secondPlayerAvatar);
-	window.draw(_grid);
+	window.draw(_gamePageSprite);
+	window.draw(_backwardButtonSprite);
+	window.draw(_gobanSprite);
+	window.draw(_firstPlayerAvatarSprite);
+	window.draw(_secondPlayerAvatarSprite);
+	window.draw(_gridSprite);
 	drawStones(window, bitboard);
 }
 
 void Goban::returnButton(sf::Event &event, sf::RenderWindow &window) {
     if (event.type == sf::Event::MouseMoved) {
-        if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
-            _returnArrow.setTexture(_returnArrowHighlightTexture);
+        if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+            _backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
         else
-            _returnArrow.setTexture(_returnArrowTexture);
+            _backwardButtonSprite.setTexture(_backwardButtonTexture);
     }
     if (event.type == sf::Event::MouseButtonPressed)
-        if (_returnArrow.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+        if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
 			gameState = MENU;
 }
 
@@ -68,71 +68,71 @@ void	Goban::drawStones(sf::RenderWindow& window, Bitboard& bitboard) {
 	for (int y = 0; y < 19; y++) {
 		for (int x = 0; x < 19; x++) {
 			if (bitboard.getBit(x, y) == 1) {
-				_firstStone.setPosition(gridPosition.x + x * 48 - 13, gridPosition.y + y * 48 - 13);
-				window.draw(_firstStone);
+				_firstPlayerStoneSprite.setPosition(gridPosition.x + x * 48 - 13, gridPosition.y + y * 48 - 13);
+				window.draw(_firstPlayerStoneSprite);
 			}
 			else if (bitboard.getBit(x, y) == 2) {
-				_secondStone.setPosition(gridPosition.x + x * 48 - 13, gridPosition.y + y * 48 - 13);
-				window.draw(_secondStone);
+				_secondPlayerStoneSprite.setPosition(gridPosition.x + x * 48 - 13, gridPosition.y + y * 48 - 13);
+				window.draw(_secondPlayerStoneSprite);
 			}
 		}
 	}
 }
 
 void	Goban::init() {
-	if (!_mousseAvatarTexture.loadFromFile("assets/images/avatars/mousse.png"))
-		cerr << "Error while loading the 'mousse.png' file." << endl;
-	if (!_tommyAvatarTexture.loadFromFile("assets/images/avatars/tommy.png"))
-		cerr << "Error while loading the 'tommy.png' file." << endl;
-	if (!_alexAvatarTexture.loadFromFile("assets/images/avatars/alex.png"))
-		cerr << "Error while loading the 'alex.png' file." << endl;
-	if (!_guntherAvatarTexture.loadFromFile("assets/images/avatars/gunther.png"))
-		cerr << "Error while loading the 'gunther.png' file." << endl;
-	if (!_hericAvatarTexture.loadFromFile("assets/images/avatars/heric.png"))
-		cerr << "Error while loading the 'heric.png' file." << endl;
-	if (!_laureAvatarTexture.loadFromFile("assets/images/avatars/laure.png"))
-		cerr << "Error while loading the 'laure.png' file." << endl;
-	if (!_returnArrowTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
-		cerr << "Error while loading the 'return_arrow.png' file." << endl;
-	if (!_returnArrowHighlightTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
-		cerr << "Error while loading the 'return_arrow_highlight' file." << endl;
-	if (!_gobanAzureTexture.loadFromFile("assets/images/boards/gobanAzure.png"))
-		cerr << "Error while loading the 'gobanYellow.png' file." << endl;
-	if (!_gobanBlackTexture.loadFromFile("assets/images/boards/gobanBlack.png"))
-		cerr << "Error while loading the 'gobanBlack.png' file." << endl;
-	if (!_gobanGrayTexture.loadFromFile("assets/images/boards/gobanGray.png"))
-		cerr << "Error while loading the 'gobanGray.png' file." << endl;
-	if (!_gobanGreenTexture.loadFromFile("assets/images/boards/gobanGreen.png"))
-		cerr << "Error while loading the 'gobanGreen.png' file." << endl;
-	if (!_gobanOrangeTexture.loadFromFile("assets/images/boards/gobanOrange.png"))
-		cerr << "Error while loading the 'gobanOrange.png' file." << endl;
-	if (!_gobanPinkTexture.loadFromFile("assets/images/boards/gobanPink.png"))
-		cerr << "Error while loading the 'gobanPink.png' file." << endl;
-	if (!_gobanRedTexture.loadFromFile("assets/images/boards/gobanRed.png"))
-		cerr << "Error while loading the 'gobanRed.png' file." << endl;
-	if (!_gobanYellowTexture.loadFromFile("assets/images/boards/gobanYellow.png"))
-		cerr << "Error while loading the 'gobanYellow.png' file." << endl;
-	if (!_gridTexture.loadFromFile("assets/images/boards/grid.png"))
+	if (!_mousseAvatarTexture.loadFromFile("assets/images/game/avatars/mousseAvatarTexture.png"))
+		cerr << "Error while loading the 'mousseAvatarTexture.png' file." << endl;
+	if (!_tommyAvatarTexture.loadFromFile("assets/images/game/avatars/tommyAvatarTexture.png"))
+		cerr << "Error while loading the 'tommyAvatarTexture.png' file." << endl;
+	if (!_alexAvatarTexture.loadFromFile("assets/images/game/avatars/alexAvatarTexture.png"))
+		cerr << "Error while loading the 'alexAvatarTexture.png' file." << endl;
+	if (!_guntherAvatarTexture.loadFromFile("assets/images/game/avatars/guntherAvatarTexture.png"))
+		cerr << "Error while loading the 'guntherAvatarTexture.png' file." << endl;
+	if (!_hericAvatarTexture.loadFromFile("assets/images/game/avatars/hericAvatarTexture.png"))
+		cerr << "Error while loading the 'hericAvatarTexture.png' file." << endl;
+	if (!_laureAvatarTexture.loadFromFile("assets/images/game/avatars/laureAvatarTexture.png"))
+		cerr << "Error while loading the 'laureAvatarTexture.png' file." << endl;
+	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/backwardButtonTexture.png"))
+		cerr << "Error while loading the 'backwardButtonTexture.png' file." << endl;
+	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/backwardHoveredButtonTexture.png"))
+		cerr << "Error while loading the 'backwardHoveredButtonTexture' file." << endl;
+	if (!_azureBoardTexture.loadFromFile("assets/images/game/boards/azureBoardTexture.png"))
+		cerr << "Error while loading the 'azureBoardTexture.png' file." << endl;
+	if (!_blackBoardTexture.loadFromFile("assets/images/game/boards/blackBoardTexture.png"))
+		cerr << "Error while loading the 'blackBoardTexture.png' file." << endl;
+	if (!_grayBoardTexture.loadFromFile("assets/images/game/boards/grayBoardTexture.png"))
+		cerr << "Error while loading the 'grayBoardTexture.png' file." << endl;
+	if (!_greenBoardTexture.loadFromFile("assets/images/game/boards/greenBoardTexture.png"))
+		cerr << "Error while loading the 'greenBoardTexture.png' file." << endl;
+	if (!_orangeBoardTexture.loadFromFile("assets/images/game/boards/orangeBoardTexture.png"))
+		cerr << "Error while loading the 'orangeBoardTexture.png' file." << endl;
+	if (!_pinkBoardTexture.loadFromFile("assets/images/game/boards/pinkBoardTexture.png"))
+		cerr << "Error while loading the 'pinkBoardTexture.png' file." << endl;
+	if (!_redBoardTexture.loadFromFile("assets/images/game/boards/redBoardTexture.png"))
+		cerr << "Error while loading the 'redBoardTexture.png' file." << endl;
+	if (!_yellowBoardTexture.loadFromFile("assets/images/game/boards/yellowBoardTexture.png"))
+		cerr << "Error while loading the 'yellowBoardTexture.png' file." << endl;
+	if (!_gridTexture.loadFromFile("assets/images/game/gridTexture.png"))
 		cerr << "Error while loading the 'grid.png' file." << endl;
 	if (!_gamePageTexture.loadFromFile("assets/images/game/gamePageTexture.png"))
 		cerr << "Error while loading the 'gamePage.png' file." << endl;
-	if (!_firstStoneTexture.loadFromFile("assets/images/stones/blackStoneTexture.png"))
+	if (!_firstStoneTexture.loadFromFile("assets/images/game/stones/blackStoneTexture.png"))
 		cerr << "Error while loading the 'firstStone.png' file." << endl;
-	if (!_secondStoneTexture.loadFromFile("assets/images/stones/whiteStoneTexture.png"))
+	if (!_secondStoneTexture.loadFromFile("assets/images/game/stones/whiteStoneTexture.png"))
 		cerr << "Error while loading the 'secondStone.png' file." << endl;
 
-	_firstPlayerAvatar.setTexture(_mousseAvatarTexture);
-	_secondPlayerAvatar.setTexture(_hericAvatarTexture);
-	_returnArrow.setTexture(_returnArrowTexture);
-	_goban.setTexture(_gobanAzureTexture);
-	_grid.setTexture(_gridTexture);
-	_gamePage.setTexture(_gamePageTexture);
-	_firstStone.setTexture(_firstStoneTexture);
-	_secondStone.setTexture(_secondStoneTexture);
+	_firstPlayerAvatarSprite.setTexture(_mousseAvatarTexture);
+	_secondPlayerAvatarSprite.setTexture(_hericAvatarTexture);
+	_backwardButtonSprite.setTexture(_backwardButtonTexture);
+	_gobanSprite.setTexture(_azureBoardTexture);
+	_gridSprite.setTexture(_gridTexture);
+	_gamePageSprite.setTexture(_gamePageTexture);
+	_firstPlayerStoneSprite.setTexture(_firstStoneTexture);
+	_secondPlayerStoneSprite.setTexture(_secondStoneTexture);
 
-	_firstPlayerAvatar.setPosition(167, 278);
-	_secondPlayerAvatar.setPosition(1607, 278);
-	_goban.setPosition(477, 0);
-	_grid.setPosition(525, 48);
-	_returnArrow.setPosition(100, 100);
+	_firstPlayerAvatarSprite.setPosition(167, 278);
+	_secondPlayerAvatarSprite.setPosition(1607, 278);
+	_gobanSprite.setPosition(477, 0);
+	_gridSprite.setPosition(525, 48);
+	_backwardButtonSprite.setPosition(100, 100);
 }

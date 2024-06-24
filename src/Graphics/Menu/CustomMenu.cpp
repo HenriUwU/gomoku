@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/20 10:10:39 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:57:09 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,57 +249,57 @@ void	CustomMenu::handleBoardSelection(sf::RenderWindow& window) {
 void	CustomMenu::init() {
 	if (!_customMenuTexture.loadFromFile("assets/images/menu/custom/customMenuTexture.png"))
 		std::cerr << "Error: could not load custom page texture" << std::endl;
-	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
+	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/backwardButtonTexture.png"))
 		std::cerr << "Error: could not load return button texture" << std::endl;
-	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
+	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/backwardHoveredButtonTexture.png"))
 		std::cerr << "Error: could not load return button highlighted texture" << std::endl;
-	if (!_colorSelectorTexture.loadFromFile("assets/images/icons/selector.png"))
+	if (!_colorSelectorTexture.loadFromFile("assets/images/menu/custom/selectors/colorSelectorTexture.png"))
 		std::cerr << "Error: could not load selection halo texture" << std::endl;
-	if (!_avatarSelectorTexture.loadFromFile("assets/images/icons/avatar_selector.png"))
+	if (!_avatarSelectorTexture.loadFromFile("assets/images/menu/custom/selectors/avatarSelectorTexture.png"))
 		std::cerr << "Error: could not load avatar selector texture" << std::endl;
-	if (!_blackWhiteStoneTexture.loadFromFile("assets/images/stoneSelection/B&W.png"))
+	if (!_blackWhiteStoneTexture.loadFromFile("assets/images/menu/custom/stones/blackWhiteStoneTexture.png"))
 		std::cerr << "Error: could not load stone color B&W texture" << std::endl;
-	if (!_greenRedStoneTexture.loadFromFile("assets/images/stoneSelection/G&R.png"))
+	if (!_greenRedStoneTexture.loadFromFile("assets/images/menu/custom/stones/greenRedStoneTexture.png"))
 		std::cerr << "Error: could not load stone color G&R texture" << std::endl;
-	if (!_salmonCoralStoneTexture.loadFromFile("assets/images/stoneSelection/S&C.png"))
+	if (!_salmonCoralStoneTexture.loadFromFile("assets/images/menu/custom/stones/salmonCoralStoneTexture.png"))
 		std::cerr << "Error: could not load stone color S&C texture" << std::endl;
-	if (!_pinkFYellowStoneTexture.loadFromFile("assets/images/stoneSelection/P&FY.png"))
+	if (!_pinkFYellowStoneTexture.loadFromFile("assets/images/menu/custom/stones/pinkFYellowStoneTexture.png"))
 		std::cerr << "Error: could not load stone color P&FY texture" << std::endl;
-	if (!_blackYellowStoneTexture.loadFromFile("assets/images/stoneSelection/B&Y.png"))
+	if (!_blackYellowStoneTexture.loadFromFile("assets/images/menu/custom/stones/blackYellowStoneTexture.png"))
 		std::cerr << "Error: could not load stone color B&Y texture" << std::endl;
-	if (!_orangeVioletStoneTexture.loadFromFile("assets/images/stoneSelection/O&V.png"))
+	if (!_orangeVioletStoneTexture.loadFromFile("assets/images/menu/custom/stones/orangeVioletStoneTexture.png"))
 		std::cerr << "Error: could not load stone color O&V texture" << std::endl;
-	if (!_dGreenLGreenStoneTexture.loadFromFile("assets/images/stoneSelection/DG&LG.png"))
+	if (!_dGreenLGreenStoneTexture.loadFromFile("assets/images/menu/custom/stones/dGreenLGreenStoneTexture.png"))
 		std::cerr << "Error: could not load stone color DG&LG texture" << std::endl;
-	if (!_tGreenIndigoStoneTexture.loadFromFile("assets/images/stoneSelection/TG&I.png"))
+	if (!_tGreenIndigoStoneTexture.loadFromFile("assets/images/menu/custom/stones/tGreenIndigoStoneTexture.png"))
 		std::cerr << "Error: could not load stone color TG&I texture" << std::endl;
-	if (!_tommyAvatarTexture.loadFromFile("assets/images/avatarSelection/Tommy.png"))
+	if (!_tommyAvatarTexture.loadFromFile("assets/images/menu/custom/avatars/tommyAvatarTexture.png"))
 		std::cerr << "Error: could not load avatar tommy texture" << std::endl;
-	if (!_laureAvatarTexture.loadFromFile("assets/images/avatarSelection/Laure.png"))
+	if (!_laureAvatarTexture.loadFromFile("assets/images/menu/custom/avatars/laureAvatarTexture.png"))
 		std::cerr << "Error: could not load avatar laure texture" << std::endl;
-	if (!_alexAvatarTexture.loadFromFile("assets/images/avatarSelection/Alex.png"))
+	if (!_alexAvatarTexture.loadFromFile("assets/images/menu/custom/avatars/alexAvatarTexture.png"))
 		std::cerr << "Error: could not load avatar alex texture" << std::endl;
-	if (!_hericAvatarTexture.loadFromFile("assets/images/avatarSelection/Heric.png"))
+	if (!_hericAvatarTexture.loadFromFile("assets/images/menu/custom/avatars/hericAvatarTexture.png"))
 		std::cerr << "Error: could not load avatar heric texture" << std::endl;
-	if (!_mousseAvatarTexture.loadFromFile("assets/images/avatarSelection/Mousse.png"))
+	if (!_mousseAvatarTexture.loadFromFile("assets/images/menu/custom/avatars/mousseAvatarTexture.png"))
 		std::cerr << "Error: could not load avatar mousse texture" << std::endl;
-	if (!_guntherAvatarTexture.loadFromFile("assets/images/avatarSelection/Gunther.png"))
+	if (!_guntherAvatarTexture.loadFromFile("assets/images/menu/custom/avatars/guntherAvatarTexture.png"))
 		std::cerr << "Error: could not load avatar gunther texture" << std::endl;
-	if (!_azureBoardTexture.loadFromFile("assets/images/boardSelection/Azure.png"))
+	if (!_azureBoardTexture.loadFromFile("assets/images/menu/custom/boards/azureBoardTexture.png"))
 		std::cerr << "Error: could not load board color azure texture" << std::endl;
-	if (!_yellowBoardTexture.loadFromFile("assets/images/boardSelection/Yellow.png"))
+	if (!_yellowBoardTexture.loadFromFile("assets/images/menu/custom/boards/yellowBoardTexture.png"))
 		std::cerr << "Error: could not load board color yellow texture" << std::endl;
-	if (!_redBoardTexture.loadFromFile("assets/images/boardSelection/Red.png"))
+	if (!_redBoardTexture.loadFromFile("assets/images/menu/custom/boards/redBoardTexture.png"))
 		std::cerr << "Error: could not load board color red texture" << std::endl;
-	if (!_orangeBoardTexture.loadFromFile("assets/images/boardSelection/Orange.png"))
+	if (!_orangeBoardTexture.loadFromFile("assets/images/menu/custom/boards/orangeBoardTexture.png"))
 		std::cerr << "Error: could not load board color orange texture" << std::endl;
-	if (!_pinkBoardTexture.loadFromFile("assets/images/boardSelection/Pink.png"))
+	if (!_pinkBoardTexture.loadFromFile("assets/images/menu/custom/boards/pinkBoardTexture.png"))
 		std::cerr << "Error: could not load board color pink texture" << std::endl;
-	if (!_greenBoardTexture.loadFromFile("assets/images/boardSelection/Green.png"))
+	if (!_greenBoardTexture.loadFromFile("assets/images/menu/custom/boards/greenBoardTexture.png"))
 		std::cerr << "Error: could not load board color green texture" << std::endl;
-	if (!_grayBoardTexture.loadFromFile("assets/images/boardSelection/Gray.png"))
+	if (!_grayBoardTexture.loadFromFile("assets/images/menu/custom/boards/grayBoardTexture.png"))
 		std::cerr << "Error: could not load board color gray texture" << std::endl;
-	if (!_blackBoardTexture.loadFromFile("assets/images/boardSelection/Black.png"))
+	if (!_blackBoardTexture.loadFromFile("assets/images/menu/custom/boards/blackBoardTexture.png"))
 		std::cerr << "Error: could not load board color black texture" << std::endl;
 
 	_customMenuSprite.setTexture(_customMenuTexture);

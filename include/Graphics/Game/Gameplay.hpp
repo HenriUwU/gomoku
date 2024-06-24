@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 17:08:53 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:05:30 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ class Gameplay {
 		sf::Texture					_redStoneTexture;
 		sf::Texture					_salmonStoneTexture;
 		sf::Texture					_turquoiseGreenStoneTexture;
-		sf::Sprite					_firstStone;
-		sf::Sprite					_secondStone;
+		sf::Sprite					_firstPlayerStoneSprite;
+		sf::Sprite					_secondPlayerStoneSprite;
 
 	public:
 		Gameplay();

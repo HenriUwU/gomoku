@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/20 10:09:36 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:51:25 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ void	HelpMenu::init() {
 		std::cerr << "Error: could not load captures page texture" << std::endl;
 	if (!_doubleThreesPageTexture.loadFromFile("assets/images/menu/help/doubleThreesPageTexture.png"))
 		std::cerr << "Error: could not load double three page texture" << std::endl;
-	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/return_arrow.png"))
+	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/backwardButtonTexture.png"))
 		std::cerr << "Error: could not load arrow button texture" << std::endl;
-	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/return_arrow_highlight.png"))
+	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/backwardHoveredButtonTexture.png"))
 		std::cerr << "Error: could not load arrow button highlighted texture" << std::endl;
-	if (!_forwardButtonTexture.loadFromFile("assets/images/buttons/right_arrow.png"))
+	if (!_forwardButtonTexture.loadFromFile("assets/images/buttons/forwardButtonTexture.png"))
 		std::cerr << "Error: could not load arrow button texture" << std::endl;
-	if (!_forwardHoveredButtonTexture.loadFromFile("assets/images/buttons/right_arrow_highlighted.png"))
+	if (!_forwardHoveredButtonTexture.loadFromFile("assets/images/buttons/forwardHoveredButtonTexture.png"))
 		std::cerr << "Error: could not load arrow button highlighted texture" << std::endl;
 
 	_rulesPageSprite.setTexture(_rulesPageTexture);

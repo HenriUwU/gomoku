@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/20 10:26:35 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:45:26 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,27 +203,27 @@ void	MainMenu::init() {
 		cerr << "Error while loading the 'Exo2-Black.ttf' file." << endl;
 	if (!_ex02BlackItalicFont.loadFromFile("assets/fonts/Exo_2/Exo2-BlackItalic.ttf"))
 		cerr << "Error while loading the 'Exo2-BlackItalic.ttf' file." << endl;
-	if (!_greenButtonTexture.loadFromFile("assets/images/buttons/green_button.png"))
-		cerr << "Error while loading the 'green_button.png' file." << endl;
-	if (!_orangeButtonTexture.loadFromFile("assets/images/buttons/orange_button.png"))
-		cerr << "Error while loading the 'orange_button.png' file." << endl;
-	if (!_redButtonTexture.loadFromFile("assets/images/buttons/red_button.png"))
-		cerr << "Error while loading the 'red_button.png' file." << endl;
-	if (!_blueButtonTexture.loadFromFile("assets/images/buttons/blue_button.png"))
-		cerr << "Error while loading the 'blue_button.png' file." << endl;
-	if (!_greenHoveredButtonTexture.loadFromFile("assets/images/buttons/green_button_highlight.png"))
-		cerr << "Error while loading the 'green_button_highlight.png' file." << endl;
-	if (!_orangeHoveredButtonTexture.loadFromFile("assets/images/buttons/orange_button_highlight.png"))
-		cerr << "Error while loading the 'orange_button_highlight.png' file." << endl;
-	if (!_redHoveredButtonTexture.loadFromFile("assets/images/buttons/red_button_highlight.png"))
-		cerr << "Error while loading the 'red_button_highlight.png' file." << endl;
-	if (!_blueHoveredButtonTexture.loadFromFile("assets/images/buttons/blue_button_highlight.png"))
-		cerr << "Error while loading the 'blue_button_highlight.png' file." << endl;
-	if (!_customIconTexture.loadFromFile("assets/images/icons/custom.png"))
+	if (!_greenButtonTexture.loadFromFile("assets/images/menu/main/buttons/greenButtonTexture.png"))
+		cerr << "Error while loading the 'greenButtonTexture.png' file." << endl;
+	if (!_orangeButtonTexture.loadFromFile("assets/images/menu/main/buttons/orangeButtonTexture.png"))
+		cerr << "Error while loading the 'orangeButtonTexture.png' file." << endl;
+	if (!_redButtonTexture.loadFromFile("assets/images/menu/main/buttons/redButtonTexture.png"))
+		cerr << "Error while loading the 'redButtonTexture.png' file." << endl;
+	if (!_blueButtonTexture.loadFromFile("assets/images/menu/main/buttons/blueButtonTexture.png"))
+		cerr << "Error while loading the 'blueButtonTexture.png' file." << endl;
+	if (!_greenHoveredButtonTexture.loadFromFile("assets/images/menu/main/buttons/greenHoveredButtonTexture.png"))
+		cerr << "Error while loading the 'greenHoveredButtonTexture.png' file." << endl;
+	if (!_orangeHoveredButtonTexture.loadFromFile("assets/images/menu/main/buttons/orangeHoveredButtonTexture.png"))
+		cerr << "Error while loading the 'orangeHoveredButtonTexture.png' file." << endl;
+	if (!_redHoveredButtonTexture.loadFromFile("assets/images/menu/main/buttons/redHoveredButtonTexture.png"))
+		cerr << "Error while loading the 'redHoveredButtonTexture.png' file." << endl;
+	if (!_blueHoveredButtonTexture.loadFromFile("assets/images/menu/main/buttons/blueHoveredButtonTexture.png"))
+		cerr << "Error while loading the 'blueHoveredButtonTexture.png' file." << endl;
+	if (!_customIconTexture.loadFromFile("assets/images/menu/main//icons/customIconTexture.png"))
 		cerr << "Error while loading the 'custom.png' file." << endl;
-	if (!_settingsIconTexture.loadFromFile("assets/images/icons/settings.png"))
+	if (!_settingsIconTexture.loadFromFile("assets/images/menu/main//icons/settingsIconTexture.png"))
 		cerr << "Error while loading the 'settings.png' file." << endl;
-	if (!_helpIconTexture.loadFromFile("assets/images/icons/help.png"))
+	if (!_helpIconTexture.loadFromFile("assets/images/menu/main/icons/helpIconTexture.png"))
 		cerr << "Error while loading the 'help.png' file." << endl;
 	
 	_greenButtonSprite.setTexture(_greenButtonTexture);
