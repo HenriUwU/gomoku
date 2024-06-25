@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 14:00:34 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/25 14:39:10 by hsebille         ###   ########.fr       */
+/*   Created: 2024/06/25 15:50:06 by hsebille          #+#    #+#             */
+/*   Updated: 2024/06/25 15:50:20 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,37 +65,7 @@ Gameplay::Gameplay() {
 
 Gameplay::~Gameplay() {}
 
-void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
-	(void)window;
-	(void)event;
-
-	if (gameState == GAME) {
-		//mouseHover(window, event);
-	}
-}
-
-void Gameplay::mouseClick(const sf::Event::MouseButtonEvent& mouseEvent, sf::RenderWindow& window) {
-    sf::Vector2i mousePos(mouseEvent.x, mouseEvent.y);
-    sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
-
-    if (worldPos.x >= _gridPosition.x && worldPos.x <= _gridPosition.x + _gridSize &&
-        worldPos.y >= _gridPosition.y && worldPos.y <= _gridPosition.y + _gridSize) {
-
-        // Calculate grid coordinates
-        float relativeX = worldPos.x - _gridPosition.x;
-        float relativeY = worldPos.y - _gridPosition.y;
-        int col = static_cast<int>(relativeX / _cellSize);
-        int row = static_cast<int>(relativeY / _cellSize);
-
-        // Convert grid coordinates to position string (e.g., "A1", "B2", etc.)
-        char character = 'A' + col;
-        string position = string(1, character) + to_string(row + 1); // +1 to convert to 1-based index
-
-        // Place stone if the position is legal
-    }
-}
-
-void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
+void	Gameplay::selectTextures() {
 	if (stonesColor == BlackAndWhite) {
 		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_whiteStoneTexture);
@@ -121,6 +91,19 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 		_firstPlayerStoneSprite.setTexture(_turquoiseGreenStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_indigoStoneTexture);
 	}
+}
+
+void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
+	(void)window;
+	(void)event;
+
+	if (gameState == GAME) {
+		//mouseHover(window, event);
+	}
+}
+
+void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
+	selectTextures();
 
 	float cellSize = 48;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
@@ -181,7 +164,7 @@ bool	Gameplay::isMoveLegal(string position) {
 	findDiagonalLine(4, position, nearbyLines[2]);
 	findAntiDiagonalLine(4, position, nearbyLines[3]);
 
-	if (!isCapturingMove(position) && isThereDoubleThree(nearbyLines)) {
+	if (/* !isCapturingMove(position) &&  */isThereDoubleThree(nearbyLines)) {
 		cout << "Illegal move : Double three detected\n";
 		return false;
 	}
@@ -239,41 +222,6 @@ bool	Gameplay::isThereDoubleThree(vector<pair<string, int>> nearbyLines[4]) {
 		}
 	}
 	if (FreeThree >= 2)
-		return true;
-	return false;
-}
-
-bool	Gameplay::isCapturingMove(string position) {
-	vector<pair<string, int>> nearbyLines[4];
-	int 	opponent = (_currentPlayer == 1) ? 2 : 1;
-	int		nbCaptures = 0;
-	
-	for (int i = 0; i < 4; i++) {
-		pair<string, int> pair = make_pair(position, _currentPlayer);
-		nearbyLines[i].push_back(pair);
-	}
-	
-	findVerticalLine(3, position, nearbyLines[0]);
-	findHorizontalLine(3, position, nearbyLines[1]);
-	findDiagonalLine(3, position, nearbyLines[2]);
-	findAntiDiagonalLine(3, position, nearbyLines[3]);
-	
-	for (int i = 0; i < 4; i++) {
-		for (unsigned int j = 0; j < nearbyLines[i].size(); j++) {
-			if (j < nearbyLines[i].size() - 3) {
-				if (nearbyLines[i][j].second == _currentPlayer
-				&& nearbyLines[i][j + 1].second == opponent
-				&& nearbyLines[i][j + 2].second == opponent
-				&& nearbyLines[i][j + 3].second == _currentPlayer) {
-					nbCaptures++;
-					_playerPositions.at(nearbyLines[i][j + 1].first) = 0;
-					_playerPositions.at(nearbyLines[i][j + 2].first) = 0;
-					_catchedStones[_currentPlayer] += 2;
-				}
-			}
-		}
-	}
-	if (nbCaptures > 0)
 		return true;
 	return false;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/24 12:05:30 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:49:10 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ class Gameplay {
 		Gameplay();
 		~Gameplay();
 
+		void	selectTextures();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
-		void	mouseClick(const sf::Event::MouseButtonEvent& mouseEvent, sf::RenderWindow& window);
 		void	drawPlayerPositions(sf::RenderWindow& window);
 		void	mouseHover(sf::RenderWindow &window, Bitboard &bitboard);
 
@@ -60,6 +60,5 @@ class Gameplay {
 		bool	isMoveLegal(std::string position);
 		bool	isWinningMove(std::string position);
 		bool	isThereDoubleThree(std::vector<std::pair<std::string, int>> nearbyLines[4]);
-		bool	isCapturingMove(std::string position);
 		bool	isAlignmentBreakable(std::vector<std::pair<std::string, int>> &line, int alignmentIndex);
 };
