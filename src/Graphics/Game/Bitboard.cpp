@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/25 15:47:49 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:25:55 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	mask = uint32_t(1) << x;
 
 	if (isCapturingMove(x, y, player))
-		std::cout << "Capture by player 1 detected" << std::endl;
+		std::cout << "Capture by player " << player << " detected" << std::endl;
 
 	if (getBit(x, y) != 0)
 		return (false);
@@ -42,48 +42,49 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 }
 
 int	Bitboard::isCapturingMove(int x, int y, int player) {
-	int nbCaptures = 0;
+	int			nbCaptures = 0;
+	uint32_t	linesBitboard = (player == 1) ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
+	uint32_t	linesMask = uint32_t(1) << x;
+	
+	linesBitboard |= linesMask;
+	// Lines
+	if (x <= 15) {
+		uint32_t rightSelection = getSelection(linesBitboard, 4, x); // according to board direction
+		if (rightSelection == CAPTURE) {
+			uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y], 4, x);
+			if (isPair == PAIR)
+				nbCaptures++;
+		}
+	}
+	if (x >= 3) {
+		uint32_t leftSelection = getSelection(linesBitboard, 4, x - 3);
+		if (leftSelection == CAPTURE) {
+			uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y], 4, x - 3);
+			if (isPair == PAIR)
+				nbCaptures++;
+		}
+	}
 
-	if (player == 1) {
-		uint32_t	bitboard = player ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
-		uint32_t	mask = uint32_t(1) << x;
-
-		bitboard |= mask;
-		
-		// Lines
-		if (x <= 15) {
-			uint32_t rightSelection = getSelection(bitboard, 4, x); // according to board direction
-			if (rightSelection == CAPTURE) {
-				uint32_t isPair = getSelection(player ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y], 4, x);
-				if (isPair == PAIR)
-					nbCaptures++;
-			}
+	// Columns
+	uint32_t	columnsBitboard = (player == 1) ? _firstPlayerBoardColumns[x] : _secondPlayerBoardColumns[x];
+	uint32_t	columnsMask = uint32_t(1) << y;
+	
+	columnsBitboard |= columnsMask;
+	if (y <= 15) {
+		uint32_t rightSelection = getSelection(columnsBitboard, 4, y); // according to board direction
+		if (rightSelection == CAPTURE) {
+			uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardColumns[x] : _firstPlayerBoardColumns[x], 4, y);
+			if (isPair == PAIR)
+				nbCaptures++;
 		}
-		if (x >= 3) {
-			uint32_t leftSelection = getSelection(bitboard, 4, x - 3);
-			if (leftSelection == CAPTURE) {
-				uint32_t isPair = getSelection(player ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y], 4, x - 3);
-				if (isPair == PAIR)
-					nbCaptures++;
-			}
+	}
+	if (y >= 3) {
+		uint32_t leftSelection = getSelection(columnsBitboard, 4, y - 3);
+		if (leftSelection == CAPTURE) {
+			uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardColumns[x] : _firstPlayerBoardColumns[x], 4, y - 3);
+			if (isPair == PAIR)
+				nbCaptures++;
 		}
-		// Columns
-/* 		if (y <= 15) {
-			uint32_t rightSelection = getSelection(bitboard, 4, y); // according to board direction
-			if (rightSelection == CAPTURE) {
-				uint32_t isPair = getSelection(player ? _firstPlayerBoardColumns[x] : _secondPlayerBoardColumns[x], 4, y);
-				if (isPair == PAIR)
-					nbCaptures++;
-			}
-		}
-		if (y >= 3) {
-			uint32_t leftSelection = getSelection(bitboard, 4, y - 3);
-			if (leftSelection == CAPTURE) {
-				uint32_t isPair = getSelection(player ? _firstPlayerBoardColumns[x] : _secondPlayerBoardColumns[x], 4, y - 3);
-				if (isPair == PAIR)
-					nbCaptures++;
-			}
-		} */
 	}
 	return nbCaptures;
 }
