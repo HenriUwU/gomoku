@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/25 16:25:55 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:28:07 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,12 @@ int	Bitboard::isCapturingMove(int x, int y, int player) {
 				nbCaptures++;
 		}
 	}
+
+	//Diagonals
+	uint32_t	diagonalsBitboard = (player == 1) ? _firstPlayerBoardDiagonals[x] : _secondPlayerBoardDiagonals[x];
+	uint32_t	diagonalsMask = uint32_t(1) << y;
+	
+	diagonalsBitboard |= diagonalsMask;
 	return nbCaptures;
 }
 
