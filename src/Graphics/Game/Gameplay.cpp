@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:00:34 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/24 12:09:24 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:39:10 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 	}
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-		std::cout << "Mouse clicked on grid position: (" << col << ", " << row << ")" << std::endl;
 		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
 			if (bitboard.placeStone(col, row, _currentPlayer)) {
 				if (_currentPlayer == 1)
@@ -161,7 +160,6 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 					_currentPlayer = 1;
 			}
 		}
-		bitboard.printBoard();
 		sf::sleep(sf::milliseconds(100));
 	}
 	if (_currentPlayer == 1)

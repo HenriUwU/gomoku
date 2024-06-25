@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/22 17:27:24 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:07:35 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 
 #include "gomoku.hpp"
 #include <array>
+
+typedef enum {
+	//-- Five in a row --//
+	FIVE_IN_A_ROW = 0b11111,
+	
+	//-- Captures --//
+	PAIR = 0b0110,
+	CAPTURE = 0b1001,
+	
+	//-- Free-Three --//
+	FIRST_FREE_THREE = 0b01110,
+} Patterns;
 
 class Bitboard {
 	private:
@@ -36,6 +48,7 @@ class Bitboard {
 		~Bitboard();
 
 		int			getBit(int x, int y) const;
+		int			isCapturingMove(int x, int y, int player);
 
 		bool		placeStone(int x, int y, int player);
 		bool		isCellEmpty(int x, int y);
@@ -44,4 +57,6 @@ class Bitboard {
 		void		createColumns();
 		void		createDiagonals();
 		void		createAntiDiagonals();
+
+		uint32_t	getSelection(uint32_t bitboard, int nbBits, int bitsPos);
 };

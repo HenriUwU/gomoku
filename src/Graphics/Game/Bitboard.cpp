@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:37:47 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/22 17:32:34 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:42:42 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bitboard.hpp"
 
 Bitboard::Bitboard() {
-	//--- Initialize the bitboards and set all bits to 0 ---//
 	_firstPlayerBoardLines.fill(0);
 	_secondPlayerBoardLines.fill(0);
 	_firstPlayerBoardColumns.fill(0);
@@ -27,10 +26,11 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	
 	mask = uint32_t(1) << x;
 
-	//--- Verfify if cell is empty ---//
+	if (isCapturingMove(x, y, player))
+		std::cout << "Capture by player 1 detected" << std::endl;
+
 	if (getBit(x, y) != 0)
 		return (false);
-	//--- Place the stone ---//
 	if (player == 1)
 		_firstPlayerBoardLines[y] |= mask;
 	else
@@ -41,64 +41,61 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	return (true);
 }
 
-void	Bitboard::createColumns() {
-	for (int x = 0; x < BOARD_SIZE; x++) {
-		for (int y = 0; y < BOARD_SIZE; y++) {
-			uint32_t	mask;
-			
-			mask = uint32_t(1) << y;
-			if (getBit(x, y) == 1)
-				_firstPlayerBoardColumns[x] |= mask;
-			else if (getBit(x, y) == 2)
-				_secondPlayerBoardColumns[x] |= mask;
-		}
-	}
-}
+int	Bitboard::isCapturingMove(int x, int y, int player) {
+	int nbCaptures = 0;
 
-/* void	Bitboard::createDiagonals() {
-	// 1. Get the two vertex
-	// 2. Define number of stones between vertex
-	// 3. Get stones between vertex
-	
-	// origin = BOARD_SIZE
-	// x = BOARD_SIZE
-	// y = 0
-	
-	uint32_t mask = uint32_t(1) << 0;
-	if (getBit(BOARD_SIZE - 1, 0) == 1)
-		_firstPlayerBoardDiagonals[0] |= mask;
-	else if (getBit(BOARD_SIZE - 1, 0) == 2)
-		_secondPlayerBoardDiagonals[0] |= mask;
-	
-	for (int y = 1; y < BOARD_SIZE; y++) {
-		for (int x = BOARD_SIZE - 2; x > 0; x--) {
-			
-			int nbStonesBetweenVertex = y - 1;
-			
-			uint32_t mask1 = uint32_t(1) << 0;
-			if (getBit(x, 0) == 1)
-				_firstPlayerBoardDiagonals[y] |= mask1;
-			else if (getBit(x, 0) == 2)
-				_secondPlayerBoardDiagonals[y] |= mask1;
-			
-			uint32_t mask2 = uint32_t(1) << (y + 1);
-			if (getBit(BOARD_SIZE - 1, y) == 1)
-				_firstPlayerBoardDiagonals[y] |= mask2;
-			else if (getBit(BOARD_SIZE - 1, y) == 2)
-				_secondPlayerBoardDiagonals[y] |= mask2;
-			
-			if (nbStonesBetweenVertex > 0) {
-				for (int i = 1; i <= nbStonesBetweenVertex; i++) {
-					uint32_t mask = uint32_t(1) << i;
-					if (getBit(x + i, y) == 1)
-						_firstPlayerBoardDiagonals[y - 1] |= mask;
-					else if (getBit(x + i, y) == 2)
-						_secondPlayerBoardDiagonals[y - 1] |= mask;
-				}
+	if (player == 1) {
+		uint32_t	bitboard = player ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
+		uint32_t	mask = uint32_t(1) << x;
+
+		bitboard |= mask;
+		
+		// Lines
+		if (x <= 15) {
+			uint32_t rightSelection = getSelection(bitboard, 4, x); // according to board direction
+			if (rightSelection == CAPTURE) {
+				uint32_t isPair = getSelection(player ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y], 4, x);
+				if (isPair == PAIR)
+					nbCaptures++;
 			}
 		}
+		if (x >= 3) {
+			uint32_t leftSelection = getSelection(bitboard, 4, x - 3);
+			if (leftSelection == CAPTURE) {
+				uint32_t isPair = getSelection(player ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y], 4, x - 3);
+				if (isPair == PAIR)
+					nbCaptures++;
+			}
+		}
+		// Columns
+/* 		if (y <= 15) {
+			uint32_t rightSelection = getSelection(bitboard, 4, y); // according to board direction
+			if (rightSelection == CAPTURE) {
+				uint32_t isPair = getSelection(player ? _firstPlayerBoardColumns[x] : _secondPlayerBoardColumns[x], 4, y);
+				if (isPair == PAIR)
+					nbCaptures++;
+			}
+		}
+		if (y >= 3) {
+			uint32_t leftSelection = getSelection(bitboard, 4, y - 3);
+			if (leftSelection == CAPTURE) {
+				uint32_t isPair = getSelection(player ? _firstPlayerBoardColumns[x] : _secondPlayerBoardColumns[x], 4, y - 3);
+				if (isPair == PAIR)
+					nbCaptures++;
+			}
+		} */
 	}
-} */
+	return nbCaptures;
+}
+
+uint32_t	Bitboard::getSelection(uint32_t bitboard, int nbBits, int bitsPos) {
+	bitboard >>= bitsPos;
+
+	uint32_t mask = (1 << nbBits) - 1;
+	uint32_t selection = bitboard & mask;
+
+	return (selection);
+}
 
 void	rotate(int nbRotations, uint32_t& bitboard) {
 	for (int i = 0; i < nbRotations; i++) {
@@ -138,6 +135,20 @@ void	printBoard2(std::array<uint32_t, 19> copy1, std::array<uint32_t, 19> copy2)
 			}
 		}
 		std::cout << "\n";
+	}
+}
+
+void	Bitboard::createColumns() {
+	for (int x = 0; x < BOARD_SIZE; x++) {
+		for (int y = 0; y < BOARD_SIZE; y++) {
+			uint32_t	mask;
+			
+			mask = uint32_t(1) << y;
+			if (getBit(x, y) == 1)
+				_firstPlayerBoardColumns[x] |= mask;
+			else if (getBit(x, y) == 2)
+				_secondPlayerBoardColumns[x] |= mask;
+		}
 	}
 }
 
@@ -196,9 +207,9 @@ void	Bitboard::printBoard(){
 		for (int x = 0; x < BOARD_SIZE; ++x) {
 			uint32_t mask = uint32_t(1) << x;
 
-			if (_firstPlayerBoardAntiDiagonals[y] & mask) {
+			if (_firstPlayerBoardLines[y] & mask) {
 				std::cout << "1 ";
-			} else if (_secondPlayerBoardAntiDiagonals[y] & mask) {
+			} else if (_secondPlayerBoardLines[y] & mask) {
 				std::cout << "2 ";
 			} else {
 				std::cout << ". ";
@@ -207,7 +218,6 @@ void	Bitboard::printBoard(){
 		std::cout << "\n";
 	}
 }
-
 
 int	Bitboard::getBit(int x, int y) const {
 	uint32_t	mask;
