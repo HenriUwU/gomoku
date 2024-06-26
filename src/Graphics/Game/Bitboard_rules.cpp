@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_rules.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:47:40 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/26 12:06:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:12:18 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	Bitboard::isCapturingMove(int x, int y, int player) {
 	verifyHorizontalCapture(nbCaptures, x, y, player);
 	verifyVerticalCapture(nbCaptures, x, y, player);
 	verifyDiagonalCapture(nbCaptures, x, y, player);
+	verifyAntiDiagonalCapture(nbCaptures, x, y, player);
 	return nbCaptures;
 }
 
@@ -69,12 +70,7 @@ void	Bitboard::verifyVerticalCapture(int &nbCaptures, int x, int y, int player) 
 }
 
 void	Bitboard::verifyDiagonalCapture(int &nbCaptures, int x, int y, int player) {
-	int boardSide;
-
-	if (x + y < BOARD_SIZE)
-		boardSide = 1;
-	else
-		boardSide = 2;
+	int boardSide = (x + y < BOARD_SIZE) ? 1 : 2;
 
 	y = rotateY45(x, y);
 
@@ -102,6 +98,14 @@ void	Bitboard::verifyDiagonalCapture(int &nbCaptures, int x, int y, int player) 
 		}
 	}
 	else if (boardSide == 2 && y <= 15) {
+		if (x + 3 <= BOARD_SIZE - 1) {
+			uint32_t rightSelection = getSelection(diagonalsBitboard, 4, x);
+			if (rightSelection == CAPTURE) {
+				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardDiagonals[y] : _firstPlayerBoardDiagonals[y], 4, x);
+				if (isPair == PAIR)
+					nbCaptures++;
+			}
+		}
 		if (x - 3 >= y + 1) {
 			uint32_t leftSelection = getSelection(diagonalsBitboard, 4, x - 3);
 			if (leftSelection == CAPTURE) {
@@ -110,10 +114,50 @@ void	Bitboard::verifyDiagonalCapture(int &nbCaptures, int x, int y, int player) 
 					nbCaptures++;
 			}
 		}
-		if (x + 3 <= BOARD_SIZE - 1) {
-			uint32_t rightSelection = getSelection(diagonalsBitboard, 4, x);
+	}
+}
+
+void	Bitboard::verifyAntiDiagonalCapture(int &nbCaptures, int x, int y, int player) {
+	int boardSide = (x < y + 1) ? 1 : 2;
+
+	y = rotateY315(x, y);
+
+	uint32_t	antiDiagonalsBitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[y] : _secondPlayerBoardAntiDiagonals[y];
+	uint32_t	antiDiagonalsMask = uint32_t(1) << x;
+
+	antiDiagonalsBitboard |= antiDiagonalsMask;
+	
+	if (boardSide == 1 && y <= 15) {
+		if (x + 3 <= y + 1) {
+			uint32_t rightSelection = getSelection(antiDiagonalsBitboard, 4, x);
 			if (rightSelection == CAPTURE) {
-				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardDiagonals[y] : _firstPlayerBoardDiagonals[y], 4, x);
+				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y], 4, x);
+				if (isPair == PAIR)
+					nbCaptures++;
+			}
+		}
+		if (x - 3 >= 0) {
+			uint32_t leftSelection = getSelection(antiDiagonalsBitboard, 4, x - 3);
+			if (leftSelection == CAPTURE) {
+				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y], 4, x - 3);
+				if (isPair == PAIR)
+					nbCaptures++;
+			}
+		}
+	}
+	else if (boardSide == 2 && y >= 3) {
+		if (x + 3 <= BOARD_SIZE - 1) {
+			uint32_t rightSelection = getSelection(antiDiagonalsBitboard, 4, x);
+			if (rightSelection == CAPTURE) {
+				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y], 4, x);
+				if (isPair == PAIR)
+					nbCaptures++;
+			}
+		}
+		if (x - 3 >= BOARD_SIZE - y) {
+			uint32_t leftSelection = getSelection(antiDiagonalsBitboard, 4, x - 3);
+			if (leftSelection == CAPTURE) {
+				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y], 4, x - 3);
 				if (isPair == PAIR)
 					nbCaptures++;
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/26 12:02:19 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:30:05 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ class Bitboard {
 		int			getBit(int x, int y) const;
 		int			isCapturingMove(int x, int y, int player);
 		int			rotateY45(int x, int y);
+		int			rotateY315(int x, int y);
 
 		bool		placeStone(int x, int y, int player);
 		bool		isCellEmpty(int x, int y);

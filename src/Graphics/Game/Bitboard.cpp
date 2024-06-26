@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/26 12:03:39 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:53:17 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,17 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 }
 
 int	Bitboard::rotateY45(int x, int y) {
-	if (x + y < BOARD_SIZE) {
+	if (x + y < BOARD_SIZE) //BOARD_SIZE == 1
 		return (x + y);
-	}
 	else
-		return (y - (BOARD_SIZE - x));
+		return (y - (BOARD_SIZE - x)); //BOARD_SIZE == 2
+}
+
+int	Bitboard::rotateY315(int x, int y) {
+	if (x < y + 1) //BOARD_SIZE == 1
+		return (y - x);
+	else
+		return (y + (BOARD_SIZE - x)); //BOARD_SIZE == 2
 }
 
 void	Bitboard::printBoard(){
