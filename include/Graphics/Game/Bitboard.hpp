@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/25 15:07:35 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:02:19 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ class Bitboard {
 
 		int			getBit(int x, int y) const;
 		int			isCapturingMove(int x, int y, int player);
+		int			rotateY45(int x, int y);
 
 		bool		placeStone(int x, int y, int player);
 		bool		isCellEmpty(int x, int y);
@@ -57,6 +58,11 @@ class Bitboard {
 		void		createColumns();
 		void		createDiagonals();
 		void		createAntiDiagonals();
+
+		void		verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
+		void		verifyVerticalCapture(int &nbCaptures, int x, int y, int player);
+		void		verifyDiagonalCapture(int &nbCaptures, int x, int y, int player);
+		void		verifyAntiDiagonalCapture(int &nbCaptures, int x, int y, int player);
 
 		uint32_t	getSelection(uint32_t bitboard, int nbBits, int bitsPos);
 };
