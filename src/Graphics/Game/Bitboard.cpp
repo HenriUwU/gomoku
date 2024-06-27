@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/27 17:55:47 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:53:11 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	createAntiDiagonals();
 
 	makeCapture(x, y, player);
-
-	createColumns();
-	createDiagonals();
-	createAntiDiagonals();
 
 	return (true);
 }

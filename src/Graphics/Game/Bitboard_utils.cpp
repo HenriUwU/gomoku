@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:57:17 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/27 11:51:08 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:45:03 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ static void	rotate(int nbRotations, uint32_t& bitboard) {
 }
 
 void	Bitboard::createColumns() {
+	_firstPlayerBoardColumns.fill(0);
+	_secondPlayerBoardColumns.fill(0);
+
 	for (int x = 0; x < BOARD_SIZE; x++) {
 		for (int y = 0; y < BOARD_SIZE; y++) {
 			uint32_t	mask;

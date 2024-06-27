@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_captures.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:47:40 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/27 18:14:53 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/27 20:21:19 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ int	Bitboard::isCapturingMove(int x, int y, int player) {
 
 void	Bitboard::makeCapture(int x, int y, int player) {
 	makeHorizontalCapture(x, y, player);
+	createColumns();
 	makeVerticalCapture(x, y, player);
+	createDiagonals();
 	makeDiagonalCapture(x, y, player);
+	createAntiDiagonals();
+	makeAntiDiagonalCapture(x, y, player);
 }
 
 void	Bitboard::verifyHorizontalCapture(int &nbCaptures, int x, int y, int player) {
@@ -256,8 +260,8 @@ void	Bitboard::makeDiagonalCapture(int x, int y, int player) {
 			if (rightSelection == CAPTURE) {
 				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardDiagonals[yCopy] : _firstPlayerBoardDiagonals[yCopy], 4, x);
 				if (isPair == PAIR) {
-					removeStone(x - 1, y + 1, player);
-					removeStone(x - 2, y + 2, player);
+					removeStone(x + 1, y - 1, player);
+					removeStone(x + 2, y - 2, player);
 				}
 			}
 		}
@@ -266,8 +270,64 @@ void	Bitboard::makeDiagonalCapture(int x, int y, int player) {
 			if (leftSelection == CAPTURE) {
 				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardDiagonals[yCopy] : _firstPlayerBoardDiagonals[yCopy], 4, x - 3);
 				if (isPair == PAIR) {
-					removeStone(x + 1, y - 1, player);
-					removeStone(x + 2, y - 2, player);
+					removeStone(x - 1, y + 1, player);
+					removeStone(x - 2, y + 2, player);
+				}
+			}
+		}
+	}
+}
+
+void	Bitboard::makeAntiDiagonalCapture(int x, int y, int player) {
+	int boardSide = (x < y + 1) ? 1 : 2;
+
+	int yCopy = rotateY315(x, y);
+	uint32_t	antiDiagonalsBitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[yCopy] : _secondPlayerBoardAntiDiagonals[yCopy];
+	
+	if (boardSide == 1 && yCopy <= 15) {
+		std::cout << boardSide << std::endl;
+		if (x + 3 <= yCopy + 1) {
+			uint32_t rightSelection = getSelection(antiDiagonalsBitboard, 4, x);
+			std::cout << "right" << std::endl;
+			if (rightSelection == CAPTURE) {
+				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardAntiDiagonals[yCopy] : _firstPlayerBoardAntiDiagonals[yCopy], 4, x);
+				if (isPair == PAIR) {
+					std::cout << "right" << std::endl;
+					removeStone(x + 1, y + 1, player);
+					removeStone(x + 2, y + 2, player);
+				}
+			}
+		}
+		if (x - 3 >= 0) {
+			uint32_t leftSelection = getSelection(antiDiagonalsBitboard, 4, x - 3);
+			if (leftSelection == CAPTURE) {
+				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardAntiDiagonals[yCopy] : _firstPlayerBoardAntiDiagonals[yCopy], 4, x - 3);
+				if (isPair == PAIR)  {
+					std::cout << "left" << std::endl;
+					removeStone(x - 1, y - 1, player);
+					removeStone(x - 2, y - 2, player);
+				}
+			}
+		}
+	}
+	else if (boardSide == 2 && yCopy >= 3) {
+		if (x + 3 <= BOARD_SIZE - 1) {
+			uint32_t rightSelection = getSelection(antiDiagonalsBitboard, 4, x);
+			if (rightSelection == CAPTURE) {
+				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardAntiDiagonals[yCopy] : _firstPlayerBoardAntiDiagonals[yCopy], 4, x);
+				if (isPair == PAIR) {
+					removeStone(y - 1, x + 1, player);
+					removeStone(y - 2, x + 2, player);
+				}
+			}
+		}
+		if (x - 3 >= BOARD_SIZE - yCopy) {
+			uint32_t leftSelection = getSelection(antiDiagonalsBitboard, 4, x - 3);
+			if (leftSelection == CAPTURE) {
+				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardAntiDiagonals[yCopy] : _firstPlayerBoardAntiDiagonals[yCopy], 4, x - 3);
+				if (isPair == PAIR) {
+					removeStone(y + 1, x - 1, player);
+					removeStone(y + 2, x - 2, player);
 				}
 			}
 		}
