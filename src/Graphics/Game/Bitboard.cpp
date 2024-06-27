@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/27 13:12:53 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:55:47 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,12 @@ Bitboard::Bitboard() {
 Bitboard::~Bitboard() {}
 
 bool	Bitboard::placeStone(int x, int y, int player) {
-	uint32_t	mask;
-	
-	mask = uint32_t(1) << x;
+	uint32_t	mask = uint32_t(1) << x;
 
 	if (!isLegalMove(x, y, player))
 		return (false);
 
-	if (player == 1)
-		_firstPlayerBoardLines[y] |= mask;
-	else
-		_secondPlayerBoardLines[y] |= mask;
+	(player == 1) ? _firstPlayerBoardLines[y] |= mask : _secondPlayerBoardLines[y] |= mask;
 
 	createColumns();
 	createDiagonals();
@@ -40,7 +35,17 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 
 	makeCapture(x, y, player);
 
+	createColumns();
+	createDiagonals();
+	createAntiDiagonals();
+
 	return (true);
+}
+
+void	Bitboard::removeStone(int x, int y, int player) {
+	uint32_t	mask = uint32_t(1) << x;
+	
+	(player == 1) ? _secondPlayerBoardLines[y] ^= mask : _firstPlayerBoardLines[y] ^= mask;
 }
 
 bool	Bitboard::isLegalMove(int x, int y, int player) {

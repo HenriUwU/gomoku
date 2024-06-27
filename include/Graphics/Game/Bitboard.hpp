@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/27 14:41:33 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:53:31 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ class Bitboard {
 
 		bool		isCellEmpty(int x, int y);
 		bool		placeStone(int x, int y, int player);
+		void		removeStone(int x, int y, int player);
 		bool		isLegalMove(int x, int y, int player);
 		bool		isDoubleThree(int x, int y, int player);
 
