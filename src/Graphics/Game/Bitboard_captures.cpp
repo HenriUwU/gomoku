@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_rules.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:47:40 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/26 16:12:18 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:40:09 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	Bitboard::isCapturingMove(int x, int y, int player) {
 	verifyDiagonalCapture(nbCaptures, x, y, player);
 	verifyAntiDiagonalCapture(nbCaptures, x, y, player);
 	return nbCaptures;
+}
+
+void	Bitboard::makeCapture(int x, int y, int player) {
+	makeHorizontalCapture(x, y, player);
+	//makeVerticalCapture(x, y, player);
 }
 
 void	Bitboard::verifyHorizontalCapture(int &nbCaptures, int x, int y, int player) {
@@ -160,6 +165,35 @@ void	Bitboard::verifyAntiDiagonalCapture(int &nbCaptures, int x, int y, int play
 				uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y], 4, x - 3);
 				if (isPair == PAIR)
 					nbCaptures++;
+			}
+		}
+	}
+}
+
+void	Bitboard::makeHorizontalCapture(int x, int y, int player) {
+	uint32_t	linesBitboard = (player == 1) ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
+
+	if (x <= 15) {
+		uint32_t rightSelection = getSelection(linesBitboard, 4, x);
+		if (rightSelection == CAPTURE) {
+			uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y], 4, x);
+			if (isPair == PAIR) {
+				uint32_t removePairMask;
+
+				removePairMask = uint32_t(0b0110) << x;
+				(player == 1) ? _secondPlayerBoardLines[y] ^= removePairMask : _firstPlayerBoardLines[y] ^= removePairMask;
+			}
+		}
+	}
+	if (x >= 3) {
+		uint32_t leftSelection = getSelection(linesBitboard, 4, x - 3);
+		if (leftSelection == CAPTURE) {
+			uint32_t isPair = getSelection((player == 1) ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y], 4, x - 3);
+			if (isPair == PAIR) {
+				uint32_t removePairMask;
+
+				removePairMask = uint32_t(0b0110) << (x - 3);
+				(player == 1) ? _secondPlayerBoardLines[y] ^= removePairMask : _firstPlayerBoardLines[y] ^= removePairMask;
 			}
 		}
 	}

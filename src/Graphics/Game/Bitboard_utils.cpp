@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:57:17 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/26 11:33:20 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/27 11:51:08 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ int	getBit2(int x, int y, std::array<uint32_t, 19> bitboard) { // need to change
 		return (1);
 		
 	return (0);
+}
+
+int	Bitboard::rotateY45(int x, int y) {
+	if (x + y < BOARD_SIZE) //BOARD_SIZE == 1
+		return (x + y);
+	else
+		return (y - (BOARD_SIZE - x)); //BOARD_SIZE == 2
+}
+
+int	Bitboard::rotateY315(int x, int y) {
+	if (x < y + 1) //BOARD_SIZE == 1
+		return (y - x);
+	else
+		return (y + (BOARD_SIZE - x)); //BOARD_SIZE == 2
 }
 
 static void	rotate(int nbRotations, uint32_t& bitboard) {

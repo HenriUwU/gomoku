@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/26 14:53:17 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/27 13:12:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,30 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	
 	mask = uint32_t(1) << x;
 
-	if (isCapturingMove(x, y, player))
-		std::cout << "Capture" << std::endl;
-
-	if (getBit(x, y) != 0)
+	if (!isLegalMove(x, y, player))
 		return (false);
+
 	if (player == 1)
 		_firstPlayerBoardLines[y] |= mask;
 	else
 		_secondPlayerBoardLines[y] |= mask;
+
 	createColumns();
 	createDiagonals();
 	createAntiDiagonals();
+
+	makeCapture(x, y, player);
+
 	return (true);
 }
 
-int	Bitboard::rotateY45(int x, int y) {
-	if (x + y < BOARD_SIZE) //BOARD_SIZE == 1
-		return (x + y);
-	else
-		return (y - (BOARD_SIZE - x)); //BOARD_SIZE == 2
-}
+bool	Bitboard::isLegalMove(int x, int y, int player) {
+	if (getBit(x, y))
+		return (false);
 
-int	Bitboard::rotateY315(int x, int y) {
-	if (x < y + 1) //BOARD_SIZE == 1
-		return (y - x);
-	else
-		return (y + (BOARD_SIZE - x)); //BOARD_SIZE == 2
+	if (isDoubleThree(x, y, player) && !isCapturingMove(x, y, player))
+		return (false);
+	return (true);
 }
 
 void	Bitboard::printBoard(){

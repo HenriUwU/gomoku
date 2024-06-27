@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/06/26 11:00:38 by hsebille         ###   ########.fr        #
+#    Updated: 2024/06/27 13:21:58 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,19 +16,20 @@ NAME			:= Gomoku
 #                                 INGREDIENTS                                  #
 # **************************************************************************** #
 
-SRC				:=	src/main.cpp							\
-					src/Debug/Debug.cpp						\
-					src/Graphics/Game/Gameplay.cpp			\
-					src/Graphics/Game/Goban.cpp				\
-					src/Graphics/Menu/MainMenu.cpp			\
-					src/Graphics/Menu/HelpMenu.cpp			\
-					src/Graphics/Game/Gameplay_utils.cpp	\
-					src/Graphics/Menu/SettingsMenu.cpp		\
-					src/Graphics/Menu/CustomMenu.cpp		\
-					src/Graphics/GIF/AnimatedGIF.cpp		\
-					src/Graphics/Game/Bitboard.cpp			\
-					src/Graphics/Game/Bitboard_rules.cpp	\
-					src/Graphics/Game/Bitboard_utils.cpp	\
+SRC				:=	src/main.cpp								\
+					src/Debug/Debug.cpp							\
+					src/Graphics/Game/Gameplay.cpp				\
+					src/Graphics/Game/Goban.cpp					\
+					src/Graphics/Menu/MainMenu.cpp				\
+					src/Graphics/Menu/HelpMenu.cpp				\
+					src/Graphics/Game/Gameplay_utils.cpp		\
+					src/Graphics/Menu/SettingsMenu.cpp			\
+					src/Graphics/Menu/CustomMenu.cpp			\
+					src/Graphics/GIF/AnimatedGIF.cpp			\
+					src/Graphics/Game/Bitboard.cpp				\
+					src/Graphics/Game/Bitboard_captures.cpp		\
+					src/Graphics/Game/Bitboard_utils.cpp		\
+					src/Graphics/Game/Bitboard_free-three.cpp	\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
