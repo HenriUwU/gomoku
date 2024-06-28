@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/27 19:53:11 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/27 22:08:10 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,20 @@ Bitboard::Bitboard() {
 	_secondPlayerBoardLines.fill(0);
 	_firstPlayerBoardColumns.fill(0);
 	_secondPlayerBoardColumns.fill(0);
+	_firstPlayerBoardDiagonals.fill(0);
+	_secondPlayerBoardDiagonals.fill(0);
+	_firstPlayerBoardAntiDiagonals.fill(0);
+	_secondPlayerBoardAntiDiagonals.fill(0);
 }
 
 Bitboard::~Bitboard() {}
 
 bool	Bitboard::placeStone(int x, int y, int player) {
 	uint32_t	mask = uint32_t(1) << x;
+
+	if (isCapturingMove(x, y, player)) {
+		std::cout << "J'ai capturé wallah" << std::endl;
+	}
 
 	if (!isLegalMove(x, y, player))
 		return (false);
