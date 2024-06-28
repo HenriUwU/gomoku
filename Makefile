@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/06/27 13:21:58 by hsebille         ###   ########.fr        #
+#    Updated: 2024/06/28 11:22:19 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC				:=	src/main.cpp								\
 					src/Graphics/Game/Bitboard.cpp				\
 					src/Graphics/Game/Bitboard_captures.cpp		\
 					src/Graphics/Game/Bitboard_utils.cpp		\
-					src/Graphics/Game/Bitboard_free-three.cpp	\
+					src/Graphics/Game/Bitboard_double-three.cpp	\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
