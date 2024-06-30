@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/30 15:40:24 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:22:41 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	AI::play(Bitboard &bitboard) {
 }
 
 std::pair<int, int>	AI::findBestMove() {
-	double bestValue = -INFINITY;
-	double betterMove = -1;
+	// double bestValue = -INFINITY;
+	// double betterMove = -1;
 
 	
 

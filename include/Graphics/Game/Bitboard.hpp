@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/27 15:53:31 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/06/30 15:42:06 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ class Bitboard {
 		void		verifyVerticalCapture(int &nbCaptures, int x, int y, int player);
 		void		verifyDiagonalCapture(int &nbCaptures, int x, int y, int player);
 		void		verifyAntiDiagonalCapture(int &nbCaptures, int x, int y, int player);
+
+		void		verifyFreeThreeHorizontal(int &nbFreeThree, int x, int y, int player);
 
 		void		makeCapture(int x, int y, int player);
 		void		makeHorizontalCapture(int x, int y, int player);
