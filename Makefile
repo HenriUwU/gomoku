@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/06/28 11:22:19 by hsebille         ###   ########.fr        #
+#    Updated: 2024/06/29 14:33:31 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,13 @@ SRC				:=	src/main.cpp								\
 					src/Graphics/Game/Bitboard_captures.cpp		\
 					src/Graphics/Game/Bitboard_utils.cpp		\
 					src/Graphics/Game/Bitboard_double-three.cpp	\
+					src/AI/AI.cpp								\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -Ilib/SFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/Graphics/GIF -Ilib/stb
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -Ilib/SFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/Graphics/GIF -Ilib/stb -Iinclude/AI
 SFML_FLAGS		:=	-Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
 RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
 
