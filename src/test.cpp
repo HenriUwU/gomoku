@@ -2,11 +2,11 @@
 #include <iostream>
 #include <bitset>
 
-uint32_t pPatterns[3] = { 0b01110, 0b010110, 0b011010 };
-uint32_t o5Patterns[3] = { 0b10000, 0b00001, 0b10001 };
-uint32_t o6Patterns[6] = { 0b100000, 0b000001,
-                               0b001000, 0b101001,
-                               0b000100, 0b100101 };
+uint32_t pPatterns[3]   = { 0b01110,  0b010110, 0b011010 };
+uint32_t o5Patterns[3]  = { 0b10000,  0b00001,  0b10001  };
+uint32_t o6Patterns[6]  = { 0b100000, 0b000001,
+                            0b001000, 0b101001,
+                            0b000100, 0b100101           };
 
 uint32_t getSelection(uint32_t bitboard, int nbBits, int bitsPos) {
     bitboard >>= bitsPos;

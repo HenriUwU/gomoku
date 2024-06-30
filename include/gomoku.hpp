@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gomoku.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 11:41:21 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/06/30 15:43:21 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <sstream>
 #include <ctime>
 #include <cstdlib>
+#include <bitset>
 
 #include "MainMenu.hpp"
 #include "Gameplay.hpp"
