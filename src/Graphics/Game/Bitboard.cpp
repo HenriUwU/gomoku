@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/02 16:45:26 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/02 21:36:06 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	makeCapture(x, y, player);
 	
 	if (fiveInARow(x, y, player))
-		std::cout << "je suce et j'ai gagné" << std::endl;
+		gameState = MENU;
 
 	return (true);
 }
