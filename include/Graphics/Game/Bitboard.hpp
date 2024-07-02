@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/02 11:07:30 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:31:38 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,17 @@ class Bitboard {
 
 		bool		isCellEmpty(int x, int y);
 		bool		placeStone(int x, int y, int player);
-		void		removeStone(int x, int y, int player);
 		bool		isLegalMove(int x, int y, int player);
 		bool		isDoubleThree(int x, int y, int player);
+		bool		isBreakable(int x, int y, int player);
+		bool		fiveInARow(int x, int y, int player);
+		bool		fiveInARowHorizontal(int x, int y, int player);
 
 		void		printBoard();
 		void		createColumns();
 		void		createDiagonals();
 		void		createAntiDiagonals();
+		void		removeStone(int x, int y, int player);
 
 		void		verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
 		void		verifyVerticalCapture(int &nbCaptures, int x, int y, int player);

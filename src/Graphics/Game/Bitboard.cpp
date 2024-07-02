@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/27 22:08:10 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:32:08 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	createAntiDiagonals();
 
 	makeCapture(x, y, player);
+	
+	if (fiveInARow(x, y, player))
+		std::cout << "je suce et j'ai gagné" << std::endl;
 
 	return (true);
 }
