@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:21:52 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/02 11:21:46 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/02 11:31:36 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,20 +208,14 @@ void	Bitboard::verifyFreeThreeAntiDiagonal(int &nbFreeThree, int x, int y, int p
 		if (i + 5 <= nbBits) {
 			uint32_t pFive = getSelection(pSelection, 5, i);
 			uint32_t oFive = getSelection(oSelection, 5, i);
-			std::cout << "Checking 5 bits at position " << i << ": Player " << std::bitset<5>(pFive) << ", Opponent " << std::bitset<5>(oFive) << std::endl;
-			if (verifyPlayerPattern(pFive, 5) && !verifyOpponentPattern(oFive, 5)) {
+			if (verifyPlayerPattern(pFive, 5) && !verifyOpponentPattern(oFive, 5))
 				nbFreeThree++;
-				std::cout << "Free-three detected!" << std::endl;
-			}
 		}
 		if (i + 6 <= nbBits) {
 			uint32_t pSix = getSelection(pSelection, 6, i);
 			uint32_t oSix = getSelection(oSelection, 6, i);
-			std::cout << "Checking 6 bits at position " << i << ": Player " << std::bitset<6>(pSix) << ", Opponent " << std::bitset<6>(oSix) << std::endl;
-			if (verifyPlayerPattern(pSix, 6) && !verifyOpponentPattern(oSix, 6)) {
+			if (verifyPlayerPattern(pSix, 6) && !verifyOpponentPattern(oSix, 6))
 				nbFreeThree++;
-				std::cout << "Free-three detected!" << std::endl;
-			}
 		}
 	}
 }
