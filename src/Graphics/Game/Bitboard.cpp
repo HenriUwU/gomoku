@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/02 16:32:08 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:45:26 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ Bitboard::~Bitboard() {}
 
 bool	Bitboard::placeStone(int x, int y, int player) {
 	uint32_t	mask = uint32_t(1) << x;
-
-	if (isCapturingMove(x, y, player)) {
-		std::cout << "J'ai capturé wallah" << std::endl;
-	}
 
 	if (!isLegalMove(x, y, player))
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/02 16:31:38 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:46:28 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ class Bitboard {
 		bool		isLegalMove(int x, int y, int player);
 		bool		isDoubleThree(int x, int y, int player);
 		bool		isBreakable(int x, int y, int player);
+		bool		isBreakableHorizontalVertical(int x, int y, int player);
 		bool		fiveInARow(int x, int y, int player);
 		bool		fiveInARowHorizontal(int x, int y, int player);
+		bool		fiveInARowVertical(int x, int y, int player);
 
 		void		printBoard();
 		void		createColumns();
