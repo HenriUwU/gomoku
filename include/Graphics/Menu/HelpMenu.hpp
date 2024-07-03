@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:50:31 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/19 12:06:37 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:00:54 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ class HelpMenu {
 
 		void init();
 		void display(sf::RenderWindow &window);		
-		void handleKeys(sf::RenderWindow &window);
+		void handleKeys(sf::Event &event, sf::RenderWindow &window);
 };

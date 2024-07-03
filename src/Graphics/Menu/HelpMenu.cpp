@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/24 11:51:25 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:02:46 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,36 +18,34 @@ HelpMenu::HelpMenu() {
 
 HelpMenu::~HelpMenu() {}
 
-void	HelpMenu::display(sf::RenderWindow &window) {
+void	HelpMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-
+	
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			if (helpMenuState == RULES)
 				gameState = MENU;
-			if (helpMenuState == CAPTURES)
+			else if (helpMenuState == CAPTURES)
 				helpMenuState = RULES;
-			sf::sleep(sf::milliseconds(100));
-			if (helpMenuState == DOUBLETHREE)
+			else if (helpMenuState == DOUBLETHREE)
 				helpMenuState = CAPTURES;
-			sf::sleep(sf::milliseconds(100));
 		}
 	} else if (_forwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_forwardButtonSprite.setTexture(_forwardHoveredButtonTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			if (helpMenuState == RULES)
 				helpMenuState = CAPTURES;
-			sf::sleep(sf::milliseconds(100));
-			if (helpMenuState == CAPTURES)
+			else if (helpMenuState == CAPTURES)
 				helpMenuState = DOUBLETHREE;
-			sf::sleep(sf::milliseconds(100));
 		}
 	} else {
 		_backwardButtonSprite.setTexture(_backwardButtonTexture);
 		_forwardButtonSprite.setTexture(_forwardButtonTexture);
 	}
+}
 
+void	HelpMenu::display(sf::RenderWindow &window) {
 	window.clear(sf::Color(38, 1, 69));
 
 	if (helpMenuState == RULES)
