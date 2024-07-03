@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/24 11:57:09 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:52:42 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	CustomMenu::display(sf::RenderWindow& window) {
 	if (playerOneAvatar == TOMMY)
 		_avatarSelectorSprite.setPosition(691 - 8, 563 - 8);
 
-	handleKeys(window);
+	handleStonesSelection(window);
+	handleAvatarsSelection(window);
+	handleBoardSelection(window);
 	
 	window.clear(sf::Color(38, 1, 69));
 	window.draw(_customMenuSprite);
@@ -105,20 +107,15 @@ void	CustomMenu::display(sf::RenderWindow& window) {
 	window.draw(_greenBoardSprite);
 	window.draw(_grayBoardSprite);
 	window.draw(_blackBoardSprite);
-
 }
 
-void	CustomMenu::handleKeys(sf::RenderWindow &window) {
+void	CustomMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 	if (_backwardButtonSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
 			gameState = MENU;
 	} else
 		_backwardButtonSprite.setTexture(_backwardButtonTexture);
-
-	handleStonesSelection(window);
-	handleBoardSelection(window);
-	handleAvatarsSelection(window);
 }
 
 void	CustomMenu::handleStonesSelection(sf::RenderWindow& window) {

@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:05:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/19 11:57:21 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:41:21 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ class SettingsMenu {
 
 		void init();
 		void display(sf::RenderWindow &window);		
-		void handleKeys(sf::RenderWindow &window);
-		void handleGameMode(sf::Vector2i mousePos);
-		void handleAiMode(sf::Vector2i mousePos);
-		void handleVolume(sf::Vector2i mousePos);
+		void handleKeys(sf::Event &event, sf::RenderWindow &window);
+		void handleAiMode(sf::RenderWindow &window);
+		void handleVolume(sf::RenderWindow &window);
 };

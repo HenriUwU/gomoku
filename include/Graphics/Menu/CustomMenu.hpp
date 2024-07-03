@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:18 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/19 11:25:20 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:34:10 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ class CustomMenu {
 
 		void	init();
 		void	display(sf::RenderWindow& window);
-		void	handleKeys(sf::RenderWindow& window);
+		void	handleKeys(sf::Event &event, sf::RenderWindow& window);
 		void	handleStonesSelection(sf::RenderWindow& window);
 		void	handleBoardSelection(sf::RenderWindow& window);
 		void	handleAvatarsSelection(sf::RenderWindow& window);

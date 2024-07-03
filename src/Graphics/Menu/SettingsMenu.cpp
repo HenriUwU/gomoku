@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/06/24 11:57:49 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:40:39 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ SettingsMenu::SettingsMenu() {
 SettingsMenu::~SettingsMenu() {}
 
 void	SettingsMenu::display(sf::RenderWindow& window) {
-	handleKeys(window);
+	handleVolume(window);
+	handleAiMode(window);
 
 	if (moveSuggestion == ENABLED)
 		_switchButtonSprite.setTexture(_switchOnButtonTexture);
@@ -59,36 +60,36 @@ void	SettingsMenu::display(sf::RenderWindow& window) {
 	window.draw(_boxDefensiveAISprite);
 }
 
-void	SettingsMenu::handleKeys(sf::RenderWindow& window) {
+void	SettingsMenu::handleKeys(sf::Event &event, sf::RenderWindow& window) {
 	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
 
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			gameState = MENU;
 		}
 	} else
 		_backwardButtonSprite.setTexture(_backwardButtonTexture);
 
 	if (_switchButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			if (moveSuggestion == ENABLED)
 				moveSuggestion = DISABLED;
 			else
 				moveSuggestion = ENABLED;
-			sf::sleep(sf::milliseconds(100));
 		}
 	}
-	
-	handleVolume(mousePos);
-	handleAiMode(mousePos);
 }
 
-void	SettingsMenu::handleVolume(sf::Vector2i mousePos) {
+void	SettingsMenu::handleVolume(sf::RenderWindow& window) {
+	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
+	
 	(void)mousePos;
 }
 
-void	SettingsMenu::handleAiMode(sf::Vector2i mousePos) {
+void	SettingsMenu::handleAiMode(sf::RenderWindow& window) {
+	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
+	
 	if (_boxImpossibleAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
 			_boxImpossibleAISprite.setTexture(_boxCheckedTexture);
