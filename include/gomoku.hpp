@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/30 15:43:21 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:20:06 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 #include "MainMenu.hpp"
 #include "Gameplay.hpp"
 #include "Goban.hpp"
-#include "Debug.hpp"
 #include "CustomMenu.hpp"
 #include "SettingsMenu.hpp"
 #include "HelpMenu.hpp"
