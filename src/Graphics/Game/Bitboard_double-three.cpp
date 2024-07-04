@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:21:52 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/04 23:04:08 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/05 00:27:25 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,20 +209,41 @@ void	Bitboard::verifyFreeThreeAntiDiagonal(int &nbFreeThree, int x, int y, int p
 	uint32_t	oSelection = 0;
 	uint32_t	pBitboardMask = uint32_t(1) << x;
 	int			nbBits = 0;
-	int			bitPos = 0;
 
 	pBitboard |= pBitboardMask;
 	
 	if (boardSide == 1 && y <= 14) {
-		bitPos = (x - 4 <= 0) ? 0 : x - 4;
-		nbBits = 9 - ((bitPos + 9) - (BOARD_SIZE - y));
-		pSelection = getSelection(pBitboard, nbBits, bitPos);
-		oSelection = getSelection(oBitboard, nbBits, bitPos);
-	} else if (boardSide == 2 && y >= 4) {
-		bitPos = (x - 4 < BOARD_SIZE - y) ? BOARD_SIZE - y : x - 4;
-		nbBits = 9 - ((bitPos + 9) - BOARD_SIZE);
-		pSelection = getSelection(pBitboard, nbBits, bitPos);
-		oSelection = getSelection(oBitboard, nbBits, bitPos);
+		if (x - 4 <= 0) {
+			nbBits = (5 + x < BOARD_SIZE - y) ? 5 + x : BOARD_SIZE - y;
+			pSelection = getSelection(pBitboard, nbBits, 0);
+			oSelection = getSelection(oBitboard, nbBits, 0);
+		} else if (x + 4 >= BOARD_SIZE - y) {
+			nbBits = (BOARD_SIZE - y) - (x - 4);
+			pSelection = getSelection(pBitboard, nbBits, x - 4);
+			oSelection = getSelection(oBitboard, nbBits, x - 4);
+		} else {
+			nbBits = 9;
+			pSelection = getSelection(pBitboard, nbBits, x - 4);
+			oSelection = getSelection(oBitboard, nbBits, x - 4);
+		}
+	} else if (boardSide == 2 && y > 4) {
+		if (x - 4 < BOARD_SIZE - y) {
+			nbBits = x - (BOARD_SIZE - y);
+			if (x + 4 > BOARD_SIZE - 1)
+				nbBits += BOARD_SIZE - x;
+			else
+				nbBits += 5;
+			pSelection = getSelection(pBitboard, nbBits, BOARD_SIZE - y);
+			oSelection = getSelection(oBitboard, nbBits, BOARD_SIZE - y);
+		} else if (x + 4 > BOARD_SIZE - 1) {
+			nbBits = 5 + ((BOARD_SIZE - 1) - x);
+			pSelection = getSelection(pBitboard, nbBits, x - 4);
+			oSelection = getSelection(oBitboard, nbBits, x - 4);
+		} else {
+			nbBits = 9;
+			pSelection = getSelection(pBitboard, nbBits, x - 4);
+			oSelection = getSelection(oBitboard, nbBits, x - 4);
+		}
 	}
 		
 	for (int i = 0; i < nbBits; i++) {

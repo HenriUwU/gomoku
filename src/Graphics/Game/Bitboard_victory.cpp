@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:39:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/04 23:04:14 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/05 00:23:47 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,16 +136,33 @@ bool	Bitboard::fiveInARowAntiDiagonal(int x, int y, int player) {
 	uint32_t	bitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[y] : _secondPlayerBoardAntiDiagonals[y];
 	uint32_t	selection = 0;
 	int			nbBits = 0;
-	int			bitPos = 0;
 	
 	if (boardSide == 1 && y <= 14) {
-		bitPos = (x - 4 <= 0) ? 0 : x - 4;
-		nbBits = 9 - ((bitPos + 9) - (BOARD_SIZE - y));
-		selection = getSelection(bitboard, nbBits, bitPos);
-	} else if (boardSide == 2 && y >= 4) {
-		bitPos = (x - 4 < BOARD_SIZE - y) ? BOARD_SIZE - y : x - 4;
-		nbBits = 9 - ((bitPos + 9) - BOARD_SIZE);
-		selection = getSelection(bitboard, nbBits, bitPos);
+		if (x - 4 <= 0) {
+			nbBits = (5 + x < BOARD_SIZE - y) ? 5 + x : BOARD_SIZE - y;
+			selection = getSelection(bitboard, nbBits, 0);
+		} else if (x + 4 >= BOARD_SIZE - y) {
+			nbBits = (BOARD_SIZE - y) - (x - 4);
+			selection = getSelection(bitboard, nbBits, x - 4);
+		} else {
+			nbBits = 9;
+			selection = getSelection(bitboard, nbBits, x - 4);
+		}
+	} else if (boardSide == 2 && y > 4) {
+		if (x - 4 < BOARD_SIZE - y) {
+			nbBits = x - (BOARD_SIZE - y);
+			if (x + 4 > BOARD_SIZE - 1)
+				nbBits += BOARD_SIZE - x;
+			else
+				nbBits += 5;
+			selection = getSelection(bitboard, nbBits, BOARD_SIZE - y);
+		} else if (x + 4 > BOARD_SIZE - 1) {
+			nbBits = 5 + ((BOARD_SIZE - 1) - x);
+			selection = getSelection(bitboard, nbBits, x - 4);
+		} else {
+			nbBits = 9;
+			selection = getSelection(bitboard, nbBits, x - 4);
+		}
 	}
 		
     for (int i = 0; i < nbBits; i++) {
