@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:39:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/04 14:22:41 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/04 23:04:14 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,36 +89,33 @@ bool	Bitboard::fiveInARowDiagonal(int x, int y, int player) {
 	uint32_t	bitboard = (player == 1) ? _firstPlayerBoardDiagonals[y] : _secondPlayerBoardDiagonals[y];
 	uint32_t	selection = 0;
 	int			nbBits = 0;
-	int			bitPos = 0;
 	
 	if (boardSide == 1 && y >= 4) {
 		if (x - 4 <= 0) {
 			nbBits = (5 + x < y + 1) ? 5 + x : y + 1;
 			selection = getSelection(bitboard, nbBits, 0);
-		} else if (x + 4 > y + 1) {
+		} else if (x + 4 >= y + 1 || x + 4 > BOARD_SIZE - 1) {
 			nbBits = (y + 1) - (x - 4);
 			selection = getSelection(bitboard, nbBits, x - 4);
 		} else {
 			nbBits = 9;
 			selection = getSelection(bitboard, nbBits, x - 4);
 		}
-	} else if (boardSide == 2 && y <= 14) {
-		if (x - 4 <= y + 1) {
-			//nbBits = 5 + (x - (y + 1));
-			nbBits = (5 + (x - (y + 1)) < BOARD_SIZE - y + 1) ? 5 + (x - (y + 1)) : BOARD_SIZE - y + 1;
-			std::cout << "nbBits when x - 4 inferior : " << nbBits << std::endl;
+	} else if (boardSide == 2 && y < 14) {
+		if (x - 4 < y + 1) {
+			nbBits = x - (y + 1);
+			if (x + 4 > BOARD_SIZE - 1)
+				nbBits += BOARD_SIZE - x;
+			else
+				nbBits += 5;
 			selection = getSelection(bitboard, nbBits, y + 1);
 		} else if (x + 4 > BOARD_SIZE - 1) {
-			nbBits = (BOARD_SIZE - 1) - (x - 4);
-			std::cout << "nbBits when x + 4 superior : " << nbBits << std::endl;
+			nbBits = 5 + ((BOARD_SIZE - 1) - x);
 			selection = getSelection(bitboard, nbBits, x - 4);
 		} else {
 			nbBits = 9;
-			std::cout << "nbBits : " << nbBits << std::endl;
 			selection = getSelection(bitboard, nbBits, x - 4);
 		}
-		
-		selection = getSelection(bitboard, nbBits, bitPos);
 	}
 
     for (int i = 0; i < nbBits; i++) {
