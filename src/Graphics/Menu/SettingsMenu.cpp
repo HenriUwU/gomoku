@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/03 15:40:39 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/04 13:15:19 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ SettingsMenu::SettingsMenu() {
 SettingsMenu::~SettingsMenu() {}
 
 void	SettingsMenu::display(sf::RenderWindow& window) {
-	handleVolume(window);
 	handleAiMode(window);
 
 	if (moveSuggestion == ENABLED)
@@ -52,12 +51,12 @@ void	SettingsMenu::display(sf::RenderWindow& window) {
 	window.clear(sf::Color(38, 1, 69));
 	window.draw(_settingsMenuSprite);
 	window.draw(_backwardButtonSprite);
-	window.draw(_volumeBarSprite);
 	window.draw(_switchButtonSprite);
 	window.draw(_boxImpossibleAISprite);
 	window.draw(_boxAggressiveAISprite);
 	window.draw(_boxPassiveAISprite);
 	window.draw(_boxDefensiveAISprite);
+	window.draw(_volumeSprites[_currentVolumeLevel]);
 }
 
 void	SettingsMenu::handleKeys(sf::Event &event, sf::RenderWindow& window) {
@@ -81,10 +80,26 @@ void	SettingsMenu::handleKeys(sf::Event &event, sf::RenderWindow& window) {
 	}
 }
 
-void	SettingsMenu::handleVolume(sf::RenderWindow& window) {
-	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
+void	SettingsMenu::handleVolume(sf::Event &event, sf::RenderWindow& window) {	
+	int barX = 787;
+	int barY = 335;
+	int barWidth = 450;
+	int barHeight = 40;
 	
-	(void)mousePos;
+	if (event.type == sf::Event::MouseMoved && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+		if (mousePos.y >= barY && mousePos.y <= barY + barHeight) {
+			int relativeX = mousePos.x - barX;
+			if (relativeX >= 0 && relativeX <= barWidth) {
+				int newVolumeLevel = (relativeX * 11) / barWidth;
+				if (newVolumeLevel >= 0 && newVolumeLevel < 11) {
+					_currentVolumeLevel = newVolumeLevel;
+					newVolumeLevel = musicVolume;
+				}
+			}
+		}
+	}
 }
 
 void	SettingsMenu::handleAiMode(sf::RenderWindow& window) {
@@ -125,8 +140,6 @@ void	SettingsMenu::init() {
 		std::cerr << "Error: could not load return button texture" << std::endl;
 	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/backwardHoveredButtonTexture.png"))
 		std::cerr << "Error: could not load return button hover texture" << std::endl;
-	if (!_volume100Texture.loadFromFile("assets/images/menu/settings/volume/volume100Texture.png"))
-		std::cerr << "Error: could not load volume 100 texture" << std::endl;
 	if (!_switchOnButtonTexture.loadFromFile("assets/images/menu/settings/moveSuggestion/switchOnButtonTexture.png"))
 		std::cerr << "Error: could not load switch texture" << std::endl;
 	if (!_switchOffButtonTexture.loadFromFile("assets/images/menu/settings/moveSuggestion/switchOffButtonTexture.png"))
@@ -136,16 +149,27 @@ void	SettingsMenu::init() {
 	if (!_boxCheckedTexture.loadFromFile("assets/images/menu/settings/aiMode/boxCheckedTexture.png"))
 		std::cerr << "Error: could not load box checked texture" << std::endl;
 
+	for (int i = 0; i < 11; i++) {
+		sf::Texture texture;
+		std::string	filePath = "assets/images/menu/settings/volume/volume" + std::to_string(i * 10) + "Texture.png";
+		if (texture.loadFromFile(filePath))
+			_volumeTextures.push_back(texture);
+	}
+	
+	for (int i = 0; i < 11; i++) {
+		_volumeSprites[i].setTexture(_volumeTextures[i]);
+		_volumeSprites[i].setPosition(787, 335);
+	}
+
+	_currentVolumeLevel = 10;
 	_settingsMenuSprite.setTexture(_settingsMenuTexture);
 	_backwardButtonSprite.setTexture(_backwardButtonTexture);
-	_volumeBarSprite.setTexture(_volume100Texture);
 	_boxImpossibleAISprite.setTexture(_boxTexture);
 	_boxAggressiveAISprite.setTexture(_boxTexture);
 	_boxPassiveAISprite.setTexture(_boxTexture);
 	_boxDefensiveAISprite.setTexture(_boxTexture);
 
 	_backwardButtonSprite.setPosition(100, 104);
-	_volumeBarSprite.setPosition(787, 335);
 	_switchButtonSprite.setPosition(890, 582);
 	_boxImpossibleAISprite.setPosition(683, 724);
 	_boxAggressiveAISprite.setPosition(683, 810);
