@@ -6,7 +6,7 @@
 #    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/07/04 14:36:55 by laprieur         ###   ########.fr        #
+#    Updated: 2024/07/04 14:37:34 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,10 +73,7 @@ re:
 	$(MAKE) all
 	
 flac-script:
-	(
-		cd lib/
-		bash flac_script.sh
-	)
+	cd lib/ && bash flac_script.sh
 
 # **************************************************************************** #
 #                                    STYLE                                     #
