@@ -7,7 +7,6 @@ make install
 export PATH=$HOME/local/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:$PKG_CONFIG_PATH
-killall -3 gnome-shell
 cd ..
 rm -rf flac-1.4.3.tar.xz
 rm -rf flac-1.4.3
