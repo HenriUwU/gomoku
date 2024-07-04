@@ -6,13 +6,14 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/04 18:04:01 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:13:04 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
 
 int				musicVolume = 100;
+sf::Sound		sound;
 GameState		gameState = MENU;
 BoardColor		boardColor = NOBOARD;
 Avatar			playerOneAvatar = NOAVATAR;
@@ -44,7 +45,6 @@ int main() {
 		std::cerr << "Failed to load sound file" << std::endl;
 		return -1;
 	}
-	sf::Sound sound;
 	sound.setBuffer(buffer);
 	sound.setLoop(true);
 	sound.play();

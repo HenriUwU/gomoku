@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/04 13:34:16 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:14:27 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef enum {
 } HelpMenuState;
 
 extern int				musicVolume;
+extern sf::Sound		sound;
 extern GameState		gameState;
 extern BoardColor		boardColor;
 extern Avatar			playerOneAvatar;
