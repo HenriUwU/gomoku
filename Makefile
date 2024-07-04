@@ -6,7 +6,7 @@
 #    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/07/03 13:19:50 by laprieur         ###   ########.fr        #
+#    Updated: 2024/07/04 10:23:12 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRC				:=	src/main.cpp								\
 					src/Graphics/Game/Gameplay_utils.cpp		\
 					src/Graphics/Menu/SettingsMenu.cpp			\
 					src/Graphics/Menu/CustomMenu.cpp			\
-					src/Graphics/GIF/AnimatedGIF.cpp			\
 					src/Graphics/Game/Bitboard.cpp				\
 					src/Graphics/Game/Bitboard_captures.cpp		\
 					src/Graphics/Game/Bitboard_utils.cpp		\
@@ -36,7 +35,7 @@ SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -Ilib/SFML/include -Iinclude -Iinclude/Debug -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/Graphics/GIF -Ilib/stb -Iinclude/AI
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -MMD -Ilib/SFML/include -Iinclude -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/AI -Ilib/stb
 SFML_FLAGS		:=	-Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
 RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
 

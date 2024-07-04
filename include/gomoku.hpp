@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/03 13:20:06 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/04 10:23:27 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 #include "CustomMenu.hpp"
 #include "SettingsMenu.hpp"
 #include "HelpMenu.hpp"
-#include "AnimatedGIF.hpp"
 #include "Bitboard.hpp"
 
 typedef enum {
