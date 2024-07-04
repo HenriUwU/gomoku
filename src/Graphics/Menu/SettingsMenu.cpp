@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/04 13:15:19 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:23:16 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	SettingsMenu::handleVolume(sf::Event &event, sf::RenderWindow& window) {
 				if (newVolumeLevel >= 0 && newVolumeLevel < 11) {
 					_currentVolumeLevel = newVolumeLevel;
 					newVolumeLevel = musicVolume;
+					/* float volume = (currentVolumeLevel / static_cast<float>(NUM_VOLUME_LEVELS - 1)) * 100;
+					sound.setVolume(volume); */
 				}
 			}
 		}
