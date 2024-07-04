@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/04 17:24:04 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:04:01 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ int main() {
 		return 1;
 	}
 	
-/* 	sf::SoundBuffer buffer;
+	sf::SoundBuffer buffer;
 	if (!buffer.loadFromFile("assets/musics/Route201Daytime.ogg")) {
-        std::cerr << "Failed to load sound file" << std::endl;
-        return -1;
-    }
-    sf::Sound sound;
-    sound.setBuffer(buffer);
-    sound.setLoop(true);
-    sound.play(); */
+		std::cerr << "Failed to load sound file" << std::endl;
+		return -1;
+	}
+	sf::Sound sound;
+	sound.setBuffer(buffer);
+	sound.setLoop(true);
+	sound.play();
 	
 	cursorSprite.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
