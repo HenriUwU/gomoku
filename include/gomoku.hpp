@@ -41,7 +41,6 @@ typedef enum {
 } GameState;
 
 typedef enum {
-	NOBOARD,
 	AZURE,
 	YELLOW,
 	RED,
@@ -50,20 +49,20 @@ typedef enum {
 	GREEN,
 	GRAY,
 	BLACK,
+	NOBOARD,
 } BoardColor;
 
 typedef enum {
-	NOAVATAR,
 	TOMMY,
 	LAURE,
 	ALEX,
 	HERIC,
 	MOUSSE,
 	GUNTHER,
+	NOAVATAR,
 } Avatar;
 
 typedef enum {
-	NOSTONECOLOR,
 	BlackAndWhite,
 	GreenAndRed,
 	SalmonAndCoral,
@@ -72,6 +71,7 @@ typedef enum {
 	OrangeAndViolet,
 	DarkGreenAndLightGreen,
 	TurquoiseGreenAndIndigo,
+	NOSTONECOLOR,
 } StonesColors;
 
 typedef enum {
@@ -99,7 +99,7 @@ extern GameState		gameState;
 extern BoardColor		boardColor;
 extern Avatar			playerOneAvatar;
 extern Avatar			playerTwoAvatar;
-extern StonesColors		stonesColor;
+extern StonesColors		stonesColors;
 extern MoveSuggestion	moveSuggestion;
 extern AIMode			aiMode;
 extern HelpMenuState	helpMenuState;

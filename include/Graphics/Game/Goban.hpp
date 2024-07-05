@@ -18,26 +18,17 @@ class Bitboard;
 
 class Goban {
 	private:
-		sf::Texture		_mousseAvatarTexture;
-		sf::Texture		_tommyAvatarTexture;
-		sf::Texture		_alexAvatarTexture;
-		sf::Texture		_guntherAvatarTexture;
-		sf::Texture		_hericAvatarTexture;
-		sf::Texture		_laureAvatarTexture;
+		std::vector<sf::Texture>	_stonesTextures;
+		std::vector<sf::Texture>	_avatarsTextures;
+		std::vector<sf::Texture>	_boardsTextures;
+		
 		sf::Texture		_backwardButtonTexture;
 		sf::Texture		_backwardHoveredButtonTexture;
 		sf::Texture		_gridAndIndexTexture;
-		sf::Texture 	_azureBoardTexture;
-		sf::Texture 	_blackBoardTexture;
-		sf::Texture 	_grayBoardTexture;
-		sf::Texture 	_greenBoardTexture;
-		sf::Texture 	_orangeBoardTexture;
-		sf::Texture 	_pinkBoardTexture;
-		sf::Texture 	_redBoardTexture;
-		sf::Texture 	_yellowBoardTexture;
 		sf::Texture		_gamePageTexture;
 		sf::Texture		_firstStoneTexture;
 		sf::Texture		_secondStoneTexture;
+
 		sf::Sprite		_firstPlayerAvatarSprite;
 		sf::Sprite		_secondPlayerAvatarSprite;
 		sf::Sprite		_gobanSprite;
@@ -55,4 +46,7 @@ class Goban {
 		void	display(sf::Event& event, sf::RenderWindow &window, Bitboard& bitboard);
 		void	returnButton(sf::Event &event, sf::RenderWindow &window);
 		void	drawStones(sf::RenderWindow &window, Bitboard &bitboard);
+		void	defineStones();
+		void	defineAvatars();
+		void	defineBoard();
 };

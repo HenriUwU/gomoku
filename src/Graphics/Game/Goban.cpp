@@ -21,24 +21,10 @@ Goban::Goban() {
 Goban::~Goban() {}
 
 void Goban::display(sf::Event& event, sf::RenderWindow &window, Bitboard& bitboard) {
-	if (boardColor == AZURE)
-		_gobanSprite.setTexture(_azureBoardTexture);
-	else if (boardColor == BLACK)
-		_gobanSprite.setTexture(_blackBoardTexture);
-	else if (boardColor == GRAY)
-		_gobanSprite.setTexture(_grayBoardTexture);
-	else if (boardColor == GREEN)
-		_gobanSprite.setTexture(_greenBoardTexture);
-	else if (boardColor == ORANGE)
-		_gobanSprite.setTexture(_orangeBoardTexture);
-	else if (boardColor == PINK)
-		_gobanSprite.setTexture(_pinkBoardTexture);
-	else if (boardColor == RED)
-		_gobanSprite.setTexture(_redBoardTexture);
-	else if (boardColor == YELLOW)
-		_gobanSprite.setTexture(_yellowBoardTexture);
-	
 	returnButton(event, window);
+	defineStones();
+	defineAvatars();
+	defineBoard();
 
 	window.clear(sf::Color(38, 1, 69));
 	window.draw(_gamePageSprite);
@@ -79,39 +65,72 @@ void	Goban::drawStones(sf::RenderWindow& window, Bitboard& bitboard) {
 	}
 }
 
+void	Goban::defineStones() {
+	switch (stonesColors) {
+		case NOSTONECOLOR:
+		case BlackAndWhite:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[1]);
+			break;
+		case GreenAndRed:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[2]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[3]);
+			break;
+		case SalmonAndCoral:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[4]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[5]);
+			break;
+		case PinkAndFluoYellow:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[6]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[7]);
+			break;
+		case BlackAndYellow:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[8]);
+			break;
+		case OrangeAndViolet:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[9]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[10]);
+			break;
+		case DarkGreenAndLightGreen:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[11]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[12]);
+			break;
+		case TurquoiseGreenAndIndigo:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[13]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[14]);
+			break;
+	} 
+}
+
+void	Goban::defineAvatars() {
+	if (playerOneAvatar == NOAVATAR) {
+		_firstPlayerAvatarSprite.setTexture(_avatarsTextures[0]);
+		_secondPlayerAvatarSprite.setTexture(_avatarsTextures[1]);
+	} else {
+		_firstPlayerAvatarSprite.setTexture(_avatarsTextures[playerOneAvatar]);
+		if (playerOneAvatar + 1 < 6)
+			_secondPlayerAvatarSprite.setTexture(_avatarsTextures[playerOneAvatar + 1]);
+		else
+			_secondPlayerAvatarSprite.setTexture(_avatarsTextures[0]);
+	}
+}
+
+void	Goban::defineBoard() {
+	if (boardColor == NOBOARD) {
+		_gobanSprite.setTexture(_boardsTextures[0]);
+	} else {
+		for (int i = 0; i < 8; i++)
+			if (i == boardColor)
+				_gobanSprite.setTexture(_boardsTextures[i]);
+	}
+}
+
 void	Goban::init() {
-	if (!_mousseAvatarTexture.loadFromFile("assets/images/game/avatars/mousseAvatarTexture.png"))
-		cerr << "Error while loading the 'mousseAvatarTexture.png' file." << endl;
-	if (!_tommyAvatarTexture.loadFromFile("assets/images/game/avatars/tommyAvatarTexture.png"))
-		cerr << "Error while loading the 'tommyAvatarTexture.png' file." << endl;
-	if (!_alexAvatarTexture.loadFromFile("assets/images/game/avatars/alexAvatarTexture.png"))
-		cerr << "Error while loading the 'alexAvatarTexture.png' file." << endl;
-	if (!_guntherAvatarTexture.loadFromFile("assets/images/game/avatars/guntherAvatarTexture.png"))
-		cerr << "Error while loading the 'guntherAvatarTexture.png' file." << endl;
-	if (!_hericAvatarTexture.loadFromFile("assets/images/game/avatars/hericAvatarTexture.png"))
-		cerr << "Error while loading the 'hericAvatarTexture.png' file." << endl;
-	if (!_laureAvatarTexture.loadFromFile("assets/images/game/avatars/laureAvatarTexture.png"))
-		cerr << "Error while loading the 'laureAvatarTexture.png' file." << endl;
 	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/backwardButtonTexture.png"))
 		cerr << "Error while loading the 'backwardButtonTexture.png' file." << endl;
 	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/backwardHoveredButtonTexture.png"))
 		cerr << "Error while loading the 'backwardHoveredButtonTexture' file." << endl;
-	if (!_azureBoardTexture.loadFromFile("assets/images/game/boards/azureBoardTexture.png"))
-		cerr << "Error while loading the 'azureBoardTexture.png' file." << endl;
-	if (!_blackBoardTexture.loadFromFile("assets/images/game/boards/blackBoardTexture.png"))
-		cerr << "Error while loading the 'blackBoardTexture.png' file." << endl;
-	if (!_grayBoardTexture.loadFromFile("assets/images/game/boards/grayBoardTexture.png"))
-		cerr << "Error while loading the 'grayBoardTexture.png' file." << endl;
-	if (!_greenBoardTexture.loadFromFile("assets/images/game/boards/greenBoardTexture.png"))
-		cerr << "Error while loading the 'greenBoardTexture.png' file." << endl;
-	if (!_orangeBoardTexture.loadFromFile("assets/images/game/boards/orangeBoardTexture.png"))
-		cerr << "Error while loading the 'orangeBoardTexture.png' file." << endl;
-	if (!_pinkBoardTexture.loadFromFile("assets/images/game/boards/pinkBoardTexture.png"))
-		cerr << "Error while loading the 'pinkBoardTexture.png' file." << endl;
-	if (!_redBoardTexture.loadFromFile("assets/images/game/boards/redBoardTexture.png"))
-		cerr << "Error while loading the 'redBoardTexture.png' file." << endl;
-	if (!_yellowBoardTexture.loadFromFile("assets/images/game/boards/yellowBoardTexture.png"))
-		cerr << "Error while loading the 'yellowBoardTexture.png' file." << endl;
 	if (!_gridAndIndexTexture.loadFromFile("assets/images/game/gridAndIndexTexture.png"))
 		cerr << "Error while loading the 'grid.png' file." << endl;
 	if (!_gamePageTexture.loadFromFile("assets/images/game/gamePageTexture.png"))
@@ -121,10 +140,37 @@ void	Goban::init() {
 	if (!_secondStoneTexture.loadFromFile("assets/images/game/stones/whiteStoneTexture.png"))
 		cerr << "Error while loading the 'secondStone.png' file." << endl;
 
-	_firstPlayerAvatarSprite.setTexture(_mousseAvatarTexture);
-	_secondPlayerAvatarSprite.setTexture(_hericAvatarTexture);
+	const std::string stonesColorss[] = {"black", "white", "green", "red", "salmon", "coral", "pink", "fluoYellow", "yellow", "orange", "violet", "darkGreen", "lightGreen", "turquoiseGreen", "indigo"};
+	for (int i = 0; i < 15; i++) {
+		sf::Texture texture;
+		std::string	filePath = "assets/images/game/stones/" + stonesColorss[i] + "StoneTexture.png";
+		if (texture.loadFromFile(filePath))
+			_stonesTextures.push_back(texture);
+		else
+			std::cerr << "Failed to load texture: " << filePath << std::endl;
+	}
+
+	const std::string avatarsNames[] = {"tommy", "laure", "alex", "heric", "mousse", "gunther"};
+	for (int i = 0; i < 6; i++) {
+		sf::Texture texture;
+		std::string	filePath = "assets/images/game/avatars/" + avatarsNames[i] + "AvatarTexture.png";
+		if (texture.loadFromFile(filePath))
+			_avatarsTextures.push_back(texture);
+		else
+			std::cerr << "Failed to load texture: " << filePath << std::endl;
+	}
+
+	const std::string boardsColors[] = {"azure", "yellow", "red", "orange", "pink", "green", "gray", "black"};
+	for (int i = 0; i < 8; i++) {
+		sf::Texture texture;
+		std::string	filePath = "assets/images/game/boards/" + boardsColors[i] + "BoardTexture.png";
+		if (texture.loadFromFile(filePath))
+			_boardsTextures.push_back(texture);
+		else
+			std::cerr << "Failed to load texture: " << filePath << std::endl;
+	}
+
 	_backwardButtonSprite.setTexture(_backwardButtonTexture);
-	_gobanSprite.setTexture(_azureBoardTexture);
 	_gridAndIndexSprite.setTexture(_gridAndIndexTexture);
 	_gamePageSprite.setTexture(_gamePageTexture);
 	_firstPlayerStoneSprite.setTexture(_firstStoneTexture);

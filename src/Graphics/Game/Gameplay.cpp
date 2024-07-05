@@ -66,28 +66,28 @@ Gameplay::Gameplay() {
 Gameplay::~Gameplay() {}
 
 void	Gameplay::selectTextures() {
-	if (stonesColor == BlackAndWhite) {
+	if (stonesColors == BlackAndWhite) {
 		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_whiteStoneTexture);
-	} else if (stonesColor == GreenAndRed) {
+	} else if (stonesColors == GreenAndRed) {
 		_firstPlayerStoneSprite.setTexture(_greenStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_redStoneTexture);
-	} else if (stonesColor == SalmonAndCoral) {
+	} else if (stonesColors == SalmonAndCoral) {
 		_firstPlayerStoneSprite.setTexture(_salmonStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_coralStoneTexture);
-	} else if (stonesColor == PinkAndFluoYellow) {
+	} else if (stonesColors == PinkAndFluoYellow) {
 		_firstPlayerStoneSprite.setTexture(_pinkStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_fluoYellowStoneTexture);
-	} else if (stonesColor == BlackAndYellow) {
+	} else if (stonesColors == BlackAndYellow) {
 		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_yellowStoneTexture);
-	} else if (stonesColor == OrangeAndViolet) {
+	} else if (stonesColors == OrangeAndViolet) {
 		_firstPlayerStoneSprite.setTexture(_orangeStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_violetStoneTexture);
-	} else if (stonesColor == DarkGreenAndLightGreen) {
+	} else if (stonesColors == DarkGreenAndLightGreen) {
 		_firstPlayerStoneSprite.setTexture(_darkGreenStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_lightGreenStoneTexture);
-	} else if (stonesColor == TurquoiseGreenAndIndigo) {
+	} else if (stonesColors == TurquoiseGreenAndIndigo) {
 		_firstPlayerStoneSprite.setTexture(_turquoiseGreenStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_indigoStoneTexture);
 	}
@@ -103,7 +103,7 @@ void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
 }
 
 void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
-	selectTextures();
+	// selectTextures();
 
 	float cellSize = 48;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
