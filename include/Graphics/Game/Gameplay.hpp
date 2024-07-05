@@ -50,7 +50,7 @@ class Gameplay {
 		void	selectTextures();
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 		void	drawPlayerPositions(sf::RenderWindow& window);
-		void	mouseHover(sf::RenderWindow &window, Bitboard &bitboard);
+		void	mouseHover(sf::RenderWindow &window, Bitboard &bitboard, bool isAIPlaying);
 
 		void	findHorizontalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &horizontalLine);
 		void	findVerticalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &verticalLine);

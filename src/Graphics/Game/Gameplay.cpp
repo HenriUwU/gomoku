@@ -102,7 +102,7 @@ void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
 	}
 }
 
-void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
+void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard, bool isAIPlaying) {
 	// selectTextures();
 
 	float cellSize = 48;
@@ -136,7 +136,7 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
-			if (bitboard.placeStone(col, row, _currentPlayer)) {
+			if ((_currentPlayer == 1 && bitboard.placeStone(col, row, _currentPlayer)) || (!isAIPlaying && bitboard.placeStone(col, row, _currentPlayer))) {
 				if (_currentPlayer == 1)
 					_currentPlayer = 2;
 				else
@@ -145,6 +145,13 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard) {
 		}
 		sf::sleep(sf::milliseconds(100));
 	}
+
+	if (isAIPlaying && _currentPlayer == 2) {
+		AI ai;
+		ai.play(bitboard);
+		_currentPlayer = 1;
+	}
+
 	if (_currentPlayer == 1)
 		window.draw(_firstPlayerStoneSprite);
 	else

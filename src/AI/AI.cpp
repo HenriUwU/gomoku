@@ -45,7 +45,7 @@ std::vector<std::pair<int, int>> AI::generatePossibleMoves(Bitboard &bitboard) {
 
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
-			if (!bitboard.getBit(x, y) && bitboard.isLegalMove(x, y, 2)) {
+			if (!bitboard.getBit(x, y) && bitboard.isLegalMove(x, y, true)) {
 				possibleMoves.push_back({x, y});
 			}
 		}
@@ -54,17 +54,44 @@ std::vector<std::pair<int, int>> AI::generatePossibleMoves(Bitboard &bitboard) {
 }
 
 int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer) {
-	(void)bitboard;
-	(void)depth;
-	(void)maximizingPlayer;
-	
 	if (depth == 0) {
-		return heuristic(bitboard, maximizingPlayer ? 2 : 1); // maximizing player is always AI
+		return heuristic(bitboard, maximizingPlayer);
+	}
+
+	std::vector<std::pair<int, int>>	possibleMoves = generatePossibleMoves(bitboard);
+
+	if (maximizingPlayer) {
+		int bestValue = INT_MIN;
+
+		for (auto& possibleMove : possibleMoves) {
+			bitboard.placeStone(possibleMove.first, possibleMove.second, 2);
+			bestValue = std::max(bestValue, minimax(bitboard, depth - 1, false));
+			bitboard.removeStone(possibleMove.first, possibleMove.second, 2);
+		}
+		return (bestValue);
+	}
+	else {
+		int bestValue = INT_MAX;
+
+		for (auto& possibleMove : possibleMoves) {
+			bitboard.placeStone(possibleMove.first, possibleMove.second, 1);
+			bestValue = std::min(bestValue, minimax(bitboard, depth - 1, true));
+			bitboard.removeStone(possibleMove.first, possibleMove.second, 1);
+		}
+		return (bestValue);
 	}
 	return (0);
 }
 
-int	AI::heuristic(Bitboard &bitboard, int maximizingPlayer) {
-	(void)maximizingPlayer;
-	return (bitboard.getBit(0, 0));
+int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
+	int	heuristicValue = 0;
+
+	(void)bitboard;
+	if (maximizingPlayer) {
+		return (10);
+	}
+	else {
+		return (-10);
+	}
+	return (heuristicValue);
 }

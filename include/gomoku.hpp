@@ -22,6 +22,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <bitset>
+#include <limits.h>
 
 #include "MainMenu.hpp"
 #include "Gameplay.hpp"
@@ -30,6 +31,7 @@
 #include "SettingsMenu.hpp"
 #include "HelpMenu.hpp"
 #include "Bitboard.hpp"
+#include "AI.hpp"
 
 typedef enum {
 	MENU,

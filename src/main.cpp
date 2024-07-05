@@ -72,7 +72,11 @@ int main() {
 				break;
 			case GAME:
 				goban.display(event, window, bitboard);
-				gameplay.mouseHover(window, bitboard);
+				gameplay.mouseHover(window, bitboard, false);
+				break;
+			case VS_IA:
+				goban.display(event, window, bitboard);
+				gameplay.mouseHover(window, bitboard, true);
 				break;
 			case CUSTOM:
 				customMenu.display(window);
