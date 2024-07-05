@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/02 21:36:06 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/05 15:22:37 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ void	Bitboard::removeStone(int x, int y, int player) {
 	uint32_t	mask = uint32_t(1) << x;
 	
 	(player == 1) ? _secondPlayerBoardLines[y] ^= mask : _firstPlayerBoardLines[y] ^= mask;
+
+	createColumns();
+	createDiagonals();
+	createAntiDiagonals();
 }
 
 bool	Bitboard::isLegalMove(int x, int y, int player) {

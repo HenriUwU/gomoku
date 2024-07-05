@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:39:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/05 00:23:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:33:49 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ bool    Bitboard::fiveInARow(int x, int y, int player) {
 		return (true);
 	return (false);
 }
+
+
 
 bool    Bitboard::fiveInARowHorizontal(int x, int y, int player) {
 	uint32_t	bitboard = (player == 1) ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
