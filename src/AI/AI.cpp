@@ -18,6 +18,7 @@ AI::~AI() {}
 
 void	AI::play(Bitboard &bitboard) {
 	std::pair<int, int> move = findBestMove(bitboard);
+	std::cout << "AI played at " << move.first << " " << move.second << std::endl;
 	bitboard.placeStone(move.first, move.second, 2);
 }
 

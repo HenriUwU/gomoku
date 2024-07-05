@@ -38,7 +38,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	createAntiDiagonals();
 
 	makeCapture(x, y, player);
-	
+
 	if (fiveInARow(x, y, player))
 		gameState = MENU;
 
@@ -48,11 +48,13 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 void	Bitboard::removeStone(int x, int y, int player) {
 	uint32_t	mask = uint32_t(1) << x;
 	
-	(player == 1) ? _secondPlayerBoardLines[y] ^= mask : _firstPlayerBoardLines[y] ^= mask;
+	if (getBit(x, y)) {
+		(player == 1) ? _firstPlayerBoardLines[y] ^= mask : _secondPlayerBoardLines[y] ^= mask;
 
-	createColumns();
-	createDiagonals();
-	createAntiDiagonals();
+		createColumns();
+		createDiagonals();
+		createAntiDiagonals();
+	}
 }
 
 bool	Bitboard::isLegalMove(int x, int y, int player) {
