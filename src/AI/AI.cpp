@@ -46,7 +46,7 @@ std::vector<std::pair<int, int>> AI::generatePossibleMoves(Bitboard &bitboard) {
 
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
-			if (!bitboard.getBit(x, y) && bitboard.isLegalMove(x, y, true)) {
+			if (!bitboard.getBit(x, y) && bitboard.isLegalMove(x, y, 2)) {
 				possibleMoves.push_back({x, y});
 			}
 		}
@@ -59,6 +59,7 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer) {
 		return heuristic(bitboard, maximizingPlayer);
 	}
 
+	std::cout << "stuck in minimax with depth = " << depth << " and maximizingPlayer : "<< maximizingPlayer << std::endl;
 	std::vector<std::pair<int, int>>	possibleMoves = generatePossibleMoves(bitboard);
 
 	if (maximizingPlayer) {
@@ -78,10 +79,10 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer) {
 			bitboard.placeStone(possibleMove.first, possibleMove.second, 1);
 			bestValue = std::min(bestValue, minimax(bitboard, depth - 1, true));
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 1);
+			std::cout << "Infinite loop ?\n";
 		}
 		return (bestValue);
 	}
-	return (0);
 }
 
 int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
