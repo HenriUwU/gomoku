@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:01:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/05 15:42:52 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:38:26 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@ class Bitboard;
 class AI {
 	private:
 		static const int					BOARD_SIZE = 19;
+		int									_centerScores[BOARD_SIZE][BOARD_SIZE];
 
 	public:
 		AI();
 		~AI();
 		
-		int									minimax(Bitboard& bitboard, int depth, bool maximizingPlayer);
+		int									minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta);
 		int									heuristic(Bitboard &bitboard, bool maximizingPlayer);
 
 		void								play(Bitboard &bitboard);
 
 		std::pair<int, int>					findBestMove(Bitboard& bitboard);
-		std::vector<std::pair<int, int>>	generatePossibleMoves(Bitboard &bitboard);
+		std::vector<std::pair<int, int>>	generatePossibleMoves(Bitboard &bitboard, int player);
 };

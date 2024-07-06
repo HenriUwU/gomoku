@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/05 15:22:37 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:38:28 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	return (true);
 }
 
+bool	Bitboard::isGameOver() {
+	for (int y = 0; y < BOARD_SIZE; y++) {
+		for (int x = 0; x < BOARD_SIZE; x++) {
+			if (fiveInARow(x, y, 1) || fiveInARow(x, y, 2))
+				return (true);
+		}
+	}
+	return (false);
+}
+
 void	Bitboard::removeStone(int x, int y, int player) {
 	uint32_t	mask = uint32_t(1) << x;
 	
@@ -56,6 +66,21 @@ void	Bitboard::removeStone(int x, int y, int player) {
 		createAntiDiagonals();
 	}
 }
+
+/* void	Bitboard::removeStone(int x, int y, int player) {
+	uint32_t mask = uint32_t(1) << x;
+
+	if (getBit(x, y)) {
+		if (player == 1) {
+			_firstPlayerBoardLines[y] &= ~mask;
+		} else {
+			_secondPlayerBoardLines[y] &= ~mask;
+		}
+			createColumns();
+			createDiagonals();
+			createAntiDiagonals();
+		}
+} */
 
 bool	Bitboard::isLegalMove(int x, int y, int player) {
 	if (getBit(x, y))

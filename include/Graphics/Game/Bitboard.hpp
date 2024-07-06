@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/03 11:22:40 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:47:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ class Bitboard {
 		void		makeVerticalCapture(int x, int y, int player);
 		void		makeDiagonalCapture(int x, int y, int player);
 		void		makeAntiDiagonalCapture(int x, int y, int player);
+		
+		bool		isGameOver();
 
 		uint32_t	getSelection(uint32_t bitboard, int nbBits, int bitsPos);
 };
