@@ -27,6 +27,7 @@ class AI {
 		
 		int									minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta);
 		int									heuristic(Bitboard &bitboard, bool maximizingPlayer);
+		int									checkCenterControl(Bitboard &bitboard, int ai, int opponent);
 
 		void								play(Bitboard &bitboard);
 

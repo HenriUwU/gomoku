@@ -67,12 +67,14 @@ class Bitboard {
 		bool		fiveInARowVertical(int x, int y, int player);
 		bool		fiveInARowDiagonal(int x, int y, int player);
 		bool		fiveInARowAntiDiagonal(int x, int y, int player);
+		bool		isGameOver();
 
 		void		printBoard();
 		void		createColumns();
 		void		createDiagonals();
 		void		createAntiDiagonals();
 		void		removeStone(int x, int y, int player);
+		void		placeStoneAI(int x, int y, int player);
 
 		void		verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
 		void		verifyVerticalCapture(int &nbCaptures, int x, int y, int player);
@@ -90,7 +92,8 @@ class Bitboard {
 		void		makeDiagonalCapture(int x, int y, int player);
 		void		makeAntiDiagonalCapture(int x, int y, int player);
 		
-		bool		isGameOver();
-
 		uint32_t	getSelection(uint32_t bitboard, int nbBits, int bitsPos);
+
+		std::vector<std::pair<int, int>>	getAllStones();
+		std::vector<std::pair<int, int>>	generatePossibleMoves(int player);
 };
