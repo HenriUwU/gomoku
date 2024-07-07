@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:47:40 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/06 16:00:13 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:16:10 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ int	Bitboard::isCapturingMove(int x, int y, int player) {
 
 void	Bitboard::makeCapture(int x, int y, int player) {
 	makeHorizontalCapture(x, y, player);
-	createColumns();
 	makeVerticalCapture(x, y, player);
-	createDiagonals();
 	makeDiagonalCapture(x, y, player);
-	createAntiDiagonals();
 	makeAntiDiagonalCapture(x, y, player);
 }
 

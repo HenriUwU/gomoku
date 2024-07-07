@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 17:45:30 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:24:31 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 
 	(player == 1) ? _firstPlayerBoardLines[y] |= mask : _secondPlayerBoardLines[y] |= mask;
 
-	createColumns();
-	createDiagonals();
-	createAntiDiagonals();
-
+	update(x, y, player, true);
 	makeCapture(x, y, player);
 
 	if (fiveInARow(x, y, player))
@@ -50,9 +47,21 @@ void	Bitboard::placeStoneAI(int x, int y, int player) {
 
 	(player == 1) ? _firstPlayerBoardLines[y] |= mask : _secondPlayerBoardLines[y] |= mask;
 
-	createColumns();
-	createDiagonals();
-	createAntiDiagonals();
+	update(x, y, player, true);
+}
+
+void	Bitboard::removeStone(int x, int y, int player) {
+	uint32_t mask = uint32_t(1) << x;
+
+	if (getBit(x, y)) {
+		if (player == 1) {
+			_firstPlayerBoardLines[y] &= ~mask;
+			update(x, y, 1, false);
+		} else {
+			_secondPlayerBoardLines[y] &= ~mask;
+			update(x, y, 2, false);
+		}
+	}
 }
 
 bool	Bitboard::isGameOver() {
@@ -63,21 +72,6 @@ bool	Bitboard::isGameOver() {
 		}
 	}
 	return (false);
-}
-
-void	Bitboard::removeStone(int x, int y, int player) {
-	uint32_t mask = uint32_t(1) << x;
-
-	if (getBit(x, y)) {
-		if (player == 1) {
-			_firstPlayerBoardLines[y] &= ~mask;
-		} else {
-			_secondPlayerBoardLines[y] &= ~mask;
-		}
-		createColumns();
-		createDiagonals();
-		createAntiDiagonals();
-	}
 }
 
 bool	Bitboard::isLegalMove(int x, int y, int player) {

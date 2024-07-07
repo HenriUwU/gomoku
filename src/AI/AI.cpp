@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 17:57:15 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:38:50 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 			
 		for (auto& possibleMove : possibleMoves) {
 			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
-			bestValue = std::max(bestValue, minimax(bitboard, depth - 1, false, alpha, beta));
+			int value = minimax(bitboard, depth - 1, false, alpha, beta);
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 2);
 			
+			bestValue = std::max(bestValue, value);
 			alpha = std::max(alpha, bestValue);
 			if (beta <= alpha)
 				break;
@@ -80,9 +81,10 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 
 		for (auto& possibleMove : possibleMoves) {
 			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 1);
-			bestValue = std::min(bestValue, minimax(bitboard, depth - 1, true, alpha, beta));
+			int value = minimax(bitboard, depth - 1, true, alpha, beta);
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 1);
 			
+			bestValue = std::min(bestValue, value);
 			beta = std::min(beta, bestValue);
 			if (beta <= alpha)
 				break;
