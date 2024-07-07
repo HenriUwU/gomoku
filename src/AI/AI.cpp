@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/06 17:28:07 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 16:21:00 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
     int opponent = maximizingPlayer ? 1 : 2;
 
     evaluation += checkCenterControl(bitboard, ai, opponent);
+	evaluation += checkPatterns(bitboard, ai);
+	evaluation -= checkPatterns(bitboard, opponent);
 
 	return (evaluation);
 }
@@ -118,15 +120,16 @@ int AI::checkCenterControl(Bitboard &bitboard, int ai, int opponent) {
 	return score;
 }
 
-/* int	AI::checkAlignments(Bitboard &bitboard, int ai, int opponent) {
+int	AI::checkPatterns(Bitboard &bitboard, int player) {
 	int score = 0;
 
-	for (int y = 0; y < BOARD_SIZE; y++) {
-		for (int x = 0; x < BOARD_SIZE; x++) {
-			if (bitboard.getBit(x, y) == ai) {
-				score += checkAlignment(bitboard, x, y, ai, opponent);
-			}
-		}
-	}
-	return score;
-} */
+	score += bitboard.checkPattern(0b0110, 0b0000, 4, player) * 100;
+	score += bitboard.checkPattern(0b01110, 0b00000, 5, player) * 300;
+	score += bitboard.checkPattern(0b011110, 0b000000, 6, player) * 800;
+	score += bitboard.checkPattern(0b11111, 0b00000, 5, player) * 1000;
+	score -= bitboard.checkPattern(0b0110, 0b1000, 4, player) * 100;
+	score -= bitboard.checkPattern(0b0110, 0b0001, 4, player) * 100;
+	score -= bitboard.checkPattern(0b0110, 0b1001, 4, player) * 200;
+
+	return (score);
+}
