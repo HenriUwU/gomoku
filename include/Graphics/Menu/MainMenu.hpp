@@ -13,37 +13,34 @@
 #pragma once
 
 #include "gomoku.hpp"
-#include "Goban.hpp"
 
-#define NB_MENU_ITEMS 3
+enum Buttons {
+	B_1VS1,
+	H_1VS1,
+	B_AIVERSUS,
+	H_AIVERSUS,
+	B_EXIT,
+	H_EXIT,
+	B_CUSTOM,
+	H_CUSTOM,
+	B_SETTINGS,
+	H_SETTINGS,
+	B_HELP,
+	H_HELP
+};
 
 class MainMenu {
 	private:
-		int				_selectedItemIndex;
-		sf::Font		_ex02BlackItalicFont;
-		sf::Text		_menuText[NB_MENU_ITEMS];
-		sf::Texture		_mainMenuTexture;
-		sf::Texture		_greenButtonTexture;
-		sf::Texture		_orangeButtonTexture;
-		sf::Texture		_redButtonTexture;
-		sf::Texture		_blueButtonTexture;
-		sf::Texture		_greenHoveredButtonTexture;
-		sf::Texture		_orangeHoveredButtonTexture;
-		sf::Texture		_redHoveredButtonTexture;
-		sf::Texture		_blueHoveredButtonTexture;
-		sf::Texture		_customIconTexture;
-		sf::Texture		_settingsIconTexture;
-		sf::Texture		_helpIconTexture;
-		sf::Sprite		_mainMenuSprite;
-		sf::Sprite		_greenButtonSprite;
-		sf::Sprite		_orangeButtonSprite;
-		sf::Sprite		_redButtonSprite;
-		sf::Sprite		_blueButtonCustomSprite;
-		sf::Sprite		_blueButtonSettingsSprite;
-		sf::Sprite		_blueButtonHelpSprite;
-		sf::Sprite		_customIconSprite;
-		sf::Sprite		_settingsIconSprite;
-		sf::Sprite		_helpIconSprite;
+		int							_selectedItemIndex;
+		sf::Texture					_mainMenuTexture;
+		std::vector<sf::Texture>	_buttonsTextures;
+		sf::Sprite					_mainMenuSprite;
+		sf::Sprite					_greenButtonSprite;
+		sf::Sprite					_orangeButtonSprite;
+		sf::Sprite					_redButtonSprite;
+		sf::Sprite					_blueButtonCustomSprite;
+		sf::Sprite					_blueButtonSettingsSprite;
+		sf::Sprite					_blueButtonHelpSprite;
 
 	public:
 		MainMenu();
