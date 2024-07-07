@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 17:25:31 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:45:30 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,24 +89,23 @@ bool	Bitboard::isLegalMove(int x, int y, int player) {
 	return (true);
 }
 
-std::vector<std::pair<int, int>>	Bitboard::getAllStones() {
-	std::vector<std::pair<int, int>>	stones;
+std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::getAllStones() {
+	std::unordered_set<std::pair<int, int>, pair_hash>	stones;
 
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
 			if (getBit(x, y)) {
-				stones.push_back(std::make_pair(x, y));
+				stones.emplace(x, y);
 			}
 		}
 	}
 	return (stones);
 }
 
-std::vector<std::pair<int, int>>	Bitboard::generatePossibleMoves(int player) {
-	std::vector<std::pair<int, int>>						currentStones = getAllStones();
-	std::vector<std::pair<int, int>>						possibleMoves;
+std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMoves(int player) {
 	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;
-	int margin = 2;
+	std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
+	int														margin = 2;
 
 	for (auto& stone : currentStones) {
 		int startX = std::max(0, stone.first - margin);
@@ -123,8 +122,7 @@ std::vector<std::pair<int, int>>	Bitboard::generatePossibleMoves(int player) {
 		}
 	}
 
-	possibleMoves.assign(uniqueMoves.begin(), uniqueMoves.end());
-	return (possibleMoves);
+	return (uniqueMoves);
 }
 
 void	Bitboard::printBoard(){

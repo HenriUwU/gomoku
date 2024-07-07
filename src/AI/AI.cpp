@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 17:13:26 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:57:15 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	AI::play(Bitboard &bitboard) {
 }
 
 std::pair<int, int>	AI::findBestMove(Bitboard &bitboard) {
-	std::vector<std::pair<int, int>>	possibleMoves = bitboard.generatePossibleMoves(2);
-	std::pair<int, int>					bestMove = {-1, -1};
-	double								bestValue = -INFINITY;
-	int									moveValue;
+	std::unordered_set<std::pair<int, int>, pair_hash>	possibleMoves = bitboard.generatePossibleMoves(2);
+	std::pair<int, int>									bestMove = {-1, -1};
+	double												bestValue = -INFINITY;
+	int													moveValue;
 
 	for (auto& possibleMove : possibleMoves) {
 		bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
@@ -59,7 +59,7 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 		return heuristic(bitboard, maximizingPlayer);
 	}
 	
-	std::vector<std::pair<int, int>>	possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
+	std::unordered_set<std::pair<int, int>, pair_hash>	possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
 
 	if (maximizingPlayer) {
 		int bestValue = INT_MIN;

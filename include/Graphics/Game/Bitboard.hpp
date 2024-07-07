@@ -6,14 +6,20 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 16:25:16 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:51:26 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "gomoku.hpp"
-#include <array>
+
+struct pair_hash {
+	template <class T1, class T2>
+	std::size_t operator () (const std::pair<T1, T2> &pair) const {
+		return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
+	}
+};
 
 typedef enum {
 	FIVE_IN_A_ROW = 0b11111,
@@ -100,6 +106,6 @@ class Bitboard {
 		
 		uint32_t	getSelection(uint32_t bitboard, int nbBits, int bitsPos);
 
-		std::vector<std::pair<int, int>>	getAllStones();
-		std::vector<std::pair<int, int>>	generatePossibleMoves(int player);
+		std::unordered_set<std::pair<int, int>, pair_hash>	getAllStones();
+		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);
 };
