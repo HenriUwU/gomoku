@@ -140,10 +140,10 @@ void	Goban::init() {
 	if (!_secondStoneTexture.loadFromFile("assets/images/game/stones/whiteStoneTexture.png"))
 		cerr << "Error while loading the 'secondStone.png' file." << endl;
 
-	const std::string stonesColorss[] = {"black", "white", "green", "red", "salmon", "coral", "pink", "fluoYellow", "yellow", "orange", "violet", "darkGreen", "lightGreen", "turquoiseGreen", "indigo"};
+	const std::string stonesColors[] = {"black", "white", "green", "red", "salmon", "coral", "pink", "fluoYellow", "yellow", "orange", "violet", "darkGreen", "lightGreen", "turquoiseGreen", "indigo"};
 	for (int i = 0; i < 15; i++) {
 		sf::Texture texture;
-		std::string	filePath = "assets/images/game/stones/" + stonesColorss[i] + "StoneTexture.png";
+		std::string	filePath = "assets/images/game/stones/" + stonesColors[i] + "StoneTexture.png";
 		if (texture.loadFromFile(filePath))
 			_stonesTextures.push_back(texture);
 		else
