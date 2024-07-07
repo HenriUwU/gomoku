@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/06 13:47:53 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:29:09 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ class Bitboard {
 		int			isCapturingMove(int x, int y, int player);
 		int			rotateY45(int x, int y);
 		int			rotateY315(int x, int y);
+		int			checkPattern(uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
 
 		bool		isCellEmpty(int x, int y);
 		bool		placeStone(int x, int y, int player);
@@ -85,6 +86,11 @@ class Bitboard {
 		void		verifyFreeThreeVertical(int &nbFreeThree, int x, int y, int player);
 		void		verifyFreeThreeDiagonal(int &nbFreeThree, int x, int y, int player);
 		void		verifyFreeThreeAntiDiagonal(int &nbFreeThree, int x, int y, int player);
+
+		void		checkPatternHorizontal(int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+		void		checkPatternVertical(int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+		void		checkPatternDiagonal(int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+		void		checkPatternAntiDiagonal(int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
 
 		void		makeCapture(int x, int y, int player);
 		void		makeHorizontalCapture(int x, int y, int player);
