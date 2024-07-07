@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_utils.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:57:17 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/01 11:12:13 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:21:30 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,107 +33,79 @@ int	Bitboard::getBit(int x, int y) const {
 	return (0);
 }
 
-int	getBit2(int x, int y, std::array<uint32_t, 19> bitboard) { // need to change name and eventually remove the other getBit
-	uint32_t	mask;
-
-	mask = uint32_t(1) << x;
-	if (bitboard[y] & mask)
-		return (1);
-		
-	return (0);
-}
-
 int	Bitboard::rotateY45(int x, int y) {
-	if (x + y < BOARD_SIZE) //BOARD_SIZE == 1
+	if (x + y < BOARD_SIZE)
 		return (x + y);
 	else
-		return (y - (BOARD_SIZE - x)); //BOARD_SIZE == 2
+		return (y - (BOARD_SIZE - x));
 }
 
 int	Bitboard::rotateY315(int x, int y) {
-	if (x < y + 1) //BOARD_SIZE == 1
+	if (x < y + 1)
 		return (y - x);
 	else
-		return (y + (BOARD_SIZE - x)); //BOARD_SIZE == 2
+		return (y + (BOARD_SIZE - x));
 }
 
-static void	rotate(int nbRotations, uint32_t& bitboard) {
-	for (int i = 0; i < nbRotations; i++) {
-		bitboard <<= 1;
-		
-		uint32_t bitSelector = uint(1) << 19;
-		if (bitboard & bitSelector) {
-			uint32_t rotatingMask = uint32_t(1) << 0;
-			uint32_t xorMask = uint32_t(1) << 19;
-			bitboard |= rotatingMask;
-			bitboard ^= xorMask;
-		}
-	}
-}
+void Bitboard::update(int x, int y, int player, bool add) {
+    uint32_t mask = uint32_t(1) << x;
 
-void	Bitboard::createColumns() {
-	_firstPlayerBoardColumns.fill(0);
-	_secondPlayerBoardColumns.fill(0);
+    if (player == 1) {
+        if (add) {
+            _firstPlayerBoardLines[y] |= mask;
+        } else {
+            _firstPlayerBoardLines[y] &= ~mask;
+        }
+    } else {
+        if (add) {
+            _secondPlayerBoardLines[y] |= mask;
+        } else {
+            _secondPlayerBoardLines[y] &= ~mask;
+        }
+    }
 
-	for (int x = 0; x < BOARD_SIZE; x++) {
-		for (int y = 0; y < BOARD_SIZE; y++) {
-			uint32_t	mask;
-			
-			mask = uint32_t(1) << y;
-			if (getBit(x, y) == 1)
-				_firstPlayerBoardColumns[x] |= mask;
-			else if (getBit(x, y) == 2)
-				_secondPlayerBoardColumns[x] |= mask;
-		}
-	}
-}
+    uint32_t columnMask = uint32_t(1) << y;
+    if (player == 1) {
+        if (add) {
+            _firstPlayerBoardColumns[x] |= columnMask;
+        } else {
+            _firstPlayerBoardColumns[x] &= ~columnMask;
+        }
+    } else {
+        if (add) {
+            _secondPlayerBoardColumns[x] |= columnMask;
+        } else {
+            _secondPlayerBoardColumns[x] &= ~columnMask;
+        }
+    }
 
-void	Bitboard::createDiagonals() {
-	std::array<uint32_t, BOARD_SIZE> firstPlayerBoardColumnsCopy = _firstPlayerBoardColumns;
-	std::array<uint32_t, BOARD_SIZE> secondPlayerBoardColumnsCopy = _secondPlayerBoardColumns;
-	
-	_firstPlayerBoardDiagonals.fill(0);
-	_secondPlayerBoardDiagonals.fill(0);
+    int diagIndex = rotateY45(x, y);
+    if (player == 1) {
+        if (add) {
+            _firstPlayerBoardDiagonals[diagIndex] |= mask;
+        } else {
+            _firstPlayerBoardDiagonals[diagIndex] &= ~mask;
+        }
+    } else {
+        if (add) {
+            _secondPlayerBoardDiagonals[diagIndex] |= mask;
+        } else {
+            _secondPlayerBoardDiagonals[diagIndex] &= ~mask;
+        }
+    }
 
-	for (int y = 0; y < BOARD_SIZE; y++) {
-		rotate(y, firstPlayerBoardColumnsCopy[y]);
-		rotate(y, secondPlayerBoardColumnsCopy[y]);
-	}
-	
-	for (int x = 0; x < BOARD_SIZE; x++) {
-		for (int y = 0; y < BOARD_SIZE; y++) {
-			uint32_t mask;
-
-			mask = uint32_t(1) << y;
-			if (getBit2(x, y, firstPlayerBoardColumnsCopy))
-				_firstPlayerBoardDiagonals[x] |= mask;
-			else if (getBit2(x, y, secondPlayerBoardColumnsCopy))
-				_secondPlayerBoardDiagonals[x] |= mask;
-		}
-	}
-}
-
-void	Bitboard::createAntiDiagonals() {
-	std::array<uint32_t, BOARD_SIZE> firstPlayerBoardColumnsCopy = _firstPlayerBoardColumns;
-	std::array<uint32_t, BOARD_SIZE> secondPlayerBoardColumnsCopy = _secondPlayerBoardColumns;
-	
-	_firstPlayerBoardAntiDiagonals.fill(0);
-	_secondPlayerBoardAntiDiagonals.fill(0);
-
-	for (int y = 0; y < BOARD_SIZE; y++) {
-		rotate(BOARD_SIZE - y, firstPlayerBoardColumnsCopy[y]);
-		rotate(BOARD_SIZE - y, secondPlayerBoardColumnsCopy[y]);
-	}
-	
-	for (int x = 0; x < BOARD_SIZE; x++) {
-		for (int y = 0; y < BOARD_SIZE; y++) {
-			uint32_t mask;
-
-			mask = uint32_t(1) << y;
-			if (getBit2(x, y, firstPlayerBoardColumnsCopy))
-				_firstPlayerBoardAntiDiagonals[x] |= mask;
-			else if (getBit2(x, y, secondPlayerBoardColumnsCopy))
-				_secondPlayerBoardAntiDiagonals[x] |= mask;
-		}
-	}
+    int antiDiagIndex = rotateY315(x, y);
+    if (player == 1) {
+        if (add) {
+            _firstPlayerBoardAntiDiagonals[antiDiagIndex] |= mask;
+        } else {
+            _firstPlayerBoardAntiDiagonals[antiDiagIndex] &= ~mask;
+        }
+    } else {
+        if (add) {
+            _secondPlayerBoardAntiDiagonals[antiDiagIndex] |= mask;
+        } else {
+            _secondPlayerBoardAntiDiagonals[antiDiagIndex] &= ~mask;
+        }
+    }
 }

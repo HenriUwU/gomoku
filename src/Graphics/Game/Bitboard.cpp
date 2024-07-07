@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/06 17:38:28 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:55:58 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 
 	(player == 1) ? _firstPlayerBoardLines[y] |= mask : _secondPlayerBoardLines[y] |= mask;
 
-	createColumns();
-	createDiagonals();
-	createAntiDiagonals();
-
+	update(x, y, player, true);
 	makeCapture(x, y, player);
 
 	if (fiveInARow(x, y, player))
@@ -50,9 +47,21 @@ void	Bitboard::placeStoneAI(int x, int y, int player) {
 
 	(player == 1) ? _firstPlayerBoardLines[y] |= mask : _secondPlayerBoardLines[y] |= mask;
 
-	createColumns();
-	createDiagonals();
-	createAntiDiagonals();
+	update(x, y, player, true);
+}
+
+void	Bitboard::removeStone(int x, int y, int player) {
+	uint32_t mask = uint32_t(1) << x;
+
+	if (getBit(x, y)) {
+		if (player == 1) {
+			_firstPlayerBoardLines[y] &= ~mask;
+			update(x, y, 1, false);
+		} else {
+			_secondPlayerBoardLines[y] &= ~mask;
+			update(x, y, 2, false);
+		}
+	}
 }
 
 bool	Bitboard::isGameOver() {
@@ -65,21 +74,6 @@ bool	Bitboard::isGameOver() {
 	return (false);
 }
 
-void	Bitboard::removeStone(int x, int y, int player) {
-	uint32_t mask = uint32_t(1) << x;
-
-	if (getBit(x, y)) {
-		if (player == 1) {
-			_firstPlayerBoardLines[y] &= ~mask;
-		} else {
-			_secondPlayerBoardLines[y] &= ~mask;
-		}
-		createColumns();
-		createDiagonals();
-		createAntiDiagonals();
-	}
-}
-
 bool	Bitboard::isLegalMove(int x, int y, int player) {
 	if (getBit(x, y))
 		return (false);
@@ -89,24 +83,41 @@ bool	Bitboard::isLegalMove(int x, int y, int player) {
 	return (true);
 }
 
-std::vector<std::pair<int, int>>	Bitboard::getAllStones() {
-	std::vector<std::pair<int, int>>	stones;
+int Bitboard::countAdjacentStones(int x, int y) const {
+	int count = 0;
+
+	for (int dx = -1; dx <= 1; ++dx) {
+		for (int dy = -1; dy <= 1; ++dy) {
+			if (dx == 0 && dy == 0)
+				continue;
+			int nx = x + dx;
+			int ny = y + dy;
+			if (nx >= 0 && nx < BOARD_SIZE && ny >= 0 && ny < BOARD_SIZE) {
+				if (getBit(nx, ny) == 1)
+					++count;
+			}
+		}
+	}
+	return count;
+}
+
+std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::getAllStones() {
+	std::unordered_set<std::pair<int, int>, pair_hash>	stones;
 
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
 			if (getBit(x, y)) {
-				stones.push_back(std::make_pair(x, y));
+				stones.emplace(x, y);
 			}
 		}
 	}
 	return (stones);
 }
 
-std::vector<std::pair<int, int>>	Bitboard::generatePossibleMoves(int player) {
-	std::vector<std::pair<int, int>>	currentStones = getAllStones();
-	std::vector<std::pair<int, int>>	possibleMoves;
-	std::set<std::pair<int, int>>		uniqueMoves;
-	int margin = 2;
+std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMoves(int player) {
+	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;
+	std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
+	int														margin = 2;
 
 	for (auto& stone : currentStones) {
 		int startX = std::max(0, stone.first - margin);
@@ -114,17 +125,19 @@ std::vector<std::pair<int, int>>	Bitboard::generatePossibleMoves(int player) {
 		int startY = std::max(0, stone.second - margin);
 		int endY = std::min(BOARD_SIZE - 1, stone.second + margin);
 
+		int	adjacentStones = countAdjacentStones(stone.first, stone.second);
+
 		for (int x = startX; x <= endX; ++x) {
 			for (int y = startY; y <= endY; ++y) {
 				if (!getBit(x, y) && isLegalMove(x, y, player)) {
-					uniqueMoves.insert({x, y});
+					if (countAdjacentStones(x, y) > adjacentStones / 2) {
+						uniqueMoves.emplace(x, y);
+					}
 				}
 			}
 		}
 	}
-
-	possibleMoves.assign(uniqueMoves.begin(), uniqueMoves.end());
-	return (possibleMoves);
+	return (uniqueMoves);
 }
 
 void	Bitboard::printBoard(){

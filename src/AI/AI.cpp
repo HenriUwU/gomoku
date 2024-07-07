@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/06 17:28:07 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:38:50 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	AI::play(Bitboard &bitboard) {
 }
 
 std::pair<int, int>	AI::findBestMove(Bitboard &bitboard) {
-	std::vector<std::pair<int, int>>	possibleMoves = bitboard.generatePossibleMoves(2);
-	std::pair<int, int>					bestMove = {-1, -1};
-	double								bestValue = -INFINITY;
-	int									moveValue;
+	std::unordered_set<std::pair<int, int>, pair_hash>	possibleMoves = bitboard.generatePossibleMoves(2);
+	std::pair<int, int>									bestMove = {-1, -1};
+	double												bestValue = -INFINITY;
+	int													moveValue;
 
 	for (auto& possibleMove : possibleMoves) {
 		bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
@@ -59,16 +59,17 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 		return heuristic(bitboard, maximizingPlayer);
 	}
 	
-	std::vector<std::pair<int, int>>	possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
+	std::unordered_set<std::pair<int, int>, pair_hash>	possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
 
 	if (maximizingPlayer) {
 		int bestValue = INT_MIN;
 			
 		for (auto& possibleMove : possibleMoves) {
 			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
-			bestValue = std::max(bestValue, minimax(bitboard, depth - 1, false, alpha, beta));
+			int value = minimax(bitboard, depth - 1, false, alpha, beta);
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 2);
 			
+			bestValue = std::max(bestValue, value);
 			alpha = std::max(alpha, bestValue);
 			if (beta <= alpha)
 				break;
@@ -80,9 +81,10 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 
 		for (auto& possibleMove : possibleMoves) {
 			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 1);
-			bestValue = std::min(bestValue, minimax(bitboard, depth - 1, true, alpha, beta));
+			int value = minimax(bitboard, depth - 1, true, alpha, beta);
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 1);
 			
+			bestValue = std::min(bestValue, value);
 			beta = std::min(beta, bestValue);
 			if (beta <= alpha)
 				break;
@@ -94,21 +96,24 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
 	int	evaluation = 0;
 
-	int ai = maximizingPlayer ? 2 : 1;
-    int opponent = maximizingPlayer ? 1 : 2;
-
-    evaluation += checkCenterControl(bitboard, ai, opponent);
+	if (maximizingPlayer) {
+    	evaluation += checkCenterControl(bitboard, 2, 1);
+		evaluation += checkPatterns(bitboard, 2);
+	} else {
+		evaluation -= checkCenterControl(bitboard, 2, 1);
+		evaluation -= checkPatterns(bitboard, 1);
+	}
 
 	return (evaluation);
 }
 
-int AI::checkCenterControl(Bitboard &bitboard, int ai, int opponent) {
+int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 
 	for (int y = 0; y < BOARD_SIZE; y++) {
         for (int x = 0; x < BOARD_SIZE; x++) {
             int stone = bitboard.getBit(x, y);
-            if (stone == ai) {
+            if (stone == player) {
                 score += _centerScores[x][y];
             } else if (stone == opponent) {
                 score -= _centerScores[x][y];
@@ -118,15 +123,34 @@ int AI::checkCenterControl(Bitboard &bitboard, int ai, int opponent) {
 	return score;
 }
 
-/* int	AI::checkAlignments(Bitboard &bitboard, int ai, int opponent) {
+int	AI::checkPatterns(Bitboard &bitboard, int player) {
 	int score = 0;
 
-	for (int y = 0; y < BOARD_SIZE; y++) {
-		for (int x = 0; x < BOARD_SIZE; x++) {
-			if (bitboard.getBit(x, y) == ai) {
-				score += checkAlignment(bitboard, x, y, ai, opponent);
-			}
-		}
-	}
-	return score;
-} */
+	//-- Two in a row --//
+	score += bitboard.checkPattern(0b0110, 0b0000, 4, player) * 100;
+
+	//-- Three in a row --//
+	score += bitboard.checkPattern(0b01110, 0b10000, 5, player) * 250;
+	score += bitboard.checkPattern(0b01110, 0b00001, 5, player) * 250;
+	score += bitboard.checkPattern(0b01110, 0b00000, 5, player) * 300;
+
+	//-- Four in a row --//
+	score += bitboard.checkPattern(0b011110, 0b100000, 6, player) * 750;
+	score += bitboard.checkPattern(0b011110, 0b000001, 6, player) * 750;
+	score += bitboard.checkPattern(0b011110, 0b000000, 6, player) * 1000;
+
+	//-- Five in a row --//
+	score += bitboard.checkPattern(0b11111, 0b00000, 5, player) * 10000;
+
+	//-- Player Capture --//
+	score += bitboard.checkPattern(0b1000, 0b0110, 4, player) * 1000;
+	score += bitboard.checkPattern(0b0001, 0b0110, 4, player) * 1000;
+	score += bitboard.checkPattern(0b1001, 0b0110, 4, player) * 5000;
+
+	//-- Opponent Capture --//
+	score -= bitboard.checkPattern(0b0110, 0b1000, 4, player) * 1000;
+	score -= bitboard.checkPattern(0b0110, 0b0001, 4, player) * 1000;
+	score -= bitboard.checkPattern(0b0110, 0b1001, 4, player) * 5000;
+
+	return (score);
+}

@@ -6,14 +6,20 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/06 13:47:53 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:50:18 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "gomoku.hpp"
-#include <array>
+
+struct pair_hash {
+	template <class T1, class T2>
+	std::size_t operator () (const std::pair<T1, T2> &pair) const {
+		return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
+	}
+};
 
 typedef enum {
 	FIVE_IN_A_ROW = 0b11111,
@@ -57,8 +63,9 @@ class Bitboard {
 		int			isCapturingMove(int x, int y, int player);
 		int			rotateY45(int x, int y);
 		int			rotateY315(int x, int y);
+		int			checkPattern(uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+		int			countAdjacentStones(int x, int y) const;
 
-		bool		isCellEmpty(int x, int y);
 		bool		placeStone(int x, int y, int player);
 		bool		isLegalMove(int x, int y, int player);
 		bool		isDoubleThree(int x, int y, int player);
@@ -70,9 +77,7 @@ class Bitboard {
 		bool		isGameOver();
 
 		void		printBoard();
-		void		createColumns();
-		void		createDiagonals();
-		void		createAntiDiagonals();
+		void		update(int x, int y, int player, bool add);
 		void		removeStone(int x, int y, int player);
 		void		placeStoneAI(int x, int y, int player);
 
@@ -86,6 +91,11 @@ class Bitboard {
 		void		verifyFreeThreeDiagonal(int &nbFreeThree, int x, int y, int player);
 		void		verifyFreeThreeAntiDiagonal(int &nbFreeThree, int x, int y, int player);
 
+		void		checkPatternHorizontal(int x, int y, int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+		void		checkPatternVertical(int x, int y, int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+		void		checkPatternDiagonal(int x, int y, int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+		void		checkPatternAntiDiagonal(int x, int y, int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+
 		void		makeCapture(int x, int y, int player);
 		void		makeHorizontalCapture(int x, int y, int player);
 		void		makeVerticalCapture(int x, int y, int player);
@@ -94,6 +104,6 @@ class Bitboard {
 		
 		uint32_t	getSelection(uint32_t bitboard, int nbBits, int bitsPos);
 
-		std::vector<std::pair<int, int>>	getAllStones();
-		std::vector<std::pair<int, int>>	generatePossibleMoves(int player);
+		std::unordered_set<std::pair<int, int>, pair_hash>	getAllStones();
+		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);
 };
