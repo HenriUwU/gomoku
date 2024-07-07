@@ -74,7 +74,7 @@ int main() {
 				goban.display(event, window, bitboard);
 				gameplay.mouseHover(window, bitboard, false);
 				break;
-			case VS_IA:
+			case AIVERSUS:
 				goban.display(event, window, bitboard);
 				gameplay.mouseHover(window, bitboard, true);
 				break;

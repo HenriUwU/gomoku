@@ -129,7 +129,7 @@ void	MainMenu::handleKeys(const sf::Event& event, sf::RenderWindow& window) {
 		}
 		if ((getSelectedItemIndex() == 6 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 			|| (getSelectedItemIndex() == 6 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			gameState = VS_IA;
+			gameState = AIVERSUS;
 			_selectedItemIndex = -1;		
 		}
 		if ((getSelectedItemIndex() == 7 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
@@ -190,8 +190,8 @@ void	MainMenu::init() {
 	const string buttonsColors[] = {"green", "orange", "red", "blueCustom", "blueSettings", "blueHelp"};
 	for (int i = 0; i < 6; i++) {
 		sf::Texture basicTexture, hoverTexture;
-		string	basicPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "ButtonTexture.png";
-		string	hoverPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "HoveredButtonTexture.png";
+		string		basicPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "ButtonTexture.png";
+		string		hoverPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "HoveredButtonTexture.png";
 		if (basicTexture.loadFromFile(basicPath) && hoverTexture.loadFromFile(hoverPath)) {
 			_buttonsTextures.push_back(basicTexture);
 			_buttonsTextures.push_back(hoverTexture);
