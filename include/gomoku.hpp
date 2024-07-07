@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/07 16:54:09 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:24:56 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <bitset>
 #include <limits.h>
+#include <unordered_set>
 
 #include "MainMenu.hpp"
 #include "Gameplay.hpp"
@@ -32,6 +33,13 @@
 #include "HelpMenu.hpp"
 #include "Bitboard.hpp"
 #include "AI.hpp"
+
+struct pair_hash {
+	template <class T1, class T2>
+	std::size_t operator () (const std::pair<T1, T2> &pair) const {
+		return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
+	}
+};
 
 enum AIMode {
 	IMPOSSIBLE,

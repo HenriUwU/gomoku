@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 16:10:33 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:25:31 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ std::vector<std::pair<int, int>>	Bitboard::getAllStones() {
 }
 
 std::vector<std::pair<int, int>>	Bitboard::generatePossibleMoves(int player) {
-	std::vector<std::pair<int, int>>	currentStones = getAllStones();
-	std::vector<std::pair<int, int>>	possibleMoves;
-	std::set<std::pair<int, int>>		uniqueMoves;
+	std::vector<std::pair<int, int>>						currentStones = getAllStones();
+	std::vector<std::pair<int, int>>						possibleMoves;
+	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;
 	int margin = 2;
 
 	for (auto& stone : currentStones) {
@@ -117,7 +117,7 @@ std::vector<std::pair<int, int>>	Bitboard::generatePossibleMoves(int player) {
 		for (int x = startX; x <= endX; ++x) {
 			for (int y = startY; y <= endY; ++y) {
 				if (!getBit(x, y) && isLegalMove(x, y, player)) {
-					uniqueMoves.insert({x, y});
+					uniqueMoves.emplace(x, y);
 				}
 			}
 		}
