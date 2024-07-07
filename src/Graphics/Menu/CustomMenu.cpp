@@ -19,23 +19,23 @@ CustomMenu::CustomMenu() {
 CustomMenu::~CustomMenu() {}
 
 void	CustomMenu::display(sf::RenderWindow& window) {
-	if (stonesColors == NOSTONECOLOR)
+	if (stonesColors == NOSTONESCOLORS)
 		_stoneSelectorSprite.setPosition(-100, -100);
-	if (stonesColors == BlackAndWhite)
+	if (stonesColors == BLACKANDWHITE)
 		_stoneSelectorSprite.setPosition(691 - 8, 379 - 8);
-	if (stonesColors == BlackAndYellow)
+	if (stonesColors == BLACKANDYELLOW)
 		_stoneSelectorSprite.setPosition(971 - 8, 379 - 8);
-	if (stonesColors == DarkGreenAndLightGreen)
+	if (stonesColors == DARKGREENANDLIGHTGREEN)
 		_stoneSelectorSprite.setPosition(1110 - 8, 379 - 8);
-	if (stonesColors == GreenAndRed)
+	if (stonesColors == GREENANDRED)
 		_stoneSelectorSprite.setPosition(761 - 8, 379 - 8);
-	if (stonesColors == OrangeAndViolet)
+	if (stonesColors == ORANGEANDVIOLET)
 		_stoneSelectorSprite.setPosition(1041 - 8, 379 - 8);
-	if (stonesColors == PinkAndFluoYellow)
+	if (stonesColors == PINKANDFLUOYELLOW)
 		_stoneSelectorSprite.setPosition(901 - 8, 379 - 8);
-	if (stonesColors == SalmonAndCoral)
+	if (stonesColors == SALMONANDCORAL)
 		_stoneSelectorSprite.setPosition(831 - 8, 379 - 8);
-	if (stonesColors == TurquoiseGreenAndIndigo)
+	if (stonesColors == TURQUOISEGREENANDINDIGO)
 		_stoneSelectorSprite.setPosition(1179 - 8, 379 - 8);
 
 	if (boardColor == NOBOARD)
@@ -120,46 +120,46 @@ void	CustomMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 
 void	CustomMenu::handleStonesSelection(sf::RenderWindow& window) {
 	if (_blackWhiteStoneSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		if (stonesColors == NOSTONECOLOR)
+		if (stonesColors == NOSTONESCOLORS)
 			_stoneSelectorSprite.setPosition(691 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			stonesColors = BlackAndWhite;
+			stonesColors = BLACKANDWHITE;
 	} else if (_blackYellowStoneSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		if (stonesColors == NOSTONECOLOR)
+		if (stonesColors == NOSTONESCOLORS)
 			_stoneSelectorSprite.setPosition(971 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			stonesColors = BlackAndYellow;
+			stonesColors = BLACKANDYELLOW;
 	} else if (_dGreenLGreenStoneSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		if (stonesColors == NOSTONECOLOR)
+		if (stonesColors == NOSTONESCOLORS)
 			_stoneSelectorSprite.setPosition(1110 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			stonesColors = DarkGreenAndLightGreen;
+			stonesColors = DARKGREENANDLIGHTGREEN;
 	} else if (_greenRedStoneSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		if (stonesColors == NOSTONECOLOR)
+		if (stonesColors == NOSTONESCOLORS)
 			_stoneSelectorSprite.setPosition(761 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			stonesColors = GreenAndRed;
+			stonesColors = GREENANDRED;
 	} else if (_orangeVioletStoneSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		if (stonesColors == NOSTONECOLOR)
+		if (stonesColors == NOSTONESCOLORS)
 			_stoneSelectorSprite.setPosition(1041 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			stonesColors = OrangeAndViolet;
+			stonesColors = ORANGEANDVIOLET;
 	} else if (_pinkFYellowStoneSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		if (stonesColors == NOSTONECOLOR)
+		if (stonesColors == NOSTONESCOLORS)
 			_stoneSelectorSprite.setPosition(901 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			stonesColors = PinkAndFluoYellow;
+			stonesColors = PINKANDFLUOYELLOW;
 	} else if (_salmonCoralStoneSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		if (stonesColors == NOSTONECOLOR)
+		if (stonesColors == NOSTONESCOLORS)
 			_stoneSelectorSprite.setPosition(831 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			stonesColors = SalmonAndCoral;
+			stonesColors = SALMONANDCORAL;
 	} else if (_tGreenIndigoStoneSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		if (stonesColors == NOSTONECOLOR)
+		if (stonesColors == NOSTONESCOLORS)
 			_stoneSelectorSprite.setPosition(1179 - 8, 379 - 8);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			stonesColors = TurquoiseGreenAndIndigo;
-	} else if (stonesColors == NOSTONECOLOR)
+			stonesColors = TURQUOISEGREENANDINDIGO;
+	} else if (stonesColors == NOSTONESCOLORS)
 			_stoneSelectorSprite.setPosition(-100, -100);
 }
 

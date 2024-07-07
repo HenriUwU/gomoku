@@ -66,28 +66,28 @@ Gameplay::Gameplay() {
 Gameplay::~Gameplay() {}
 
 void	Gameplay::selectTextures() {
-	if (stonesColors == BlackAndWhite) {
+	if (stonesColors == BLACKANDWHITE) {
 		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_whiteStoneTexture);
-	} else if (stonesColors == GreenAndRed) {
+	} else if (stonesColors == GREENANDRED) {
 		_firstPlayerStoneSprite.setTexture(_greenStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_redStoneTexture);
-	} else if (stonesColors == SalmonAndCoral) {
+	} else if (stonesColors == SALMONANDCORAL) {
 		_firstPlayerStoneSprite.setTexture(_salmonStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_coralStoneTexture);
-	} else if (stonesColors == PinkAndFluoYellow) {
+	} else if (stonesColors == PINKANDFLUOYELLOW) {
 		_firstPlayerStoneSprite.setTexture(_pinkStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_fluoYellowStoneTexture);
-	} else if (stonesColors == BlackAndYellow) {
+	} else if (stonesColors == BLACKANDYELLOW) {
 		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_yellowStoneTexture);
-	} else if (stonesColors == OrangeAndViolet) {
+	} else if (stonesColors == ORANGEANDVIOLET) {
 		_firstPlayerStoneSprite.setTexture(_orangeStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_violetStoneTexture);
-	} else if (stonesColors == DarkGreenAndLightGreen) {
+	} else if (stonesColors == DARKGREENANDLIGHTGREEN) {
 		_firstPlayerStoneSprite.setTexture(_darkGreenStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_lightGreenStoneTexture);
-	} else if (stonesColors == TurquoiseGreenAndIndigo) {
+	} else if (stonesColors == TURQUOISEGREENANDINDIGO) {
 		_firstPlayerStoneSprite.setTexture(_turquoiseGreenStoneTexture);
 		_secondPlayerStoneSprite.setTexture(_indigoStoneTexture);
 	}

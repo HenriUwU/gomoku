@@ -67,40 +67,40 @@ void	Goban::drawStones(sf::RenderWindow& window, Bitboard& bitboard) {
 
 void	Goban::defineStones() {
 	switch (stonesColors) {
-		case NOSTONECOLOR:
-		case BlackAndWhite:
+		case NOSTONESCOLORS:
+		case BLACKANDWHITE:
 			_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
 			_secondPlayerStoneSprite.setTexture(_stonesTextures[1]);
 			break;
-		case GreenAndRed:
+		case GREENANDRED:
 			_firstPlayerStoneSprite.setTexture(_stonesTextures[2]);
 			_secondPlayerStoneSprite.setTexture(_stonesTextures[3]);
 			break;
-		case SalmonAndCoral:
+		case SALMONANDCORAL:
 			_firstPlayerStoneSprite.setTexture(_stonesTextures[4]);
 			_secondPlayerStoneSprite.setTexture(_stonesTextures[5]);
 			break;
-		case PinkAndFluoYellow:
+		case PINKANDFLUOYELLOW:
 			_firstPlayerStoneSprite.setTexture(_stonesTextures[6]);
 			_secondPlayerStoneSprite.setTexture(_stonesTextures[7]);
 			break;
-		case BlackAndYellow:
+		case BLACKANDYELLOW:
 			_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
 			_secondPlayerStoneSprite.setTexture(_stonesTextures[8]);
 			break;
-		case OrangeAndViolet:
+		case ORANGEANDVIOLET:
 			_firstPlayerStoneSprite.setTexture(_stonesTextures[9]);
 			_secondPlayerStoneSprite.setTexture(_stonesTextures[10]);
 			break;
-		case DarkGreenAndLightGreen:
+		case DARKGREENANDLIGHTGREEN:
 			_firstPlayerStoneSprite.setTexture(_stonesTextures[11]);
 			_secondPlayerStoneSprite.setTexture(_stonesTextures[12]);
 			break;
-		case TurquoiseGreenAndIndigo:
+		case TURQUOISEGREENANDINDIGO:
 			_firstPlayerStoneSprite.setTexture(_stonesTextures[13]);
 			_secondPlayerStoneSprite.setTexture(_stonesTextures[14]);
 			break;
-	} 
+	}
 }
 
 void	Goban::defineAvatars() {

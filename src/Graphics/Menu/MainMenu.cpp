@@ -21,20 +21,13 @@ MainMenu::MainMenu() {
 MainMenu::~MainMenu() {}
 
 void	MainMenu::display(sf::RenderWindow& window) {
-	sf::RectangleShape leftLine(sf::Vector2f(150, 5));
-	sf::RectangleShape rightLine(sf::Vector2f(150, 5));
-	leftLine.setPosition(685, 705);
-	rightLine.setPosition(1085, 705);
-
-	window.clear(sf::Color(38, 1, 69));
+	window.draw(_mainMenuSprite);
 	window.draw(_greenButtonSprite);
 	window.draw(_orangeButtonSprite);
 	window.draw(_redButtonSprite);
 	window.draw(_blueButtonCustomSprite);
 	window.draw(_blueButtonSettingsSprite);
 	window.draw(_blueButtonHelpSprite);
-	window.draw(leftLine);
-	window.draw(rightLine);
 	window.draw(_customIconSprite);
 	window.draw(_settingsIconSprite);
 	window.draw(_helpIconSprite);
@@ -199,10 +192,10 @@ void MainMenu::handleMouseMovement(sf::Vector2i mousePos) {
 }
 
 void	MainMenu::init() {
-	if (!_exo2BlackFont.loadFromFile("assets/fonts/Exo_2/Exo2-Black.ttf"))
-		cerr << "Error while loading the 'Exo2-Black.ttf' file." << endl;
 	if (!_ex02BlackItalicFont.loadFromFile("assets/fonts/Exo_2/Exo2-BlackItalic.ttf"))
 		cerr << "Error while loading the 'Exo2-BlackItalic.ttf' file." << endl;
+	if (!_mainMenuTexture.loadFromFile("assets/images/menu/main/mainMenuTexture.png"))
+		cerr << "Error while loading the 'mainMenuTexture.png' file." << endl;
 	if (!_greenButtonTexture.loadFromFile("assets/images/menu/main/buttons/greenButtonTexture.png"))
 		cerr << "Error while loading the 'greenButtonTexture.png' file." << endl;
 	if (!_orangeButtonTexture.loadFromFile("assets/images/menu/main/buttons/orangeButtonTexture.png"))
@@ -225,7 +218,8 @@ void	MainMenu::init() {
 		cerr << "Error while loading the 'settings.png' file." << endl;
 	if (!_helpIconTexture.loadFromFile("assets/images/menu/main/icons/helpIconTexture.png"))
 		cerr << "Error while loading the 'help.png' file." << endl;
-	
+
+	_mainMenuSprite.setTexture(_mainMenuTexture);
 	_greenButtonSprite.setTexture(_greenButtonTexture);
 	_orangeButtonSprite.setTexture(_orangeButtonTexture);
 	_redButtonSprite.setTexture(_redButtonTexture);
@@ -246,59 +240,23 @@ void	MainMenu::init() {
 	_settingsIconSprite.setPosition(913, 766);
 	_helpIconSprite.setPosition(1131, 766);
 
-	_menuText[0].setString("Go");
-	_menuText[0].setCharacterSize(140.48);
-	_menuText[0].setFont(_exo2BlackFont);
-	_menuText[0].setFillColor(sf::Color(141, 82, 190));
-	_menuText[0].setPosition(684, 40);
+	_menuText[0].setString("1 VS 1");
+	_menuText[0].setCharacterSize(64.77);
+	_menuText[0].setFont(_ex02BlackItalicFont);
+	_menuText[0].setFillColor(sf::Color::White);
+	_menuText[0].setPosition(877, 298);
 
-	_menuText[1].setString("moku");
-	_menuText[1].setCharacterSize(140.48);
-	_menuText[1].setFont(_exo2BlackFont);
-	_menuText[1].setFillColor(sf::Color(208, 87, 47));
-	_menuText[1].setPosition(865, 40);
+	_menuText[1].setString("AI VERSUS");
+	_menuText[1].setCharacterSize(64.77);
+	_menuText[1].setFont(_ex02BlackItalicFont);
+	_menuText[1].setFillColor(sf::Color::White);
+	_menuText[1].setPosition(795, 430);
 
-	_menuText[2].setString("Go");
-	_menuText[2].setCharacterSize(140.48);
-	_menuText[2].setFont(_exo2BlackFont);
-	_menuText[2].setFillColor(sf::Color(248, 231, 254));
-	_menuText[2].setPosition(684, 30);
-
-	_menuText[3].setString("moku");
-	_menuText[3].setCharacterSize(140.48);
-	_menuText[3].setFont(_exo2BlackFont);
-	_menuText[3].setFillColor(sf::Color(255, 164, 94));
-	_menuText[3].setPosition(865, 30);
-
-	_menuText[4].setString("by hsebille & laprieur");
-	_menuText[4].setCharacterSize(30.23);
-	_menuText[4].setFont(_exo2BlackFont);
-	_menuText[4].setFillColor(sf::Color::White);
-	_menuText[4].setPosition(800, 222);
-
-	_menuText[5].setString("1 VS 1");
-	_menuText[5].setCharacterSize(64.77);
-	_menuText[5].setFont(_ex02BlackItalicFont);
-	_menuText[5].setFillColor(sf::Color::White);
-	_menuText[5].setPosition(877, 298);
-
-	_menuText[6].setString("AI VERSUS");
-	_menuText[6].setCharacterSize(64.77);
-	_menuText[6].setFont(_ex02BlackItalicFont);
-	_menuText[6].setFillColor(sf::Color::White);
-	_menuText[6].setPosition(795, 430);
-
-	_menuText[7].setString("EXIT");
-	_menuText[7].setCharacterSize(64.77);
-	_menuText[7].setFont(_ex02BlackItalicFont);
-	_menuText[7].setFillColor(sf::Color::White);
-	_menuText[7].setPosition(887, 559);
-
-	_menuText[8].setString("More options");
-	_menuText[8].setCharacterSize(30.23);
-	_menuText[8].setFont(_exo2BlackFont);
-	_menuText[8].setFillColor(sf::Color::White);
-	_menuText[8].setPosition(857, 685);
+	_menuText[2].setString("EXIT");
+	_menuText[2].setCharacterSize(64.77);
+	_menuText[2].setFont(_ex02BlackItalicFont);
+	_menuText[2].setFillColor(sf::Color::White);
+	_menuText[2].setPosition(887, 559);
 
 	_selectedItemIndex = 5;
 	_greenButtonSprite.setTexture(_greenHoveredButtonTexture);

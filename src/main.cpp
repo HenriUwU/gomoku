@@ -12,16 +12,16 @@
 
 #include "gomoku.hpp"
 
-int				musicVolume = 100;
 sf::Sound		sound;
-GameState		gameState = MENU;
-BoardColor		boardColor = NOBOARD;
-Avatar			playerOneAvatar = NOAVATAR;
-Avatar			playerTwoAvatar = NOAVATAR;
-StonesColors	stonesColors = NOSTONECOLOR;
-MoveSuggestion	moveSuggestion = ENABLED;
-AIMode			aiMode = NOAIMODE;
-HelpMenuState	helpMenuState = RULES;
+int				musicVolume		= 100;
+AIMode			aiMode			= NOAIMODE;
+Avatar			playerOneAvatar	= NOAVATAR;
+Avatar			playerTwoAvatar	= NOAVATAR;
+BoardColor		boardColor		= NOBOARD;
+GameState		gameState		= MENU;
+HelpMenuState	helpMenuState	= RULES;
+MoveSuggestion	moveSuggestion	= ENABLED;
+StonesColors	stonesColors	= NOSTONESCOLORS;
 
 int main() {
 	sf::RenderWindow	window(sf::VideoMode(1920, 1080), "Gomoku");

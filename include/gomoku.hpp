@@ -33,16 +33,25 @@
 #include "Bitboard.hpp"
 #include "AI.hpp"
 
-typedef enum {
-	MENU,
-	GAME,
-	VS_IA,
-	CUSTOM,
-	HELP,
-	SETTINGS,
-} GameState;
+enum AIMode {
+	IMPOSSIBLE,
+	AGGRESSIVE,
+	PASSIVE,
+	DEFENSIVE,
+	NOAIMODE
+};
 
-typedef enum {
+enum Avatar {
+	TOMMY,
+	LAURE,
+	ALEX,
+	HERIC,
+	MOUSSE,
+	GUNTHER,
+	NOAVATAR
+};
+
+enum BoardColor {
 	AZURE,
 	YELLOW,
 	RED,
@@ -51,57 +60,48 @@ typedef enum {
 	GREEN,
 	GRAY,
 	BLACK,
-	NOBOARD,
-} BoardColor;
+	NOBOARD
+};
 
-typedef enum {
-	TOMMY,
-	LAURE,
-	ALEX,
-	HERIC,
-	MOUSSE,
-	GUNTHER,
-	NOAVATAR,
-} Avatar;
+enum GameState {
+	MENU,
+	GAME,
+	VS_IA,
+	CUSTOM,
+	HELP,
+	SETTINGS
+};
 
-typedef enum {
-	BlackAndWhite,
-	GreenAndRed,
-	SalmonAndCoral,
-	PinkAndFluoYellow,
-	BlackAndYellow,
-	OrangeAndViolet,
-	DarkGreenAndLightGreen,
-	TurquoiseGreenAndIndigo,
-	NOSTONECOLOR,
-} StonesColors;
-
-typedef enum {
-	ENABLED,
-	DISABLED,
-} MoveSuggestion;
-
-typedef enum {
-	NOAIMODE,
-	IMPOSSIBLE,
-	AGGRESSIVE,
-	PASSIVE,
-	DEFENSIVE,
-} AIMode;
-
-typedef enum {
+enum HelpMenuState {
 	RULES,
 	CAPTURES,
-	DOUBLETHREE,
-} HelpMenuState;
+	DOUBLETHREE
+};
 
-extern int				musicVolume;
+enum MoveSuggestion {
+	ENABLED,
+	DISABLED
+};
+
+enum StonesColors {
+	BLACKANDWHITE,
+	GREENANDRED,
+	SALMONANDCORAL,
+	PINKANDFLUOYELLOW,
+	BLACKANDYELLOW,
+	ORANGEANDVIOLET,
+	DARKGREENANDLIGHTGREEN,
+	TURQUOISEGREENANDINDIGO,
+	NOSTONESCOLORS
+};
+
 extern sf::Sound		sound;
-extern GameState		gameState;
-extern BoardColor		boardColor;
+extern int				musicVolume;
+extern AIMode			aiMode;
 extern Avatar			playerOneAvatar;
 extern Avatar			playerTwoAvatar;
-extern StonesColors		stonesColors;
-extern MoveSuggestion	moveSuggestion;
-extern AIMode			aiMode;
+extern BoardColor		boardColor;
+extern GameState		gameState;
 extern HelpMenuState	helpMenuState;
+extern MoveSuggestion	moveSuggestion;
+extern StonesColors		stonesColors;

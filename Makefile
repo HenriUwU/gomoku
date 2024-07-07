@@ -96,9 +96,9 @@ header:
 	@echo "                                                       "
 	@echo "	by hsebille and laprieur"
 	@echo
-	@printf "%b" "$(CYAN)COMPILER:      $(YELLOW)$(COMPILER)\n"
-	@printf "%b" "$(CYAN)DEBUG_FLAGS: $(YELLOW)$(DEBUG_FLAGS)\n"
-	@printf "%b" "$(CYAN)SFML_FLAGS: $(YELLOW)$(SFML_FLAGS)\n"
+	@printf "%b" "$(CYAN)COMPILER:	$(YELLOW)$(COMPILER)\n"
+	@printf "%b" "$(CYAN)DEBUG_FLAGS:	$(YELLOW)$(DEBUG_FLAGS)\n"
+	@printf "%b" "$(CYAN)SFML_FLAGS:	$(YELLOW)$(SFML_FLAGS)\n"
 	@printf "%b" "$(OFF)"
 	@echo
 

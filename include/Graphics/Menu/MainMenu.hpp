@@ -15,14 +15,14 @@
 #include "gomoku.hpp"
 #include "Goban.hpp"
 
-#define NB_MENU_ITEMS 9
+#define NB_MENU_ITEMS 3
 
 class MainMenu {
 	private:
 		int				_selectedItemIndex;
-		sf::Font		_exo2BlackFont;
 		sf::Font		_ex02BlackItalicFont;
 		sf::Text		_menuText[NB_MENU_ITEMS];
+		sf::Texture		_mainMenuTexture;
 		sf::Texture		_greenButtonTexture;
 		sf::Texture		_orangeButtonTexture;
 		sf::Texture		_redButtonTexture;
@@ -34,6 +34,7 @@ class MainMenu {
 		sf::Texture		_customIconTexture;
 		sf::Texture		_settingsIconTexture;
 		sf::Texture		_helpIconTexture;
+		sf::Sprite		_mainMenuSprite;
 		sf::Sprite		_greenButtonSprite;
 		sf::Sprite		_orangeButtonSprite;
 		sf::Sprite		_redButtonSprite;
