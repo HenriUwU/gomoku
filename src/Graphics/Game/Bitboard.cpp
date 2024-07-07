@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 18:24:31 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:55:58 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,24 @@ bool	Bitboard::isLegalMove(int x, int y, int player) {
 	return (true);
 }
 
+int Bitboard::countAdjacentStones(int x, int y) const {
+	int count = 0;
+
+	for (int dx = -1; dx <= 1; ++dx) {
+		for (int dy = -1; dy <= 1; ++dy) {
+			if (dx == 0 && dy == 0)
+				continue;
+			int nx = x + dx;
+			int ny = y + dy;
+			if (nx >= 0 && nx < BOARD_SIZE && ny >= 0 && ny < BOARD_SIZE) {
+				if (getBit(nx, ny) == 1)
+					++count;
+			}
+		}
+	}
+	return count;
+}
+
 std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::getAllStones() {
 	std::unordered_set<std::pair<int, int>, pair_hash>	stones;
 
@@ -107,15 +125,18 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMov
 		int startY = std::max(0, stone.second - margin);
 		int endY = std::min(BOARD_SIZE - 1, stone.second + margin);
 
+		int	adjacentStones = countAdjacentStones(stone.first, stone.second);
+
 		for (int x = startX; x <= endX; ++x) {
 			for (int y = startY; y <= endY; ++y) {
 				if (!getBit(x, y) && isLegalMove(x, y, player)) {
-					uniqueMoves.emplace(x, y);
+					if (countAdjacentStones(x, y) > adjacentStones / 2) {
+						uniqueMoves.emplace(x, y);
+					}
 				}
 			}
 		}
 	}
-
 	return (uniqueMoves);
 }
 

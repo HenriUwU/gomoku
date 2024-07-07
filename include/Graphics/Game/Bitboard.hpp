@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 18:38:14 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:50:18 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ class Bitboard {
 		int			rotateY45(int x, int y);
 		int			rotateY315(int x, int y);
 		int			checkPattern(uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+		int			countAdjacentStones(int x, int y) const;
 
 		bool		placeStone(int x, int y, int player);
 		bool		isLegalMove(int x, int y, int player);
