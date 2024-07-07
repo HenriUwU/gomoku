@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 16:41:06 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:13:26 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,23 +94,24 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
 	int	evaluation = 0;
 
-	int ai = maximizingPlayer ? 2 : 1;
-    int opponent = maximizingPlayer ? 1 : 2;
-
-    evaluation += checkCenterControl(bitboard, ai, opponent);
-	evaluation += checkPatterns(bitboard, ai);
-	evaluation -= checkPatterns(bitboard, opponent);
+	if (maximizingPlayer) {
+    	evaluation += checkCenterControl(bitboard, 2, 1);
+		evaluation += checkPatterns(bitboard, 2);
+	} else {
+		evaluation -= checkCenterControl(bitboard, 2, 1);
+		evaluation -= checkPatterns(bitboard, 1);
+	}
 
 	return (evaluation);
 }
 
-int AI::checkCenterControl(Bitboard &bitboard, int ai, int opponent) {
+int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 
 	for (int y = 0; y < BOARD_SIZE; y++) {
         for (int x = 0; x < BOARD_SIZE; x++) {
             int stone = bitboard.getBit(x, y);
-            if (stone == ai) {
+            if (stone == player) {
                 score += _centerScores[x][y];
             } else if (stone == opponent) {
                 score -= _centerScores[x][y];
@@ -140,14 +141,14 @@ int	AI::checkPatterns(Bitboard &bitboard, int player) {
 	score += bitboard.checkPattern(0b11111, 0b00000, 5, player) * 10000;
 
 	//-- Player Capture --//
-	score += bitboard.checkPattern(0b1000, 0b0110, 4, player) * 200;
-	score += bitboard.checkPattern(0b0001, 0b0110, 4, player) * 200;
-	score += bitboard.checkPattern(0b1001, 0b0110, 4, player) * 400;
+	score += bitboard.checkPattern(0b1000, 0b0110, 4, player) * 1000;
+	score += bitboard.checkPattern(0b0001, 0b0110, 4, player) * 1000;
+	score += bitboard.checkPattern(0b1001, 0b0110, 4, player) * 5000;
 
 	//-- Opponent Capture --//
-	score -= bitboard.checkPattern(0b0110, 0b1000, 4, player) * 200;
-	score -= bitboard.checkPattern(0b0110, 0b0001, 4, player) * 200;
-	score -= bitboard.checkPattern(0b0110, 0b1001, 4, player) * 400;
+	score -= bitboard.checkPattern(0b0110, 0b1000, 4, player) * 1000;
+	score -= bitboard.checkPattern(0b0110, 0b0001, 4, player) * 1000;
+	score -= bitboard.checkPattern(0b0110, 0b1001, 4, player) * 5000;
 
 	return (score);
 }

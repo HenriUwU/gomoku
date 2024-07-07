@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:01:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 16:16:17 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:03:24 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class AI {
 		int									minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta);
 		int									heuristic(Bitboard &bitboard, bool maximizingPlayer);
 		
-		int									checkCenterControl(Bitboard &bitboard, int ai, int opponent);
+		int									checkCenterControl(Bitboard &bitboard, int player, int opponent);
 		int									checkPatterns(Bitboard &bitboard, int player);
 
 		void								play(Bitboard &bitboard);
