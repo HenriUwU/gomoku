@@ -34,6 +34,8 @@
 #include "Bitboard.hpp"
 #include "AI.hpp"
 
+using namespace std;
+
 enum AIMode {
 	IMPOSSIBLE,
 	AGGRESSIVE,

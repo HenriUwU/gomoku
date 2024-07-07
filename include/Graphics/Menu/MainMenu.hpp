@@ -32,8 +32,6 @@ enum Buttons {
 class MainMenu {
 	private:
 		int							_selectedItemIndex;
-		sf::Texture					_mainMenuTexture;
-		std::vector<sf::Texture>	_buttonsTextures;
 		sf::Sprite					_mainMenuSprite;
 		sf::Sprite					_greenButtonSprite;
 		sf::Sprite					_orangeButtonSprite;
@@ -41,19 +39,21 @@ class MainMenu {
 		sf::Sprite					_blueButtonCustomSprite;
 		sf::Sprite					_blueButtonSettingsSprite;
 		sf::Sprite					_blueButtonHelpSprite;
+		sf::Texture					_mainMenuTexture;
+		std::vector<sf::Texture>	_buttonsTextures;
 
 	public:
 		MainMenu();
 		~MainMenu();
 
-		int		getSelectedItemIndex() { return _selectedItemIndex; }
+		int		getSelectedItemIndex() const { return _selectedItemIndex; }
 
 		void	init();
-		void	display(sf::RenderWindow &window);
-		void	MoveUp();
-		void	MoveDown();
-		void	MoveLeft();
-		void	MoveRight();
-		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
-		void	handleMouseMovement(sf::Vector2i mousePos);
+		void	display(sf::RenderWindow& window);
+		void	moveUp();
+		void	moveDown();
+		void	moveLeft();
+		void	moveRight();
+		void	handleKeys(const sf::Event& event, sf::RenderWindow& window);
+		void	handleMouseMovement(const sf::Vector2i& mousePos);
 };

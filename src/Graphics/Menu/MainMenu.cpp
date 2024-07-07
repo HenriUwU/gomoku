@@ -12,8 +12,6 @@
 
 #include "MainMenu.hpp"
 
-using namespace std;
-
 MainMenu::MainMenu() {
 	init();
 }
@@ -30,7 +28,7 @@ void	MainMenu::display(sf::RenderWindow& window) {
 	window.draw(_blueButtonHelpSprite);
 }
 
-void	MainMenu::MoveUp() {
+void	MainMenu::moveUp() {
 	if (_selectedItemIndex == -1) {
 		_selectedItemIndex = 5;
 		_greenButtonSprite.setTexture(_buttonsTextures[H_1VS1]);
@@ -58,7 +56,7 @@ void	MainMenu::MoveUp() {
 	}
 }
 
-void	MainMenu::MoveDown() {
+void	MainMenu::moveDown() {
 	if (_selectedItemIndex == -1) {
 		_selectedItemIndex = 4;	
 		_greenButtonSprite.setTexture(_buttonsTextures[H_1VS1]);
@@ -80,7 +78,7 @@ void	MainMenu::MoveDown() {
 	}
 }
 
-void	MainMenu::MoveLeft() {
+void	MainMenu::moveLeft() {
 	if (_selectedItemIndex > 8) {
 		if (_selectedItemIndex == 10)
 			_blueButtonHelpSprite.setTexture(_buttonsTextures[B_HELP]);
@@ -94,7 +92,7 @@ void	MainMenu::MoveLeft() {
 	}
 }
 
-void	MainMenu::MoveRight() {
+void	MainMenu::moveRight() {
 	if (_selectedItemIndex < 10 && _selectedItemIndex > 7) {
 		if (_selectedItemIndex == 8)
 			_blueButtonCustomSprite.setTexture(_buttonsTextures[B_CUSTOM]);
@@ -108,7 +106,7 @@ void	MainMenu::MoveRight() {
 	}
 }
 
-void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
+void	MainMenu::handleKeys(const sf::Event& event, sf::RenderWindow& window) {
 	if (gameState == MENU) {
 		if (event.type == sf::Event::MouseMoved) {
 			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -116,13 +114,13 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 		}
 		if (event.type == sf::Event::KeyReleased) {
 			if (event.key.code == sf::Keyboard::Up)
-				MoveUp();
+				moveUp();
 			if (event.key.code == sf::Keyboard::Down)
-				MoveDown();
+				moveDown();
 			if (event.key.code == sf::Keyboard::Left)
-				MoveLeft();
+				moveLeft();
 			if (event.key.code == sf::Keyboard::Right)
-				MoveRight();
+				moveRight();
 		}
 		if ((getSelectedItemIndex() == 5 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
 			|| (getSelectedItemIndex() == 5 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
@@ -155,7 +153,7 @@ void	MainMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 	}
 }
 
-void MainMenu::handleMouseMovement(sf::Vector2i mousePos) {
+void	MainMenu::handleMouseMovement(const sf::Vector2i& mousePos) {
  	if (_greenButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_greenButtonSprite.setTexture(_buttonsTextures[H_1VS1]);
 		_selectedItemIndex = 5;
@@ -189,11 +187,11 @@ void	MainMenu::init() {
 	if (!_mainMenuTexture.loadFromFile("assets/images/menu/main/mainMenuTexture.png"))
 		cerr << "Error while loading the 'mainMenuTexture.png' file." << endl;
 
-	const std::string buttonsColors[] = {"green", "orange", "red", "blueCustom", "blueSettings", "blueHelp"};
+	const string buttonsColors[] = {"green", "orange", "red", "blueCustom", "blueSettings", "blueHelp"};
 	for (int i = 0; i < 6; i++) {
 		sf::Texture basicTexture, hoverTexture;
-		std::string	basicPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "ButtonTexture.png";
-		std::string	hoverPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "HoveredButtonTexture.png";
+		string	basicPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "ButtonTexture.png";
+		string	hoverPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "HoveredButtonTexture.png";
 		if (basicTexture.loadFromFile(basicPath) && hoverTexture.loadFromFile(hoverPath)) {
 			_buttonsTextures.push_back(basicTexture);
 			_buttonsTextures.push_back(hoverTexture);
@@ -216,5 +214,4 @@ void	MainMenu::init() {
 	_blueButtonHelpSprite.setPosition(1120, 737);
 
 	_selectedItemIndex = 5;
-	_greenButtonSprite.setTexture(_buttonsTextures[H_1VS1]);
 }
