@@ -26,7 +26,7 @@ void Goban::display(sf::Event& event, sf::RenderWindow &window, Bitboard& bitboa
 	defineAvatars();
 	defineBoard();
 
-	window.clear(sf::Color(38, 1, 69));
+/* 	window.clear(sf::Color(38, 1, 69)); */
 	window.draw(_gamePageSprite);
 	window.draw(_backwardButtonSprite);
 	window.draw(_gobanSprite);

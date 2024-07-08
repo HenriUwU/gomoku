@@ -122,32 +122,20 @@ void	MainMenu::handleKeys(const sf::Event& event, sf::RenderWindow& window) {
 			if (event.key.code == sf::Keyboard::Right)
 				moveRight();
 		}
-		if ((getSelectedItemIndex() == 5 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
-			|| (getSelectedItemIndex() == 5 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			gameState = GAME;
-			_selectedItemIndex = -1;
-		}
-		if ((getSelectedItemIndex() == 6 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
-			|| (getSelectedItemIndex() == 6 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			gameState = AIVERSUS;
-			_selectedItemIndex = -1;		
-		}
-		if ((getSelectedItemIndex() == 7 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
-			|| (getSelectedItemIndex() == 7 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
-			window.close();
-		if ((getSelectedItemIndex() == 8 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
-			|| (getSelectedItemIndex() == 8 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			gameState = CUSTOM;
-			_selectedItemIndex = -1;
-		}
-		if ((getSelectedItemIndex() == 9 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
-			|| (getSelectedItemIndex() == 9 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			gameState = SETTINGS;
-			_selectedItemIndex = -1;
-		}
-		if ((getSelectedItemIndex() == 10 && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
-			|| (getSelectedItemIndex() == 10 && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
-			gameState = HELP;
+		if ((event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return)
+			|| (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)) {
+			if (getSelectedItemIndex() == 5)
+				gameState = GAME;
+			if (getSelectedItemIndex() == 6)
+				gameState = AIVERSUS;
+			if (getSelectedItemIndex() == 7)
+				window.close();
+			if (getSelectedItemIndex() == 8)
+				gameState = CUSTOM;
+			if (getSelectedItemIndex() == 9)
+				gameState = SETTINGS;
+			if (getSelectedItemIndex() == 10)
+				gameState = HELP;
 			_selectedItemIndex = -1;
 		}
 	}
