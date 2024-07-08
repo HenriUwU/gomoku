@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CustomMenu.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/03 15:52:42 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:42:20 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	CustomMenu::display(sf::RenderWindow& window) {
 	if (stonesColors == BLACK_YELLOW)
 		_stoneSelectorSprite.setPosition(971 - 8, 379 - 8);
 	if (stonesColors == DARKGREEN_LIGHTGREEN)
-		_stoneSelectorSprite.setPosition(1110 - 8, 379 - 8);
+		_stoneSelectorSprite.setPosition(1110 - 7, 379 - 8);
 	if (stonesColors == GREEN_RED)
 		_stoneSelectorSprite.setPosition(761 - 8, 379 - 8);
 	if (stonesColors == ORANGE_VIOLET)
@@ -36,16 +36,16 @@ void	CustomMenu::display(sf::RenderWindow& window) {
 	if (stonesColors == SALMON_CORAL)
 		_stoneSelectorSprite.setPosition(831 - 8, 379 - 8);
 	if (stonesColors == TURQUOISEGREEN_INDIGO)
-		_stoneSelectorSprite.setPosition(1179 - 8, 379 - 8);
+		_stoneSelectorSprite.setPosition(1179 - 6, 379 - 8);
 
 	if (boardColor == NOBOARD)
 		_boardSelectorSprite.setPosition(-100, -100);
 	if (boardColor == AZURE)
 		_boardSelectorSprite.setPosition(691 - 8, 776 - 8);
 	if (boardColor == BLACK)
-		_boardSelectorSprite.setPosition(1179 - 8, 776 - 8);
+		_boardSelectorSprite.setPosition(1179 - 6, 776 - 8);
 	if (boardColor == GRAY)
-		_boardSelectorSprite.setPosition(1110 - 8, 776 - 8);
+		_boardSelectorSprite.setPosition(1110 - 7, 776 - 8);
 	if (boardColor == GREEN)
 		_boardSelectorSprite.setPosition(1041 - 8, 776 - 8);
 	if (boardColor == ORANGE)
@@ -62,7 +62,7 @@ void	CustomMenu::display(sf::RenderWindow& window) {
 	if (playerOneAvatar == ALEX)
 		_avatarSelectorSprite.setPosition(877 - 8, 563 - 8);
 	if (playerOneAvatar == GUNTHER)
-		_avatarSelectorSprite.setPosition(1154 - 8, 563 - 8);
+		_avatarSelectorSprite.setPosition(1154 - 6, 563 - 8);
 	if (playerOneAvatar == HERIC)
 		_avatarSelectorSprite.setPosition(970 - 8, 563 - 8);
 	if (playerOneAvatar == LAURE)

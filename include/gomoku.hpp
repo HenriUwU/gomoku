@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/07 17:51:23 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:05:00 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ enum GameState {
 	AIVERSUS,
 	CUSTOM,
 	HELP,
-	SETTINGS
+	SETTINGS,
 };
 
 enum HelpMenuState {

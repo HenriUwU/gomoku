@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 19:49:25 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:35:18 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,11 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
 	int	evaluation = 0;
 
-	if (maximizingPlayer) {
-    	evaluation += checkCenterControl(bitboard, 2, 1);
-		evaluation += checkPatterns(bitboard, 2);
-	} else {
-		evaluation -= checkCenterControl(bitboard, 2, 1);
-		evaluation -= checkPatterns(bitboard, 1);
-	}
+	evaluation += checkCenterControl(bitboard, 2, 1);
+	evaluation += checkPatterns(bitboard, 2, 1);
 
+	if (!maximizingPlayer)
+		return (-evaluation);
 	return (evaluation);
 }
 
@@ -123,42 +120,42 @@ int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 	return score;
 }
 
-int	AI::checkPatterns(Bitboard &bitboard, int player) {
+int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 
 	//-- Two in a row --//
 	score += bitboard.checkPattern(0b0110, 0b0000, 4, player) * 100;
-	score -= bitboard.checkPattern(0b0000, 0b0110, 4, player) * 100;
+	score -= bitboard.checkPattern(0b0110, 0b0000, 4, opponent) * 200;
 
 	//-- Three in a row --//
 	score += bitboard.checkPattern(0b01110, 0b10000, 5, player) * 250;
 	score += bitboard.checkPattern(0b01110, 0b00001, 5, player) * 250;
 	score += bitboard.checkPattern(0b01110, 0b00000, 5, player) * 500;
-	score -= bitboard.checkPattern(0b00001, 0b01110, 5, player) * 250;
-	score -= bitboard.checkPattern(0b10000, 0b01110, 5, player) * 250;
-	score -= bitboard.checkPattern(0b00000, 0b01110, 5, player) * 500;
+	score -= bitboard.checkPattern(0b01110, 0b10000, 5, opponent) * 500;
+	score -= bitboard.checkPattern(0b01110, 0b00001, 5, opponent) * 500;
+	score -= bitboard.checkPattern(0b01110, 0b00000, 5, opponent) * 1000;
 
 	//-- Four in a row --//
-	score += bitboard.checkPattern(0b011110, 0b100000, 6, player) * 1500;
-	score += bitboard.checkPattern(0b011110, 0b000001, 6, player) * 1500;
-	score += bitboard.checkPattern(0b011110, 0b000000, 6, player) * 10000;
-	score -= bitboard.checkPattern(0b000001, 0b011110, 6, player) * 1500;
-	score -= bitboard.checkPattern(0b100000, 0b011110, 6, player) * 1500;
-	score -= bitboard.checkPattern(0b000000, 0b011110, 6, player) * 10000;
+	score += bitboard.checkPattern(0b011110, 0b100000, 6, player) * 20000;
+	score += bitboard.checkPattern(0b011110, 0b000001, 6, player) * 20000;
+	score += bitboard.checkPattern(0b011110, 0b000000, 6, player) * 80000;
+	score -= bitboard.checkPattern(0b000001, 0b011110, 6, opponent) * 20000;
+	score -= bitboard.checkPattern(0b100000, 0b011110, 6, opponent) * 20000;
+	score -= bitboard.checkPattern(0b000000, 0b011110, 6, opponent) * 80000;
 
 	//-- Five in a row --//
-	score += bitboard.checkPattern(0b11111, 0b00000, 5, player) * 50000;
-	score += bitboard.checkPattern(0b00000, 0b11111, 5, player) * 50000;
+	score += bitboard.checkPattern(0b11111, 0b00000, 5, player) * 100000;
+	score -= bitboard.checkPattern(0b11111, 0b00000, 5, opponent) * 100000;
 
 	//-- Player Capture --//
 	score += bitboard.checkPattern(0b1000, 0b0110, 4, player) * 1000;
 	score += bitboard.checkPattern(0b0001, 0b0110, 4, player) * 1000;
-	score += bitboard.checkPattern(0b1001, 0b0110, 4, player) * 3000;
+	score += bitboard.checkPattern(0b1001, 0b0110, 4, player) * 2000;
 
 	//-- Opponent Capture --//
-	score -= bitboard.checkPattern(0b0110, 0b1000, 4, player) * 1000;
-	score -= bitboard.checkPattern(0b0110, 0b0001, 4, player) * 1000;
-	score -= bitboard.checkPattern(0b0110, 0b1001, 4, player) * 3000;
+	score -= bitboard.checkPattern(0b1000, 0b0110, 4, opponent) * 2000;
+	score -= bitboard.checkPattern(0b0001, 0b0110, 4, opponent) * 2000;
+	score -= bitboard.checkPattern(0b1001, 0b0110, 4, opponent) * 4000;
 
 	return (score);
 }
