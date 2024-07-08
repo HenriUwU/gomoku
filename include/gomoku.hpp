@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/08 10:05:00 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:48:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 #include <bitset>
 #include <limits.h>
 #include <unordered_set>
+#include <atomic>
+#include <thread>
 
 #include "MainMenu.hpp"
 #include "Gameplay.hpp"

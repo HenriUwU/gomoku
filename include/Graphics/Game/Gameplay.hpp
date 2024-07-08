@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/25 15:49:10 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:47:04 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ class Bitboard;
 
 class Gameplay {
 	private:
-		int							_currentPlayer;
 		std::map<std::string, int>	_playerPositions;
 		std::map<int, int>			_catchedStones;
 		sf::Vector2f				_gridPosition;
 		float						_gridSize;
 		float						_cellSize;
+		//int							_currentPlayer;
 
 		sf::Texture					_blackStoneTexture;
 		sf::Texture					_whiteStoneTexture;
@@ -42,6 +42,11 @@ class Gameplay {
 		sf::Texture					_turquoiseGreenStoneTexture;
 		sf::Sprite					_firstPlayerStoneSprite;
 		sf::Sprite					_secondPlayerStoneSprite;
+		
+		std::thread					_aiThread;
+    	std::atomic<int>			_currentPlayer{1};
+		std::atomic<bool> 			_isAIPlaying{true};
+    	std::atomic<bool>			_aiThreadRunning{false};
 
 	public:
 		Gameplay();
@@ -51,14 +56,5 @@ class Gameplay {
 		void	handleKeys(sf::Event &event, sf::RenderWindow &window);
 		void	drawPlayerPositions(sf::RenderWindow& window);
 		void	mouseHover(sf::RenderWindow &window, Bitboard &bitboard, bool isAIPlaying);
-
-		void	findHorizontalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &horizontalLine);
-		void	findVerticalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &verticalLine);
-		void	findDiagonalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &diagonalLine);
-		void	findAntiDiagonalLine(int nbStones, std::string position, std::vector<std::pair<std::string, int>> &antiDiagonalLine);
-	
-		bool	isMoveLegal(std::string position);
-		bool	isWinningMove(std::string position);
-		bool	isThereDoubleThree(std::vector<std::pair<std::string, int>> nearbyLines[4]);
-		bool	isAlignmentBreakable(std::vector<std::pair<std::string, int>> &line, int alignmentIndex);
+		void	AITurn(Bitboard& bitboard);
 };

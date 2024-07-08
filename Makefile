@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/07/07 14:59:54 by hsebille         ###   ########.fr        #
+#    Updated: 2024/07/08 11:48:10 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRC				:=	src/main.cpp								\
 					src/Graphics/Game/Goban.cpp					\
 					src/Graphics/Menu/MainMenu.cpp				\
 					src/Graphics/Menu/HelpMenu.cpp				\
-					src/Graphics/Game/Gameplay_utils.cpp		\
 					src/Graphics/Menu/SettingsMenu.cpp			\
 					src/Graphics/Menu/CustomMenu.cpp			\
 					src/Graphics/Game/Bitboard.cpp				\

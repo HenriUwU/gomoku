@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/08 09:59:15 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:54:06 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,12 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMov
 		int startY = std::max(0, stone.second - margin);
 		int endY = std::min(BOARD_SIZE - 1, stone.second + margin);
 
-		int	adjacentStones = countAdjacentStones(stone.first, stone.second);
+		//int	adjacentStones = countAdjacentStones(stone.first, stone.second);
 
 		for (int x = startX; x <= endX; ++x) {
 			for (int y = startY; y <= endY; ++y) {
 				if (!getBit(x, y)) {
-					if (countAdjacentStones(x, y) > adjacentStones / 2 && isLegalMove(x, y, player))
+					if (/* countAdjacentStones(x, y) > adjacentStones / 2 &&  */isLegalMove(x, y, player))
 						uniqueMoves.emplace(x, y);
 				}
 			}

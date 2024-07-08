@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:50:06 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/08 10:24:16 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:57:11 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,17 +143,25 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard, bool isA
 					_currentPlayer = 1;
 			}
 		}
-		sf::sleep(sf::milliseconds(100));
 	}
 
-	if (isAIPlaying && _currentPlayer == 2) {
-		AI ai;
-		ai.play(bitboard);
-		_currentPlayer = 1;
+	if (isAIPlaying && _currentPlayer == 2 && !_aiThreadRunning) {
+		_aiThreadRunning = true;
+		if (_aiThread.joinable()) {
+            _aiThread.join();
+        }
+		_aiThread = std::thread(&Gameplay::AITurn, this, std::ref(bitboard));
 	}
 
 	if (_currentPlayer == 1)
 		window.draw(_firstPlayerStoneSprite);
 	else
 		window.draw(_secondPlayerStoneSprite);
+}
+
+void	Gameplay::AITurn(Bitboard& bitboard) {
+	AI ai;
+	ai.play(bitboard);
+	_currentPlayer = 1;
+	_aiThreadRunning = false;
 }
