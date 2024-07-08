@@ -71,12 +71,9 @@ int main() {
 				mainMenu.display(window);
 				break;
 			case GAME:
-				goban.display(event, window, bitboard);
-				gameplay.mouseHover(window, bitboard, false);
-				break;
 			case AIVERSUS:
 				goban.display(event, window, bitboard);
-				gameplay.mouseHover(window, bitboard, true);
+				gameplay.mouseHover(window, bitboard, (gameState == GAME) ? false : true);
 				break;
 			case CUSTOM:
 				customMenu.display(window);
@@ -86,8 +83,6 @@ int main() {
 				break;
 			case HELP:
 				helpMenu.display(window);
-				break;
-			default:
 				break;
 		}
 		window.draw(cursorSprite);

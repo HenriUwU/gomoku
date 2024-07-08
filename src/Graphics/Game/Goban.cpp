@@ -133,7 +133,7 @@ void	Goban::init() {
 		cerr << "Error while loading the 'backwardHoveredButtonTexture' file." << endl;
 	if (!_gridAndIndexTexture.loadFromFile("assets/images/game/gridAndIndexTexture.png"))
 		cerr << "Error while loading the 'grid.png' file." << endl;
-	if (!_gamePageTexture.loadFromFile("assets/images/game/gamePageTexture.png"))
+	if (!_gamePageTexture.loadFromFile("assets/images/game/1VS1PageTexture.png"))
 		cerr << "Error while loading the 'gamePage.png' file." << endl;
 	if (!_firstStoneTexture.loadFromFile("assets/images/game/stones/blackStoneTexture.png"))
 		cerr << "Error while loading the 'firstStone.png' file." << endl;
