@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/07/08 11:48:10 by hsebille         ###   ########.fr        #
+#    Updated: 2024/07/08 13:21:29 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC				:=	src/main.cpp								\
 					src/Graphics/Game/Bitboard_victory.cpp		\
 					src/Graphics/Game/Bitboard_patterns.cpp		\
 					src/AI/AI.cpp								\
+					src/AI/heuristic.cpp						\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
