@@ -18,7 +18,22 @@ HelpMenu::HelpMenu() {
 
 HelpMenu::~HelpMenu() {}
 
-void	HelpMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
+void	HelpMenu::display(sf::RenderWindow& window) {
+	window.clear(sf::Color(38, 1, 69));
+
+	if (helpMenuState == RULES)
+		window.draw(_rulesPageSprite);
+	if (helpMenuState == CAPTURES)
+		window.draw(_capturesPageSprite);
+	if (helpMenuState == DOUBLETHREE)
+		window.draw(_doubleThreesPageSprite);
+
+	window.draw(_backwardButtonSprite);
+	if (helpMenuState != DOUBLETHREE)
+		window.draw(_forwardButtonSprite);
+}
+
+void	HelpMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window) {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -43,21 +58,6 @@ void	HelpMenu::handleKeys(sf::Event &event, sf::RenderWindow &window) {
 		_backwardButtonSprite.setTexture(_backwardButtonTexture);
 		_forwardButtonSprite.setTexture(_forwardButtonTexture);
 	}
-}
-
-void	HelpMenu::display(sf::RenderWindow &window) {
-	window.clear(sf::Color(38, 1, 69));
-
-	if (helpMenuState == RULES)
-		window.draw(_rulesPageSprite);
-	if (helpMenuState == CAPTURES)
-		window.draw(_capturesPageSprite);
-	if (helpMenuState == DOUBLETHREE)
-		window.draw(_doubleThreesPageSprite);
-
-	window.draw(_backwardButtonSprite);
-	if (helpMenuState != DOUBLETHREE)
-		window.draw(_forwardButtonSprite);
 }
 
 void	HelpMenu::init() {

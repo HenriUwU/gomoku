@@ -48,7 +48,6 @@ void	SettingsMenu::display(sf::RenderWindow& window) {
 		_boxPassiveAISprite.setTexture(_boxTexture);
 	}
 
-	window.clear(sf::Color(38, 1, 69));
 	window.draw(_settingsMenuSprite);
 	window.draw(_backwardButtonSprite);
 	window.draw(_switchButtonSprite);
@@ -59,7 +58,7 @@ void	SettingsMenu::display(sf::RenderWindow& window) {
 	window.draw(_volumeSprites[_currentVolumeLevel]);
 }
 
-void	SettingsMenu::handleKeys(sf::Event &event, sf::RenderWindow& window) {
+void	SettingsMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window) {
 	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
 
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -80,7 +79,7 @@ void	SettingsMenu::handleKeys(sf::Event &event, sf::RenderWindow& window) {
 	}
 }
 
-void	SettingsMenu::handleVolume(sf::Event &event, sf::RenderWindow& window) {	
+void	SettingsMenu::handleVolume(const sf::Event& event, const sf::RenderWindow& window) {	
 	int barX = 787;
 	int barY = 335;
 	int barWidth = 450;
@@ -104,7 +103,7 @@ void	SettingsMenu::handleVolume(sf::Event &event, sf::RenderWindow& window) {
 	}
 }
 
-void	SettingsMenu::handleAiMode(sf::RenderWindow& window) {
+void	SettingsMenu::handleAiMode(const sf::RenderWindow& window) {
 	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
 	
 	if (_boxImpossibleAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {

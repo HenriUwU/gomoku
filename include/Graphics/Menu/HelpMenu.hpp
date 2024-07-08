@@ -34,6 +34,6 @@ class HelpMenu {
 		~HelpMenu();
 
 		void init();
-		void display(sf::RenderWindow &window);		
-		void handleKeys(sf::Event &event, sf::RenderWindow &window);
+		void display(sf::RenderWindow& window);		
+		void handleKeys(const sf::Event& event, const sf::RenderWindow& window);
 };

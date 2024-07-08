@@ -17,14 +17,6 @@
 class SettingsMenu {
 	private:
 		int							_currentVolumeLevel;
-		sf::Texture					_settingsMenuTexture;
-		sf::Texture					_backwardButtonTexture;
-		sf::Texture					_backwardHoveredButtonTexture;
-		std::vector<sf::Texture>	_volumeTextures;
-		sf::Texture					_switchOnButtonTexture;
-		sf::Texture					_switchOffButtonTexture;
-		sf::Texture					_boxTexture;
-		sf::Texture					_boxCheckedTexture;
 		sf::Sprite					_settingsMenuSprite;
 		sf::Sprite					_backwardButtonSprite;
 		sf::Sprite					_volumeSprites[11];
@@ -33,14 +25,22 @@ class SettingsMenu {
 		sf::Sprite					_boxAggressiveAISprite;
 		sf::Sprite					_boxPassiveAISprite;
 		sf::Sprite					_boxDefensiveAISprite;
+		sf::Texture					_settingsMenuTexture;
+		sf::Texture					_backwardButtonTexture;
+		sf::Texture					_backwardHoveredButtonTexture;
+		sf::Texture					_switchOnButtonTexture;
+		sf::Texture					_switchOffButtonTexture;
+		sf::Texture					_boxTexture;
+		sf::Texture					_boxCheckedTexture;
+		std::vector<sf::Texture>	_volumeTextures;
 
 	public:
 		SettingsMenu();
 		~SettingsMenu();
 
 		void init();
-		void display(sf::RenderWindow &window);		
-		void handleKeys(sf::Event &event, sf::RenderWindow &window);
-		void handleAiMode(sf::RenderWindow &window);
-		void handleVolume(sf::Event &event, sf::RenderWindow &window);
+		void display(sf::RenderWindow& window);		
+		void handleKeys(const sf::Event& event, const sf::RenderWindow& window);
+		void handleAiMode(const sf::RenderWindow& window);
+		void handleVolume(const sf::Event& event, const sf::RenderWindow& window);
 };
