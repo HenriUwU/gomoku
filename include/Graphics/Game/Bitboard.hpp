@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 18:50:18 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:39:01 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ class Bitboard {
 		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardDiagonals;
 
 		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardAntiDiagonals;
-		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardAntiDiagonals;		
+		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardAntiDiagonals;	
 
 	public:
 		Bitboard();
@@ -63,7 +63,7 @@ class Bitboard {
 		int			isCapturingMove(int x, int y, int player);
 		int			rotateY45(int x, int y);
 		int			rotateY315(int x, int y);
-		int			checkPattern(uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
+		int			checkPattern(PatternInfo patterns[]) __attribute__((hot));
 		int			countAdjacentStones(int x, int y) const;
 
 		bool		placeStone(int x, int y, int player);

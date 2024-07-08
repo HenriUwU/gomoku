@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/08 13:38:09 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:39:54 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,9 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 			
 			bestValue = std::max(bestValue, value);
 			alpha = std::max(alpha, bestValue);
-			if (beta <= alpha)
+			if (beta <= alpha) {
 				break;
+			}
 		}
 	}
 	else {
@@ -133,8 +134,9 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 			
 			bestValue = std::min(bestValue, value);
 			beta = std::min(beta, bestValue);
-			if (beta <= alpha)
+			if (beta <= alpha) {
 				break;
+			}
 		}
 	}
 	

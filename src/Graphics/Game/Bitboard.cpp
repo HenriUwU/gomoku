@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/08 13:22:57 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:17:56 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::getAllStones() {
 std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMoves(int player) {
 	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;
 	std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
-	int														margin = 2;
+	int														margin = 1;
 
 	for (auto& stone : currentStones) {
 		int startX = std::max(0, stone.first - margin);

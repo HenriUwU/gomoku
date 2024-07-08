@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/08 13:23:43 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:00:47 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,15 @@
 #include <atomic>
 #include <thread>
 #include <unordered_map>
+#include <chrono>
+
+struct PatternInfo {
+	uint32_t	pattern;
+	uint32_t	opponentPattern;
+	int			patternSize;
+	int			playerType;
+	int			multiplier;
+};
 
 #include "MainMenu.hpp"
 #include "Gameplay.hpp"

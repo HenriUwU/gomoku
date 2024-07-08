@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:50:06 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/08 11:57:11 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:48:56 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,11 +146,22 @@ void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard, bool isA
 	}
 
 	if (isAIPlaying && _currentPlayer == 2 && !_aiThreadRunning) {
+		_stopAITimer = false;
 		_aiThreadRunning = true;
-		if (_aiThread.joinable()) {
-            _aiThread.join();
-        }
 		_aiThread = std::thread(&Gameplay::AITurn, this, std::ref(bitboard));
+/* 		std::thread timerThread([&]() {
+			auto start = std::chrono::high_resolution_clock::now();
+			auto now = std::chrono::high_resolution_clock::now();
+			auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count();;
+			while (!_stopAITimer) {
+				now = std::chrono::high_resolution_clock::now();
+				elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count();
+			}
+			std::cout << "Time elapsed: " << elapsedMs << " ms" << std::endl;
+		});
+		timerThread.join(); */
+		if (_aiThread.joinable())
+			_aiThread.join();
 	}
 
 	if (_currentPlayer == 1)
@@ -164,4 +175,5 @@ void	Gameplay::AITurn(Bitboard& bitboard) {
 	ai.play(bitboard);
 	_currentPlayer = 1;
 	_aiThreadRunning = false;
+	_stopAITimer = true;
 }

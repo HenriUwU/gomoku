@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:23:53 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/08 13:11:55 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:36:15 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ class Gameplay {
     	std::atomic<int>			_currentPlayer{1};
 		std::atomic<bool> 			_isAIPlaying{true};
     	std::atomic<bool>			_aiThreadRunning{false};
+		std::atomic<bool>			_stopAITimer{false};
 
 	public:
 		Gameplay();
