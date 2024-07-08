@@ -42,6 +42,6 @@ class CustomMenu {
 		void	display(sf::RenderWindow& window);
 		void	handleKeys(const sf::Event& event, const sf::RenderWindow& window);
 		void	handleStonesSelection(const sf::RenderWindow& window);
+		void	handleAvatarSelection(const sf::RenderWindow& window);
 		void	handleBoardSelection(const sf::RenderWindow& window);
-		void	handleAvatarsSelection(const sf::RenderWindow& window);
 };
