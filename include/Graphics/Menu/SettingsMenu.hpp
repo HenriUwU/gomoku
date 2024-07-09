@@ -6,13 +6,15 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:05:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/04 20:12:21 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:28:37 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "gomoku.hpp"
+
+class Music;
 
 class SettingsMenu {
 	private:
@@ -42,5 +44,5 @@ class SettingsMenu {
 		void display(sf::RenderWindow& window);		
 		void handleKeys(const sf::Event& event, const sf::RenderWindow& window);
 		void handleAiMode(const sf::RenderWindow& window);
-		void handleVolume(const sf::Event& event, const sf::RenderWindow& window);
+		void handleVolume(const sf::Event& event, const sf::RenderWindow& window, Music& music);
 };

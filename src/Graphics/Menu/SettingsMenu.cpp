@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/04 20:12:35 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:31:16 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ void	SettingsMenu::display(sf::RenderWindow& window) {
 void	SettingsMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window) {
 	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
 
+	if (gameState != SETTINGS)
+		return;
+
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
@@ -79,11 +82,14 @@ void	SettingsMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& wi
 	}
 }
 
-void	SettingsMenu::handleVolume(const sf::Event& event, const sf::RenderWindow& window) {	
+void	SettingsMenu::handleVolume(const sf::Event& event, const sf::RenderWindow& window, Music& music) {
 	int barX = 787;
 	int barY = 335;
 	int barWidth = 450;
 	int barHeight = 40;
+	
+	if (gameState != SETTINGS)
+		return;
 	
 	if (event.type == sf::Event::MouseMoved && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
@@ -96,7 +102,7 @@ void	SettingsMenu::handleVolume(const sf::Event& event, const sf::RenderWindow& 
 					_currentVolumeLevel = newVolumeLevel;
 					newVolumeLevel = musicVolume;
 					float volume = (_currentVolumeLevel / static_cast<float>(11 - 1)) * 100;
-					sound.setVolume(volume);
+					music.defineVolume(volume);
 				}
 			}
 		}

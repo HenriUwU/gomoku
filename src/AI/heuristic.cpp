@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heuristic.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:20:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/08 17:24:20 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:01:26 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
 int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 
+	#pragma omp simd
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
 			int stone = bitboard.getBit(x, y);

@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/03 16:05:49 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:34:03 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ void	HelpMenu::display(sf::RenderWindow& window) {
 void	HelpMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window) {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	
+	if (gameState != HELP)
+		return;
+	
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			if (helpMenuState == RULES)
 				gameState = MENU;
 			else if (helpMenuState == CAPTURES)

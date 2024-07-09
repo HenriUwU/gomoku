@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CustomMenu.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/08 10:42:20 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:32:07 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	CustomMenu::display(sf::RenderWindow& window) {
 }
 
 void	CustomMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window) {
+	if (gameState != CUSTOM)
+		return;
+
 	if (_backwardButtonSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gomoku.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/08 17:00:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:04:34 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ struct PatternInfo {
 #include "HelpMenu.hpp"
 #include "Bitboard.hpp"
 #include "AI.hpp"
+#include "Music.hpp"
 
 using namespace std;
 
@@ -85,6 +86,7 @@ enum GameState {
 	CUSTOM,
 	HELP,
 	SETTINGS,
+	NONE
 };
 
 enum HelpMenuState {
@@ -110,7 +112,6 @@ enum StonesColors {
 	NOSTONESCOLORS
 };
 
-extern sf::Sound		sound;
 extern int				musicVolume;
 extern AIMode			aiMode;
 extern Avatar			playerOneAvatar;
