@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:46:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/09 23:17:33 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:51:13 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,24 @@ void	Music::stopAllMusics() {
 	}
 }
 
-void	Music::playMusic() {
+void Music::playMusic() {
 	static GameState previousGameState = NONE;
 	if (previousGameState != gameState) {
-		stopAllMusics();
 		switch (gameState) {
 			case MENU:
-				_musics[MENU]->play();
-				_musics[MENU]->setLoop(true);
+				if (previousGameState != CUSTOM && previousGameState != SETTINGS && previousGameState != HELP) {
+					stopAllMusics();
+					_musics[MENU]->play();
+					_musics[MENU]->setLoop(true);
+				}
 				break;
 			case GAME:
+				stopAllMusics();
 				_musics[GAME]->play();
 				_musics[GAME]->setLoop(true);
 				break;
 			case AIVERSUS:
+				stopAllMusics();
 				_musics[AIVERSUS]->play();
 				_musics[AIVERSUS]->setLoop(true);
 				break;
