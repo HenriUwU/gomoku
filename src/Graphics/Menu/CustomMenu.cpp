@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/09 22:32:07 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:54:46 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,10 +238,10 @@ void	CustomMenu::init() {
 	_avatarSelectorSprite.setTexture(_avatarSelectorTexture);
 	_boardSelectorSprite.setTexture(_colorSelectorTexture);
 
-	const string stonesColors[] = {"blackWhite", "greenRed", "salmonCoral", "pinkFYellow", "blackYellow", "orangeViolet", "dGreenLGreen", "tGreenIndigo"};
+	const std::string stonesColors[] = {"blackWhite", "greenRed", "salmonCoral", "pinkFYellow", "blackYellow", "orangeViolet", "dGreenLGreen", "tGreenIndigo"};
 	for (int i = 0; i < 8; i++) {
-		sf::Texture texture;
-		string		filePath = "assets/images/menu/custom/stones/" + stonesColors[i] + "StoneTexture.png";
+		sf::Texture	texture;
+		std::string	filePath = "assets/images/menu/custom/stones/" + stonesColors[i] + "StoneTexture.png";
 		if (texture.loadFromFile(filePath))
 			_stonesTextures.push_back(texture);
 	}
@@ -252,10 +252,10 @@ void	CustomMenu::init() {
 		_stonesSprites.push_back(sprite);
 	}
 
-	const string avatarsNames[] = {"tommy", "laure", "alex", "heric", "mousse", "gunther"};
+	const std::string avatarsNames[] = {"tommy", "laure", "alex", "heric", "mousse", "gunther"};
 	for (int i = 0; i < 6; i++) {
 		sf::Texture texture;
-		string		filePath = "assets/images/menu/custom/avatars/" + avatarsNames[i] + "AvatarTexture.png";
+		std::string	filePath = "assets/images/menu/custom/avatars/" + avatarsNames[i] + "AvatarTexture.png";
 		if (texture.loadFromFile(filePath))
 			_avatarsTextures.push_back(texture);
 	}
@@ -266,10 +266,10 @@ void	CustomMenu::init() {
 		_avatarsSprites.push_back(sprite);
 	}
 
-	const string boardsColors[] = {"azure", "yellow", "red", "orange", "pink", "green", "gray", "black"};
+	const std::string boardsColors[] = {"azure", "yellow", "red", "orange", "pink", "green", "gray", "black"};
 	for (int i = 0; i < 8; i++) {
 		sf::Texture texture;
-		string		filePath = "assets/images/menu/custom/boards/" + boardsColors[i] + "BoardTexture.png";
+		std::string	filePath = "assets/images/menu/custom/boards/" + boardsColors[i] + "BoardTexture.png";
 		if (texture.loadFromFile(filePath))
 			_boardsTextures.push_back(texture);
 	}

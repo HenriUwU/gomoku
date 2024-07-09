@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:51:46 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/09 23:04:21 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/10 00:04:45 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void Goban::display(sf::Event& event, sf::RenderWindow &window, Bitboard& bitboa
 	defineAvatars();
 	defineBoard();
 
-/* 	window.clear(sf::Color(38, 1, 69)); */
 	window.draw(_gamePageSprite);
 	window.draw(_backwardButtonSprite);
 	window.draw(_gobanSprite);

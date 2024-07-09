@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/09 23:04:34 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:53:58 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ struct PatternInfo {
 #include "Bitboard.hpp"
 #include "AI.hpp"
 #include "Music.hpp"
-
-using namespace std;
 
 enum AIMode {
 	IMPOSSIBLE,

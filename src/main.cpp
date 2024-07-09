@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/09 23:05:25 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:53:42 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ GameState		gameState		= MENU;
 HelpMenuState	helpMenuState	= RULES;
 MoveSuggestion	moveSuggestion	= ENABLED;
 StonesColors	stonesColors	= NOSTONESCOLORS;
-
-#include <chrono>
 
 int main() {
 	sf::RenderWindow	window(sf::VideoMode(1920, 1080), "Gomoku");

@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/09 23:04:06 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:55:12 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,13 +173,13 @@ void	MainMenu::handleMouseMovement(const sf::Vector2i& mousePos) {
 
 void	MainMenu::init() {
 	if (!_mainMenuTexture.loadFromFile("assets/images/menu/main/mainMenuTexture.png"))
-		cerr << "Error while loading the 'mainMenuTexture.png' file." << endl;
+		std::cerr << "Error while loading the 'mainMenuTexture.png' file." << std::endl;
 
-	const string buttonsColors[] = {"green", "orange", "red", "blueCustom", "blueSettings", "blueHelp"};
+	const std::string buttonsColors[] = {"green", "orange", "red", "blueCustom", "blueSettings", "blueHelp"};
 	for (int i = 0; i < 6; i++) {
 		sf::Texture basicTexture, hoverTexture;
-		string		basicPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "ButtonTexture.png";
-		string		hoverPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "HoveredButtonTexture.png";
+		std::string	basicPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "ButtonTexture.png";
+		std::string	hoverPath = "assets/images/menu/main/buttons/" + buttonsColors[i] + "HoveredButtonTexture.png";
 		if (basicTexture.loadFromFile(basicPath) && hoverTexture.loadFromFile(hoverPath)) {
 			_buttonsTextures.push_back(basicTexture);
 			_buttonsTextures.push_back(hoverTexture);
