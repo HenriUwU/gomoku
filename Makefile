@@ -17,26 +17,26 @@ NAME			:= Gomoku
 # **************************************************************************** #
 
 SRC				:=	src/main.cpp								\
-					src/Graphics/Game/Gameplay.cpp				\
-					src/Graphics/Game/Goban.cpp					\
-					src/Graphics/Menu/MainMenu.cpp				\
-					src/Graphics/Menu/HelpMenu.cpp				\
-					src/Graphics/Menu/SettingsMenu.cpp			\
-					src/Graphics/Menu/CustomMenu.cpp			\
-					src/Graphics/Game/Bitboard.cpp				\
-					src/Graphics/Game/Bitboard_captures.cpp		\
-					src/Graphics/Game/Bitboard_utils.cpp		\
-					src/Graphics/Game/Bitboard_double-three.cpp	\
-					src/Graphics/Game/Bitboard_victory.cpp		\
-					src/Graphics/Game/Bitboard_patterns.cpp		\
 					src/AI/AI.cpp								\
 					src/AI/heuristic.cpp						\
+					src/Graphics/Game/Bitboard_captures.cpp		\
+					src/Graphics/Game/Bitboard_double-three.cpp	\
+					src/Graphics/Game/Bitboard_patterns.cpp		\
+					src/Graphics/Game/Bitboard_utils.cpp		\
+					src/Graphics/Game/Bitboard_victory.cpp		\
+					src/Graphics/Game/Bitboard.cpp				\
+					src/Graphics/Game/Gameplay.cpp				\
+					src/Graphics/Game/Goban.cpp					\
+					src/Graphics/Menu/CustomMenu.cpp			\
+					src/Graphics/Menu/HelpMenu.cpp				\
+					src/Graphics/Menu/MainMenu.cpp				\
+					src/Graphics/Menu/SettingsMenu.cpp			\
 					
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
-COMPILER		:=	g++ -Ofast
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -Ilib/SFML/include -Iinclude -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/AI -Ilib/stb -I$(HOME)/local/include
+COMPILER		:=	g++
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -Ofast -Wpedantic -pg -Ilib/SFML/include -Iinclude -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/AI -Ilib/stb -I$(HOME)/local/include
 SFML_FLAGS		:=	-L$(HOME)/local/lib -Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lFLAC
 RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
 
