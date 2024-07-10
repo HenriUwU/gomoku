@@ -6,7 +6,7 @@
 #    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/07/09 23:52:54 by laprieur         ###   ########.fr        #
+#    Updated: 2024/07/10 15:38:50 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,18 +26,19 @@ SRC				:=	src/main.cpp								\
 					src/Graphics/Game/Bitboard_victory.cpp		\
 					src/Graphics/Game/Bitboard.cpp				\
 					src/Graphics/Game/Gameplay.cpp				\
-					src/Graphics/Game/Goban.cpp					\
 					src/Graphics/Menu/CustomMenu.cpp			\
 					src/Graphics/Menu/HelpMenu.cpp				\
 					src/Graphics/Menu/MainMenu.cpp				\
 					src/Graphics/Menu/SettingsMenu.cpp			\
+					src/Graphics/Utils.cpp						\
 					src/Music/Music.cpp							\
 				
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -Ofast -fopenmp -Wpedantic -Ilib/SFML/include -Iinclude -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/AI -Iinclude/Music -Ilib/stb -I$(HOME)/local/include
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -Ofast -fopenmp -Wpedantic
+INCLUDE_FLAGS	:=	-Ilib/SFML/include -Iinclude -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/AI -Iinclude/Music -Ilib/stb -I$(HOME)/local/include
 SFML_FLAGS		:=	-L$(HOME)/local/lib -Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lFLAC
 RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
 
@@ -54,12 +55,12 @@ MAKEFLAGS		+= --silent --no-print-directory
 all: header $(NAME)
 
 $(NAME): $(SRC_OBJS)
-	$(COMPILER) $(SRC_OBJS) $(DEBUG_FLAGS) $(SFML_FLAGS) $(RPATH_FLAGS) -o $(NAME)
+	$(COMPILER) $(SRC_OBJS) $(DEBUG_FLAGS) $(INCLUDE_FLAGS) $(SFML_FLAGS) $(RPATH_FLAGS) -o $(NAME)
 	@printf "%b" "$(BLUE)CREATED $(CYAN)$(NAME)\n"
 
 .build/%.o: %.cpp
 	mkdir -p $(@D)
-	$(COMPILER) $(DEBUG_FLAGS) -c $< -o $@
+	$(COMPILER) $(DEBUG_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 	@printf "%b" "$(BLUE)CREATED $(CYAN)$@\n"
 
 -include $(DEPS)
@@ -89,17 +90,18 @@ OFF				:= \033[m
 
 header:
 	@printf "%b" "$(GREEN)"
-	@echo " ██████╗  ██████╗ ███╗   ███╗ ██████╗ ██╗  ██╗██╗   ██╗"
-	@echo "██╔════╝ ██╔═══██╗████╗ ████║██╔═══██╗██║ ██╔╝██║   ██║"
-	@echo "██║  ███╗██║   ██║██╔████╔██║██║   ██║█████╔╝ ██║   ██║"
-	@echo "██║   ██║██║   ██║██║╚██╔╝██║██║   ██║██╔═██╗ ██║   ██║"
-	@echo "╚██████╔╝╚██████╔╝██║ ╚═╝ ██║╚██████╔╝██║  ██╗╚██████╔╝"
-	@echo " ╚═════╝  ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ "
-	@echo "                                                       "
-	@echo "	by hsebille and laprieur"
+	@echo "																"
+	@echo "    ██████╗  ██████╗ ███╗   ███╗ ██████╗ ██╗  ██╗██╗   ██╗	"
+	@echo "   ██╔════╝ ██╔═══██╗████╗ ████║██╔═══██╗██║ ██╔╝██║   ██║	"
+	@echo "   ██║  ███╗██║   ██║██╔████╔██║██║   ██║█████╔╝ ██║   ██║	"
+	@echo "   ██║   ██║██║   ██║██║╚██╔╝██║██║   ██║██╔═██╗ ██║   ██║	"
+	@echo "   ╚██████╔╝╚██████╔╝██║ ╚═╝ ██║╚██████╔╝██║  ██╗╚██████╔╝	"
+	@echo "    ╚═════╝  ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝	"
+	@echo "    by hsebille and laprieur									"
 	@echo
 	@printf "%b" "$(CYAN)COMPILER:	$(YELLOW)$(COMPILER)\n"
 	@printf "%b" "$(CYAN)DEBUG_FLAGS:	$(YELLOW)$(DEBUG_FLAGS)\n"
+	@printf "%b" "$(CYAN)INCLUDE_FLAGS:	$(YELLOW)$(INCLUDE_FLAGS)\n"
 	@printf "%b" "$(CYAN)SFML_FLAGS:	$(YELLOW)$(SFML_FLAGS)\n"
 	@printf "%b" "$(OFF)"
 	@echo

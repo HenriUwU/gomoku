@@ -3,108 +3,127 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 15:50:06 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/08 16:48:56 by hsebille         ###   ########.fr       */
+/*   Created: 2024/07/10 14:02:58 by laprieur          #+#    #+#             */
+/*   Updated: 2024/07/10 16:32:23 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gomoku.hpp"
+#include "Gameplay.hpp"
 
-using namespace std;
-
-Gameplay::Gameplay() {
-	for (int i = 0; i < 19; i++) {
-		int character = 'A' + i;
-		for (int j = 1; j < 20; j++) {
-			string position = string(1, character) + to_string(j);
-			_playerPositions.insert(pair<string, int>(position, 0));
-		}
-	}
-	
-	_currentPlayer = 1;
-    _gridPosition = sf::Vector2f(525, 48);
-    _gridSize = 868;
-    _cellSize = _gridSize / 19.0f;
-	
-	if (!_blackStoneTexture.loadFromFile("assets/images/game/stones/blackStoneTexture.png"))
-		cerr << "Error while loading the blackStoneTexture file." << endl;
-	if (!_whiteStoneTexture.loadFromFile("assets/images/game/stones/whiteStoneTexture.png"))
-		cerr << "Error while loading the whiteStoneTexture file." << endl;
-	if (!_coralStoneTexture.loadFromFile("assets/images/game/stones/coralStoneTexture.png"))
-		cerr << "Error while loading the coralStoneTexture file." << endl;
-	if (!_darkGreenStoneTexture.loadFromFile("assets/images/game/stones/darkGreenStoneTexture.png"))
-		cerr << "Error while loading the darkGreenStoneTexture file." << endl;
-	if (!_lightGreenStoneTexture.loadFromFile("assets/images/game/stones/lightGreenStoneTexture.png"))
-		cerr << "Error while loading the lightGreenStoneTexture file." << endl;
-	if (!_violetStoneTexture.loadFromFile("assets/images/game/stones/violetStoneTexture.png"))
-		cerr << "Error while loading the violetStoneTexture file." << endl;
-	if (!_yellowStoneTexture.loadFromFile("assets/images/game/stones/yellowStoneTexture.png"))
-		cerr << "Error while loading the yellowStoneTexture file." << endl;
-	if (!_fluoYellowStoneTexture.loadFromFile("assets/images/game/stones/fluoYellowStoneTexture.png"))
-		cerr << "Error while loading the fluoYellowStoneTexture file." << endl;
-	if (!_pinkStoneTexture.loadFromFile("assets/images/game/stones/pinkStoneTexture.png"))
-		cerr << "Error while loading the pinkStoneTexture file." << endl;
-	if (!_greenStoneTexture.loadFromFile("assets/images/game/stones/greenStoneTexture.png"))
-		cerr << "Error while loading the greenStoneTexture file." << endl;
-	if (!_indigoStoneTexture.loadFromFile("assets/images/game/stones/indigoStoneTexture.png"))
-		cerr << "Error while loading the indigoStoneTexture file." << endl;
-	if (!_orangeStoneTexture.loadFromFile("assets/images/game/stones/orangeStoneTexture.png"))
-		cerr << "Error while loading the orangeStoneTexture file." << endl;
-	if (!_redStoneTexture.loadFromFile("assets/images/game/stones/redStoneTexture.png"))
-		cerr << "Error while loading the redStoneTexture file." << endl;
-	if (!_salmonStoneTexture.loadFromFile("assets/images/game/stones/salmonStoneTexture.png"))
-		cerr << "Error while loading the salmonStoneTexture file." << endl;
-	if (!_turquoiseGreenStoneTexture.loadFromFile("assets/images/game/stones/turquoiseGreenStoneTexture.png"))
-		cerr << "Error while loading the turquoiseGreenStoneTexture file." << endl;
-
-	_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
-	_secondPlayerStoneSprite.setTexture(_whiteStoneTexture);
+Gameplay::Gameplay() : _cellSize(868 / 19.0f) {
+	init();
 }
 
 Gameplay::~Gameplay() {}
 
-void	Gameplay::selectTextures() {
-	if (stonesColors == BLACK_WHITE) {
-		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
-		_secondPlayerStoneSprite.setTexture(_whiteStoneTexture);
-	} else if (stonesColors == GREEN_RED) {
-		_firstPlayerStoneSprite.setTexture(_greenStoneTexture);
-		_secondPlayerStoneSprite.setTexture(_redStoneTexture);
-	} else if (stonesColors == SALMON_CORAL) {
-		_firstPlayerStoneSprite.setTexture(_salmonStoneTexture);
-		_secondPlayerStoneSprite.setTexture(_coralStoneTexture);
-	} else if (stonesColors == PINK_FLUOYELLOW) {
-		_firstPlayerStoneSprite.setTexture(_pinkStoneTexture);
-		_secondPlayerStoneSprite.setTexture(_fluoYellowStoneTexture);
-	} else if (stonesColors == BLACK_YELLOW) {
-		_firstPlayerStoneSprite.setTexture(_blackStoneTexture);
-		_secondPlayerStoneSprite.setTexture(_yellowStoneTexture);
-	} else if (stonesColors == ORANGE_VIOLET) {
-		_firstPlayerStoneSprite.setTexture(_orangeStoneTexture);
-		_secondPlayerStoneSprite.setTexture(_violetStoneTexture);
-	} else if (stonesColors == DARKGREEN_LIGHTGREEN) {
-		_firstPlayerStoneSprite.setTexture(_darkGreenStoneTexture);
-		_secondPlayerStoneSprite.setTexture(_lightGreenStoneTexture);
-	} else if (stonesColors == TURQUOISEGREEN_INDIGO) {
-		_firstPlayerStoneSprite.setTexture(_turquoiseGreenStoneTexture);
-		_secondPlayerStoneSprite.setTexture(_indigoStoneTexture);
+void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const Bitboard& bitboard) {
+	returnButton(event, window);
+	defineStones();
+	defineAvatars();
+	defineBoard();
+
+	window.draw(_gamePageSprite);
+	window.draw(_backwardButtonSprite);
+	window.draw(_gobanSprite);
+	window.draw(_firstPlayerAvatarSprite);
+	window.draw(_secondPlayerAvatarSprite);
+	window.draw(_gridAndIndexSprite);
+	drawStones(window, bitboard);
+}
+
+void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& window) {
+	if (event.type == sf::Event::MouseMoved) {
+		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+			_backwardButtonSprite.setTexture(_pageTextures[BACKWARDHOVEREDBUTTON]);
+		else
+			_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
+	}
+	if (event.type == sf::Event::MouseButtonPressed)
+		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+			gameState = MENU;
+}
+
+void	Gameplay::drawStones(sf::RenderWindow& window, const Bitboard& bitboard) {
+	sf::Vector2i gridPosition = sf::Vector2i(527, 50);
+	
+	for (int y = 0; y < 19; y++) {
+		for (int x = 0; x < 19; x++) {
+			if (bitboard.getBit(x, y) == 1) {
+				_firstPlayerStoneSprite.setPosition(gridPosition.x + x * 48 - 13, gridPosition.y + y * 48 - 13);
+				window.draw(_firstPlayerStoneSprite);
+			}
+			else if (bitboard.getBit(x, y) == 2) {
+				_secondPlayerStoneSprite.setPosition(gridPosition.x + x * 48 - 13, gridPosition.y + y * 48 - 13);
+				window.draw(_secondPlayerStoneSprite);
+			}
+		}
 	}
 }
 
-void	Gameplay::handleKeys(sf::Event& event, sf::RenderWindow& window) {
-	(void)window;
-	(void)event;
-
-	if (gameState == GAME) {
-		//mouseHover(window, event);
+void	Gameplay::defineStones() {
+	switch (stonesColors) {
+		case NOSTONESCOLORS:
+		case BLACK_WHITE:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[1]);
+			break;
+		case GREEN_RED:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[2]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[3]);
+			break;
+		case SALMON_CORAL:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[4]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[5]);
+			break;
+		case PINK_FLUOYELLOW:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[6]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[7]);
+			break;
+		case BLACK_YELLOW:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[8]);
+			break;
+		case ORANGE_VIOLET:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[9]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[10]);
+			break;
+		case DARKGREEN_LIGHTGREEN:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[11]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[12]);
+			break;
+		case TURQUOISEGREEN_INDIGO:
+			_firstPlayerStoneSprite.setTexture(_stonesTextures[13]);
+			_secondPlayerStoneSprite.setTexture(_stonesTextures[14]);
+			break;
 	}
 }
 
-void	Gameplay::mouseHover(sf::RenderWindow &window, Bitboard &bitboard, bool isAIPlaying) {
-	// selectTextures();
+void	Gameplay::defineAvatars() {
+	if (playerOneAvatar == NOAVATAR) {
+		_firstPlayerAvatarSprite.setTexture(_avatarsTextures[0]);
+		_secondPlayerAvatarSprite.setTexture(_avatarsTextures[1]);
+	} else {
+		_firstPlayerAvatarSprite.setTexture(_avatarsTextures[playerOneAvatar]);
+		if (playerOneAvatar + 1 < 6)
+			_secondPlayerAvatarSprite.setTexture(_avatarsTextures[playerOneAvatar + 1]);
+		else
+			_secondPlayerAvatarSprite.setTexture(_avatarsTextures[0]);
+	}
+}
 
+void	Gameplay::defineBoard() {
+	if (boardColor == NOBOARD) {
+		_gobanSprite.setTexture(_boardsTextures[0]);
+	} else {
+		for (int i = 0; i < 8; i++)
+			if (i == boardColor)
+				_gobanSprite.setTexture(_boardsTextures[i]);
+	}
+}
+
+void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isAIPlaying) {
 	float cellSize = 48;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
 
@@ -176,4 +195,30 @@ void	Gameplay::AITurn(Bitboard& bitboard) {
 	_currentPlayer = 1;
 	_aiThreadRunning = false;
 	_stopAITimer = true;
+}
+
+void    Gameplay::init() {	
+	const std::string	backwardButton[] = {"backwardButton", "backwardHoveredButton"};
+	const std::string	others[]		 = {"gridAndIndex", "1VS1Page"};
+	const std::string	stonesColors[]   = {"black", "white", "green", "red", "salmon", "coral", "pink", "fluoYellow", "yellow", "orange", "violet", "darkGreen", "lightGreen", "turquoiseGreen", "indigo"};
+	const std::string	avatarsNames[]   = {"tommy", "laure", "alex", "heric", "mousse", "gunther"};
+	const std::string	boardsColors[]   = {"azure", "yellow", "red", "orange", "pink", "green", "gray", "black"};
+	
+	loadTextures(2, "assets/images/buttons/", backwardButton, "Texture.png", _pageTextures);
+	loadTextures(2, "assets/images/game/", others, "Texture.png", _pageTextures);
+	loadTextures(15, "assets/images/game/stones/", stonesColors, "StoneTexture.png", _stonesTextures);
+	loadTextures(6, "assets/images/game/avatars/", avatarsNames, "AvatarTexture.png", _avatarsTextures);
+	loadTextures(8, "assets/images/game/boards/", boardsColors, "BoardTexture.png", _boardsTextures);
+
+	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
+	_gridAndIndexSprite.setTexture(_pageTextures[GRIDANDINDEX]);
+	_gamePageSprite.setTexture(_pageTextures[GAMEPAGE]);
+	_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
+	_secondPlayerStoneSprite.setTexture(_stonesTextures[1]);
+
+	_firstPlayerAvatarSprite.setPosition(167, 278);
+	_secondPlayerAvatarSprite.setPosition(1607, 278);
+	_gobanSprite.setPosition(477, 0);
+	_gridAndIndexSprite.setPosition(477, 0);
+	_backwardButtonSprite.setPosition(100, 100);
 }

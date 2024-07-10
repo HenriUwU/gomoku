@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/09 23:53:58 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:35:53 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ struct PatternInfo {
 
 #include "MainMenu.hpp"
 #include "Gameplay.hpp"
-#include "Goban.hpp"
 #include "CustomMenu.hpp"
 #include "SettingsMenu.hpp"
 #include "HelpMenu.hpp"
@@ -113,9 +112,10 @@ enum StonesColors {
 extern int				musicVolume;
 extern AIMode			aiMode;
 extern Avatar			playerOneAvatar;
-extern Avatar			playerTwoAvatar;
 extern BoardColor		boardColor;
 extern GameState		gameState;
 extern HelpMenuState	helpMenuState;
 extern MoveSuggestion	moveSuggestion;
 extern StonesColors		stonesColors;
+
+void	loadTextures(int nbTextures, const std::string pathStart, const std::string prefixes[], const std::string suffix, std::vector<sf::Texture>& textures);

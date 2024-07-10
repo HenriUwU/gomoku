@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/09 23:53:42 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:16:12 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int				musicVolume		= 100;
 AIMode			aiMode			= NOAIMODE;
 Avatar			playerOneAvatar	= NOAVATAR;
-Avatar			playerTwoAvatar	= NOAVATAR;
 BoardColor		boardColor		= NOBOARD;
 GameState		gameState		= MENU;
 HelpMenuState	helpMenuState	= RULES;
@@ -32,7 +31,6 @@ int main() {
 	HelpMenu			helpMenu;
 	Music				music;
 	Gameplay			gameplay;
-	Goban				goban;
 	Bitboard			bitboard;
 
 	if (!cursorTexture.loadFromFile("assets/images/icons/cursor.png")) {
@@ -42,8 +40,7 @@ int main() {
 	
 	cursorSprite.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
-	while (window.isOpen())
-	{
+	while (window.isOpen()) {
 		window.clear();
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -64,7 +61,7 @@ int main() {
 				break;
 			case GAME:
 			case AIVERSUS:
-				goban.display(event, window, bitboard);
+				gameplay.display(event, window, bitboard);
 				gameplay.mouseHover(window, bitboard, (gameState == GAME) ? false : true);
 				break;
 			case CUSTOM:
