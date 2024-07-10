@@ -63,40 +63,12 @@ void	Gameplay::drawStones(sf::RenderWindow& window, const Bitboard& bitboard) {
 }
 
 void	Gameplay::defineStones() {
-	switch (stonesColors) {
-		case NOSTONESCOLORS:
-		case BLACK_WHITE:
-			_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
-			_secondPlayerStoneSprite.setTexture(_stonesTextures[1]);
-			break;
-		case GREEN_RED:
-			_firstPlayerStoneSprite.setTexture(_stonesTextures[2]);
-			_secondPlayerStoneSprite.setTexture(_stonesTextures[3]);
-			break;
-		case SALMON_CORAL:
-			_firstPlayerStoneSprite.setTexture(_stonesTextures[4]);
-			_secondPlayerStoneSprite.setTexture(_stonesTextures[5]);
-			break;
-		case PINK_FLUOYELLOW:
-			_firstPlayerStoneSprite.setTexture(_stonesTextures[6]);
-			_secondPlayerStoneSprite.setTexture(_stonesTextures[7]);
-			break;
-		case BLACK_YELLOW:
-			_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
-			_secondPlayerStoneSprite.setTexture(_stonesTextures[8]);
-			break;
-		case ORANGE_VIOLET:
-			_firstPlayerStoneSprite.setTexture(_stonesTextures[9]);
-			_secondPlayerStoneSprite.setTexture(_stonesTextures[10]);
-			break;
-		case DARKGREEN_LIGHTGREEN:
-			_firstPlayerStoneSprite.setTexture(_stonesTextures[11]);
-			_secondPlayerStoneSprite.setTexture(_stonesTextures[12]);
-			break;
-		case TURQUOISEGREEN_INDIGO:
-			_firstPlayerStoneSprite.setTexture(_stonesTextures[13]);
-			_secondPlayerStoneSprite.setTexture(_stonesTextures[14]);
-			break;
+	const int firstPlayerIndices[] = {0, 2, 4, 6, 0, 9, 11, 13, 0};
+	const int secondPlayerIndices[] = {1, 3, 5, 7, 8, 10, 12, 14, 1};
+
+	if (stonesColors >= 0 && stonesColors < 9) {
+		_firstPlayerStoneSprite.setTexture(_stonesTextures[firstPlayerIndices[stonesColors]]);
+		_secondPlayerStoneSprite.setTexture(_stonesTextures[secondPlayerIndices[stonesColors]]);
 	}
 }
 

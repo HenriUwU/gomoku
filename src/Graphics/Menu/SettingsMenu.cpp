@@ -22,30 +22,30 @@ void	SettingsMenu::display(sf::RenderWindow& window) {
 	handleAiMode(window);
 
 	if (moveSuggestion == ENABLED)
-		_switchButtonSprite.setTexture(_switchOnButtonTexture);
+		_switchButtonSprite.setTexture(_pageTextures[SWITCHONBUTTON]);
 	else
-		_switchButtonSprite.setTexture(_switchOffButtonTexture);
+		_switchButtonSprite.setTexture(_pageTextures[SWITCHOFFBUTTON]);
 
 	if (aiMode == IMPOSSIBLE) {
-		_boxImpossibleAISprite.setTexture(_boxCheckedTexture);
-		_boxAggressiveAISprite.setTexture(_boxTexture);
-		_boxPassiveAISprite.setTexture(_boxTexture);
-		_boxDefensiveAISprite.setTexture(_boxTexture);
+		_boxImpossibleAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+		_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
 	} else if (aiMode == PASSIVE) {
-		_boxAggressiveAISprite.setTexture(_boxCheckedTexture);
-		_boxImpossibleAISprite.setTexture(_boxTexture);
-		_boxPassiveAISprite.setTexture(_boxTexture);
-		_boxDefensiveAISprite.setTexture(_boxTexture);
+		_boxAggressiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+		_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
+		_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
 	} else if (aiMode == AGGRESSIVE) {
-		_boxPassiveAISprite.setTexture(_boxCheckedTexture);
-		_boxDefensiveAISprite.setTexture(_boxTexture);
-		_boxAggressiveAISprite.setTexture(_boxTexture);
-		_boxImpossibleAISprite.setTexture(_boxTexture);
+		_boxPassiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+		_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
 	} else if (aiMode == DEFENSIVE) {
-		_boxDefensiveAISprite.setTexture(_boxCheckedTexture);
-		_boxImpossibleAISprite.setTexture(_boxTexture);
-		_boxAggressiveAISprite.setTexture(_boxTexture);
-		_boxPassiveAISprite.setTexture(_boxTexture);
+		_boxDefensiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+		_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
+		_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
 	}
 
 	window.draw(_settingsMenuSprite);
@@ -65,12 +65,12 @@ void	SettingsMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& wi
 		return;
 
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
+		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDHOVEREDBUTTON2]);
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			gameState = MENU;
 		}
 	} else
-		_backwardButtonSprite.setTexture(_backwardButtonTexture);
+		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON2]);
 
 	if (_switchButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
@@ -114,54 +114,44 @@ void	SettingsMenu::handleAiMode(const sf::RenderWindow& window) {
 	
 	if (_boxImpossibleAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_boxImpossibleAISprite.setTexture(_boxCheckedTexture);
+			_boxImpossibleAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = IMPOSSIBLE;
 	} else if (_boxAggressiveAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_boxAggressiveAISprite.setTexture(_boxCheckedTexture);
+			_boxAggressiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = PASSIVE;
 	} else if (_boxPassiveAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_boxPassiveAISprite.setTexture(_boxCheckedTexture);
+			_boxPassiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = AGGRESSIVE;
 	} else if (_boxDefensiveAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_boxDefensiveAISprite.setTexture(_boxCheckedTexture);
+			_boxDefensiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = DEFENSIVE;
 	} else if (aiMode == NOAIMODE) {
-		_boxImpossibleAISprite.setTexture(_boxTexture);
-		_boxAggressiveAISprite.setTexture(_boxTexture);
-		_boxPassiveAISprite.setTexture(_boxTexture);
-		_boxDefensiveAISprite.setTexture(_boxTexture);
+		_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
+		_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
 	}
 }
 
 void	SettingsMenu::init() {
-	if (!_settingsMenuTexture.loadFromFile("assets/images/menu/settings/settingsMenuTexture.png"))
-		std::cerr << "Error: could not load settings texture" << std::endl;
-	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/backwardButtonTexture.png"))
-		std::cerr << "Error: could not load return button texture" << std::endl;
-	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/backwardHoveredButtonTexture.png"))
-		std::cerr << "Error: could not load return button hover texture" << std::endl;
-	if (!_switchOnButtonTexture.loadFromFile("assets/images/menu/settings/moveSuggestion/switchOnButtonTexture.png"))
-		std::cerr << "Error: could not load switch texture" << std::endl;
-	if (!_switchOffButtonTexture.loadFromFile("assets/images/menu/settings/moveSuggestion/switchOffButtonTexture.png"))
-		std::cerr << "Error: could not load switch texture" << std::endl;
-	if (!_boxTexture.loadFromFile("assets/images/menu/settings/aiMode/boxTexture.png"))
-		std::cerr << "Error: could not load box texture" << std::endl;
-	if (!_boxCheckedTexture.loadFromFile("assets/images/menu/settings/aiMode/boxCheckedTexture.png"))
-		std::cerr << "Error: could not load box checked texture" << std::endl;
-
-	for (int i = 0; i < 11; i++) {
-		sf::Texture texture;
-		std::string	filePath = "assets/images/menu/settings/volume/volume" + std::to_string(i * 10) + "Texture.png";
-		if (texture.loadFromFile(filePath))
-			_volumeTextures.push_back(texture);
-	}
+	const std::string	settingsMenu[] = {"settingsMenu"};
+	const std::string	backwardButton[] = {"backwardButton", "backwardHoveredButton"};
+	const std::string	volumeLevels[] = {"volume0", "volume10", "volume20", "volume30", "volume40", "volume50", "volume60", "volume70", "volume80", "volume90", "volume100"};
+	const std::string	switchButton[] = {"switchOnButton", "switchOffButton"};
+	const std::string	box[] = {"box", "boxChecked"};
+	
+	loadTextures(1, "assets/images/menu/settings/", settingsMenu, "Texture.png", _pageTextures);
+	loadTextures(2, "assets/images/buttons/", backwardButton, "Texture.png", _pageTextures);
+	loadTextures(11, "assets/images/menu/settings/volume/", volumeLevels, "Texture.png", _volumeTextures);
+	loadTextures(2, "assets/images/menu/settings/switch/", switchButton, "Texture.png", _pageTextures);
+	loadTextures(2, "assets/images/menu/settings/box/", box, "Texture.png", _pageTextures);
 	
 	for (int i = 0; i < 11; i++) {
 		_volumeSprites[i].setTexture(_volumeTextures[i]);
@@ -169,12 +159,12 @@ void	SettingsMenu::init() {
 	}
 
 	_currentVolumeLevel = 10;
-	_settingsMenuSprite.setTexture(_settingsMenuTexture);
-	_backwardButtonSprite.setTexture(_backwardButtonTexture);
-	_boxImpossibleAISprite.setTexture(_boxTexture);
-	_boxAggressiveAISprite.setTexture(_boxTexture);
-	_boxPassiveAISprite.setTexture(_boxTexture);
-	_boxDefensiveAISprite.setTexture(_boxTexture);
+	_settingsMenuSprite.setTexture(_pageTextures[SETTINGSPAGE]);
+	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON2]);
+	_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
+	_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
+	_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
+	_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
 
 	_backwardButtonSprite.setPosition(100, 104);
 	_switchButtonSprite.setPosition(890, 582);

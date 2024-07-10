@@ -14,6 +14,16 @@
 
 #include "gomoku.hpp"
 
+enum settingsTextures {
+	SETTINGSPAGE,
+	BACKWARDBUTTON2,
+	BACKWARDHOVEREDBUTTON2,
+	SWITCHONBUTTON,
+	SWITCHOFFBUTTON,
+	BOX,
+	CHECKEDBOX
+};
+
 class Music;
 
 class SettingsMenu {
@@ -27,13 +37,7 @@ class SettingsMenu {
 		sf::Sprite					_boxAggressiveAISprite;
 		sf::Sprite					_boxPassiveAISprite;
 		sf::Sprite					_boxDefensiveAISprite;
-		sf::Texture					_settingsMenuTexture;
-		sf::Texture					_backwardButtonTexture;
-		sf::Texture					_backwardHoveredButtonTexture;
-		sf::Texture					_switchOnButtonTexture;
-		sf::Texture					_switchOffButtonTexture;
-		sf::Texture					_boxTexture;
-		sf::Texture					_boxCheckedTexture;
+		std::vector<sf::Texture>	_pageTextures;
 		std::vector<sf::Texture>	_volumeTextures;
 
 	public:
