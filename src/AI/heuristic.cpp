@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:20:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/11 21:05:31 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/11 23:38:17 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
 	return (evaluation);
 }
 
-#include <benchmark/benchmark.h>
-#include <tbb/parallel_for.h>
-
-/* int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
+int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 
 	// #pragma omp simd
@@ -42,12 +39,10 @@ int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
 		}
 	}
 	return score;
-} */
-
-#include <omp.h>
+}
 
 // OpenMP
-int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
+/* int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 
 	#pragma omp parallel_for
@@ -63,7 +58,7 @@ int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 		}
 	}
 	return score;
-}
+} */
 
 // TBB
 /* int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {

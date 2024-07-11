@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/10 15:35:53 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/11 23:38:30 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 #include <thread>
 #include <unordered_map>
 #include <chrono>
+#include <benchmark/benchmark.h>
+#include <tbb/parallel_for.h>
+#include <omp.h>
 
 struct PatternInfo {
 	uint32_t	pattern;
