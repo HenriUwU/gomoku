@@ -37,7 +37,7 @@ SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -Ofast -fopenmp -Wpedantic
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -Ofast -pg -fopenmp -Wpedantic -ltbb -lbenchmark -lpthread
 INCLUDE_FLAGS	:=	-Ilib/SFML/include -Iinclude -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/AI -Iinclude/Music -Ilib/stb -I$(HOME)/local/include
 SFML_FLAGS		:=	-L$(HOME)/local/lib -Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lFLAC
 RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'

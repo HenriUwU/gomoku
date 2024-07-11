@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:20:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/09 18:01:26 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/11 21:05:31 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ int	AI::heuristic(Bitboard &bitboard, bool maximizingPlayer) {
 	return (evaluation);
 }
 
-int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
+#include <benchmark/benchmark.h>
+#include <tbb/parallel_for.h>
+
+/* int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 
-	#pragma omp simd
+	// #pragma omp simd
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
 			int stone = bitboard.getBit(x, y);
@@ -39,7 +42,50 @@ int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 		}
 	}
 	return score;
+} */
+
+#include <omp.h>
+
+// OpenMP
+int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
+	int score = 0;
+
+	#pragma omp parallel_for
+	for (int y = 0; y < BOARD_SIZE; y++) {
+		#pragma omp parallel_for
+		for (int x = 0; x < BOARD_SIZE; x++) {
+			int stone = bitboard.getBit(x, y);
+			if (stone == player) {
+				score += _centerScores[x][y];
+			} else if (stone == opponent) {
+				score -= _centerScores[x][y];
+			}
+		}
+	}
+	return score;
 }
+
+// TBB
+/* int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
+	int score = 0;
+
+	// #pragma omp simd
+	tbb::parallel_for(tbb::blocked_range<int>(0, BOARD_SIZE), [&](tbb::blocked_range<int> r) {
+		for (int y = r.begin(); y < r.end(); y++) {
+			tbb::parallel_for(tbb::blocked_range<int>(0, BOARD_SIZE), [&](tbb::blocked_range<int> r) {
+				for (int x = r.begin(); x < r.end(); x++) {
+					int stone = bitboard.getBit(x, y);
+					if (stone == player) {
+						score += _centerScores[x][y];
+					} else if (stone == opponent) {
+						score -= _centerScores[x][y];
+					}
+				}
+			});
+		}
+	});
+	return score;
+} */
 
 int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
