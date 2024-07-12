@@ -6,7 +6,7 @@
 #    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/07/10 15:38:50 by laprieur         ###   ########.fr        #
+#    Updated: 2024/07/12 03:10:31 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,18 +65,37 @@ $(NAME): $(SRC_OBJS)
 
 -include $(DEPS)
 
+deps: fclean
+	# SFML
+	cd lib \
+	&& wget -c https://www.sfml-dev.org/files/SFML-2.6.1-linux-gcc-64-bit.tar.gz \
+	&& tar -xf SFML-2.6.1-linux-gcc-64-bit.tar.gz \
+	&& mv SFML-2.6.1 SFML \
+	&& rm -rf SFML-2.6.1-linux-gcc-64-bit.tar.gz
+	# FLAC
+	cd lib \
+	&& wget -c https://github.com/xiph/flac/releases/download/1.4.3/flac-1.4.3.tar.xz \
+	&& tar -xf flac-1.4.3.tar.xz \
+	&& mv flac-1.4.3 FLAC \
+	&& rm -rf flac-1.4.3.tar.xz \
+	&& cd FLAC \
+	&& mkdir build \
+	&& cd build \
+	&& cmake .. -DWITH_OGG=OFF \
+	&& make \
+	&& make install
+
 clean:
 	rm -rf .build
 
 fclean: clean
 	rm -rf $(NAME)
+	rm -rf ./lib/SFML
+	rm -rf ./lib/FLAC
 
 re:
 	$(MAKE) fclean
 	$(MAKE) all
-	
-flac-script:
-	bash lib/flac_script.sh
 
 # **************************************************************************** #
 #                                    STYLE                                     #
