@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:02:58 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/10 16:32:23 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:23:16 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ Gameplay::Gameplay() : _cellSize(868 / 19.0f) {
 	init();
 }
 
-Gameplay::~Gameplay() {}
+Gameplay::~Gameplay() {
+	if (_aiThread.joinable())
+		_aiThread.join();
+}
 
 void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const Bitboard& bitboard) {
 	returnButton(event, window);
@@ -30,7 +33,8 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const B
 	window.draw(_firstPlayerAvatarSprite);
 	window.draw(_secondPlayerAvatarSprite);
 	window.draw(_gridAndIndexSprite);
-	drawStones(window, bitboard);
+	//if (!_aiThreadRunning)
+		drawStones(window, bitboard);
 }
 
 void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& window) {
@@ -139,6 +143,8 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 	if (isAIPlaying && _currentPlayer == 2 && !_aiThreadRunning) {
 		_stopAITimer = false;
 		_aiThreadRunning = true;
+		if (_aiThread.joinable())
+			_aiThread.join();
 		_aiThread = std::thread(&Gameplay::AITurn, this, std::ref(bitboard));
 /* 		std::thread timerThread([&]() {
 			auto start = std::chrono::high_resolution_clock::now();
@@ -151,8 +157,6 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 			std::cout << "Time elapsed: " << elapsedMs << " ms" << std::endl;
 		});
 		timerThread.join(); */
-		if (_aiThread.joinable())
-			_aiThread.join();
 	}
 
 	if (_currentPlayer == 1)
