@@ -6,7 +6,7 @@
 #    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/07/12 03:10:31 by laprieur         ###   ########.fr        #
+#    Updated: 2024/07/12 03:18:26 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
-DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -Ofast -pg -fopenmp -Wpedantic -ltbb -lbenchmark -lpthread
+DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -Ofast -fopenmp -Wpedantic -ltbb -lbenchmark -lpthread
 INCLUDE_FLAGS	:=	-Ilib/SFML/include -Iinclude -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/AI -Iinclude/Music -Ilib/stb -I$(HOME)/local/include
 SFML_FLAGS		:=	-L$(HOME)/local/lib -Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lFLAC
 RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
@@ -90,8 +90,8 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
-	rm -rf ./lib/SFML
-	rm -rf ./lib/FLAC
+	#rm -rf ./lib/SFML
+	#rm -rf ./lib/FLAC
 
 re:
 	$(MAKE) fclean
