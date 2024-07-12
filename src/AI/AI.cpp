@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/09 18:07:47 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:17:35 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ std::pair<int, int>	AI::findBestMove(Bitboard &bitboard) {
 	double												bestValue = -INFINITY;
 	int													moveValue;
 
-	// #pragma omp parallel
 	for (auto& possibleMove : possibleMoves) {
 		bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
 		moveValue = minimax(bitboard, 2, true, INT_MIN, INT_MAX);
