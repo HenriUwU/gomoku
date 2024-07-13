@@ -1,11 +1,11 @@
-FROM	ubuntu:jammy
+FROM	nixos/nix
 
-RUN		apt update && apt upgrade -y
+RUN		nix-channel --update
 
-RUN		apt install build-essential wget cmake git -y
+RUN		nix-env -iA cmake gcc sfml flac tbb gbenchmark openal
 
-RUN		mkdir -p Gomoku
+RUN		mkdir Gomoku
 
 COPY	./ /Gomoku
 
-RUN		cd /Gomoku
+WORKDIR	/Gomoku

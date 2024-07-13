@@ -1,16 +1,15 @@
-# with import <nixpkgs> {};
+let
+	pkgs = import <nixpkgs> {};
+in
 
-# stdenv.mkDerivation {
-# 	name = "gomoku-env";
-# 	buildInputs = [
-# 		pkgs.make
-# 		pkgs.cmake
-# 		pkgs.libgcc
-# 		pkgs.sfml
-# 		pkgs.flac
-# 		pkgs.tbb
-# 		pkgs.gbenchmark
-# 		pkgs.openal
-# 	];
-# }
-
+pkgs.mkShellNoCC {
+	packages = with pkgs; [
+		cmake
+		gcc
+		sfml
+		flac
+		tbb
+		gbenchmark
+		openal
+	];
+}
