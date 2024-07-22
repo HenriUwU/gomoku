@@ -6,21 +6,13 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:18 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/17 11:13:58 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:55:42 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "gomoku.hpp"
-
-enum CustomMenuSprites {
-	S_CUSTOMMENU,
-	S_BACKWARDBUTTON,
-	S_STONESELECTOR,
-	S_AVATARSELECTOR,
-	S_BOARDSELECTOR
-};
 
 enum CustomMenuTextures {
 	T_CUSTOMMENU,

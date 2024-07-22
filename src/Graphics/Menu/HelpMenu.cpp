@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/09 22:34:03 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 11:57:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	HelpMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window
 		return;
 	
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
+		_backwardButtonSprite.setTexture(_pageTextures[T_BACKWARDHOVEREDBUTTON]);
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			if (helpMenuState == RULES)
 				gameState = MENU;
@@ -50,7 +50,7 @@ void	HelpMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window
 				helpMenuState = CAPTURES;
 		}
 	} else if (_forwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_forwardButtonSprite.setTexture(_forwardHoveredButtonTexture);
+		_forwardButtonSprite.setTexture(_pageTextures[T_FORWARDHOVEREDBUTTON]);
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			if (helpMenuState == RULES)
 				helpMenuState = CAPTURES;
@@ -58,32 +58,23 @@ void	HelpMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window
 				helpMenuState = DOUBLETHREE;
 		}
 	} else {
-		_backwardButtonSprite.setTexture(_backwardButtonTexture);
-		_forwardButtonSprite.setTexture(_forwardButtonTexture);
+		_backwardButtonSprite.setTexture(_pageTextures[T_BACKWARDBUTTON]);
+		_forwardButtonSprite.setTexture(_pageTextures[T_FORWARDBUTTON]);
 	}
 }
 
-void	HelpMenu::init() {
-	if (!_rulesPageTexture.loadFromFile("assets/images/menu/help/rulesPageTexture.png"))
-		std::cerr << "Error: could not load rules page texture" << std::endl;
-	if (!_capturesPageTexture.loadFromFile("assets/images/menu/help/capturesPageTexture.png"))
-		std::cerr << "Error: could not load captures page texture" << std::endl;
-	if (!_doubleThreesPageTexture.loadFromFile("assets/images/menu/help/doubleThreesPageTexture.png"))
-		std::cerr << "Error: could not load double three page texture" << std::endl;
-	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/backwardButtonTexture.png"))
-		std::cerr << "Error: could not load arrow button texture" << std::endl;
-	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/backwardHoveredButtonTexture.png"))
-		std::cerr << "Error: could not load arrow button highlighted texture" << std::endl;
-	if (!_forwardButtonTexture.loadFromFile("assets/images/buttons/forwardButtonTexture.png"))
-		std::cerr << "Error: could not load arrow button texture" << std::endl;
-	if (!_forwardHoveredButtonTexture.loadFromFile("assets/images/buttons/forwardHoveredButtonTexture.png"))
-		std::cerr << "Error: could not load arrow button highlighted texture" << std::endl;
+void	HelpMenu::init() {	
+	const std::string pages[] = {"rulesPage", "capturesPage", "doubleThreesPage"};
+	const std::string buttons[] = {"backwardButton", "backwardHoveredButton", "forwardButton", "forwardHoveredButton"};
 
-	_rulesPageSprite.setTexture(_rulesPageTexture);
-	_capturesPageSprite.setTexture(_capturesPageTexture);
-	_doubleThreesPageSprite.setTexture(_doubleThreesPageTexture);
-	_backwardButtonSprite.setTexture(_backwardButtonTexture);
-	_forwardButtonSprite.setTexture(_forwardButtonTexture);
+	loadTextures(3, "assets/images/menu/help/", pages, "Texture.png", _pageTextures);
+	loadTextures(4, "assets/images/buttons/", buttons, "Texture.png", _pageTextures);
+
+	_rulesPageSprite.setTexture(_pageTextures[T_RULESPAGE]);
+	_capturesPageSprite.setTexture(_pageTextures[T_CAPTURESPAGE]);
+	_doubleThreesPageSprite.setTexture(_pageTextures[T_DOUBLETHREESPAGE]);
+	_backwardButtonSprite.setTexture(_pageTextures[T_BACKWARDBUTTON]);
+	_forwardButtonSprite.setTexture(_pageTextures[T_FORWARDBUTTON]);
 
 	_backwardButtonSprite.setPosition(100, 100);
 	_forwardButtonSprite.setPosition(1756, 100);
