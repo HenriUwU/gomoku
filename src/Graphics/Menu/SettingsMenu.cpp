@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/22 14:28:04 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:02:38 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,16 +141,16 @@ void	SettingsMenu::handleAiMode(const sf::RenderWindow& window) {
 }
 
 void	SettingsMenu::init() {
-	const std::string	settingsMenu[] = {"settingsMenu"};
-	const std::string	backwardButton[] = {"backwardButton", "backwardHoveredButton"};
-	const std::string	volumeLevels[] = {"volume0", "volume10", "volume20", "volume30", "volume40", "volume50", "volume60", "volume70", "volume80", "volume90", "volume100"};
-	const std::string	switchButton[] = {"switchOnButton", "switchOffButton"};
+	const std::string	page[] = {"settingsMenu"};
+	const std::string	button[] = {"backwardButton", "backwardHoveredButton"};
+	const std::string	volume[] = {"volume0", "volume10", "volume20", "volume30", "volume40", "volume50", "volume60", "volume70", "volume80", "volume90", "volume100"};
+	const std::string	switchb[] = {"switchOnButton", "switchOffButton"};
 	const std::string	box[] = {"box", "boxChecked"};
 	
-	loadTextures(1, "assets/images/menu/settings/", settingsMenu, _pageTextures);
-	loadTextures(2, "assets/images/buttons/", backwardButton, _pageTextures);
-	loadTextures(11, "assets/images/menu/settings/volume/", volumeLevels, _volumeTextures);
-	loadTextures(2, "assets/images/menu/settings/switch/", switchButton, _pageTextures);
+	loadTextures(1, "assets/images/menu/settings/", page, _pageTextures);
+	loadTextures(2, "assets/images/buttons/", button, _pageTextures);
+	loadTextures(11, "assets/images/menu/settings/volume/", volume, _volumeTextures);
+	loadTextures(2, "assets/images/menu/settings/switch/", switchb, _pageTextures);
 	loadTextures(2, "assets/images/menu/settings/box/", box, _pageTextures);
 	
 	for (int i = 0; i < 11; i++) {

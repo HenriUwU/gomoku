@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/22 14:26:50 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:53:13 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,5 @@ extern StonesColors		stonesColors;
 
 void	loadTextures(int nbTextures, const std::string pathStart, const std::string prefixes[], std::vector<sf::Texture>& textures);
 void	setTextures(int nbTextures, const std::vector<sf::Texture>& textures, std::vector<sf::Sprite>& sprites);
-void	setPosition(int mode, int nbSprites, std::vector<sf::Sprite> sprites, sf::Sprite sprite, int x, int y, int offset);
+void	setPosition(int nbSprites, std::vector<sf::Sprite>& sprites, int x, int y, int offset);
+void	setPosition(sf::Sprite& sprite, int x, int y);

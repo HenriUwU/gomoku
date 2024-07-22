@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/22 14:28:12 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:57:18 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ void	HelpMenu::init() {
 	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	_forwardButtonSprite.setTexture(_pageTextures[FORWARDBUTTON]);
 
-	_backwardButtonSprite.setPosition(100, 100);
-	_forwardButtonSprite.setPosition(1756, 100);
+	setPosition(_backwardButtonSprite, 100, 100);
+	setPosition(_forwardButtonSprite, 1756, 100);
 }

@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/22 14:30:46 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:01:20 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,15 +109,15 @@ void	CustomMenu::handleBoardSelection(const sf::RenderWindow& window) {
 }
 
 void	CustomMenu::init() {	
-	const std::string customMenu[] = {"customMenu"};
-	const std::string backwardButton[] = {"backwardButton", "backwardHoveredButton"};
+	const std::string page[] = {"customMenu"};
+	const std::string button[] = {"backwardButton", "backwardHoveredButton"};
 	const std::string selectors[] = {"colorSelector", "avatarSelector"};
 	const std::string stonesColors[] = {"blackWhiteStone", "greenRedStone", "salmonCoralStone", "pinkFYellowStone", "blackYellowStone", "orangeVioletStone", "dGreenLGreenStone", "tGreenIndigoStone"};
 	const std::string avatarsNames[] = {"tommyAvatar", "laureAvatar", "alexAvatar", "hericAvatar", "mousseAvatar", "guntherAvatar"};
 	const std::string boardsColors[] = {"azureBoard", "yellowBoard", "redBoard", "orangeBoard", "pinkBoard", "greenBoard", "grayBoard", "blackBoard"};
 	
-	loadTextures(1, "assets/images/menu/custom/", customMenu, _pageTextures);
-	loadTextures(2, "assets/images/buttons/", backwardButton, _pageTextures);
+	loadTextures(1, "assets/images/menu/custom/", page, _pageTextures);
+	loadTextures(2, "assets/images/buttons/", button, _pageTextures);
 	loadTextures(2, "assets/images/menu/custom/selectors/", selectors, _pageTextures);
 	loadTextures(8, "assets/images/menu/custom/stones/", stonesColors, _stonesTextures);
 	loadTextures(6, "assets/images/menu/custom/avatars/", avatarsNames, _avatarsTextures);
@@ -133,14 +133,8 @@ void	CustomMenu::init() {
 	setTextures(6, _avatarsTextures, _avatarsSprites);
 	setTextures(8, _boardsTextures, _boardsSprites);
 	
-	_backwardButtonSprite.setPosition(100, 100);
-
-	for (int i = 0; i < 8; i++)
-		_stonesSprites[i].setPosition(691 + (i * 70), 379);
-
-	for (int i = 0; i < 6; i++)
-		_avatarsSprites[i].setPosition(691 + (i * 93), 563);
-
-	for (int i = 0; i < 8; i++)
-		_boardsSprites[i].setPosition(691 + (i * 70), 776);
+	setPosition(_backwardButtonSprite, 100, 100);
+	setPosition(8, _stonesSprites, 691, 379, 70);
+	setPosition(6, _avatarsSprites, 691, 563, 93);
+	setPosition(8, _boardsSprites, 691, 776, 70);
 }
