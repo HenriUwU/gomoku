@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/09 22:31:16 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:28:04 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ void	SettingsMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& wi
 		return;
 
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDHOVEREDBUTTON2]);
+		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDHOVEREDBUTTON]);
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 			gameState = MENU;
 		}
 	} else
-		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON2]);
+		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 
 	if (_switchButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
@@ -147,11 +147,11 @@ void	SettingsMenu::init() {
 	const std::string	switchButton[] = {"switchOnButton", "switchOffButton"};
 	const std::string	box[] = {"box", "boxChecked"};
 	
-	loadTextures(1, "assets/images/menu/settings/", settingsMenu, "Texture.png", _pageTextures);
-	loadTextures(2, "assets/images/buttons/", backwardButton, "Texture.png", _pageTextures);
-	loadTextures(11, "assets/images/menu/settings/volume/", volumeLevels, "Texture.png", _volumeTextures);
-	loadTextures(2, "assets/images/menu/settings/switch/", switchButton, "Texture.png", _pageTextures);
-	loadTextures(2, "assets/images/menu/settings/box/", box, "Texture.png", _pageTextures);
+	loadTextures(1, "assets/images/menu/settings/", settingsMenu, _pageTextures);
+	loadTextures(2, "assets/images/buttons/", backwardButton, _pageTextures);
+	loadTextures(11, "assets/images/menu/settings/volume/", volumeLevels, _volumeTextures);
+	loadTextures(2, "assets/images/menu/settings/switch/", switchButton, _pageTextures);
+	loadTextures(2, "assets/images/menu/settings/box/", box, _pageTextures);
 	
 	for (int i = 0; i < 11; i++) {
 		_volumeSprites[i].setTexture(_volumeTextures[i]);
@@ -159,8 +159,8 @@ void	SettingsMenu::init() {
 	}
 
 	_currentVolumeLevel = 10;
-	_settingsMenuSprite.setTexture(_pageTextures[SETTINGSPAGE]);
-	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON2]);
+	_settingsMenuSprite.setTexture(_pageTextures[PAGE]);
+	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
 	_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
 	_boxPassiveAISprite.setTexture(_pageTextures[BOX]);

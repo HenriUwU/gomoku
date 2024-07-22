@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:02:58 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/12 11:23:16 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:34:36 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,15 +176,15 @@ void	Gameplay::AITurn(Bitboard& bitboard) {
 void    Gameplay::init() {	
 	const std::string	backwardButton[] = {"backwardButton", "backwardHoveredButton"};
 	const std::string	others[]		 = {"gridAndIndex", "1VS1Page"};
-	const std::string	stonesColors[]   = {"black", "white", "green", "red", "salmon", "coral", "pink", "fluoYellow", "yellow", "orange", "violet", "darkGreen", "lightGreen", "turquoiseGreen", "indigo"};
-	const std::string	avatarsNames[]   = {"tommy", "laure", "alex", "heric", "mousse", "gunther"};
-	const std::string	boardsColors[]   = {"azure", "yellow", "red", "orange", "pink", "green", "gray", "black"};
+	const std::string	stonesColors[]   = {"blackStone", "whiteStone", "greenStone", "redStone", "salmonStone", "coralStone", "pinkStone", "fluoYellowStone", "yellowStone", "orangeStone", "violetStone", "darkGreenStone", "lightGreenStone", "turquoiseGreenStone", "indigoStone"};
+	const std::string	avatarsNames[]   = {"tommyAvatar", "laureAvatar", "alexAvatar", "hericAvatar", "mousseAvatar", "guntherAvatar"};
+	const std::string	boardsColors[]   = {"azureBoard", "yellowBoard", "redBoard", "orangeBoard", "pinkBoard", "greenBoard", "grayBoard", "blackBoard"};
 	
-	loadTextures(2, "assets/images/buttons/", backwardButton, "Texture.png", _pageTextures);
-	loadTextures(2, "assets/images/game/", others, "Texture.png", _pageTextures);
-	loadTextures(15, "assets/images/game/stones/", stonesColors, "StoneTexture.png", _stonesTextures);
-	loadTextures(6, "assets/images/game/avatars/", avatarsNames, "AvatarTexture.png", _avatarsTextures);
-	loadTextures(8, "assets/images/game/boards/", boardsColors, "BoardTexture.png", _boardsTextures);
+	loadTextures(2, "assets/images/buttons/", backwardButton, _pageTextures);
+	loadTextures(2, "assets/images/game/", others, _pageTextures);
+	loadTextures(15, "assets/images/game/stones/", stonesColors, _stonesTextures);
+	loadTextures(6, "assets/images/game/avatars/", avatarsNames, _avatarsTextures);
+	loadTextures(8, "assets/images/game/boards/", boardsColors, _boardsTextures);
 
 	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	_gridAndIndexSprite.setTexture(_pageTextures[GRIDANDINDEX]);

@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/22 12:13:20 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:27:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,11 +172,13 @@ void	MainMenu::handleMouseMovement(const sf::Vector2i& mousePos) {
 }
 
 void	MainMenu::init() {
-	_mainMenuTexture.loadFromFile("assets/images/menu/main/mainMenuTexture.png");
-	const std::string buttonsColors[] = {"greenButton", "greenHoveredButton", "orangeButton", "orangeHoveredButton", "redButton", "redHoveredButton", "blueCustomButton", "blueCustomHoveredButton", "blueSettingsButton", "blueSettingsHoveredButton", "blueHelpButton", "blueHelpHoveredButton"};
-	loadTextures(12, "assets/images/menu/main/buttons/", buttonsColors, "Texture.png", _buttonsTextures);
+	const std::string	page[] = {"mainMenu"};
+	const std::string	buttons[] = {"greenButton", "greenHoveredButton", "orangeButton", "orangeHoveredButton", "redButton", "redHoveredButton", "blueCustomButton", "blueCustomHoveredButton", "blueSettingsButton", "blueSettingsHoveredButton", "blueHelpButton", "blueHelpHoveredButton"};
+	
+	loadTextures(1, "assets/images/menu/main/", page, _buttonsTextures);
+	loadTextures(12, "assets/images/menu/main/buttons/", buttons, _buttonsTextures);
 
-	_mainMenuSprite.setTexture(_mainMenuTexture);
+	_mainMenuSprite.setTexture(_buttonsTextures[PAGE]);
 	_greenButtonSprite.setTexture(_buttonsTextures[B_1VS1]);
 	_orangeButtonSprite.setTexture(_buttonsTextures[B_AIVERSUS]);
 	_redButtonSprite.setTexture(_buttonsTextures[B_EXIT]);
