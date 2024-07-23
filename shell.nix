@@ -1,11 +1,11 @@
-let
-	pkgs = import <nixpkgs> {};
-in
+{
+	pkgs ? import <nixpkgs> { }
+}:
 
-pkgs.mkShellNoCC {
-	packages = with pkgs; [
-		cmake
+pkgs.mkShell {
+	nativeBuildInputs = with pkgs; [
 		gcc
+		stdenv
 		sfml
 		flac
 		tbb
