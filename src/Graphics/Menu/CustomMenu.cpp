@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/10 13:46:49 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:01:20 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void	CustomMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& wind
 		return;
 
 	if (_backwardButtonSprite.getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
-		_backwardButtonSprite.setTexture(_backwardHoveredButtonTexture);
+		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDHOVEREDBUTTON]);
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
 			gameState = MENU;
 	} else
-		_backwardButtonSprite.setTexture(_backwardButtonTexture);
+		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 }
 
 void	CustomMenu::handleStonesSelection(const sf::RenderWindow& window) {
@@ -108,74 +108,33 @@ void	CustomMenu::handleBoardSelection(const sf::RenderWindow& window) {
 		_boardSelectorSprite.setPosition(-100, -100);
 }
 
-void	CustomMenu::init() {
-	if (!_customMenuTexture.loadFromFile("assets/images/menu/custom/customMenuTexture.png"))
-		std::cerr << "Error: could not load custom page texture" << std::endl;
-	if (!_backwardButtonTexture.loadFromFile("assets/images/buttons/backwardButtonTexture.png"))
-		std::cerr << "Error: could not load return button texture" << std::endl;
-	if (!_backwardHoveredButtonTexture.loadFromFile("assets/images/buttons/backwardHoveredButtonTexture.png"))
-		std::cerr << "Error: could not load return button highlighted texture" << std::endl;
-	if (!_colorSelectorTexture.loadFromFile("assets/images/menu/custom/selectors/colorSelectorTexture.png"))
-		std::cerr << "Error: could not load selection halo texture" << std::endl;
-	if (!_avatarSelectorTexture.loadFromFile("assets/images/menu/custom/selectors/avatarSelectorTexture.png"))
-		std::cerr << "Error: could not load avatar selector texture" << std::endl;
-
-	_customMenuSprite.setTexture(_customMenuTexture);
-	_backwardButtonSprite.setTexture(_backwardButtonTexture);
-	_stoneSelectorSprite.setTexture(_colorSelectorTexture);
-	_avatarSelectorSprite.setTexture(_avatarSelectorTexture);
-	_boardSelectorSprite.setTexture(_colorSelectorTexture);
-
-	const std::string stonesColors[] = {"blackWhite", "greenRed", "salmonCoral", "pinkFYellow", "blackYellow", "orangeViolet", "dGreenLGreen", "tGreenIndigo"};
-	for (int i = 0; i < 8; i++) {
-		sf::Texture	texture;
-		std::string	filePath = "assets/images/menu/custom/stones/" + stonesColors[i] + "StoneTexture.png";
-		if (texture.loadFromFile(filePath))
-			_stonesTextures.push_back(texture);
-	}
-
-	for (int i = 0; i < 8; i++) {
-		sf::Sprite sprite;
-		sprite.setTexture(_stonesTextures[i]);
-		_stonesSprites.push_back(sprite);
-	}
-
-	const std::string avatarsNames[] = {"tommy", "laure", "alex", "heric", "mousse", "gunther"};
-	for (int i = 0; i < 6; i++) {
-		sf::Texture texture;
-		std::string	filePath = "assets/images/menu/custom/avatars/" + avatarsNames[i] + "AvatarTexture.png";
-		if (texture.loadFromFile(filePath))
-			_avatarsTextures.push_back(texture);
-	}
-
-	for (int i = 0; i < 6; i++) {
-		sf::Sprite sprite;
-		sprite.setTexture(_avatarsTextures[i]);
-		_avatarsSprites.push_back(sprite);
-	}
-
-	const std::string boardsColors[] = {"azure", "yellow", "red", "orange", "pink", "green", "gray", "black"};
-	for (int i = 0; i < 8; i++) {
-		sf::Texture texture;
-		std::string	filePath = "assets/images/menu/custom/boards/" + boardsColors[i] + "BoardTexture.png";
-		if (texture.loadFromFile(filePath))
-			_boardsTextures.push_back(texture);
-	}
-
-	for (int i = 0; i < 8; i++) {
-		sf::Sprite sprite;
-		sprite.setTexture(_boardsTextures[i]);
-		_boardsSprites.push_back(sprite);
-	}
+void	CustomMenu::init() {	
+	const std::string page[] = {"customMenu"};
+	const std::string button[] = {"backwardButton", "backwardHoveredButton"};
+	const std::string selectors[] = {"colorSelector", "avatarSelector"};
+	const std::string stonesColors[] = {"blackWhiteStone", "greenRedStone", "salmonCoralStone", "pinkFYellowStone", "blackYellowStone", "orangeVioletStone", "dGreenLGreenStone", "tGreenIndigoStone"};
+	const std::string avatarsNames[] = {"tommyAvatar", "laureAvatar", "alexAvatar", "hericAvatar", "mousseAvatar", "guntherAvatar"};
+	const std::string boardsColors[] = {"azureBoard", "yellowBoard", "redBoard", "orangeBoard", "pinkBoard", "greenBoard", "grayBoard", "blackBoard"};
 	
-	_backwardButtonSprite.setPosition(100, 100);
+	loadTextures(1, "assets/images/menu/custom/", page, _pageTextures);
+	loadTextures(2, "assets/images/buttons/", button, _pageTextures);
+	loadTextures(2, "assets/images/menu/custom/selectors/", selectors, _pageTextures);
+	loadTextures(8, "assets/images/menu/custom/stones/", stonesColors, _stonesTextures);
+	loadTextures(6, "assets/images/menu/custom/avatars/", avatarsNames, _avatarsTextures);
+	loadTextures(8, "assets/images/menu/custom/boards/", boardsColors, _boardsTextures);
 
-	for (int i = 0; i < 8; i++)
-		_stonesSprites[i].setPosition(691 + (i * 70), 379);
-
-	for (int i = 0; i < 6; i++)
-		_avatarsSprites[i].setPosition(691 + (i * 93), 563);
-
-	for (int i = 0; i < 8; i++)
-		_boardsSprites[i].setPosition(691 + (i * 70), 776);
+	_customMenuSprite.setTexture(_pageTextures[PAGE]);
+	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
+	_stoneSelectorSprite.setTexture(_pageTextures[COLORSELECTOR]);
+	_avatarSelectorSprite.setTexture(_pageTextures[AVATARSELECTOR]);
+	_boardSelectorSprite.setTexture(_pageTextures[COLORSELECTOR]);
+	
+	setTextures(8, _stonesTextures, _stonesSprites);
+	setTextures(6, _avatarsTextures, _avatarsSprites);
+	setTextures(8, _boardsTextures, _boardsSprites);
+	
+	setPosition(_backwardButtonSprite, 100, 100);
+	setPosition(8, _stonesSprites, 691, 379, 70);
+	setPosition(6, _avatarsSprites, 691, 563, 93);
+	setPosition(8, _boardsSprites, 691, 776, 70);
 }

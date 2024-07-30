@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:05:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/09 18:28:37 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:22:27 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 #include "gomoku.hpp"
 
-enum settingsTextures {
-	SETTINGSPAGE,
-	BACKWARDBUTTON2,
-	BACKWARDHOVEREDBUTTON2,
-	SWITCHONBUTTON,
-	SWITCHOFFBUTTON,
-	BOX,
-	CHECKEDBOX
-};
-
 class Music;
 
 class SettingsMenu {
 	private:
+		enum Enum {
+			PAGE,
+			BACKWARDBUTTON,
+			BACKWARDHOVEREDBUTTON,
+			SWITCHONBUTTON,
+			SWITCHOFFBUTTON,
+			BOX,
+			CHECKEDBOX
+		};
+	
 		int							_currentVolumeLevel;
 		sf::Sprite					_settingsMenuSprite;
 		sf::Sprite					_backwardButtonSprite;

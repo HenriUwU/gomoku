@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
+#    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/19 12:49:41 by hsebille          #+#    #+#              #
-#    Updated: 2024/07/12 11:19:12 by hsebille         ###   ########.fr        #
+#    Created: 2024/07/12 16:28:13 by laprieur          #+#    #+#              #
+#    Updated: 2024/07/12 16:28:23 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,33 +65,72 @@ $(NAME): $(SRC_OBJS)
 
 -include $(DEPS)
 
-deps: fclean
+# deps: fclean
 	# SFML
-	cd lib \
-	&& wget -c https://www.sfml-dev.org/files/SFML-2.6.1-linux-gcc-64-bit.tar.gz \
-	&& tar -xf SFML-2.6.1-linux-gcc-64-bit.tar.gz \
-	&& mv SFML-2.6.1 SFML \
-	&& rm -rf SFML-2.6.1-linux-gcc-64-bit.tar.gz
-	# FLAC
-	cd lib \
-	&& wget -c https://github.com/xiph/flac/releases/download/1.4.3/flac-1.4.3.tar.xz \
-	&& tar -xf flac-1.4.3.tar.xz \
-	&& mv flac-1.4.3 FLAC \
-	&& rm -rf flac-1.4.3.tar.xz \
-	&& cd FLAC \
-	&& mkdir build \
-	&& cd build \
-	&& cmake .. -DWITH_OGG=OFF \
-	&& make \
-	&& make install
+	# cd lib \
+	# && wget -c https://www.sfml-dev.org/files/SFML-2.6.1-linux-gcc-64-bit.tar.gz \
+	# && tar -xf SFML-2.6.1-linux-gcc-64-bit.tar.gz \
+	# && mv SFML-2.6.1 SFML \
+	# && rm -rf SFML-2.6.1-linux-gcc-64-bit.tar.gz
+	# # FLAC
+	# cd lib \
+	# && wget -c https://github.com/xiph/flac/releases/download/1.4.3/flac-1.4.3.tar.xz \
+	# && tar -xf flac-1.4.3.tar.xz \
+	# && mv flac-1.4.3 FLAC \
+	# && rm -rf flac-1.4.3.tar.xz \
+	# && cd FLAC \
+	# && mkdir build \
+	# && cd build \
+	# && cmake .. -DWITH_OGG=OFF \
+	# && make \
+	# && make install
+	# # TBB
+	# cd lib \
+	# && wget -c https://github.com/oneapi-src/oneTBB/archive/refs/tags/v2021.13.0.tar.gz \
+	# && tar -xf v2021.13.0.tar.gz \
+	# && mv oneTBB-2021.13.0 oneTBB \
+	# && rm -rf v2021.13.0.tar.gz \
+	# && cd oneTBB \
+	# && mkdir build \
+	# && cd build \
+	# && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DTBB_TEST=OFF .. \
+	# && cmake --build . \
+	# && cmake --install .
+	# # BENCHMARK
+	# cd lib \
+	# && wget -c https://github.com/google/benchmark/archive/refs/tags/v1.8.4.tar.gz \
+	# && tar -xf v1.8.4.tar.gz \
+	# && mv benchmark-1.8.4 benchmark \
+	# && rm -rf v1.8.4.tar.gz \
+	# && cd benchmark \
+	# && mkdir build \
+	# && cd build \
+	# && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DBENCHMARK_DOWNLOAD_DEPENDENCIES=ON .. \
+	# && cmake --build . \
+	# && cmake --install .
+	# # openal
+	# cd lib \
+	# && wget -c https://github.com/kcat/openal-soft/archive/refs/tags/1.23.1.tar.gz \
+	# && tar -xf 1.23.1.tar.gz \
+	# && mv openal-soft-1.23.1 openal \
+	# && rm -rf 1.23.1.tar.gz \
+	# && cd openal \
+	# && cd build \
+	# && cmake -DCMAKE_INSTALL_PREFIX=/usr/local .. \
+	# && cmake --build . \
+	# && cmake --install .make LDFLAGS="-L/usr/lib/x86_64-linux-gnu/"
+
+# depsclean:
+# 	rm -rf ./lib/SFML
+# 	rm -rf ./lib/FLAC
+# 	rm -rf ./lib/oneTBB
+# 	rm -rf ./lib/benchmark
 
 clean:
 	rm -rf .build
 
 fclean: clean
 	rm -rf $(NAME)
-	#rm -rf ./lib/SFML
-	#rm -rf ./lib/FLAC
 
 re:
 	$(MAKE) fclean

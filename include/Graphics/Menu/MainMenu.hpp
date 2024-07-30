@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:24 by laprieur          #+#    #+#             */
-/*   Updated: 2024/06/19 11:39:01 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:20:29 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 #include "gomoku.hpp"
 
-enum Buttons {
-	B_1VS1,
-	H_1VS1,
-	B_AIVERSUS,
-	H_AIVERSUS,
-	B_EXIT,
-	H_EXIT,
-	B_CUSTOM,
-	H_CUSTOM,
-	B_SETTINGS,
-	H_SETTINGS,
-	B_HELP,
-	H_HELP
-};
-
 class MainMenu {
 	private:
+		enum Enum {
+			PAGE,
+			B_1VS1,
+			H_1VS1,
+			B_AIVERSUS,
+			H_AIVERSUS,
+			B_EXIT,
+			H_EXIT,
+			B_CUSTOM,
+			H_CUSTOM,
+			B_SETTINGS,
+			H_SETTINGS,
+			B_HELP,
+			H_HELP
+		};
+
 		int							_selectedItemIndex;
 		sf::Sprite					_mainMenuSprite;
 		sf::Sprite					_greenButtonSprite;
@@ -39,7 +40,6 @@ class MainMenu {
 		sf::Sprite					_blueButtonCustomSprite;
 		sf::Sprite					_blueButtonSettingsSprite;
 		sf::Sprite					_blueButtonHelpSprite;
-		sf::Texture					_mainMenuTexture;
 		std::vector<sf::Texture>	_buttonsTextures;
 
 	public:
