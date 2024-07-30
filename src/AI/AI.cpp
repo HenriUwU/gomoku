@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/12 11:17:35 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:07:22 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ uint64_t AI::generateZobristKey(Bitboard &bitboard) {
 
 void	AI::play(Bitboard &bitboard) {
 	std::pair<int, int> move = findBestMove(bitboard);
-	std::cout << "AI played at " << move.first << " " << move.second << std::endl;
 	bitboard.placeStone(move.first, move.second, 2);
 }
 
@@ -70,40 +69,44 @@ std::pair<int, int>	AI::findBestMove(Bitboard &bitboard) {
 
 	for (auto& possibleMove : possibleMoves) {
 		bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
-		moveValue = minimax(bitboard, 2, true, INT_MIN, INT_MAX);
+		moveValue = minimax(bitboard, 4, true, INT_MIN, INT_MAX);
 		bitboard.removeStone(possibleMove.first, possibleMove.second, 2);
+		std::cout << "Value of move : " << possibleMove.first << " | " << possibleMove.second << " is : " << moveValue << std::endl;
 		if (moveValue > bestValue) {
 			bestValue = moveValue;
 			bestMove = possibleMove;
 		}
 	}
+	std::cout << std::endl;
 
 	return (bestMove);
 }
 
 int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) {
 	//-- Verify transposition table to check if evaluation already exists --//
-	uint64_t key = generateZobristKey(bitboard);
+/* 	uint64_t key = generateZobristKey(bitboard);
 
-    if (_transpositionTable.find(key) != _transpositionTable.end()) {
-        TTEntry entry = _transpositionTable[key];
-        if (entry.depth >= depth) {
-            if (entry.type == EXACT) {
-                return entry.value;
-            } else if (entry.type == LOWERBOUND) {
-                alpha = std::max(alpha, entry.value);
-            } else if (entry.type == UPPERBOUND) {
-                beta = std::min(beta, entry.value);
-            }
-            if (alpha >= beta) {
-                return entry.value;
-            }
-        }
-    }
+	if (_transpositionTable.find(key) != _transpositionTable.end()) {
+		TTEntry entry = _transpositionTable[key];
+		if (entry.depth >= depth) {
+			if (entry.type == EXACT) {
+				return entry.value;
+			} else if (entry.type == LOWERBOUND) {
+				alpha = std::max(alpha, entry.value);
+			} else if (entry.type == UPPERBOUND) {
+				beta = std::min(beta, entry.value);
+			}
+			if (alpha >= beta) {
+				return entry.value;
+			}
+		}
+	} */
 
 	//-- Actual minimax algorithm with alpha-beta pruning --//
 	if (depth == 0 || bitboard.isGameOver()) {
-		return heuristic(bitboard, maximizingPlayer);
+		std::cout << "terminal node on depth = " << depth << " with maximizingPlayer : " << maximizingPlayer << std::endl;
+		
+		return heuristic(bitboard, depth);
 	}
 	
 	std::unordered_set<std::pair<int, int>, pair_hash>	possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
@@ -141,7 +144,7 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 	}
 	
 	//-- Stock the current node in the transposition table --//
-	NodeType type;
+	/* NodeType type;
 	if (bestValue <= alpha) {
 		type = UPPERBOUND;
 	} else if (bestValue >= beta) {
@@ -149,7 +152,7 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 	} else {
 		type = EXACT;
 	}
-	_transpositionTable[key] = { key, bestValue, depth, type };
+	_transpositionTable[key] = { key, bestValue, depth, type }; */
 
 	return bestValue;
 }

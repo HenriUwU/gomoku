@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:02:58 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/12 11:23:16 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/13 15:02:57 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const B
 	window.draw(_firstPlayerAvatarSprite);
 	window.draw(_secondPlayerAvatarSprite);
 	window.draw(_gridAndIndexSprite);
-	//if (!_aiThreadRunning)
-		drawStones(window, bitboard);
+	drawStones(window, bitboard);
 }
 
 void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& window) {
@@ -159,9 +158,9 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 		timerThread.join(); */
 	}
 
-	if (_currentPlayer == 1)
+	if (_currentPlayer == 1 && !_aiThreadRunning)
 		window.draw(_firstPlayerStoneSprite);
-	else
+	else if (!_aiThreadRunning)
 		window.draw(_secondPlayerStoneSprite);
 }
 

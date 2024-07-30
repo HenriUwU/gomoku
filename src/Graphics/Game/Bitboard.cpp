@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/12 11:25:55 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:09:00 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 
 	return (true);
 }
+
 
 void	Bitboard::placeStoneAI(int x, int y, int player) {
 	uint32_t	mask = uint32_t(1) << x;
@@ -124,9 +125,9 @@ void	Bitboard::printBoard(){
 		for (int x = 0; x < BOARD_SIZE; ++x) {
 			uint32_t mask = uint32_t(1) << x;
 
-			if (_firstPlayerBoardLines[y] & mask) {
+			if (_firstPlayerBoardDiagonals[y] & mask) {
 				std::cout << "1 ";
-			} else if (_secondPlayerBoardLines[y] & mask) {
+			} else if (_secondPlayerBoardDiagonals[y] & mask) {
 				std::cout << "2 ";
 			} else {
 				std::cout << ". ";
