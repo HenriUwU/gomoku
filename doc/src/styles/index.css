@@ -30,6 +30,9 @@ body {
 .sidebar:hover {
     width: 260px;
 }
+.sidebar .sidebar-header a {
+    text-decoration: none;
+}
 .sidebar .sidebar-header .title {
     margin: 0;
 }
