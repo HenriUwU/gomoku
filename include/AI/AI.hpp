@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:01:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/13 13:30:42 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/31 11:14:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ class AI {
 		
 		uint64_t								_zobristTable[BOARD_SIZE][BOARD_SIZE][2];
 		int										_centerScores[BOARD_SIZE][BOARD_SIZE];
-		
 
 	public:
 		AI();
@@ -42,7 +41,7 @@ class AI {
 		int									heuristic(Bitboard &bitboard, int depth) __attribute__((hot));
 		
 		int									checkCenterControl(Bitboard &bitboard, int player, int opponent);
-		int									checkPatterns(Bitboard &bitboard, int player, int opponent, int depth);
+		int									checkPatterns(Bitboard &bitboard, int player, int opponent);
 
 		void								play(Bitboard &bitboard);
 		void								initializeCenterScores();

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/16 11:07:22 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/07/31 11:12:55 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,11 @@ std::pair<int, int>	AI::findBestMove(Bitboard &bitboard) {
 		bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
 		moveValue = minimax(bitboard, 4, true, INT_MIN, INT_MAX);
 		bitboard.removeStone(possibleMove.first, possibleMove.second, 2);
-		std::cout << "Value of move : " << possibleMove.first << " | " << possibleMove.second << " is : " << moveValue << std::endl;
 		if (moveValue > bestValue) {
 			bestValue = moveValue;
 			bestMove = possibleMove;
 		}
 	}
-	std::cout << std::endl;
-
 	return (bestMove);
 }
 
@@ -103,11 +100,8 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 	} */
 
 	//-- Actual minimax algorithm with alpha-beta pruning --//
-	if (depth == 0 || bitboard.isGameOver()) {
-		std::cout << "terminal node on depth = " << depth << " with maximizingPlayer : " << maximizingPlayer << std::endl;
-		
+	if (depth == 0 || bitboard.isGameOver())
 		return heuristic(bitboard, depth);
-	}
 	
 	std::unordered_set<std::pair<int, int>, pair_hash>	possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
 	int 												bestValue;
