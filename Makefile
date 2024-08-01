@@ -6,7 +6,7 @@
 #    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/12 16:28:13 by laprieur          #+#    #+#              #
-#    Updated: 2024/07/12 16:28:23 by laprieur         ###   ########.fr        #
+#    Updated: 2024/08/01 14:16:42 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ DEPS			:=	$(SRC_OBJS:%.o=%.d)
 COMPILER		:=	g++
 DEBUG_FLAGS		:=	-Wall -Wextra -Werror -g3 -Ofast -fopenmp -Wpedantic -lpthread
 INCLUDE_FLAGS	:=	-Ilib/SFML/include -Iinclude -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/AI -Iinclude/Music -Ilib/stb -I$(HOME)/local/include
-SFML_FLAGS		:=	-L$(HOME)/local/lib -Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lFLAC
+SFML_FLAGS		:=	-L$(HOME)/local/lib -Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lFLAC -latomic
 RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
 
 # **************************************************************************** #
