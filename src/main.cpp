@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/10 15:16:12 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:42:38 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ GameState		gameState		= MENU;
 HelpMenuState	helpMenuState	= RULES;
 MoveSuggestion	moveSuggestion	= ENABLED;
 StonesColors	stonesColors	= NOSTONESCOLORS;
+ForbiddenMoves	forbiddenMoves	= NOFORBIDDENMOVE;
 
 int main() {
 	sf::RenderWindow	window(sf::VideoMode(1920, 1080), "Gomoku");
@@ -62,7 +63,8 @@ int main() {
 			case GAME:
 			case AIVERSUS:
 				gameplay.display(event, window, bitboard);
-				gameplay.mouseHover(window, bitboard, (gameState == GAME) ? false : true);
+				if (forbiddenMoves == NOFORBIDDENMOVE)
+					gameplay.mouseHover(window, bitboard, (gameState == GAME) ? false : true);
 				break;
 			case CUSTOM:
 				customMenu.display(window);

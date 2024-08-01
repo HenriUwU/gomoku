@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/01 10:29:02 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/01 23:39:45 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const B
 	window.draw(_secondPlayerAvatarSprite);
 	window.draw(_gridAndIndexSprite);
 	drawStones(window, bitboard);
+	if (forbiddenMoves == DOUBLE_THREE) {
+		_popupSprite.setTexture(_popupTexture);
+		window.draw(_popupSprite);
+	}
 }
 
 void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& window) {
@@ -173,6 +177,9 @@ void    Gameplay::init() {
 	loadTextures(15, "assets/images/game/stones/", stonesColors, _stonesTextures);
 	loadTextures(6, "assets/images/game/avatars/", avatarsNames, _avatarsTextures);
 	loadTextures(8, "assets/images/game/boards/", boardsColors, _boardsTextures);
+	
+	if (!_popupTexture.loadFromFile("assets/images/game/pop-up/forbiddenMovePopUp.png"))
+		std::cout << "probleme" << std::endl;
 
 	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	_gridAndIndexSprite.setTexture(_pageTextures[GRIDANDINDEX]);
