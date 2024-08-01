@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/30 14:10:26 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:29:02 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,20 +145,9 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 		if (_aiThread.joinable())
 			_aiThread.join();
 		_aiThread = std::thread(&Gameplay::AITurn, this, std::ref(bitboard));
-/* 		std::thread timerThread([&]() {
-			auto start = std::chrono::high_resolution_clock::now();
-			auto now = std::chrono::high_resolution_clock::now();
-			auto elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count();;
-			while (!_stopAITimer) {
-				now = std::chrono::high_resolution_clock::now();
-				elapsedMs = std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count();
-			}
-			std::cout << "Time elapsed: " << elapsedMs << " ms" << std::endl;
-		});
-		timerThread.join(); */
 	}
 
-	if (_currentPlayer == 1 && !_aiThreadRunning)
+	if (_currentPlayer == 1 || _aiThreadRunning)
 		window.draw(_firstPlayerStoneSprite);
 	else if (!_aiThreadRunning)
 		window.draw(_secondPlayerStoneSprite);
