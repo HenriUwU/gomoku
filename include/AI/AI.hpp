@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:01:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/31 14:17:02 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:45:28 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class AI {
 		
 		int									minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) __attribute__((hot));
 		int									heuristic(Bitboard &bitboard, int depth) __attribute__((hot));
-		int									fastHeuristic(Bitboard &bitboard, int depth);
+		int									quickHeuristic(Bitboard &bitboard, int depth);
 		
 		int									checkCenterControl(Bitboard &bitboard, int player, int opponent);
 		int									checkPatterns(Bitboard &bitboard, int player, int opponent);
@@ -50,5 +50,5 @@ class AI {
 
 		uint64_t							generateZobristKey(Bitboard &bitboard);
 		std::pair<int, int>					findBestMove(Bitboard& bitboard);
-		std::vector<std::pair<int, int>>	generatePossibleMoves(Bitboard &bitboard, int player);
+			std::vector<std::pair<int, int>>	sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
 };

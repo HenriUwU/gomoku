@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/01 15:05:26 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:24:41 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 		std::pair<std::pair<int, int> , int> result = futureMove.get();
 		std::pair<int, int> move = result.first;
 		int moveValue = result.second;
-		// std::cout << "move : " << move.first << " | " << move.second << " is of value : " << moveValue << std::endl;
 		
 		if (moveValue > bestValue) {
 			bestValue = moveValue;

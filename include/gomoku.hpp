@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/31 15:42:16 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:42:06 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ struct PatternInfo {
 	int			patternSize;
 	int			playerType;
 	int			multiplier;
+};
+
+struct pair_hash {
+	template <class T1, class T2>
+	std::size_t operator () (const std::pair<T1, T2> &pair) const {
+		return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
+	}
 };
 
 #include "MainMenu.hpp"
