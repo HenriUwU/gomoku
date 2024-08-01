@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/31 15:54:43 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:05:26 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,11 @@ void	AI::play(Bitboard &bitboard) {
 	bitboard.placeStone(move.first, move.second, 2);
 }
 
-/* std::pair<int, int>	AI::findBestMove(Bitboard &bitboard) {
-	std::unordered_set<std::pair<int, int>, pair_hash>	possibleMoves = bitboard.generatePossibleMoves(2);
-	std::pair<int, int>									bestMove = {-1, -1};
-	double												bestValue = -INFINITY;
-	int													moveValue;
-
-	for (auto& possibleMove : possibleMoves) {
-		bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
-		moveValue = minimax(bitboard, 4, true, INT_MIN, INT_MAX);
-		bitboard.removeStone(possibleMove.first, possibleMove.second, 2);
-		if (moveValue > bestValue) {
-			bestValue = moveValue;
-			bestMove = possibleMove;
-		}
-	}
-	return (bestMove);
-} */
-
 std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
-	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generatePossibleMoves(2);
-	std::pair<int, int> bestMove = {-1, -1};
-	double bestValue = -INFINITY;
-
-	// Vector to store future results
-	std::vector<std::future<std::pair<std::pair<int, int> , int>>> futures;
+	std::vector<std::future<std::pair<std::pair<int, int> , int>>>	futureMoves;
+	std::unordered_set<std::pair<int, int>, pair_hash>				possibleMoves = bitboard.generatePossibleMoves(2);
+	std::pair<int, int>												bestMove = {-1, -1};
+	double															bestValue = -INFINITY;
 
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
@@ -70,14 +50,14 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	};
 
 	for (const auto& move : possibleMoves) {
-		futures.push_back(std::async(std::launch::async, evaluateMove, move));
+		futureMoves.push_back(std::async(std::launch::async, evaluateMove, move));
 	}
 
-	// Retrieve results and find the best move
-	for (auto& future : futures) {
-		std::pair<std::pair<int, int> , int> result = future.get();
+	for (auto& futureMove : futureMoves) {
+		std::pair<std::pair<int, int> , int> result = futureMove.get();
 		std::pair<int, int> move = result.first;
 		int moveValue = result.second;
+		// std::cout << "move : " << move.first << " | " << move.second << " is of value : " << moveValue << std::endl;
 		
 		if (moveValue > bestValue) {
 			bestValue = moveValue;
