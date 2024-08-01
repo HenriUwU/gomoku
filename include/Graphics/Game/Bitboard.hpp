@@ -5,21 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 11:32:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/01 10:18:25 by laprieur         ###   ########.fr       */
+/*   Created: 2024/08/01 17:29:56 by laprieur          #+#    #+#             */
+/*   Updated: 2024/08/01 17:29:57 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "gomoku.hpp"
-
-struct pair_hash {
-	template <class T1, class T2>
-	std::size_t operator () (const std::pair<T1, T2> &pair) const {
-		return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
-	}
-};
 
 typedef enum {
 	FIVE_IN_A_ROW = 0b11111,

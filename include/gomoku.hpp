@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/01 10:31:24 by laprieur         ###   ########.fr       */
+/*   Created: 2024/08/01 17:29:47 by laprieur          #+#    #+#             */
+/*   Updated: 2024/08/01 17:29:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 #include <thread>
 #include <unordered_map>
 #include <chrono>
+#include <future>
 
 struct PatternInfo {
 	uint32_t	pattern;
@@ -36,6 +37,13 @@ struct PatternInfo {
 	int			patternSize;
 	int			playerType;
 	int			multiplier;
+};
+
+struct pair_hash {
+	template <class T1, class T2>
+	std::size_t operator () (const std::pair<T1, T2> &pair) const {
+		return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
+	}
 };
 
 #include "MainMenu.hpp"
