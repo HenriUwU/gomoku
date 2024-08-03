@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/01 23:42:38 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/03 12:49:09 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int				musicVolume		= 100;
 AIMode			aiMode			= NOAIMODE;
+bool			aiPlaying		= false;
 Avatar			playerOneAvatar	= NOAVATAR;
 BoardColor		boardColor		= NOBOARD;
 GameState		gameState		= MENU;

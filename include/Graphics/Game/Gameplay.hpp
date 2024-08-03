@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:03:52 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/02 14:38:10 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/03 15:14:15 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ enum pageTextures {
 	BACKWARDBUTTON,
 	BACKWARDHOVEREDBUTTON,
 	GRIDANDINDEX,
-	GAMEPAGE
+	VSPAGE,
+	AIVERSUSPAGE
 };
 
 class Bitboard;

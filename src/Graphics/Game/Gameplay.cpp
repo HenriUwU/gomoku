@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/02 15:28:09 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/03 15:22:35 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const B
 	defineAvatars();
 	defineBoard();
 
+	if (gameState == AIVERSUS)
+		_gamePageSprite.setTexture(_pageTextures[AIVERSUSPAGE]);
+	else
+		_gamePageSprite.setTexture(_pageTextures[VSPAGE]);
 	window.draw(_gamePageSprite);
 	window.draw(_backwardButtonSprite);
 	window.draw(_gobanSprite);
@@ -34,7 +38,7 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const B
 	window.draw(_secondPlayerAvatarSprite);
 	window.draw(_gridAndIndexSprite);
 	drawStones(window, bitboard);
-	if (forbiddenMoves == DOUBLE_THREE)
+	if (forbiddenMoves == DOUBLE_THREE && !_aiThreadRunning)
 		popUp(event, window);
 }
 
@@ -159,6 +163,7 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 	if (isAIPlaying && _currentPlayer == 2 && !_aiThreadRunning) {
 		_stopAITimer = false;
 		_aiThreadRunning = true;
+		aiPlaying = true;
 		if (_aiThread.joinable())
 			_aiThread.join();
 		_aiThread = std::thread(&Gameplay::AITurn, this, std::ref(bitboard));
@@ -175,18 +180,19 @@ void	Gameplay::AITurn(Bitboard& bitboard) {
 	ai.play(bitboard);
 	_currentPlayer = 1;
 	_aiThreadRunning = false;
+	aiPlaying = false;
 	_stopAITimer = true;
 }
 
 void    Gameplay::init() {	
 	const std::string	backwardButton[] = {"backwardButton", "backwardHoveredButton"};
-	const std::string	others[]		 = {"gridAndIndex", "1VS1Page"};
+	const std::string	others[]		 = {"gridAndIndex", "1VS1Page", "aiVersusPage"};
 	const std::string	stonesColors[]   = {"blackStone", "whiteStone", "greenStone", "redStone", "salmonStone", "coralStone", "pinkStone", "fluoYellowStone", "yellowStone", "orangeStone", "violetStone", "darkGreenStone", "lightGreenStone", "turquoiseGreenStone", "indigoStone"};
 	const std::string	avatarsNames[]   = {"tommyAvatar", "laureAvatar", "alexAvatar", "hericAvatar", "mousseAvatar", "guntherAvatar"};
 	const std::string	boardsColors[]   = {"azureBoard", "yellowBoard", "redBoard", "orangeBoard", "pinkBoard", "greenBoard", "grayBoard", "blackBoard"};
 	
 	loadTextures(2, "assets/images/buttons/", backwardButton, _pageTextures);
-	loadTextures(2, "assets/images/game/", others, _pageTextures);
+	loadTextures(3, "assets/images/game/", others, _pageTextures);
 	loadTextures(15, "assets/images/game/stones/", stonesColors, _stonesTextures);
 	loadTextures(6, "assets/images/game/avatars/", avatarsNames, _avatarsTextures);
 	loadTextures(8, "assets/images/game/boards/", boardsColors, _boardsTextures);
@@ -196,7 +202,7 @@ void    Gameplay::init() {
 
 	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	_gridAndIndexSprite.setTexture(_pageTextures[GRIDANDINDEX]);
-	_gamePageSprite.setTexture(_pageTextures[GAMEPAGE]);
+	_gamePageSprite.setTexture(_pageTextures[VSPAGE]);
 	_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
 	_secondPlayerStoneSprite.setTexture(_stonesTextures[1]);
 

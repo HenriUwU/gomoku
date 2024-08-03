@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:47 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/01 23:42:45 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/03 12:49:18 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ enum ForbiddenMoves {
 
 extern int				musicVolume;
 extern AIMode			aiMode;
+extern bool				aiPlaying;
 extern Avatar			playerOneAvatar;
 extern BoardColor		boardColor;
 extern GameState		gameState;
