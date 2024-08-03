@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/01 10:29:02 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:28:09 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const B
 	window.draw(_secondPlayerAvatarSprite);
 	window.draw(_gridAndIndexSprite);
 	drawStones(window, bitboard);
+	if (forbiddenMoves == DOUBLE_THREE)
+		popUp(event, window);
 }
 
 void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& window) {
@@ -46,6 +48,21 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 	if (event.type == sf::Event::MouseButtonPressed)
 		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
 			gameState = MENU;
+}
+
+void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window) {
+	_popupSprite.setTexture(_popupTexture);
+	window.draw(_popupSprite);
+	sf::RectangleShape clickableZone(sf::Vector2f(26, 26));
+    clickableZone.setPosition(1162, 404);
+    clickableZone.setFillColor(sf::Color(0, 0, 0, 0));
+	window.draw(clickableZone);
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left
+		&& clickableZone.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+		forbiddenMoves = NOFORBIDDENMOVE;
+		window.clear();
+	}
 }
 
 void	Gameplay::drawStones(sf::RenderWindow& window, const Bitboard& bitboard) {
@@ -173,6 +190,9 @@ void    Gameplay::init() {
 	loadTextures(15, "assets/images/game/stones/", stonesColors, _stonesTextures);
 	loadTextures(6, "assets/images/game/avatars/", avatarsNames, _avatarsTextures);
 	loadTextures(8, "assets/images/game/boards/", boardsColors, _boardsTextures);
+	
+	if (!_popupTexture.loadFromFile("assets/images/game/pop-up/forbiddenMovePopUp.png"))
+		std::cout << "probleme" << std::endl;
 
 	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	_gridAndIndexSprite.setTexture(_pageTextures[GRIDANDINDEX]);

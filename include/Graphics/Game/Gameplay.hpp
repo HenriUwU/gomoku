@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:03:52 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/10 16:19:17 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:38:10 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ class Gameplay {
 		std::vector<sf::Texture>	_avatarsTextures;
 		std::vector<sf::Texture>	_boardsTextures;
 
+		sf::Texture					_popupTexture;
+		sf::Sprite					_popupSprite;
+
 	public:
 		Gameplay();
 		~Gameplay();
@@ -51,6 +54,7 @@ class Gameplay {
 		void	init();
 		void	display(const sf::Event& event, sf::RenderWindow& window, const Bitboard& bitboard);
 		void	returnButton(const sf::Event& event, const sf::RenderWindow& window);
+		void	popUp(const sf::Event& event, sf::RenderWindow& window);
 		void	drawStones(sf::RenderWindow& window, const Bitboard& bitboard);
 		void	defineStones();
 		void	defineAvatars();

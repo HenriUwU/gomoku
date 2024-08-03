@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gomoku.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 17:37:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/01 15:42:06 by hsebille         ###   ########.fr       */
+/*   Created: 2024/08/01 17:29:47 by laprieur          #+#    #+#             */
+/*   Updated: 2024/08/01 23:42:45 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <array>
 #include <vector>
 #include <sstream>
 #include <ctime>
@@ -117,6 +118,11 @@ enum StonesColors {
 	NOSTONESCOLORS
 };
 
+enum ForbiddenMoves {
+	DOUBLE_THREE,
+	NOFORBIDDENMOVE
+};
+
 extern int				musicVolume;
 extern AIMode			aiMode;
 extern Avatar			playerOneAvatar;
@@ -125,6 +131,7 @@ extern GameState		gameState;
 extern HelpMenuState	helpMenuState;
 extern MoveSuggestion	moveSuggestion;
 extern StonesColors		stonesColors;
+extern ForbiddenMoves	forbiddenMoves;
 
 void	loadTextures(int nbTextures, const std::string pathStart, const std::string prefixes[], std::vector<sf::Texture>& textures);
 void	setTextures(int nbTextures, const std::vector<sf::Texture>& textures, std::vector<sf::Sprite>& sprites);
