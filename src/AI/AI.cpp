@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/03 14:52:40 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:38:13 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
 		tempBoard.placeStoneAI(move.first, move.second, 2);
-		int moveValue = minimax(tempBoard, 10, true, INT_MIN, INT_MAX, 0);
+		int moveValue = minimax(tempBoard, 4, true, INT_MIN, INT_MAX, 0);
 		tempBoard.removeStone(move.first, move.second, 2);
 		return std::make_pair(move, moveValue);
 	};
@@ -103,9 +103,9 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 		if (maximizingPlayer) {
 			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
 			int value;
-			int intermediateHeuristic = heuristic(bitboard, (i > 3) ? reductionDepth : depth);
-			if (intermediateHeuristic < currentHeuristic + 100)
-				break ;
+/* 			int intermediateHeuristic = heuristic(bitboard, (i > 3) ? reductionDepth : depth);
+			if (intermediateHeuristic < currentHeuristic + 1)
+				break ; */
 			if (i > 3) {
 				value = minimax(bitboard, reductionDepth, false, alpha, beta, currentHeuristic);
 			} else {
@@ -120,9 +120,9 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 		} else {
 			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 1);
 			int value;
-			int intermediateHeuristic = heuristic(bitboard, (i > 3) ? reductionDepth : depth);
+/* 			int intermediateHeuristic = heuristic(bitboard, (i > 3) ? reductionDepth : depth);
 			if (intermediateHeuristic < currentHeuristic + 100)
-				break ;
+				break ; */
 			if (i > 3) {
 				value = minimax(bitboard, reductionDepth, true, alpha, beta, currentHeuristic);
 			} else {
