@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:56 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/01 17:29:57 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:15:21 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ class Bitboard {
 		void		update(int x, int y, int player, bool add);
 		void		removeStone(int x, int y, int player);
 		void		placeStoneAI(int x, int y, int player);
+		void		clear();
 
 		void		verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
 		void		verifyVerticalCapture(int &nbCaptures, int x, int y, int player);

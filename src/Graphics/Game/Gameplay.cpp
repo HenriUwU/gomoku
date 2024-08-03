@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/03 15:22:35 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:20:45 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Gameplay::~Gameplay() {
 		_aiThread.join();
 }
 
-void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const Bitboard& bitboard) {
+void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
 	returnButton(event, window);
 	defineStones();
 	defineAvatars();
@@ -38,8 +38,7 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, const B
 	window.draw(_secondPlayerAvatarSprite);
 	window.draw(_gridAndIndexSprite);
 	drawStones(window, bitboard);
-	if (forbiddenMoves == DOUBLE_THREE && !_aiThreadRunning)
-		popUp(event, window);
+	popUp(event, window, bitboard);
 }
 
 void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& window) {
@@ -54,17 +53,51 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 			gameState = MENU;
 }
 
-void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window) {
-	_popupSprite.setTexture(_popupTexture);
+void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
+	if (forbiddenMoves == DOUBLE_THREE && !_aiThreadRunning)
+		_popupSprite.setTexture(_popupTextures[FORBIDDENMOVE]);
+	else if (endGameState == P1VICTORY)
+		_popupSprite.setTexture(_popupTextures[PLAYER1VICTORY]);
+	else if (endGameState == P2VICTORY)
+		_popupSprite.setTexture(_popupTextures[PLAYER2VICTORY]);
+	else if (endGameState == AIVICTORY)
+		_popupSprite.setTexture(_popupTextures[MEGATRONVICTORY]);
+	else
+		return ;
 	window.draw(_popupSprite);
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+	if (endGameState != NOVICTORY) {
+		if (_popupMainMenuButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+			_popupMainMenuButtonSprite.setTexture(_popupTextures[MAINMENUHOVEREDBUTTON]);
+			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+				gameState = MENU;
+				endGameState = NOVICTORY;
+			}
+		}
+		else if (_popupPlayAgainButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+			_popupPlayAgainButtonSprite.setTexture(_popupTextures[PLAYAGAINHOVEREDBUTTON]);
+			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+				endGameState = NOVICTORY;
+				bitboard.clear();
+			}
+		}
+		else {
+			_popupMainMenuButtonSprite.setTexture(_popupTextures[MAINMENUBUTTON]);
+			_popupPlayAgainButtonSprite.setTexture(_popupTextures[PLAYAGAINBUTTON]);
+		}
+		_popupMainMenuButtonSprite.setPosition(743.8, 547.5);
+		_popupPlayAgainButtonSprite.setPosition(980.8, 547.5);
+		window.draw(_popupMainMenuButtonSprite);
+		window.draw(_popupPlayAgainButtonSprite);
+	}
 	sf::RectangleShape clickableZone(sf::Vector2f(26, 26));
     clickableZone.setPosition(1162, 404);
     clickableZone.setFillColor(sf::Color(0, 0, 0, 0));
 	window.draw(clickableZone);
-	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left
 		&& clickableZone.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		forbiddenMoves = NOFORBIDDENMOVE;
+		endGameState = SEEGAMESTATE;
 		window.clear();
 	}
 }
@@ -187,22 +220,20 @@ void	Gameplay::AITurn(Bitboard& bitboard) {
 void    Gameplay::init() {	
 	const std::string	backwardButton[] = {"backwardButton", "backwardHoveredButton"};
 	const std::string	others[]		 = {"gridAndIndex", "1VS1Page", "aiVersusPage"};
+	const std::string	popup[]			 = {"forbiddenMovePopUp", "megatronVictoryPopUp", "player1VictoryPopUp", "player2VictoryPopUp", "mainMenuButton", "mainMenuHoveredButton", "playAgainButton", "playAgainHoveredButton"};
 	const std::string	stonesColors[]   = {"blackStone", "whiteStone", "greenStone", "redStone", "salmonStone", "coralStone", "pinkStone", "fluoYellowStone", "yellowStone", "orangeStone", "violetStone", "darkGreenStone", "lightGreenStone", "turquoiseGreenStone", "indigoStone"};
 	const std::string	avatarsNames[]   = {"tommyAvatar", "laureAvatar", "alexAvatar", "hericAvatar", "mousseAvatar", "guntherAvatar"};
 	const std::string	boardsColors[]   = {"azureBoard", "yellowBoard", "redBoard", "orangeBoard", "pinkBoard", "greenBoard", "grayBoard", "blackBoard"};
 	
 	loadTextures(2, "assets/images/buttons/", backwardButton, _pageTextures);
 	loadTextures(3, "assets/images/game/", others, _pageTextures);
+	loadTextures(8, "assets/images/game/pop-up/", popup, _popupTextures);
 	loadTextures(15, "assets/images/game/stones/", stonesColors, _stonesTextures);
 	loadTextures(6, "assets/images/game/avatars/", avatarsNames, _avatarsTextures);
 	loadTextures(8, "assets/images/game/boards/", boardsColors, _boardsTextures);
-	
-	if (!_popupTexture.loadFromFile("assets/images/game/pop-up/forbiddenMovePopUp.png"))
-		std::cout << "probleme" << std::endl;
 
 	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	_gridAndIndexSprite.setTexture(_pageTextures[GRIDANDINDEX]);
-	_gamePageSprite.setTexture(_pageTextures[VSPAGE]);
 	_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
 	_secondPlayerStoneSprite.setTexture(_stonesTextures[1]);
 

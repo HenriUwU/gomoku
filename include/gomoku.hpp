@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:47 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/03 12:49:18 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:18:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,14 @@ enum ForbiddenMoves {
 	NOFORBIDDENMOVE
 };
 
+enum EndGameState {
+	P1VICTORY,
+	P2VICTORY,
+	AIVICTORY,
+	SEEGAMESTATE,
+	NOVICTORY
+};
+
 extern int				musicVolume;
 extern AIMode			aiMode;
 extern bool				aiPlaying;
@@ -133,6 +141,7 @@ extern HelpMenuState	helpMenuState;
 extern MoveSuggestion	moveSuggestion;
 extern StonesColors		stonesColors;
 extern ForbiddenMoves	forbiddenMoves;
+extern EndGameState		endGameState;
 
 void	loadTextures(int nbTextures, const std::string pathStart, const std::string prefixes[], std::vector<sf::Texture>& textures);
 void	setTextures(int nbTextures, const std::vector<sf::Texture>& textures, std::vector<sf::Sprite>& sprites);
