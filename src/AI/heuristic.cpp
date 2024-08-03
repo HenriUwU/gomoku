@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:20:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/03 17:33:07 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:54:01 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	AI::heuristic(Bitboard &bitboard, int depth) {
 	PatternInfo fiveInARowOpponent[1] = {0b11111, 0b00000, 5, 1, 10};
 	
 	if (bitboard.checkPattern(fiveInARowOpponent, 1))
-		return (-1000000 + depth);
+		return (-1500000 + depth);
 
 	if (bitboard.checkPattern(fiveInARowAI, 1))
 		return (1000000 + depth);
@@ -85,26 +85,26 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		{0b1001, 0b0110, 4, opponent, -10000},
 	};
 	
-	PatternInfo defensivePatterns[12] = {
+	PatternInfo defensivePatterns[6] = {
 		// Three in a row defense
-		{0b10000, 0b01110, 5, player, 1000},
-		{0b00001, 0b01110, 5, player, 1000},
-		{0b10001, 0b01110, 5, player, 10000},
-		{0b10000, 0b01110, 5, opponent, -1000},
-		{0b00001, 0b01110, 5, opponent, -1000},
-		{0b10001, 0b01110, 5, opponent, -10000},
+		{0b10000, 0b01110, 5, player, 10000},
+		{0b00001, 0b01110, 5, player, 10000},
+		{0b10001, 0b01110, 5, player, 1000},
+/* 		{0b10000, 0b01110, 5, opponent, -10000},
+		{0b00001, 0b01110, 5, opponent, -10000},
+		{0b10001, 0b01110, 5, opponent, -1000}, */
 
 		// four in a row defense
 		{0b000001, 0b011110, 6, player, 100000},
 		{0b100000, 0b011110, 6, player, 100000},
 		{0b100001, 0b011110, 6, player, 1000000},
-		{0b000001, 0b011110, 6, opponent, -10000},
+/* 		{0b000001, 0b011110, 6, opponent, -10000},
 		{0b100000, 0b011110, 6, opponent, -10000},
-		{0b100001, 0b011110, 6, opponent, -100000},
+		{0b100001, 0b011110, 6, opponent, -100000}, */
 	};
 	
 	score += bitboard.checkPattern(patterns, 24);
-	score += bitboard.checkPattern(defensivePatterns, 12);
+	score += bitboard.checkPattern(defensivePatterns, 6);
 	
 	return (score);
 }
