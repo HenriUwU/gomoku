@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/01 17:24:41 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:52:40 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
 		tempBoard.placeStoneAI(move.first, move.second, 2);
-		int moveValue = minimax(tempBoard, 4, true, INT_MIN, INT_MAX);
+		int moveValue = minimax(tempBoard, 10, true, INT_MIN, INT_MAX, 0);
 		tempBoard.removeStone(move.first, move.second, 2);
 		return std::make_pair(move, moveValue);
 	};
@@ -57,6 +57,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 		std::pair<std::pair<int, int> , int> result = futureMove.get();
 		std::pair<int, int> move = result.first;
 		int moveValue = result.second;
+		std::cout << "move : " << move.first << " | " << move.second << " is of value : " << moveValue << std::endl;
 		
 		if (moveValue > bestValue) {
 			bestValue = moveValue;
@@ -67,33 +68,66 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	return bestMove;
 }
 
-int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) {
-	if (depth == 0 || bitboard.isGameOver())
-		return heuristic(bitboard, depth);
-	
-	std::unordered_set<std::pair<int, int>, pair_hash>	possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
-	int 												bestValue;
+std::vector<std::pair<int, int>> AI::sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer) {
+    std::unordered_map<std::pair<int, int>, int, pair_hash>	moveScores;
+    std::vector<std::pair<int, int>>						sortedMoves(possibleMoves.begin(), possibleMoves.end());
 
-	if (maximizingPlayer) {
-		bestValue = INT_MIN;
+    for (const auto& move : possibleMoves) {
+        bitboard.placeStoneAI(move.first, move.second, maximizingPlayer ? 2 : 1);
+        moveScores[move] = quickHeuristic(bitboard);
+        bitboard.removeStone(move.first, move.second, maximizingPlayer ? 2 : 1);
+    }
+
+    std::sort(sortedMoves.begin(), sortedMoves.end(), [&](const std::pair<int, int> &a, const std::pair<int, int> &b) {
+        return (maximizingPlayer ? moveScores[a] > moveScores[b] : moveScores[a] < moveScores[b]);
+    });
+
+    return sortedMoves;
+}
+
+int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta, int currentHeuristic) {
+	if (depth == 0 || bitboard.isGameOver()) {
+		return heuristic(bitboard, depth);
+	}
+
+	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
+	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, maximizingPlayer);
+
+	int bestValue = maximizingPlayer ? INT_MIN : INT_MAX;
+
+	int reductionDepth = (depth > 2) ? depth - 2 : 0;
+
+	for (size_t i = 0; i < sortedMoves.size(); ++i) {
+		auto& possibleMove = sortedMoves[i];
 		
-		for (auto& possibleMove : possibleMoves) {
+		if (maximizingPlayer) {
 			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
-			int value = minimax(bitboard, depth - 1, false, alpha, beta);
+			int value;
+			int intermediateHeuristic = heuristic(bitboard, (i > 3) ? reductionDepth : depth);
+			if (intermediateHeuristic < currentHeuristic + 100)
+				break ;
+			if (i > 3) {
+				value = minimax(bitboard, reductionDepth, false, alpha, beta, currentHeuristic);
+			} else {
+				value = minimax(bitboard, depth - 1, false, alpha, beta, currentHeuristic);
+			}
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 2);
 
 			bestValue = std::max(bestValue, value);
 			alpha = std::max(alpha, bestValue);
 			if (beta <= alpha)
 				break;
-		}
-	}
-	else {
-		bestValue = INT_MAX;
-
-		for (auto& possibleMove : possibleMoves) {
+		} else {
 			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 1);
-			int value = minimax(bitboard, depth - 1, true, alpha, beta);
+			int value;
+			int intermediateHeuristic = heuristic(bitboard, (i > 3) ? reductionDepth : depth);
+			if (intermediateHeuristic < currentHeuristic + 100)
+				break ;
+			if (i > 3) {
+				value = minimax(bitboard, reductionDepth, true, alpha, beta, currentHeuristic);
+			} else {
+				value = minimax(bitboard, depth - 1, true, alpha, beta, currentHeuristic);
+			}
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 1);
 
 			bestValue = std::min(bestValue, value);
@@ -104,3 +138,4 @@ int	AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 	}
 	return bestValue;
 }
+

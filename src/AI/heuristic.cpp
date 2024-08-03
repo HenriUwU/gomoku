@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:20:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/01 17:25:22 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:56:27 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,30 @@ int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 	
-	PatternInfo patterns[20] = {
+	PatternInfo patterns[24] = {
 		// Two in a row
-		{0b0110, 0b0000, 4, player, 10},
-		{0b0110, 0b0000, 4, opponent, -10},
+		{0b0110, 0b0000, 4, player, 100},
+		{0b0110, 0b0000, 4, opponent, -100},
 		
 		// Three in a row
 		{0b01110, 0b10000, 5, player, 100},
 		{0b01110, 0b00001, 5, player, 100},
+		{0b0101010, 0b0000000, 7, player, 100},
 		{0b01110, 0b00000, 5, player, 1000},
+		{0b011010, 0b000000, 6, player, 1000},
 		{0b01110, 0b10000, 5, opponent, -100},
 		{0b01110, 0b00001, 5, opponent, -100},
+		{0b0101010, 0b0000000, 7, opponent, -100},
 		{0b01110, 0b00000, 5, opponent, -1000},
+		{0b011010, 0b000000, 6, opponent, -1000},
 		
 		// Four in a row
 		{0b011110, 0b100000, 6, player, 1000},
 		{0b011110, 0b000001, 6, player, 1000},
 		{0b011110, 0b000000, 6, player, 10000},
-		{0b011110, 0b000001, 6, opponent, -10000},
-		{0b011110, 0b100000, 6, opponent, -10000},
-		{0b011110, 0b000000, 6, opponent, -100000},
+		{0b011110, 0b000001, 6, opponent, -1000},
+		{0b011110, 0b100000, 6, opponent, -1000},
+		{0b011110, 0b000000, 6, opponent, -10000},
 		
 		// Player Capture
 		{0b1000, 0b0110, 4, player, 1000},
@@ -99,8 +103,26 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		{0b100001, 0b011110, 6, opponent, -100000},
 	};
 	
-	score += bitboard.checkPattern(patterns, 20);
+	score += bitboard.checkPattern(patterns, 24);
 	score += bitboard.checkPattern(defensivePatterns, 12);
 	
 	return (score);
+}
+
+int AI::quickHeuristic(Bitboard &bitboard) {
+	int evaluation = 0;
+	
+/* 	PatternInfo quickPatterns[6] = {
+		{0b0110, 0b0000, 4, 2, 100},
+		{0b01110, 0b00000, 5, 2, 1000},
+		{0b011110, 0b000000, 6, 2, 10000},
+		{0b0110, 0b0000, 4, 1, -100},
+		{0b01110, 0b00000, 5, 1, -1000},
+		{0b011110, 0b000000, 6, 1, -10000},
+	}; */
+
+	//evaluation += bitboard.checkPattern(quickPatterns, 6);
+	evaluation += checkCenterControl(bitboard, 2, 1);
+
+	return evaluation;
 }
