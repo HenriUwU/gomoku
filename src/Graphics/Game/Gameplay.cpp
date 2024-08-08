@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/03 18:20:45 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:43:50 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left
 		&& clickableZone.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		forbiddenMoves = NOFORBIDDENMOVE;
-		endGameState = SEEGAMESTATE;
+		if (endGameState != NOVICTORY)
+			endGameState = SEEGAMESTATE;
 		window.clear();
 	}
 }
