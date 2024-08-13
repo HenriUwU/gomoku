@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:47 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/03 18:18:50 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:04:01 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,3 +147,4 @@ void	loadTextures(int nbTextures, const std::string pathStart, const std::string
 void	setTextures(int nbTextures, const std::vector<sf::Texture>& textures, std::vector<sf::Sprite>& sprites);
 void	setPosition(int nbSprites, std::vector<sf::Sprite>& sprites, int x, int y, int offset);
 void	setPosition(sf::Sprite& sprite, int x, int y);
+void	setStatistics(std::vector<sf::Text> stats, sf::Font font, int player);

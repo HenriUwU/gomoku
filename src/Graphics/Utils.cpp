@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:27:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/22 14:53:19 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:02:39 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,22 @@ void	setPosition(int nbSprites, std::vector<sf::Sprite>& sprites, int x, int y, 
 
 void	setPosition(sf::Sprite& sprite, int x, int y) {
 	sprite.setPosition(x, y);
+}
+
+void	setStatistics(std::vector<sf::Text> stats, sf::Font font, int player) {
+	for (int i = 3; i < 3; i++) {
+		stats[i].setFont(font);
+		(i == 0) ? stats[i].setString(std::to_string(0)) : stats[i].setString(std::to_string(0) + "s");
+		stats[i].setCharacterSize(22);
+		stats[i].setFillColor(sf::Color::White);
+	}
+	if (player == 1) {
+		stats[0].setPosition(327, 530);
+		stats[1].setPosition(313, 556);
+		stats[2].setPosition(314, 583);
+	} else if (player == 2) {
+		stats[0].setPosition(1769, 530);
+		stats[1].setPosition(1755, 556);
+		stats[2].setPosition(1756, 583);
+	}
 }

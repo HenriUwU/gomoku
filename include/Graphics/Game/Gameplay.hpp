@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:03:52 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/03 18:16:58 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:04:32 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,18 @@ enum popUpTextures {
 	PLAYAGAINHOVEREDBUTTON
 };
 
+enum Statistics {
+	CAPTUREDSTONES,
+	TOTALPLAYTIME,
+	LASTMOVETIME
+};
+
 class Bitboard;
 
 class Gameplay {
 	private:
 		float						_cellSize;
+		sf::Font					_font;
 		sf::Sprite					_firstPlayerAvatarSprite;
 		sf::Sprite					_secondPlayerAvatarSprite;
 		sf::Sprite					_gobanSprite;
@@ -51,12 +58,13 @@ class Gameplay {
 		std::atomic<bool>			_isAIPlaying{true};
 		std::atomic<bool>			_aiThreadRunning{false};
 		std::atomic<bool>			_stopAITimer{false};
+		std::vector<sf::Text>		_player1Stats;
+		std::vector<sf::Text>		_player2Stats;
 		std::vector<sf::Texture>	_pageTextures;
 		std::vector<sf::Texture>	_popupTextures;
 		std::vector<sf::Texture>	_stonesTextures;
 		std::vector<sf::Texture>	_avatarsTextures;
 		std::vector<sf::Texture>	_boardsTextures;
-
 		// sf::Texture					_popupTexture;
 		sf::Sprite					_popupSprite;
 		sf::Sprite					_popupMainMenuButtonSprite;
@@ -69,6 +77,7 @@ class Gameplay {
 		void	init();
 		void	display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	returnButton(const sf::Event& event, const sf::RenderWindow& window);
+		void	statistics(sf::RenderWindow& window);
 		void	popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	drawStones(sf::RenderWindow& window, const Bitboard& bitboard);
 		void	defineStones();
