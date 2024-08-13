@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/13 16:08:54 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:50:07 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboar
 		window.draw(_player1Stats[i]);
 		window.draw(_player2Stats[i]);
 	}
-	// statistics(window);
 	drawStones(window, bitboard);
 	popUp(event, window, bitboard);
 }
@@ -56,15 +55,6 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 	if (event.type == sf::Event::MouseButtonPressed)
 		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
 			gameState = MENU;
-}
-
-void	Gameplay::statistics(sf::RenderWindow& window) {
-	setStatistics(_player1Stats, _font, 1);
-	setStatistics(_player2Stats, _font, 2);
-	for (int i = 0; i < 3; i++) {
-		window.draw(_player1Stats[i]);
-		window.draw(_player2Stats[i]);
-	}
 }
 
 void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
@@ -259,35 +249,6 @@ void    Gameplay::init() {
 	_backwardButtonSprite.setPosition(100, 100);
 
 	_font.loadFromFile("assets/fonts/Exo2/Exo2-BlackItalic.ttf");
-	_player1Stats[CAPTUREDSTONES].setFont(_font);
-	_player1Stats[TOTALPLAYTIME].setFont(_font);
-	_player1Stats[LASTMOVETIME].setFont(_font);
-	_player1Stats[CAPTUREDSTONES].setString(std::to_string(0));
-	_player1Stats[TOTALPLAYTIME].setString(std::to_string(0) + "s");
-	_player1Stats[LASTMOVETIME].setString(std::to_string(0) + "s");
-	_player1Stats[CAPTUREDSTONES].setCharacterSize(22);
-	_player1Stats[TOTALPLAYTIME].setCharacterSize(22);
-	_player1Stats[LASTMOVETIME].setCharacterSize(22);
-	_player1Stats[CAPTUREDSTONES].setFillColor(sf::Color::White);
-	_player1Stats[TOTALPLAYTIME].setFillColor(sf::Color::White);
-	_player1Stats[LASTMOVETIME].setFillColor(sf::Color::White);
-	_player1Stats[CAPTUREDSTONES].setPosition(327, 530);
-	_player1Stats[TOTALPLAYTIME].setPosition(313, 556);
-	_player1Stats[LASTMOVETIME].setPosition(314, 583);
-	
-	_player2Stats[CAPTUREDSTONES].setFont(_font);
-	_player2Stats[TOTALPLAYTIME].setFont(_font);
-	_player2Stats[LASTMOVETIME].setFont(_font);
-	_player2Stats[CAPTUREDSTONES].setString(std::to_string(0));
-	_player2Stats[TOTALPLAYTIME].setString(std::to_string(0) + "s");
-	_player2Stats[LASTMOVETIME].setString(std::to_string(0) + "s");
-	_player2Stats[CAPTUREDSTONES].setCharacterSize(22);
-	_player2Stats[TOTALPLAYTIME].setCharacterSize(22);
-	_player2Stats[LASTMOVETIME].setCharacterSize(22);
-	_player2Stats[CAPTUREDSTONES].setFillColor(sf::Color::White);
-	_player2Stats[TOTALPLAYTIME].setFillColor(sf::Color::White);
-	_player2Stats[LASTMOVETIME].setFillColor(sf::Color::White);
-	_player2Stats[CAPTUREDSTONES].setPosition(1769, 530);
-	_player2Stats[TOTALPLAYTIME].setPosition(1755, 556);
-	_player2Stats[LASTMOVETIME].setPosition(1756, 583);
+	setStatistics(_player1Stats, _font, 1);
+	setStatistics(_player2Stats, _font, 2);
 }
