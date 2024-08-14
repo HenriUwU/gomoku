@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:47 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/13 16:48:32 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:34:37 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,9 @@ enum EndGameState {
 	NOVICTORY
 };
 
+extern bool				isStonePlaceable;
 extern int				musicVolume;
+extern int				playersCaptures[2];
 extern AIMode			aiMode;
 extern bool				aiPlaying;
 extern Avatar			playerOneAvatar;

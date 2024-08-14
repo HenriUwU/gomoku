@@ -6,23 +6,25 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/03 18:20:30 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:35:10 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
 
-int				musicVolume		= 100;
-AIMode			aiMode			= NOAIMODE;
-bool			aiPlaying		= false;
-Avatar			playerOneAvatar	= NOAVATAR;
-BoardColor		boardColor		= NOBOARD;
-GameState		gameState		= MENU;
-HelpMenuState	helpMenuState	= RULES;
-MoveSuggestion	moveSuggestion	= ENABLED;
-StonesColors	stonesColors	= NOSTONESCOLORS;
-ForbiddenMoves	forbiddenMoves	= NOFORBIDDENMOVE;
-EndGameState	endGameState	= NOVICTORY;
+bool			isStonePlaceable	= false;
+int				musicVolume			= 100;
+int				playersCaptures[2]	= {0, 0};
+AIMode			aiMode				= NOAIMODE;
+bool			aiPlaying			= false;
+Avatar			playerOneAvatar		= NOAVATAR;
+BoardColor		boardColor			= NOBOARD;
+GameState		gameState			= MENU;
+HelpMenuState	helpMenuState		= RULES;
+MoveSuggestion	moveSuggestion		= ENABLED;
+StonesColors	stonesColors		= NOSTONESCOLORS;
+ForbiddenMoves	forbiddenMoves		= NOFORBIDDENMOVE;
+EndGameState	endGameState		= NOVICTORY;
 
 int main() {
 	sf::RenderWindow	window(sf::VideoMode(1920, 1080), "Gomoku");
@@ -43,10 +45,13 @@ int main() {
 	
 	cursorSprite.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
+	sf::Event event;
 	while (window.isOpen()) {
 		window.clear();
-		sf::Event event;
 		while (window.pollEvent(event)) {
+			if ((gameState == GAME || gameState == AIVERSUS) && isStonePlaceable && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+				isStonePlaceable = false;
+			}
 			mainMenu.handleKeys(event, window);
 			customMenu.handleKeys(event, window);
 			settingsMenu.handleKeys(event, window);

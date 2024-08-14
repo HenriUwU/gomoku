@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/13 16:50:07 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:34:57 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboar
 		window.draw(_player2Stats[i]);
 	}
 	drawStones(window, bitboard);
+	statistics();
 	popUp(event, window, bitboard);
 }
 
@@ -57,6 +58,14 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 			gameState = MENU;
 }
 
+void	Gameplay::statistics() {
+	// Captured stones
+	_player1Stats[0].setString(std::to_string(playersCaptures[0] * 2));
+	_player2Stats[0].setString(std::to_string(playersCaptures[1] * 2));
+	// Total play time
+	// Last move time
+}
+
 void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
 	if (forbiddenMoves == DOUBLE_THREE && !_aiThreadRunning)
 		_popupSprite.setTexture(_popupTextures[FORBIDDENMOVE]);
@@ -69,6 +78,7 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 	else
 		return ;
 	window.draw(_popupSprite);
+	
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	if (endGameState != NOVICTORY) {
 		if (_popupMainMenuButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -94,6 +104,7 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 		window.draw(_popupMainMenuButtonSprite);
 		window.draw(_popupPlayAgainButtonSprite);
 	}
+	
 	sf::RectangleShape clickableZone(sf::Vector2f(26, 26));
     clickableZone.setPosition(1162, 404);
     clickableZone.setFillColor(sf::Color(0, 0, 0, 0));
@@ -186,8 +197,9 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 		if (bitboard.getBit(col, row) != 0)
 			return ;
 	}
-
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+	
+	if (!isStonePlaceable && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		isStonePlaceable = true;
 		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
 			if ((_currentPlayer == 1 && bitboard.placeStone(col, row, _currentPlayer)) || (!isAIPlaying && bitboard.placeStone(col, row, _currentPlayer))) {
 				if (_currentPlayer == 1)
