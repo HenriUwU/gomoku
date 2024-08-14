@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/14 15:34:57 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:55:11 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ void	Gameplay::statistics() {
 	_player1Stats[0].setString(std::to_string(playersCaptures[0] * 2));
 	_player2Stats[0].setString(std::to_string(playersCaptures[1] * 2));
 	// Total play time
+	// auto startTime = std::chrono::steady_clock::now();
+
+	
 	// Last move time
 }
 

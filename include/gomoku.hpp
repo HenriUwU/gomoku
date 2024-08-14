@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:47 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/14 15:34:37 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:58:44 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ enum EndGameState {
 extern bool				isStonePlaceable;
 extern int				musicVolume;
 extern int				playersCaptures[2];
+extern std::chrono::steady_clock::time_point				elapsedTime;
 extern AIMode			aiMode;
 extern bool				aiPlaying;
 extern Avatar			playerOneAvatar;

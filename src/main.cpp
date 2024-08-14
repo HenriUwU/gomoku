@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/14 15:35:10 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:58:27 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 bool			isStonePlaceable	= false;
 int				musicVolume			= 100;
 int				playersCaptures[2]	= {0, 0};
+std::chrono::steady_clock::time_point	elapsedTime			= std::chrono::steady_clock::now();
 AIMode			aiMode				= NOAIMODE;
 bool			aiPlaying			= false;
 Avatar			playerOneAvatar		= NOAVATAR;
@@ -49,9 +50,8 @@ int main() {
 	while (window.isOpen()) {
 		window.clear();
 		while (window.pollEvent(event)) {
-			if ((gameState == GAME || gameState == AIVERSUS) && isStonePlaceable && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+			if ((gameState == GAME || gameState == AIVERSUS) && isStonePlaceable && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
 				isStonePlaceable = false;
-			}
 			mainMenu.handleKeys(event, window);
 			customMenu.handleKeys(event, window);
 			settingsMenu.handleKeys(event, window);
