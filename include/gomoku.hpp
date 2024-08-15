@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:47 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/14 16:58:44 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:35:56 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #include <unordered_map>
 #include <chrono>
 #include <future>
+#include <iomanip>
 
 struct PatternInfo {
 	uint32_t	pattern;
@@ -131,20 +132,21 @@ enum EndGameState {
 	NOVICTORY
 };
 
-extern bool				isStonePlaceable;
-extern int				musicVolume;
-extern int				playersCaptures[2];
-extern std::chrono::steady_clock::time_point				elapsedTime;
-extern AIMode			aiMode;
-extern bool				aiPlaying;
-extern Avatar			playerOneAvatar;
-extern BoardColor		boardColor;
-extern GameState		gameState;
-extern HelpMenuState	helpMenuState;
-extern MoveSuggestion	moveSuggestion;
-extern StonesColors		stonesColors;
-extern ForbiddenMoves	forbiddenMoves;
-extern EndGameState		endGameState;
+extern int										musicVolume;
+extern int										playersCaptures[2];
+extern bool										aiPlaying;
+extern bool										isStonePlaceable;
+extern bool										startTimer;
+extern AIMode									aiMode;
+extern Avatar									playerOneAvatar;
+extern GameState								gameState;
+extern BoardColor								boardColor;
+extern EndGameState								endGameState;
+extern StonesColors								stonesColors;
+extern HelpMenuState							helpMenuState;
+extern MoveSuggestion							moveSuggestion;
+extern ForbiddenMoves							forbiddenMoves;
+extern std::chrono::steady_clock::time_point	gameStartTime;
 
 void	loadTextures(int nbTextures, const std::string pathStart, const std::string prefixes[], std::vector<sf::Texture>& textures);
 void	setTextures(int nbTextures, const std::vector<sf::Texture>& textures, std::vector<sf::Sprite>& sprites);

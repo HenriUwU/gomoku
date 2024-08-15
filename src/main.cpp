@@ -6,26 +6,27 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/14 16:58:27 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:52:07 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
 
-bool			isStonePlaceable	= false;
-int				musicVolume			= 100;
-int				playersCaptures[2]	= {0, 0};
-std::chrono::steady_clock::time_point	elapsedTime			= std::chrono::steady_clock::now();
-AIMode			aiMode				= NOAIMODE;
-bool			aiPlaying			= false;
-Avatar			playerOneAvatar		= NOAVATAR;
-BoardColor		boardColor			= NOBOARD;
-GameState		gameState			= MENU;
-HelpMenuState	helpMenuState		= RULES;
-MoveSuggestion	moveSuggestion		= ENABLED;
-StonesColors	stonesColors		= NOSTONESCOLORS;
-ForbiddenMoves	forbiddenMoves		= NOFORBIDDENMOVE;
-EndGameState	endGameState		= NOVICTORY;
+int										musicVolume			= 100;
+int										playersCaptures[2]	= {0, 0};
+bool									aiPlaying			= false;
+bool									isStonePlaceable	= false;
+bool									startTimer			= false;
+AIMode									aiMode				= NOAIMODE;
+Avatar									playerOneAvatar		= NOAVATAR;
+GameState								gameState			= MENU;
+BoardColor								boardColor			= NOBOARD;
+EndGameState							endGameState		= NOVICTORY;
+StonesColors							stonesColors		= NOSTONESCOLORS;
+HelpMenuState							helpMenuState		= RULES;
+MoveSuggestion							moveSuggestion		= ENABLED;
+ForbiddenMoves							forbiddenMoves		= NOFORBIDDENMOVE;
+std::chrono::steady_clock::time_point	gameStartTime;
 
 int main() {
 	sf::RenderWindow	window(sf::VideoMode(1920, 1080), "Gomoku");
@@ -65,11 +66,16 @@ int main() {
 		music.playMusic();
 		switch (gameState) {
 			case MENU:
+				startTimer = false;
 				mainMenu.display(window);
-				bitboard.clear();
+				bitboard.clear(); // ne plus clear le bitboard ici mais plutot dans le return button de gameplay
 				break;
 			case GAME:
 			case AIVERSUS:
+				if (!startTimer) {
+					startTimer = true;
+					gameStartTime = std::chrono::steady_clock::now();
+				}
 				gameplay.display(event, window, bitboard);
 				if (forbiddenMoves == NOFORBIDDENMOVE && endGameState == NOVICTORY && endGameState != SEEGAMESTATE)
 					gameplay.mouseHover(window, bitboard, (gameState == GAME) ? false : true);

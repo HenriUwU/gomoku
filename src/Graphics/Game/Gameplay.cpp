@@ -6,13 +6,13 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/14 16:55:11 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:15:07 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Gameplay.hpp"
 
-Gameplay::Gameplay() : _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
+Gameplay::Gameplay() : _isFirstMove(true), _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
 	init();
 }
 
@@ -41,8 +41,8 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboar
 		window.draw(_player1Stats[i]);
 		window.draw(_player2Stats[i]);
 	}
-	drawStones(window, bitboard);
 	statistics();
+	drawStones(window, bitboard);
 	popUp(event, window, bitboard);
 }
 
@@ -54,8 +54,15 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 			_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	}
 	if (event.type == sf::Event::MouseButtonPressed)
-		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
 			gameState = MENU;
+			endGameState = NOVICTORY;
+			std::fill(playersCaptures, playersCaptures + 2, 0);
+			// clear le bitboard ici et pas dans le main
+			setStatistics(_player1Stats, _font, 1);
+			setStatistics(_player2Stats, _font, 2);
+			_lastMoveDuration = std::chrono::milliseconds::zero();
+		}
 }
 
 void	Gameplay::statistics() {
@@ -63,10 +70,17 @@ void	Gameplay::statistics() {
 	_player1Stats[0].setString(std::to_string(playersCaptures[0] * 2));
 	_player2Stats[0].setString(std::to_string(playersCaptures[1] * 2));
 	// Total play time
-	// auto startTime = std::chrono::steady_clock::now();
 
-	
 	// Last move time
+	if (!_isFirstMove) {
+		std::stringstream ss;
+		ss << std::fixed << std::setprecision(2) << _lastMoveDuration.count();
+		
+		std::string lastMoveTime = ss.str() + "s";
+		
+		int playerJustMoved = (_currentPlayer == 1) ? 2 : 1;
+		(playerJustMoved == 1) ? _player1Stats[2].setString(lastMoveTime) : _player2Stats[2].setString(lastMoveTime);
+	}
 }
 
 void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
@@ -89,6 +103,11 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 				gameState = MENU;
 				endGameState = NOVICTORY;
+				bitboard.clear();
+				std::fill(playersCaptures, playersCaptures + 2, 0);
+				setStatistics(_player1Stats, _font, 1);
+				setStatistics(_player2Stats, _font, 2);
+				_lastMoveDuration = std::chrono::milliseconds::zero();
 			}
 		}
 		else if (_popupPlayAgainButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -96,12 +115,17 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 				endGameState = NOVICTORY;
 				bitboard.clear();
+				std::fill(playersCaptures, playersCaptures + 2, 0);
+				setStatistics(_player1Stats, _font, 1);
+				setStatistics(_player2Stats, _font, 2);
+				_lastMoveDuration = std::chrono::milliseconds::zero();
 			}
 		}
 		else {
 			_popupMainMenuButtonSprite.setTexture(_popupTextures[MAINMENUBUTTON]);
 			_popupPlayAgainButtonSprite.setTexture(_popupTextures[PLAYAGAINBUTTON]);
 		}
+		startTimer = false;
 		_popupMainMenuButtonSprite.setPosition(743.8, 547.5);
 		_popupPlayAgainButtonSprite.setPosition(980.8, 547.5);
 		window.draw(_popupMainMenuButtonSprite);
@@ -202,6 +226,16 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 	}
 	
 	if (!isStonePlaceable && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (_isFirstMove) {
+			_isFirstMove = false;
+			_moveStartTime = gameStartTime;
+			_lastMoveDuration = std::chrono::steady_clock::now() - gameStartTime;
+		} else {
+			_moveEndTime = std::chrono::steady_clock::now();
+			_lastMoveDuration = _moveEndTime - _moveStartTime;
+			_moveStartTime = _moveEndTime;
+		}
+		
 		isStonePlaceable = true;
 		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
 			if ((_currentPlayer == 1 && bitboard.placeStone(col, row, _currentPlayer)) || (!isAIPlaying && bitboard.placeStone(col, row, _currentPlayer))) {
