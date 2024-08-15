@@ -6,13 +6,15 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 14:10:25 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/14 16:55:11 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:05:54 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Gameplay.hpp"
 
-Gameplay::Gameplay() : _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
+Gameplay::Gameplay() : _isFirstMove(true), _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
+	_gameStartTime = std::chrono::steady_clock::now();
+    _moveStartTime = _gameStartTime; // Initialize to game start time
 	init();
 }
 
@@ -63,10 +65,17 @@ void	Gameplay::statistics() {
 	_player1Stats[0].setString(std::to_string(playersCaptures[0] * 2));
 	_player2Stats[0].setString(std::to_string(playersCaptures[1] * 2));
 	// Total play time
-	// auto startTime = std::chrono::steady_clock::now();
 
-	
 	// Last move time
+	if (!_isFirstMove) {
+		std::stringstream ss;
+		ss << std::fixed << std::setprecision(2) << _lastMoveDuration.count();
+		
+		std::string lastMoveTime = ss.str() + "s";
+		
+		int playerJustMoved = (_currentPlayer == 1) ? 2 : 1;
+		(playerJustMoved == 1) ? _player1Stats[2].setString(lastMoveTime) : _player2Stats[2].setString(lastMoveTime);
+	}
 }
 
 void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
@@ -201,7 +210,7 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 			return ;
 	}
 	
-	if (!isStonePlaceable && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+	/* if (!isStonePlaceable && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		isStonePlaceable = true;
 		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
 			if ((_currentPlayer == 1 && bitboard.placeStone(col, row, _currentPlayer)) || (!isAIPlaying && bitboard.placeStone(col, row, _currentPlayer))) {
@@ -210,6 +219,28 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 				else
 					_currentPlayer = 1;
 			}
+		}
+	} */
+	
+	if (!isStonePlaceable && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		if (_isFirstMove) {
+			_lastMoveDuration = std::chrono::steady_clock::now() - _gameStartTime;
+			_isFirstMove = false;
+		} else {
+			_moveEndTime = std::chrono::steady_clock::now();
+			_lastMoveDuration = _moveEndTime - _moveStartTime;
+			_moveStartTime = _moveEndTime;
+		}
+
+		isStonePlaceable = true;
+		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
+			if ((_currentPlayer == 1 && bitboard.placeStone(col, row, _currentPlayer))
+			|| (!isAIPlaying && bitboard.placeStone(col, row, _currentPlayer))) {
+				if (_currentPlayer == 1)
+					_currentPlayer = 2;
+				else
+					_currentPlayer = 1;
+				}
 		}
 	}
 

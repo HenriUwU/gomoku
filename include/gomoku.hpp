@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:47 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/14 16:58:44 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:54:46 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #include <unordered_map>
 #include <chrono>
 #include <future>
+#include <iomanip>
 
 struct PatternInfo {
 	uint32_t	pattern;

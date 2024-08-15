@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:03:52 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/14 15:35:01 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:41:48 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,32 +43,36 @@ class Bitboard;
 
 class Gameplay {
 	private:
-		float						_cellSize;
-		sf::Font					_font;
-		sf::Sprite					_firstPlayerAvatarSprite;
-		sf::Sprite					_secondPlayerAvatarSprite;
-		sf::Sprite					_gobanSprite;
-		sf::Sprite					_backwardButtonSprite;
-		sf::Sprite					_gridAndIndexSprite;
-		sf::Sprite					_gamePageSprite;
-		sf::Sprite					_firstPlayerStoneSprite;
-		sf::Sprite					_secondPlayerStoneSprite;
-		std::thread					_aiThread;
-		std::atomic<int>			_currentPlayer{1};
-		std::atomic<bool>			_isAIPlaying{true};
-		std::atomic<bool>			_aiThreadRunning{false};
-		std::atomic<bool>			_stopAITimer{false};
-		std::vector<sf::Text>		_player1Stats;
-		std::vector<sf::Text>		_player2Stats;
-		std::vector<sf::Texture>	_pageTextures;
-		std::vector<sf::Texture>	_popupTextures;
-		std::vector<sf::Texture>	_stonesTextures;
-		std::vector<sf::Texture>	_avatarsTextures;
-		std::vector<sf::Texture>	_boardsTextures;
-		// sf::Texture					_popupTexture;
-		sf::Sprite					_popupSprite;
-		sf::Sprite					_popupMainMenuButtonSprite;
-		sf::Sprite					_popupPlayAgainButtonSprite;
+		bool									_isFirstMove;
+		float									_cellSize;
+		sf::Font								_font;
+		sf::Sprite								_firstPlayerAvatarSprite;
+		sf::Sprite								_secondPlayerAvatarSprite;
+		sf::Sprite								_gobanSprite;
+		sf::Sprite								_backwardButtonSprite;
+		sf::Sprite								_gridAndIndexSprite;
+		sf::Sprite								_gamePageSprite;
+		sf::Sprite								_firstPlayerStoneSprite;
+		sf::Sprite								_secondPlayerStoneSprite;
+		sf::Sprite								_popupSprite;
+		sf::Sprite								_popupMainMenuButtonSprite;
+		sf::Sprite								_popupPlayAgainButtonSprite;
+		std::thread								_aiThread;
+		std::atomic<int>						_currentPlayer{1};
+		std::atomic<bool>						_isAIPlaying{true};
+		std::atomic<bool>						_aiThreadRunning{false};
+		std::atomic<bool>						_stopAITimer{false};
+		std::vector<sf::Text>					_player1Stats;
+		std::vector<sf::Text>					_player2Stats;
+		std::vector<sf::Texture>				_pageTextures;
+		std::vector<sf::Texture>				_popupTextures;
+		std::vector<sf::Texture>				_stonesTextures;
+		std::vector<sf::Texture>				_avatarsTextures;
+		std::vector<sf::Texture>				_boardsTextures;
+		std::chrono::duration<double>			_lastMoveDuration;
+		std::chrono::steady_clock::time_point	_gameStartTime;
+		std::chrono::steady_clock::time_point	_moveStartTime;
+		std::chrono::steady_clock::time_point	_moveEndTime;
 
 	public:
 		Gameplay();
