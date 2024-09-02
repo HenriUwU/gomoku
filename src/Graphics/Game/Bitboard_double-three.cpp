@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:21:52 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/02 13:12:45 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:42:47 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,15 @@ uint32_t o6Patterns[6]  = { 0b100000, 0b000001,
 
 bool	Bitboard::isDoubleThree(int x, int y, int player) {
 	int	nbFreeThree = 0;
-//	static int freethreecount = 0;
 
 	verifyFreeThreeHorizontal(nbFreeThree, x, y, player);
-/* 	if (nbFreeThree) {
-		freethreecount++;
-		std::cout << "Free three on horizontal number " << freethreecount << std::endl;
-	} */
-	//std::cout << "Free three count on horizontal : " << nbFreeThree << std::endl;
 	verifyFreeThreeVertical(nbFreeThree, x, y, player);
 	verifyFreeThreeDiagonal(nbFreeThree, x, y, player);
 	verifyFreeThreeAntiDiagonal(nbFreeThree, x, y, player);
 
 	if (nbFreeThree >= 2) {
-		std::cout << "Double three detected" << std::endl;
 		return (true);
 	}
-	//std::cout << "No double three detected on position (" << x << ", " << y << ")" << std::endl;
-	//std::cout << "Free three count: " << nbFreeThree << std::endl;
-	//std::cout << std::endl;
 	return (false);
 }
 
@@ -81,63 +71,26 @@ void	Bitboard::verifyFreeThreeHorizontal(int &nbFreeThree, int x, int y, int pla
 		nbBits = 5 + x;
 		pSelection = getSelection(pBitboard, nbBits, 0);
 		oSelection = getSelection(oBitboard, nbBits, 0);
-		//std::cout << "je suis dans x - 4 < 0" << std::endl;
 	} else if (x + 4 > BOARD_SIZE - 1) {
 		nbBits = BOARD_SIZE - (x - 4);
 		pSelection = getSelection(pBitboard, nbBits, x - 4);
 		oSelection = getSelection(oBitboard, nbBits, x - 4);
-		//std::cout << "je suis dans x + 4 > BOARD_SIZE - 1" << std::endl;
 	} else {
 		nbBits = 9;
 		pSelection = getSelection(pBitboard, nbBits, x - 4);
 		oSelection = getSelection(oBitboard, nbBits, x - 4);
-		//std::cout << "je suis dans else" << std::endl;
 	}
 	
-/* 	for (int i = 31; i >= 0; --i) {
-		std::cout << ((pSelection >> i) & 1);
-	}
-
-	std::cout << std::endl;
-	
-	for (int i = 31; i >= 0; --i) {
-		std::cout << ((oSelection >> i) & 1);
-	}
-
-    std::cout << std::endl; */
-
 	for (int i = 0; i < nbBits; i++) {
 		if (i + 5 <= nbBits) {
 			uint32_t pFive = getSelection(pSelection, 5, i);
 			uint32_t oFive = getSelection(oSelection, 5, i);
-/* 			for (int i = 31; i >= 0; --i) {
-				std::cout << ((pFive >> i) & 1);
-			}
-
-			std::cout << std::endl;
-
-			for (int i = 31; i >= 0; --i) {
-				std::cout << ((oFive >> i) & 1);
-			} */
-
-			//std::cout << std::endl;
 			if (verifyPlayerPattern(pFive, 5) && !verifyOpponentPattern(oFive, 5))
 				nbFreeThree++;
 		}
 		if (i + 6 <= nbBits) {
 			uint32_t pSix = getSelection(pSelection, 6, i);
 			uint32_t oSix = getSelection(oSelection, 6, i);
-/* 			for (int i = 31; i >= 0; --i) {
-				std::cout << ((pSix >> i) & 1);
-			}
-
-			std::cout << std::endl;
-
-			for (int i = 31; i >= 0; --i) {
-				std::cout << ((oSix >> i) & 1);
-			} */
-
-			//std::cout << std::endl;
 			if (verifyPlayerPattern(pSix, 6) && !verifyOpponentPattern(oSix, 6))
 				nbFreeThree++;
 		}
