@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/14 15:24:59 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:39:59 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
 		tempBoard.placeStoneAI(move.first, move.second, 2);
-		int moveValue = minimax(tempBoard, 4, true, INT_MIN, INT_MAX);
+		int moveValue = minimax(tempBoard, 6, true, INT_MIN, INT_MAX);
 		tempBoard.removeStone(move.first, move.second, 2);
 		return std::make_pair(move, moveValue);
 	};
