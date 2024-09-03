@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_victory.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:39:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/03 15:48:13 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:06:36 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,138 @@ bool    Bitboard::fiveInARow(int x, int y, int player) {
 	return (false);
 }
 
+bool	Bitboard::verticalCaptureInAlignment(int x, int y, int player) {
+	uint32_t	pBitboard = (player == 1) ? _firstPlayerBoardColumns[x] : _secondPlayerBoardColumns[x];
+	uint32_t	oBitboard = (player == 1) ? _secondPlayerBoardColumns[x] : _firstPlayerBoardColumns[x];
+	uint32_t	pVerticalSelection = 0;
+	uint32_t	oVerticalSelection = 0;
+	int			bitPos = 0;
+	int			nbBits = 0;
+	
+	if (y - 2 < 0)
+		nbBits = 4;
+	else if (y + 2 > BOARD_SIZE - 1) {
+		nbBits = 4;
+		bitPos = y - 2;
+	} else {
+		nbBits = 5;
+		bitPos = y - 2;
+	}
+	
+	pVerticalSelection = getSelection(pBitboard, nbBits, bitPos);
+	oVerticalSelection = getSelection(oBitboard, nbBits, bitPos);
+	
+	for (int i = 0; i < 2; i++) {
+		uint32_t pFour = getSelection(pVerticalSelection, 4, i);
+		uint32_t oFour = getSelection(oVerticalSelection, 4, i);
+		
+		if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool	Bitboard::diagonalCaptureInAlignment(int x, int y, int player) {
+	uint32_t	pBitboard = (player == 1) ? _firstPlayerBoardDiagonals[y] : _secondPlayerBoardDiagonals[y];
+	uint32_t	oBitboard = (player == 1) ? _secondPlayerBoardDiagonals[y] : _firstPlayerBoardDiagonals[y];
+	uint32_t	pSelection = 0;
+	uint32_t	oSelection = 0;
+	int			nbBits = 0;
+	int			boardSide = (x + y < BOARD_SIZE) ? 1 : 2;
+	int			yDiagonal = rotateY45(x, y);
+
+	if (x != 0 && x != yDiagonal && boardSide == 1 && yDiagonal >= 4) {
+		if (x - 2 < 0) {
+			nbBits = 4;
+			pSelection = getSelection(pBitboard, nbBits, 0);
+			oSelection = getSelection(oBitboard, nbBits, 0);
+		} else if (x + 2 > yDiagonal + 1) {
+			nbBits = 4;
+			pSelection = getSelection(pBitboard, nbBits, x - 2);
+			oSelection = getSelection(oBitboard, nbBits, x - 2);
+		} else {
+			nbBits = 5;
+			pSelection = getSelection(pBitboard, nbBits, x - 2);
+			oSelection = getSelection(oBitboard, nbBits, x - 2);
+		}
+	} else if (x != BOARD_SIZE - 1 && x != yDiagonal && boardSide == 2 && yDiagonal <= 14) {
+		if (x - 2 < yDiagonal + 1) {
+			nbBits = 4;
+			pSelection = getSelection(pBitboard, nbBits, yDiagonal + 1);
+			oSelection = getSelection(oBitboard, nbBits, yDiagonal + 1);
+		} else if (x + 2 > BOARD_SIZE) {
+			nbBits = 4;
+			pSelection = getSelection(pBitboard, nbBits, x - 2);
+			oSelection = getSelection(oBitboard, nbBits, x - 2);
+		} else {
+			nbBits = 5;
+			pSelection = getSelection(pBitboard, nbBits, x - 2);
+			oSelection = getSelection(oBitboard, nbBits, x - 2);
+		}
+	}
+	
+	for (int i = 0; i < 2; i++) {
+		uint32_t pFour = getSelection(pSelection, 4, i);
+		uint32_t oFour = getSelection(oSelection, 4, i);
+		
+		if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool	Bitboard::antiDiagonalCaptureInAlignment(int x, int y, int player) {
+	uint32_t	pBitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[y] : _secondPlayerBoardAntiDiagonals[y];
+	uint32_t	oBitboard = (player == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y];
+	uint32_t	pSelection = 0;
+	uint32_t	oSelection = 0;
+	int			nbBits = 0;
+	int			boardSide = (x < y + 1) ? 1 : 2;
+	int			yAntiDiagonal = rotateY315(x, y);
+
+	if (x != 0 && x != yAntiDiagonal && boardSide == 1 && yAntiDiagonal <= 14) {
+		if (x - 2 < 0) {
+			nbBits = 4;
+			pSelection = getSelection(pBitboard, nbBits, 0);
+			oSelection = getSelection(oBitboard, nbBits, 0);
+		} else if (x + 2 > BOARD_SIZE - yAntiDiagonal) {
+			nbBits = 4;
+			pSelection = getSelection(pBitboard, nbBits, x - 2);
+			oSelection = getSelection(oBitboard, nbBits, x - 2);
+		} else {
+			nbBits = 5;
+			pSelection = getSelection(pBitboard, nbBits, x - 2);
+			oSelection = getSelection(oBitboard, nbBits, x - 2);
+		}
+	} else if (x != BOARD_SIZE - 1 && x != yAntiDiagonal && boardSide == 2 && yAntiDiagonal >= 4) {
+		if (x - 2 < BOARD_SIZE - yAntiDiagonal) {
+			nbBits = 4;
+			pSelection = getSelection(pBitboard, nbBits, BOARD_SIZE - yAntiDiagonal);
+			oSelection = getSelection(oBitboard, nbBits, BOARD_SIZE - yAntiDiagonal);
+		} else if (x + 2 > BOARD_SIZE - 1) {
+			nbBits = 4;
+			pSelection = getSelection(pBitboard, nbBits, x - 2);
+			oSelection = getSelection(oBitboard, nbBits, x - 2);
+		} else {
+			nbBits = 5;
+			pSelection = getSelection(pBitboard, nbBits, x - 2);
+			oSelection = getSelection(oBitboard, nbBits, x - 2);
+		}
+	}
+	
+	for (int i = 0; i < 2; i++) {
+		uint32_t pFour = getSelection(pSelection, 4, i);
+		uint32_t oFour = getSelection(oSelection, 4, i);
+		
+		if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 bool	Bitboard::isHorizontalAlignmentBreakable(int x, int y, int bitsInAlignment, int player) {
 	int nbValidStones = 0;
 
@@ -31,148 +163,47 @@ bool	Bitboard::isHorizontalAlignmentBreakable(int x, int y, int bitsInAlignment,
 		return false;
 
 	for (int i = 0; i < bitsInAlignment; i++) {
-		uint32_t	pVerticalSelection = 0;
-		uint32_t	oVerticalSelection = 0;
-		uint32_t	pDiagonalSelection = 0;
-		uint32_t	oDiagonalSelection = 0;
-		uint32_t	pAntiDiagonalSelection = 0;
-		uint32_t	oAntiDiagonalSelection = 0;
-		int			bitPos = 0;
-		int			nbBits = 0;
-		int			boardSide = 0;
-
-		uint32_t	pBitboard = (player == 1) ? _firstPlayerBoardColumns[y] : _secondPlayerBoardColumns[y];
-		uint32_t	oBitboard = (player == 1) ? _secondPlayerBoardColumns[y] : _firstPlayerBoardColumns[y];
-
-		if (y - 2 < 0)
-			nbBits = 4;
-		else if (y + 2 > BOARD_SIZE - 1) {
-			nbBits = 4;
-			bitPos = y - 2;
-		} else {
-			nbBits = 5;
-			bitPos = y - 2;
-		}
-
-		// Vertical verification
-
-		pVerticalSelection = getSelection(pBitboard, nbBits, bitPos);
-		oVerticalSelection = getSelection(oBitboard, nbBits, bitPos);
-
-		for (int j = 0; j < nbBits - 3; j++) {
-			uint32_t pFour = getSelection(pVerticalSelection, 4, j);
-			uint32_t oFour = getSelection(oVerticalSelection, 4, j);
-			
-			if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001)) {
-				nbValidStones = 0;
-				x++;
-				continue;
-			}
-		}
-
-		// Diagonal verification
-
-		pBitboard = (player == 1) ? _firstPlayerBoardDiagonals[y] : _secondPlayerBoardDiagonals[y];
-		oBitboard = (player == 1) ? _secondPlayerBoardDiagonals[y] : _firstPlayerBoardDiagonals[y];
-		boardSide = (x + y < BOARD_SIZE) ? 1 : 2;
-
-		int yDiagonal = rotateY45(x, y);
-		if (x != 0 && x != yDiagonal && boardSide == 1 && yDiagonal >= 4) {
-			if (x - 2 < 0) {
-				nbBits = 4;
-				pDiagonalSelection = getSelection(pBitboard, nbBits, 0);
-				oDiagonalSelection = getSelection(oBitboard, nbBits, 0);
-			} else if (x + 2 > yDiagonal + 1) {
-				nbBits = 4;
-				pDiagonalSelection = getSelection(pBitboard, nbBits, x - 2);
-				oDiagonalSelection = getSelection(oBitboard, nbBits, x - 2);
-			} else {
-				nbBits = 5;
-				pDiagonalSelection = getSelection(pBitboard, nbBits, x - 2);
-				oDiagonalSelection = getSelection(oBitboard, nbBits, x - 2);
-			}
-		} else if (x != BOARD_SIZE - 1 && x != yDiagonal && boardSide == 2 && yDiagonal <= 14) {
-			if (x - 2 < yDiagonal + 1) {
-				nbBits = 4;
-				pDiagonalSelection = getSelection(pBitboard, nbBits, yDiagonal + 1);
-				oDiagonalSelection = getSelection(oBitboard, nbBits, yDiagonal + 1);
-			} else if (x + 2 > BOARD_SIZE) {
-				nbBits = 4;
-				pDiagonalSelection = getSelection(pBitboard, nbBits, x - 2);
-				oDiagonalSelection = getSelection(oBitboard, nbBits, x - 2);
-			} else {
-				nbBits = 5;
-				pDiagonalSelection = getSelection(pBitboard, nbBits, x - 2);
-				oDiagonalSelection = getSelection(oBitboard, nbBits, x - 2);
-			}
+		if (!getBit(x, y))
+		{
+			x++;
+			continue;
 		}
 		
-		for (int j = 0; j < nbBits - 3; j++) {
-			uint32_t pFour = getSelection(pDiagonalSelection, 4, j);
-			uint32_t oFour = getSelection(oDiagonalSelection, 4, j);
-			
-			if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001)) {
-				nbValidStones = 0;
-				x++;
-				continue;
-			}
-		}
-		
-		// Antidiagonal verification
-		
-		pBitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[y] : _secondPlayerBoardAntiDiagonals[y];
-		oBitboard = (player == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y];
-		boardSide = (x < y + 1) ? 1 : 2;
-		
-		int yAntiDiagonal = rotateY315(x, y);
-		if (x != 0 && x != yAntiDiagonal && boardSide == 1 && yAntiDiagonal <= 14) {
-			if (x - 2 < 0) {
-				nbBits = 4;
-				pAntiDiagonalSelection = getSelection(pBitboard, nbBits, 0);
-				oAntiDiagonalSelection = getSelection(oBitboard, nbBits, 0);
-			} else if (x + 2 > BOARD_SIZE - yAntiDiagonal) {
-				nbBits = 4;
-				pAntiDiagonalSelection = getSelection(pBitboard, nbBits, x - 2);
-				oAntiDiagonalSelection = getSelection(oBitboard, nbBits, x - 2);
-			} else {
-				nbBits = 5;
-				pAntiDiagonalSelection = getSelection(pBitboard, nbBits, x - 2);
-				oAntiDiagonalSelection = getSelection(oBitboard, nbBits, x - 2);
-			}
-		} else if (x != BOARD_SIZE - 1 && x != yAntiDiagonal && boardSide == 2 && yAntiDiagonal >= 4) {
-			if (x - 2 < BOARD_SIZE - yAntiDiagonal) {
-				nbBits = 4;
-				pAntiDiagonalSelection = getSelection(pBitboard, nbBits, BOARD_SIZE - yAntiDiagonal);
-				oAntiDiagonalSelection = getSelection(oBitboard, nbBits, BOARD_SIZE - yAntiDiagonal);
-			} else if (x + 2 > BOARD_SIZE - 1) {
-				nbBits = 4;
-				pAntiDiagonalSelection = getSelection(pBitboard, nbBits, x - 2);
-				oAntiDiagonalSelection = getSelection(oBitboard, nbBits, x - 2);
-			} else {
-				nbBits = 5;
-				pAntiDiagonalSelection = getSelection(pBitboard, nbBits, x - 2);
-				oAntiDiagonalSelection = getSelection(oBitboard, nbBits, x - 2);
-			}
-		}
-		
-		for (int j = 0; j < nbBits - 3; j++) {
-			uint32_t pFour = getSelection(pAntiDiagonalSelection, 4, j);
-			uint32_t oFour = getSelection(oAntiDiagonalSelection, 4, j);
-			
-			if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001)) {
-				nbValidStones = 0;
-				x++;
-				continue;
-			}
+		if (verticalCaptureInAlignment(x, y, player) || diagonalCaptureInAlignment(x, y, player) || antiDiagonalCaptureInAlignment(x, y, player)) {
+			nbValidStones = 0;
+			x++;
+			continue;
 		}
 		
 		x++;
 		nbValidStones++;
 	}
+	std::cout << "nb valid stones : " << nbValidStones << std::endl;
 	if (nbValidStones >= 5)
 		return true;
 	return false;
 }
+
+/* 		std::cout << "pVerticalSelection : ";
+		for (int i = 0; i < 5; i++) {
+			uint32_t printMask = 1 << i;
+			
+			if (pVerticalSelection & printMask)
+				std::cout << "1";
+			else
+				std::cout << "0";
+		}
+		std::cout << " | ";
+		std::cout << "oVerticalSelection : ";
+		for (int i = 0; i < 5; i++) {
+			uint32_t printMask = 1 << i;
+			
+			if (oVerticalSelection & printMask)
+				std::cout << "1";
+			else
+				std::cout << "0";
+		}
+		std::cout << std::endl; */
 
 bool    Bitboard::fiveInARowHorizontal(int x, int y, int player) {
 	uint32_t	bitboard = (player == 1) ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
