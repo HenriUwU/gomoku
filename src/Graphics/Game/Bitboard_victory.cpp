@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:39:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/03 18:06:36 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/03 18:19:14 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ bool	Bitboard::isHorizontalAlignmentBreakable(int x, int y, int bitsInAlignment,
 			continue;
 		}
 		
-		if (verticalCaptureInAlignment(x, y, player) || diagonalCaptureInAlignment(x, y, player) || antiDiagonalCaptureInAlignment(x, y, player)) {
+		if (verticalCaptureInAlignment(x, y, player)/*  || diagonalCaptureInAlignment(x, y, player) || antiDiagonalCaptureInAlignment(x, y, player) */) {
 			nbValidStones = 0;
 			x++;
 			continue;
@@ -231,7 +231,7 @@ bool    Bitboard::fiveInARowHorizontal(int x, int y, int player) {
     for (int i = 0; i < nbBits; i++) {
 		if (i + 5 <= nbBits) {
 			uint32_t five = getSelection(selection, 5, i);
-			if (five == 0b11111 && isHorizontalAlignmentBreakable(selectionStart, y, nbBits, player))
+			if (five == 0b11111 && !isHorizontalAlignmentBreakable(selectionStart, y, nbBits, player))
 				return true;
 		}
 	}
