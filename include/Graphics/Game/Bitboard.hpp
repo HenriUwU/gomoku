@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:56 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/03 18:15:21 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:03:32 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ class Bitboard {
 		bool		fiveInARowVertical(int x, int y, int player);
 		bool		fiveInARowDiagonal(int x, int y, int player);
 		bool		fiveInARowAntiDiagonal(int x, int y, int player);
+		bool		isAlignmentBreakable(int x, int y, uint32_t alignment, int bitsInAlignment, int player);
 		bool		isGameOver();
 
 		void		printBoard();
