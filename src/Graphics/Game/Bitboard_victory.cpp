@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:39:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/03 14:11:54 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/03 15:48:13 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,8 @@ bool    Bitboard::fiveInARow(int x, int y, int player) {
 	return (false);
 }
 
-/* 	
-	if (i is not breakable)
-		nbValidStones++;
-	else
-		nbValidStones = 0;
-	if (nbValidStones >= 5)
-		return true;
-*/
-
-bool	Bitboard::isAlignmentBreakable(int x, int y, uint32_t alignment, int bitsInAlignment, int player) {
+bool	Bitboard::isHorizontalAlignmentBreakable(int x, int y, int bitsInAlignment, int player) {
 	int nbValidStones = 0;
-
-	(void)nbValidStones;
-	(void)alignment;
 
 	if (y == 0 || y == BOARD_SIZE - 1)
 		return false;
@@ -75,8 +63,11 @@ bool	Bitboard::isAlignmentBreakable(int x, int y, uint32_t alignment, int bitsIn
 			uint32_t pFour = getSelection(pVerticalSelection, 4, j);
 			uint32_t oFour = getSelection(oVerticalSelection, 4, j);
 			
-			if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001))
+			if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001)) {
 				nbValidStones = 0;
+				x++;
+				continue;
+			}
 		}
 
 		// Diagonal verification
@@ -116,6 +107,17 @@ bool	Bitboard::isAlignmentBreakable(int x, int y, uint32_t alignment, int bitsIn
 			}
 		}
 		
+		for (int j = 0; j < nbBits - 3; j++) {
+			uint32_t pFour = getSelection(pDiagonalSelection, 4, j);
+			uint32_t oFour = getSelection(oDiagonalSelection, 4, j);
+			
+			if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001)) {
+				nbValidStones = 0;
+				x++;
+				continue;
+			}
+		}
+		
 		// Antidiagonal verification
 		
 		pBitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[y] : _secondPlayerBoardAntiDiagonals[y];
@@ -152,7 +154,23 @@ bool	Bitboard::isAlignmentBreakable(int x, int y, uint32_t alignment, int bitsIn
 				oAntiDiagonalSelection = getSelection(oBitboard, nbBits, x - 2);
 			}
 		}
+		
+		for (int j = 0; j < nbBits - 3; j++) {
+			uint32_t pFour = getSelection(pAntiDiagonalSelection, 4, j);
+			uint32_t oFour = getSelection(oAntiDiagonalSelection, 4, j);
+			
+			if (pFour == 0b0110 && (oFour == 0b1000 || oFour == 0b0001)) {
+				nbValidStones = 0;
+				x++;
+				continue;
+			}
+		}
+		
+		x++;
+		nbValidStones++;
 	}
+	if (nbValidStones >= 5)
+		return true;
 	return false;
 }
 
@@ -161,24 +179,28 @@ bool    Bitboard::fiveInARowHorizontal(int x, int y, int player) {
     uint32_t    selection = 0;
 	int			bitPos = 0;
 	int			nbBits = 0;
+	int			selectionStart = 0;
 
 	if (x - 4 < 0) {
 		nbBits = 5 + x;
 		selection = getSelection(bitboard, nbBits, bitPos);
+		selectionStart = 0;
 	} else if (x + 4 > BOARD_SIZE - 1) {
 		nbBits = BOARD_SIZE - (x - 4);
 		bitPos = x - 4;
 		selection = getSelection(bitboard, nbBits, bitPos);
+		selectionStart = x - 4;
 	} else {
 		nbBits = 9;
 		bitPos = x - 4;
 		selection = getSelection(bitboard, nbBits, bitPos);
+		selectionStart = x - 4;
 	}
     
     for (int i = 0; i < nbBits; i++) {
 		if (i + 5 <= nbBits) {
 			uint32_t five = getSelection(selection, 5, i);
-			if (five == 0b11111)
+			if (five == 0b11111 && isHorizontalAlignmentBreakable(selectionStart, y, nbBits, player))
 				return true;
 		}
 	}
