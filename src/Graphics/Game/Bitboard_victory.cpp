@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:39:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/03 18:19:14 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:11:37 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,8 @@ bool	Bitboard::isHorizontalAlignmentBreakable(int x, int y, int bitsInAlignment,
 	}
 	std::cout << "nb valid stones : " << nbValidStones << std::endl;
 	if (nbValidStones >= 5)
-		return true;
-	return false;
+		return false;
+	return true;
 }
 
 /* 		std::cout << "pVerticalSelection : ";
