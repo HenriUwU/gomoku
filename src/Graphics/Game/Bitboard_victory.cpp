@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 11:39:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/04 16:48:49 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:36:44 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,6 @@ bool	Bitboard::isHorizontalAlignmentBreakable(int x, int y, int bitsInAlignment,
 		x++;
 		nbValidStones++;
 	}
-	std::cout << "nb valid stones : " << nbValidStones << std::endl;
 	if (nbValidStones >= 5)
 		return false;
 	return true;
@@ -224,43 +223,64 @@ bool	Bitboard::isVerticalAlignmentBreakable(int x, int y, int bitsInAlignment, i
 		}
 		if (horizontalCaptureInAlignment(x, y, player) || diagonalCaptureInAlignment(x, y, player) || antiDiagonalCaptureInAlignment(x, y, player)) {
 			nbValidStones = 0;
-			std::cout << "je suis la" << std::endl;
 			y++;
 			continue;
 		}
 		y++;
 		nbValidStones++;
 	}
-	// std::cout << "nb valid stones : " << nbValidStones << std::endl;
 	if (nbValidStones >= 5)
 		return false;
 	return true;
 }
 
-/* bool	Bitboard::isDiagonalAlignmentBreakable() {
-	
-} */
+bool	Bitboard::isDiagonalAlignmentBreakable(int x, int y, int bitsInAlignment, int player) {
+	int nbValidStones = 0;
 
-/* 		std::cout << "pVerticalSelection : ";
-		for (int i = 0; i < 5; i++) {
-			uint32_t printMask = 1 << i;
-			
-			if (pVerticalSelection & printMask)
-				std::cout << "1";
-			else
-				std::cout << "0";
+	for (int i = 0; i < bitsInAlignment; i++) {
+		if (!getBit(x, y)) {
+			x++;
+			y--;
+			continue;
 		}
-		std::cout << " | ";
-		std::cout << "oVerticalSelection : ";
-		for (int i = 0; i < 5; i++) {
-			uint32_t printMask = 1 << i;
-			
-			if (oVerticalSelection & printMask)
-				std::cout << "1";
-			else
-				std::cout << "0";
+		if (horizontalCaptureInAlignment(x, y, player) || verticalCaptureInAlignment(x, y, player) || antiDiagonalCaptureInAlignment(x, y, player)) {
+			nbValidStones = 0;
+			x++;
+			y--;
+			continue;
 		}
-		std::cout << std::endl; */
+		x++;
+		y--;
+		nbValidStones++;
+	}
+	if (nbValidStones >= 5)
+		return false;
+	return true;
+}
+
+bool	Bitboard::isAntiDiagonalAlignmentBreakable(int x, int y, int bitsInAlignment, int player) {
+	int nbValidStones = 0;
+
+	for (int i = 0; i < bitsInAlignment; i++) {
+		if (!getBit(x, y)) {
+			x--;
+			y--;
+			continue;
+		}
+		if (horizontalCaptureInAlignment(x, y, player) || verticalCaptureInAlignment(x, y, player) || diagonalCaptureInAlignment(x, y, player)) {
+			nbValidStones = 0;
+			x--;
+			y--;
+			continue;
+		}
+		x--;
+		y--;
+		nbValidStones++;
+	}
+	if (nbValidStones >= 5)
+		return false;
+	return true;
+}
 
 bool    Bitboard::fiveInARowHorizontal(int x, int y, int player) {
 	uint32_t	bitboard = (player == 1) ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
@@ -330,6 +350,8 @@ bool	Bitboard::fiveInARowVertical(int x, int y, int player) {
 
 bool	Bitboard::fiveInARowDiagonal(int x, int y, int player) {
 	int boardSide = (x + y < BOARD_SIZE) ? 1 : 2;
+	int originalY = y;
+	int	selectionStart = 0;
 	y = rotateY45(x, y);
 
 	uint32_t	bitboard = (player == 1) ? _firstPlayerBoardDiagonals[y] : _secondPlayerBoardDiagonals[y];
@@ -340,12 +362,15 @@ bool	Bitboard::fiveInARowDiagonal(int x, int y, int player) {
 		if (x - 4 <= 0) {
 			nbBits = (5 + x < y + 1) ? 5 + x : y + 1;
 			selection = getSelection(bitboard, nbBits, 0);
+			selectionStart = 0;
 		} else if (x + 4 >= y + 1 || x + 4 > BOARD_SIZE - 1) {
 			nbBits = (y + 1) - (x - 4);
 			selection = getSelection(bitboard, nbBits, x - 4);
+			selectionStart = x - 4;
 		} else {
 			nbBits = 9;
 			selection = getSelection(bitboard, nbBits, x - 4);
+			selectionStart = x - 4;
 		}
 	} else if (boardSide == 2 && y < 14) {
 		if (x - 4 < y + 1) {
@@ -355,21 +380,23 @@ bool	Bitboard::fiveInARowDiagonal(int x, int y, int player) {
 			else
 				nbBits += 5;
 			selection = getSelection(bitboard, nbBits, y + 1);
+			selectionStart = y + 1;
 		} else if (x + 4 > BOARD_SIZE - 1) {
 			nbBits = 5 + ((BOARD_SIZE - 1) - x);
 			selection = getSelection(bitboard, nbBits, x - 4);
+			selectionStart = x - 4;
 		} else {
 			nbBits = 9;
 			selection = getSelection(bitboard, nbBits, x - 4);
+			selectionStart = x - 4;
 		}
 	}
 
     for (int i = 0; i < nbBits; i++) {
 		if (i + 5 <= nbBits) {
 			uint32_t five = getSelection(selection, 5, i);
-			if (five == 0b11111) {
+			if (five == 0b11111 && !isDiagonalAlignmentBreakable(selectionStart, originalY + 4, nbBits, player))
 				return true;
-			}
 		}
 	}
 	return (false);
@@ -377,6 +404,8 @@ bool	Bitboard::fiveInARowDiagonal(int x, int y, int player) {
 
 bool	Bitboard::fiveInARowAntiDiagonal(int x, int y, int player) {
 	int	boardSide = (x < y + 1) ? 1 : 2;
+	int originalY = y;
+	int	selectionStart = 0;
 	y = rotateY315(x, y);
 
 	uint32_t	bitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[y] : _secondPlayerBoardAntiDiagonals[y];
@@ -387,12 +416,15 @@ bool	Bitboard::fiveInARowAntiDiagonal(int x, int y, int player) {
 		if (x - 4 <= 0) {
 			nbBits = (5 + x < BOARD_SIZE - y) ? 5 + x : BOARD_SIZE - y;
 			selection = getSelection(bitboard, nbBits, 0);
+			selectionStart = 0;
 		} else if (x + 4 >= BOARD_SIZE - y) {
 			nbBits = (BOARD_SIZE - y) - (x - 4);
 			selection = getSelection(bitboard, nbBits, x - 4);
+			selectionStart = x - 4;
 		} else {
 			nbBits = 9;
 			selection = getSelection(bitboard, nbBits, x - 4);
+			selectionStart = x - 4;
 		}
 	} else if (boardSide == 2 && y > 4) {
 		if (x - 4 < BOARD_SIZE - y) {
@@ -402,19 +434,22 @@ bool	Bitboard::fiveInARowAntiDiagonal(int x, int y, int player) {
 			else
 				nbBits += 5;
 			selection = getSelection(bitboard, nbBits, BOARD_SIZE - y);
+			selectionStart = BOARD_SIZE - y;
 		} else if (x + 4 > BOARD_SIZE - 1) {
 			nbBits = 5 + ((BOARD_SIZE - 1) - x);
 			selection = getSelection(bitboard, nbBits, x - 4);
+			selectionStart = x - 4;
 		} else {
 			nbBits = 9;
 			selection = getSelection(bitboard, nbBits, x - 4);
+			selectionStart = x - 4;
 		}
 	}
 		
     for (int i = 0; i < nbBits; i++) {
 		if (i + 5 <= nbBits) {
 			uint32_t five = getSelection(selection, 5, i);
-			if (five == 0b11111)
+			if (five == 0b11111 && !isAntiDiagonalAlignmentBreakable(selectionStart + 4, originalY, nbBits, player))
 				return true;
 		}
 	}

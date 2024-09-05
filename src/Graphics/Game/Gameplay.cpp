@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:31:14 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/17 13:21:14 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:55:47 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 		}
 	}
 
-	if (!bitboard.isGameOver() && isAIPlaying && _currentPlayer == 2 && !_aiThreadRunning) {
+	if (isAIPlaying && !bitboard.isGameOver() && _currentPlayer == 2 && !_aiThreadRunning) {
 		_stopAITimer = false;
 		_aiThreadRunning = true;
 		aiPlaying = true;
