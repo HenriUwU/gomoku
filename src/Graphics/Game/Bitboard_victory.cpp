@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/02 11:39:22 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/05 15:36:44 by hsebille         ###   ########.fr       */
+/*   Created: 2024/09/05 15:39:41 by hsebille          #+#    #+#             */
+/*   Updated: 2024/09/05 18:00:47 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "Bitboard.hpp"
 
@@ -262,19 +264,20 @@ bool	Bitboard::isAntiDiagonalAlignmentBreakable(int x, int y, int bitsInAlignmen
 	int nbValidStones = 0;
 
 	for (int i = 0; i < bitsInAlignment; i++) {
+		std::cout << "x: " << x << " y: " << y << std::endl;
 		if (!getBit(x, y)) {
-			x--;
-			y--;
+			x++;
+			y++;
 			continue;
 		}
 		if (horizontalCaptureInAlignment(x, y, player) || verticalCaptureInAlignment(x, y, player) || diagonalCaptureInAlignment(x, y, player)) {
 			nbValidStones = 0;
-			x--;
-			y--;
+			x++;
+			y++;
 			continue;
 		}
-		x--;
-		y--;
+		x++;
+		y++;
 		nbValidStones++;
 	}
 	if (nbValidStones >= 5)
@@ -395,11 +398,11 @@ bool	Bitboard::fiveInARowDiagonal(int x, int y, int player) {
     for (int i = 0; i < nbBits; i++) {
 		if (i + 5 <= nbBits) {
 			uint32_t five = getSelection(selection, 5, i);
-			if (five == 0b11111 && !isDiagonalAlignmentBreakable(selectionStart, originalY + 4, nbBits, player))
+			if (five == 0b11111 && !isDiagonalAlignmentBreakable(selectionStart, (x < 4) ? originalY + x : originalY + 4, nbBits, player))
 				return true;
 		}
 	}
-	return (false);
+	return false;
 }
 
 bool	Bitboard::fiveInARowAntiDiagonal(int x, int y, int player) {
@@ -449,9 +452,9 @@ bool	Bitboard::fiveInARowAntiDiagonal(int x, int y, int player) {
     for (int i = 0; i < nbBits; i++) {
 		if (i + 5 <= nbBits) {
 			uint32_t five = getSelection(selection, 5, i);
-			if (five == 0b11111 && !isAntiDiagonalAlignmentBreakable(selectionStart + 4, originalY, nbBits, player))
+			if (five == 0b11111 && !isAntiDiagonalAlignmentBreakable(selectionStart, (x < 4) ? originalY - x : originalY - 4, nbBits, player))
 				return true;
 		}
 	}
-	return (false);
+	return false;
 }
