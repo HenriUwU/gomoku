@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 17:29:56 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/04 15:57:14 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:28:39 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ class Bitboard {
 		bool		fiveInARowAntiDiagonal(int x, int y, int player);
 		bool		isHorizontalAlignmentBreakable(int x, int y, int bitsInAlignment, int player);
 		bool		isVerticalAlignmentBreakable(int x, int y, int bitsInAlignment, int player);
+		bool		isDiagonalAlignmentBreakable(int x, int y, int bitsInAlignment, int player);
+		bool		isAntiDiagonalAlignmentBreakable(int x, int y, int bitsInAlignment, int player);
 		bool		isGameOver();
 		bool		horizontalCaptureInAlignment(int x, int y, int player);
 		bool		verticalCaptureInAlignment(int x, int y, int player);
