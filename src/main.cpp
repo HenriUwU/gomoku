@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/02 10:22:05 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:59:52 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int main() {
 			case MENU:
 				startTimer = false;
 				mainMenu.display(window);
-				bitboard.clear(); // ne plus clear le bitboard ici mais plutot dans le return button de gameplay
 				break;
 			case GAME:
 			case AIVERSUS:

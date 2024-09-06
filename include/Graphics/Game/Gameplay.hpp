@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:33:07 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/15 19:33:07 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/06 11:27:55 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ class Gameplay {
 
 		void	init();
 		void	display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
-		void	returnButton(const sf::Event& event, const sf::RenderWindow& window);
+		void	returnButton(const sf::Event& event, const sf::RenderWindow& window, Bitboard& bitboard);
 		void	statistics();
 		void	popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	drawStones(sf::RenderWindow& window, const Bitboard& bitboard);
