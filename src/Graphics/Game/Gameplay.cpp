@@ -6,13 +6,13 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:31:14 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/06 12:27:33 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/06 15:54:55 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Gameplay.hpp"
 
-Gameplay::Gameplay() : _isFirstMove(true), _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
+Gameplay::Gameplay() : _playerJustMoved(0), _isFirstMove(true), _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
 	init();
 }
 
@@ -41,7 +41,8 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboar
 		window.draw(_player1Stats[i]);
 		window.draw(_player2Stats[i]);
 	}
-	statistics();
+	if (!aiPlaying)
+		statistics();
 	drawStones(window, bitboard);
 	popUp(event, window, bitboard);
 }
@@ -83,8 +84,8 @@ void	Gameplay::statistics() {
 		
 		std::string lastMoveTime = ss.str() + "s";
 		
-		int playerJustMoved = (_currentPlayer == 1) ? 2 : 1;
-		(playerJustMoved == 1) ? _player1Stats[2].setString(lastMoveTime) : _player2Stats[2].setString(lastMoveTime);
+		std::cout << "playerJustMoved: " << _playerJustMoved << std::endl;
+		(_playerJustMoved == 1) ? _player1Stats[2].setString(lastMoveTime) : _player2Stats[2].setString(lastMoveTime);
 	}
 }
 
@@ -236,13 +237,23 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 			return ;
 	}
 	
+	if (isAIPlaying && !bitboard.isGameOver() && _currentPlayer == 2 && !_aiThreadRunning) {
+		_stopAITimer = false;
+		_aiThreadRunning = true;
+		aiPlaying = true;
+		if (_aiThread.joinable()) {
+			_aiThread.join();
+		}
+		_aiThread = std::thread(&Gameplay::AITurn, this, std::ref(bitboard));
+	}
+	
 	if (!isStonePlaceable && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
 			if ((_currentPlayer == 1 && bitboard.placeStone(col, row, _currentPlayer))
 			|| (!isAIPlaying && bitboard.placeStone(col, row, _currentPlayer))) {
 				if (_isFirstMove) {
 					_isFirstMove = false;
-					_moveStartTime = std::chrono::steady_clock::now();  // Fix: on utilise maintenant l'heure actuelle comme point de départ pour le premier coup
+					_moveStartTime = std::chrono::steady_clock::now();
 					_lastMoveDuration = _moveStartTime - gameStartTime;
 				} else {
 					_moveEndTime = std::chrono::steady_clock::now();
@@ -250,18 +261,10 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 					_moveStartTime = _moveEndTime;
 				}
 				isStonePlaceable = true;
+				_playerJustMoved = _currentPlayer;
 				_currentPlayer = (_currentPlayer == 1) ? 2 : 1;
 			}
 		}
-	}
-
-	if (isAIPlaying && !bitboard.isGameOver() && _currentPlayer == 2 && !_aiThreadRunning) {
-		_stopAITimer = false;
-		_aiThreadRunning = true;
-		aiPlaying = true;
-		if (_aiThread.joinable())
-			_aiThread.join();
-		_aiThread = std::thread(&Gameplay::AITurn, this, std::ref(bitboard));
 	}
 
 	if (_currentPlayer == 1 || _aiThreadRunning)
@@ -273,10 +276,19 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 void	Gameplay::AITurn(Bitboard& bitboard) {
 	AI ai;
 	ai.play(bitboard);
+	if (_isFirstMove) {
+		_isFirstMove = false;
+		_moveStartTime = std::chrono::steady_clock::now();
+		_lastMoveDuration = _moveStartTime - gameStartTime;
+	} else {
+		_moveEndTime = std::chrono::steady_clock::now();
+		_lastMoveDuration = _moveEndTime - _moveStartTime;
+		_moveStartTime = _moveEndTime;
+	}
+	_playerJustMoved = 2;
 	_currentPlayer = 1;
-	_aiThreadRunning = false;
 	aiPlaying = false;
-	_stopAITimer = true;
+	_aiThreadRunning = false;
 }
 
 void    Gameplay::init() {	

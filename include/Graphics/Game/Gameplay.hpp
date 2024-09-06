@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:33:07 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/06 11:27:55 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/06 15:35:04 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ class Bitboard;
 
 class Gameplay {
 	private:
+		int										_playerJustMoved;
 		bool									_isFirstMove;
 		float									_cellSize;
 		sf::Font								_font;
