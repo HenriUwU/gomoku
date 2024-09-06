@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:31:14 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/06 11:59:00 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/06 12:27:33 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,8 +242,8 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 			|| (!isAIPlaying && bitboard.placeStone(col, row, _currentPlayer))) {
 				if (_isFirstMove) {
 					_isFirstMove = false;
-					_moveStartTime = gameStartTime;
-					_lastMoveDuration = std::chrono::steady_clock::now() - gameStartTime;
+					_moveStartTime = std::chrono::steady_clock::now();  // Fix: on utilise maintenant l'heure actuelle comme point de départ pour le premier coup
+					_lastMoveDuration = _moveStartTime - gameStartTime;
 				} else {
 					_moveEndTime = std::chrono::steady_clock::now();
 					_lastMoveDuration = _moveEndTime - _moveStartTime;
