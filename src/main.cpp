@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/06 15:43:50 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:27:29 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ int main() {
 				mainMenu.display(window);
 				break;
 			case GAME:
+				if (!startTimer) {
+					startTimer = true;
+					gameStartTime = std::chrono::steady_clock::now();
+				}
+				gameplay.display(event, window, bitboard);
+				if (forbiddenMoves == NOFORBIDDENMOVE && endGameState == NOVICTORY && endGameState != SEEGAMESTATE)
+					gameplay.mouseHover(window, bitboard, false);
+				break;
 			case AIVERSUS:
 				if (!startTimer) {
 					startTimer = true;
@@ -77,7 +85,7 @@ int main() {
 				}
 				gameplay.display(event, window, bitboard);
 				if (forbiddenMoves == NOFORBIDDENMOVE && endGameState == NOVICTORY && endGameState != SEEGAMESTATE)
-					gameplay.mouseHover(window, bitboard, (gameState == GAME) ? false : true);
+					gameplay.mouseHover(window, bitboard, true);
 				break;
 			case CUSTOM:
 				customMenu.display(window);
