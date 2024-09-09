@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:31:14 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/06 15:54:55 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:09:53 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,32 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 			endGameState = NOVICTORY;
 			std::fill(playersCaptures, playersCaptures + 2, 0);
 			bitboard.clear();
+			_player1TotalTime = std::chrono::milliseconds::zero();
+			_player2TotalTime = std::chrono::milliseconds::zero();
+			_lastMoveDuration = std::chrono::milliseconds::zero();
 			setStatistics(_player1Stats, _font, 1);
 			setStatistics(_player2Stats, _font, 2);
-			
-			// **Reset timing variables**
-			_lastMoveDuration = std::chrono::milliseconds::zero();
 			startTimer = false;
-			_isFirstMove = true;  // Mark this as the beginning of a new game
+			_isFirstMove = true;
 			_moveStartTime = std::chrono::steady_clock::now();
 		}
 }
 
 void	Gameplay::statistics() {
-	// Captured stones
 	_player1Stats[0].setString(std::to_string(playersCaptures[0] * 2));
 	_player2Stats[0].setString(std::to_string(playersCaptures[1] * 2));
-	// Total play time
-
-	// Last move time
+	
 	if (!_isFirstMove) {
-		std::stringstream ss;
-		ss << std::fixed << std::setprecision(2) << _lastMoveDuration.count();
+		std::stringstream ssTotalTime;
+		std::stringstream ssLastMoveDuration;
 		
-		std::string lastMoveTime = ss.str() + "s";
+		ssTotalTime << std::fixed << std::setprecision(2) << ((_playerJustMoved == 1) ? _player1TotalTime.count() : _player2TotalTime.count());
+		ssLastMoveDuration << std::fixed << std::setprecision(2) << _lastMoveDuration.count();
 		
-		std::cout << "playerJustMoved: " << _playerJustMoved << std::endl;
+		std::string totalTime = ssTotalTime.str() + "s";
+		std::string lastMoveTime = ssLastMoveDuration.str() + "s";
+		
+		(_playerJustMoved == 1) ? _player1Stats[1].setString(totalTime) : _player2Stats[1].setString(totalTime);
 		(_playerJustMoved == 1) ? _player1Stats[2].setString(lastMoveTime) : _player2Stats[2].setString(lastMoveTime);
 	}
 }
@@ -111,9 +112,11 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 				endGameState = NOVICTORY;
 				bitboard.clear();
 				std::fill(playersCaptures, playersCaptures + 2, 0);
+				_player1TotalTime = std::chrono::milliseconds::zero();
+				_player2TotalTime = std::chrono::milliseconds::zero();
+				_lastMoveDuration = std::chrono::milliseconds::zero();
 				setStatistics(_player1Stats, _font, 1);
 				setStatistics(_player2Stats, _font, 2);
-				_lastMoveDuration = std::chrono::milliseconds::zero();
 			}
 		}
 		else if (_popupPlayAgainButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -122,11 +125,11 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 				endGameState = NOVICTORY;
 				bitboard.clear();
 				std::fill(playersCaptures, playersCaptures + 2, 0);
+				_player1TotalTime = std::chrono::milliseconds::zero();
+				_player2TotalTime = std::chrono::milliseconds::zero();
+				_lastMoveDuration = std::chrono::milliseconds::zero();
 				setStatistics(_player1Stats, _font, 1);
 				setStatistics(_player2Stats, _font, 2);
-				_lastMoveDuration = std::chrono::milliseconds::zero();
-				
-				// **RESET THE TIMER HERE**
 				startTimer = true;
 				gameStartTime = std::chrono::steady_clock::now();
 				_moveStartTime = gameStartTime;
@@ -262,6 +265,10 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 				}
 				isStonePlaceable = true;
 				_playerJustMoved = _currentPlayer;
+				if (_playerJustMoved == 1)
+					_player1TotalTime += _lastMoveDuration;
+				else
+					_player2TotalTime += _lastMoveDuration;
 				_currentPlayer = (_currentPlayer == 1) ? 2 : 1;
 			}
 		}
@@ -286,12 +293,16 @@ void	Gameplay::AITurn(Bitboard& bitboard) {
 		_moveStartTime = _moveEndTime;
 	}
 	_playerJustMoved = 2;
+	if (_playerJustMoved == 1)
+		_player1TotalTime += _lastMoveDuration;
+	else
+		_player2TotalTime += _lastMoveDuration;
 	_currentPlayer = 1;
 	aiPlaying = false;
 	_aiThreadRunning = false;
 }
 
-void    Gameplay::init() {	
+void    Gameplay::init() {
 	const std::string	backwardButton[] = {"backwardButton", "backwardHoveredButton"};
 	const std::string	others[]		 = {"gridAndIndex", "1VS1Page", "aiVersusPage"};
 	const std::string	popup[]			 = {"forbiddenMovePopUp", "megatronVictoryPopUp", "player1VictoryPopUp", "player2VictoryPopUp", "mainMenuButton", "mainMenuHoveredButton", "playAgainButton", "playAgainHoveredButton"};

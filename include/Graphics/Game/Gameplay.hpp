@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:33:07 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/06 15:35:04 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/09 10:44:33 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ class Gameplay {
 		std::vector<sf::Texture>				_stonesTextures;
 		std::vector<sf::Texture>				_avatarsTextures;
 		std::vector<sf::Texture>				_boardsTextures;
+		std::chrono::duration<double>			_player1TotalTime;
+		std::chrono::duration<double>			_player2TotalTime;
 		std::chrono::duration<double>			_lastMoveDuration;
 		std::chrono::steady_clock::time_point	_moveStartTime;
 		std::chrono::steady_clock::time_point	_moveEndTime;
