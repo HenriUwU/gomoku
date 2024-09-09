@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:31:14 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/09 11:09:53 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/09 11:44:04 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 			startTimer = false;
 			_isFirstMove = true;
 			_moveStartTime = std::chrono::steady_clock::now();
+			
+			_playerJustMoved = 0;
 		}
 }
 
@@ -238,6 +240,11 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 	if (col >= 0 && col < 19 && row >= 0 && row < 19) {
 		if (bitboard.getBit(col, row) != 0)
 			return ;
+	}
+	
+	if (_isFirstMove) {
+		setStatistics(_player1Stats, _font, 1);
+		setStatistics(_player2Stats, _font, 2);
 	}
 	
 	if (isAIPlaying && !bitboard.isGameOver() && _currentPlayer == 2 && !_aiThreadRunning) {

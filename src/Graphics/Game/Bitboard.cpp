@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:46:45 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/15 18:49:40 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:00:46 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	update(x, y, player, true);
 	makeCapture(x, y, player);
 
-	if (fiveInARow(x, y, player) || (playersCaptures[0] == 5 || playersCaptures[1] == 5)) {
+	if (fiveInARow(x, y, player) || (playersCaptures[0] == 5 || playersCaptures[1] == 5) || fifthCaptureAvailable()) {
 		if (player == 1)
 			endGameState = P1VICTORY;
 		else if (player == 2 && gameState != AIVERSUS)
@@ -45,6 +45,49 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 			endGameState = AIVICTORY;
 	}
 	return (true);
+}
+
+bool	Bitboard::fifthCaptureAvailable() {
+	if (playersCaptures[0] != 4 && playersCaptures[1] != 4)
+		return (false);
+	
+	if (playersCaptures[0] == 4) {
+		for (int y = 0; y < BOARD_SIZE; y++)
+		{
+			for (int x = 0; x < BOARD_SIZE; x++)
+			{
+				if (isLegalMove(x, y, 1))
+				{
+					placeStoneAI(x, y, 1);
+					if (isCapturingMove(x, y, 1))
+					{
+						removeStone(x, y, 1);
+						return (true);
+					}
+					removeStone(x, y, 1);
+				}
+			}
+		}
+	}
+	if (playersCaptures[1] == 4) {
+		for (int y = 0; y < BOARD_SIZE; y++)
+		{
+			for (int x = 0; x < BOARD_SIZE; x++)
+			{
+				if (isLegalMove(x, y, 2))
+				{
+					placeStoneAI(x, y, 2);
+					if (isCapturingMove(x, y, 2))
+					{
+						removeStone(x, y, 2);
+						return (true);
+					}
+					removeStone(x, y, 2);
+				}
+			}
+		}
+	}
+	return (false);
 }
 
 void	Bitboard::placeStoneAI(int x, int y, int player) {

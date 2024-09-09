@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/05 15:37:59 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:58:38 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ class Bitboard {
 		bool		verticalCaptureInAlignment(int x, int y, int player);
 		bool		diagonalCaptureInAlignment(int x, int y, int player);
 		bool		antiDiagonalCaptureInAlignment(int x, int y, int player);
+		bool		fifthCaptureAvailable();
 
 		void		printBoard();
 		void		update(int x, int y, int player, bool add);
