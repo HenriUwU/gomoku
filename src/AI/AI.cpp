@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:03:14 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/09 16:46:12 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:32:46 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
 		tempBoard.placeStoneAI(move.first, move.second, 2);
-		int moveValue = minimax(tempBoard, 6, true, INT_MIN, INT_MAX);
+		int moveValue = minimax(tempBoard, 4, true, INT_MIN, INT_MAX);
 		tempBoard.removeStone(move.first, move.second, 2);
 		return std::make_pair(move, moveValue);
 	};
@@ -57,7 +57,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 		std::pair<std::pair<int, int> , int> result = futureMove.get();
 		std::pair<int, int> move = result.first;
 		int moveValue = result.second;
-		std::cout << "move : " << move.first << " | " << move.second << " is of value : " << moveValue << std::endl;
+		//std::cout << "move : " << move.first << " | " << move.second << " is of value : " << moveValue << std::endl;
 		
 		if (moveValue > bestValue) {
 			bestValue = moveValue;
@@ -94,21 +94,13 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 
 	int bestValue = maximizingPlayer ? INT_MIN : INT_MAX;
 
-	// int reductionDepth = (depth > 2) ? depth - 2 : 0;
-
-	static int nbMoveToTest = sortedMoves.size() / 2;
-	
-	for (int i = 0; i < nbMoveToTest; ++i) {
+	for (size_t i = 0; i < sortedMoves.size(); ++i) {
 		auto& possibleMove = sortedMoves[i];
 		
 		if (maximizingPlayer) {
-			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
 			int value;
-			/* if (i > 3) {
-				value = minimax(bitboard, reductionDepth, false, alpha, beta);
-			} else {
-				value = minimax(bitboard, depth - 1, false, alpha, beta);
-			} */
+			
+			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
 			value = minimax(bitboard, depth - 1, false, alpha, beta);
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 2);
 
@@ -117,13 +109,9 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 			if (beta <= alpha)
 				break;
 		} else {
-			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 1);
 			int value;
-			/* if (i > 3) {
-				value = minimax(bitboard, reductionDepth, true, alpha, beta);
-			} else {
-				value = minimax(bitboard, depth - 1, true, alpha, beta);
-			} */
+			
+			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 1);
 			value = minimax(bitboard, depth - 1, false, alpha, beta);
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 1);
 

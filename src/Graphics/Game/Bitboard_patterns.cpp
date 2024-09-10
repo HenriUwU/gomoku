@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_patterns.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:41:12 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/01 21:43:41 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:10:48 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ int     Bitboard::checkPattern(PatternInfo patterns[], int nbPattern) {
 			if (x + patterns[i].patternSize <= BOARD_SIZE) {
 				uint32_t playerBoardLine = (patterns[i].playerType == 1) ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
 				uint32_t opponentBoardLine = (patterns[i].playerType == 1) ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y];
-				uint32_t playerSelection = (playerBoardLine >> x) & ((1 << patterns[i].patternSize) - 1);
-				uint32_t opponentSelection = (opponentBoardLine >> x) & ((1 << patterns[i].patternSize) - 1);
+				uint32_t playerSelection = (playerBoardLine >> (x - 1)) & ((1 << patterns[i].patternSize) - 1);
+				uint32_t opponentSelection = (opponentBoardLine >> (x - 1)) & ((1 << patterns[i].patternSize) - 1);
 				
-				if (playerSelection == patterns[i].pattern && opponentSelection == patterns[i].opponentPattern)
+				if (playerSelection == patterns[i].pattern && opponentSelection == patterns[i].opponentPattern) {
 					score += (1 * patterns[i].multiplier);
+				}
 			}
 
 			x = stone.second;
@@ -38,11 +39,12 @@ int     Bitboard::checkPattern(PatternInfo patterns[], int nbPattern) {
 			if (x + patterns[i].patternSize <= BOARD_SIZE) {
 				uint32_t playerBoardLine = (patterns[i].playerType == 1) ? _firstPlayerBoardColumns[y] : _secondPlayerBoardColumns[y];
 				uint32_t opponentBoardLine = (patterns[i].playerType == 1) ? _secondPlayerBoardColumns[y] : _firstPlayerBoardColumns[y];
-				uint32_t playerSelection = (playerBoardLine >> x) & ((1 << patterns[i].patternSize) - 1);
-				uint32_t opponentSelection = (opponentBoardLine >> x) & ((1 << patterns[i].patternSize) - 1);
+				uint32_t playerSelection = (playerBoardLine >> (x - 1)) & ((1 << patterns[i].patternSize) - 1);
+				uint32_t opponentSelection = (opponentBoardLine >> (x - 1)) & ((1 << patterns[i].patternSize) - 1);
 
-				if (playerSelection == patterns[i].pattern && opponentSelection == patterns[i].opponentPattern)
+				if (playerSelection == patterns[i].pattern && opponentSelection == patterns[i].opponentPattern) {
 					score += (1 * patterns[i].multiplier);
+				}
 			}
 			
 			x = stone.first;
@@ -51,11 +53,12 @@ int     Bitboard::checkPattern(PatternInfo patterns[], int nbPattern) {
 			if ((boardSide == 1 && x + patterns[i].patternSize <= y + 1) || (boardSide == 2 && x + patterns[i].patternSize <= BOARD_SIZE)) {
 				uint32_t playerBoardLine = (patterns[i].playerType == 1) ? _firstPlayerBoardDiagonals[y] : _secondPlayerBoardDiagonals[y];
 				uint32_t opponentBoardLine = (patterns[i].playerType == 1) ? _secondPlayerBoardDiagonals[y] : _firstPlayerBoardDiagonals[y];
-				uint32_t playerSelection = (playerBoardLine >> x) & ((1 << patterns[i].patternSize) - 1);
-				uint32_t opponentSelection = (opponentBoardLine >> x) & ((1 << patterns[i].patternSize) - 1);
+				uint32_t playerSelection = (playerBoardLine >> (x - 1)) & ((1 << patterns[i].patternSize) - 1);
+				uint32_t opponentSelection = (opponentBoardLine >> (x - 1)) & ((1 << patterns[i].patternSize) - 1);
 
-				if (playerSelection == patterns[i].pattern && opponentSelection == patterns[i].opponentPattern)
+				if (playerSelection == patterns[i].pattern && opponentSelection == patterns[i].opponentPattern) {
 					score += (1 * patterns[i].multiplier);
+				}
 			}
 			
 			boardSide = (x < BOARD_SIZE - stone.second) ? 1 : 2;
@@ -64,11 +67,12 @@ int     Bitboard::checkPattern(PatternInfo patterns[], int nbPattern) {
 				uint32_t playerBoardLine = (patterns[i].playerType == 1) ? _firstPlayerBoardAntiDiagonals[y] : _secondPlayerBoardAntiDiagonals[y];
 				uint32_t opponentBoardLine = (patterns[i].playerType == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y];
 
-				uint32_t playerSelection = (playerBoardLine >> x) & ((1 << patterns[i].patternSize) - 1);
-				uint32_t opponentSelection = (opponentBoardLine >> x) & ((1 << patterns[i].patternSize) - 1);
+				uint32_t playerSelection = (playerBoardLine >> (x - 1)) & ((1 << patterns[i].patternSize) - 1);
+				uint32_t opponentSelection = (opponentBoardLine >> (x - 1)) & ((1 << patterns[i].patternSize) - 1);
 
-				if (playerSelection == patterns[i].pattern && opponentSelection == patterns[i].opponentPattern)
+				if (playerSelection == patterns[i].pattern && opponentSelection == patterns[i].opponentPattern) {
 					score += (1 * patterns[i].multiplier);
+				}
 			}
 		}
 	}

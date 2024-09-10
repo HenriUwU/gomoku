@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heuristic.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:20:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/09 15:41:28 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:14:35 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		// Captures
 		{0b1000, 0b0110, 4, player, 1000},
 		{0b0001, 0b0110, 4, player, 1000},
+		{0b1001, 0b0110, 4, player, 10000},
 		{0b1000, 0b0110, 4, opponent, -1000},
 		{0b0001, 0b0110, 4, opponent, -1000},
+		{0b1001, 0b0110, 4, opponent, -10000},
 	};
 	
-	score += bitboard.checkPattern(patterns, 22);
+	score += bitboard.checkPattern(patterns, 24);
 	
 	return (score);
 }

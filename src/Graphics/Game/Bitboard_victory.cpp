@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:39:41 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/05 18:00:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:12:24 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,6 @@ bool	Bitboard::isAntiDiagonalAlignmentBreakable(int x, int y, int bitsInAlignmen
 	int nbValidStones = 0;
 
 	for (int i = 0; i < bitsInAlignment; i++) {
-		std::cout << "x: " << x << " y: " << y << std::endl;
 		if (!getBit(x, y)) {
 			x++;
 			y++;
