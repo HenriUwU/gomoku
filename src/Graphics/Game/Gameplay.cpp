@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:31:14 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/09 14:28:42 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:06:48 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Gameplay.hpp"
+#include "Graphics/Game/Gameplay.hpp"
 
 Gameplay::Gameplay() : _playerJustMoved(0), _isFirstMove(true), _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
 	init();

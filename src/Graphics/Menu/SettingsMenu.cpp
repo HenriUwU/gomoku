@@ -6,11 +6,11 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/22 15:02:38 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:05:46 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "SettingsMenu.hpp"
+#include "Graphics/Menu/SettingsMenu.hpp"
 
 SettingsMenu::SettingsMenu() {
 	init();

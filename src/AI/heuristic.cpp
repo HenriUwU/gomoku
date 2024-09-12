@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   heuristic.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 13:20:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/10 15:14:35 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:22:20 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "AI.hpp"
+#include "AI/AI.hpp"
 
 int	AI::heuristic(Bitboard &bitboard, int depth) {
 	int	evaluation = 0;
 	
-	PatternInfo fiveInARowAI[1] = {0b11111, 0b00000, 5, 2, 10};
-	PatternInfo fiveInARowOpponent[1] = {0b11111, 0b00000, 5, 1, 10};
+	PatternInfo fiveInARowAI[1] = {{0b11111, 0b00000, 5, 2, 10}};
+	PatternInfo fiveInARowOpponent[1] = {{0b11111, 0b00000, 5, 1, 10}};
 	
 	if (bitboard.checkPattern(fiveInARowOpponent, 1))
 		return (-1500000 + depth);

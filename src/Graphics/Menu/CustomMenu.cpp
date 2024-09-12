@@ -6,11 +6,11 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/22 15:01:20 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:06:01 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CustomMenu.hpp"
+#include "Graphics/Menu/CustomMenu.hpp"
 
 CustomMenu::CustomMenu() {
 	init();

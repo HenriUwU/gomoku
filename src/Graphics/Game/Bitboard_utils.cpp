@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_utils.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:57:17 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/07 18:21:30 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:07:07 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bitboard.hpp"
+#include "Graphics/Game/Bitboard.hpp"
 
 uint32_t	Bitboard::getSelection(uint32_t bitboard, int nbBits, int bitsPos) {
 	bitboard >>= bitsPos;

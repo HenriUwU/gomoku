@@ -1,3 +1,5 @@
 .vscode
 Gomoku
 .build
+build
+.cache

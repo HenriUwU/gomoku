@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:34:20 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/15 19:34:21 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:50:56 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include <unordered_set>
 #include <atomic>
 #include <thread>
+#include <memory>
 #include <unordered_map>
 #include <chrono>
 #include <future>
@@ -47,14 +48,14 @@ struct pair_hash {
 	}
 };
 
-#include "MainMenu.hpp"
-#include "Gameplay.hpp"
-#include "CustomMenu.hpp"
-#include "SettingsMenu.hpp"
-#include "HelpMenu.hpp"
-#include "Bitboard.hpp"
-#include "AI.hpp"
-#include "Music.hpp"
+#include "AI/AI.hpp"
+#include "Graphics/Game/Bitboard.hpp"
+#include "Graphics/Game/Gameplay.hpp"
+#include "Graphics/Menu/MainMenu.hpp"
+#include "Graphics/Menu/CustomMenu.hpp"
+#include "Graphics/Menu/SettingsMenu.hpp"
+#include "Graphics/Menu/HelpMenu.hpp"
+#include "Music/Music.hpp"
 
 enum AIMode {
 	IMPOSSIBLE,

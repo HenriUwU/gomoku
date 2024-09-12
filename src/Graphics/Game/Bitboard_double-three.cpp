@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_double-three.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:21:52 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/02 13:42:47 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:07:12 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bitboard.hpp"
+#include "Graphics/Game/Bitboard.hpp"
 
 uint32_t pPatterns[3]   = { 0b01110,  0b010110, 0b011010 };
 uint32_t o5Patterns[3]  = { 0b10000,  0b00001,  0b10001  };

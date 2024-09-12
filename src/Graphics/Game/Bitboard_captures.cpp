@@ -6,11 +6,11 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:47:40 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/14 13:01:52 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:07:15 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bitboard.hpp"
+#include "Graphics/Game/Bitboard.hpp"
 
 int	Bitboard::isCapturingMove(int x, int y, int player) {
 	int			nbCaptures = 0;

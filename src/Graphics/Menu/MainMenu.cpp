@@ -6,11 +6,11 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 14:15:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/14 14:30:31 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:05:54 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MainMenu.hpp"
+#include "Graphics/Menu/MainMenu.hpp"
 
 MainMenu::MainMenu() {
 	init();

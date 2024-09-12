@@ -6,11 +6,11 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:46:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/07/09 23:51:13 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:50:25 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Music.hpp"
+#include "Music/Music.hpp"
 
 Music::Music() {
 	const std::string musics[] = {"menu", "1vs1", "aiVersus"};

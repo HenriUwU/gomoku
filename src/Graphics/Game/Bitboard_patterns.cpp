@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_patterns.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:41:12 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/10 15:10:48 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:07:09 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bitboard.hpp"
+#include "Graphics/Game/Bitboard.hpp"
 
 int     Bitboard::checkPattern(PatternInfo patterns[], int nbPattern) {
 	int	score = 0;

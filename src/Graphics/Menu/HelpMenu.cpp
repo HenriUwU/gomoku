@@ -6,11 +6,11 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/08/14 13:28:46 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:05:58 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "HelpMenu.hpp"
+#include "Graphics/Menu/HelpMenu.hpp"
 
 HelpMenu::HelpMenu() {
 	init();

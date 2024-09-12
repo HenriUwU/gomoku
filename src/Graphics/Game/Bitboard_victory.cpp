@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_victory.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:39:41 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/10 15:12:24 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:22:48 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-#include "Bitboard.hpp"
+#include "Graphics/Game/Bitboard.hpp"
 
 bool    Bitboard::fiveInARow(int x, int y, int player) {
 	if (fiveInARowHorizontal(x, y, player))
