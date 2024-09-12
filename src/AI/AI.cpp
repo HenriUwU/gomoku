@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:39 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/12 21:43:22 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:50:45 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
-		tempBoard.placeStoneAI(move.first, move.second, 2, false);
+		std::vector<std::pair<int, int>> removedStones = tempBoard.placeStoneAI(move.first, move.second, 2, true);
 		int moveValue = minimax(tempBoard, 6, true, INT_MIN, INT_MAX);
+		for (const auto& stone : removedStones) {
+			tempBoard.placeStoneAI(stone.first, stone.second, 1, false);
+		}
 		tempBoard.removeStone(move.first, move.second, 2);
 		return std::make_pair(move, moveValue);
 	};

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/12 21:33:40 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:03:14 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ int	AI::heuristic(Bitboard &bitboard, int depth) {
 
 	if (bitboard.checkPattern(fiveInARowAI, 1))
 		return (1000000 + depth);
+	
+	std::unordered_set<std::pair<int, int>, pair_hash>	plate = bitboard.getAllStones();
+
+	for (auto& stone : plate) {
+		int x = stone.first;
+		int y = stone.second;
+		int stonePlaced = bitboard.getBit(x, y);
+		if (stonePlaced == 1) {
+			evaluation -= 100;
+		} else if (stonePlaced == 2) {
+			evaluation += 100;
+		}
+	}
 	
 	//evaluation += checkCenterControl(bitboard, 2, 1);
 	evaluation += checkPatterns(bitboard, 2, 1);
@@ -75,31 +88,13 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		{0b011110, 0b000000, 6, opponent, -100000},
 		
 		// Captures
-		{0b1000, 0b0110, 4, player, 1000},
+/* 		{0b1000, 0b0110, 4, player, 1000},
 		{0b0001, 0b0110, 4, player, 1000},
 		{0b1000, 0b0110, 4, opponent, -1000},
-		{0b0001, 0b0110, 4, opponent, -1000},
+		{0b0001, 0b0110, 4, opponent, -1000}, */
 	};
 	
-	score += bitboard.checkPattern(patterns, 22);
+	score += bitboard.checkPattern(patterns, 18);
 	
 	return (score);
-}
-
-int AI::quickHeuristic(Bitboard &bitboard) {
-	int evaluation = 0;
-	
-	PatternInfo quickPatterns[6] = {
-		{0b0110, 0b0000, 4, 2, 100},
-		{0b01110, 0b00000, 5, 2, 10000},
-		{0b011110, 0b000000, 6, 2, 100000},
-		{0b0110, 0b0000, 4, 1, -100},
-		{0b01110, 0b00000, 5, 1, -10000},
-		{0b011110, 0b000000, 6, 1, -100000},
-	};
-
-	evaluation += bitboard.checkPattern(quickPatterns, 6);
-	evaluation += checkCenterControl(bitboard, 2, 1);
-
-	return evaluation;
 }
