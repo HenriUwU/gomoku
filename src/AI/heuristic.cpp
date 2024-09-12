@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 13:20:50 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/12 10:22:20 by laprieur         ###   ########.fr       */
+/*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
+/*   Updated: 2024/09/12 14:46:34 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	AI::heuristic(Bitboard &bitboard, int depth) {
 	PatternInfo fiveInARowOpponent[1] = {{0b11111, 0b00000, 5, 1, 10}};
 	
 	if (bitboard.checkPattern(fiveInARowOpponent, 1))
-		return (-1500000 + depth);
+		return (-1000000 + depth);
 
 	if (bitboard.checkPattern(fiveInARowAI, 1))
 		return (1000000 + depth);
 	
-	evaluation += checkCenterControl(bitboard, 2, 1);
+	//evaluation += checkCenterControl(bitboard, 2, 1);
 	evaluation += checkPatterns(bitboard, 2, 1);
 
 	return (evaluation);
@@ -49,7 +49,7 @@ int AI::checkCenterControl(Bitboard &bitboard, int player, int opponent) {
 int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 	
-	PatternInfo patterns[24] = {
+	PatternInfo patterns[22] = {
 		// Two in a row
 		{0b0110, 0b0000, 4, player, 100},
 		{0b0110, 0b0000, 4, opponent, -100},
@@ -77,13 +77,11 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		// Captures
 		{0b1000, 0b0110, 4, player, 1000},
 		{0b0001, 0b0110, 4, player, 1000},
-		{0b1001, 0b0110, 4, player, 10000},
 		{0b1000, 0b0110, 4, opponent, -1000},
 		{0b0001, 0b0110, 4, opponent, -1000},
-		{0b1001, 0b0110, 4, opponent, -10000},
 	};
 	
-	score += bitboard.checkPattern(patterns, 24);
+	score += bitboard.checkPattern(patterns, 22);
 	
 	return (score);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/15 19:31:14 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/12 10:06:48 by laprieur         ###   ########.fr       */
+/*   Created: 2024/09/12 14:46:26 by laprieur          #+#    #+#             */
+/*   Updated: 2024/09/12 14:46:27 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,8 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 	}
 	
 	if (_isFirstMove) {
+		if (isAIPlaying)
+			_currentPlayer = 2;
 		setStatistics(_player1Stats, _font, 1);
 		setStatistics(_player2Stats, _font, 2);
 	}
