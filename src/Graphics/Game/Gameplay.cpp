@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:31:14 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/09 14:28:42 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:23:11 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,8 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 	}
 	
 	if (_isFirstMove) {
+		if (isAIPlaying)
+			_currentPlayer = 2;
 		setStatistics(_player1Stats, _font, 1);
 		setStatistics(_player2Stats, _font, 2);
 	}
