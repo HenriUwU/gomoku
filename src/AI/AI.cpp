@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:39 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/12 14:46:40 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:21:40 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
-		tempBoard.placeStoneAI(move.first, move.second, 2);
+		tempBoard.placeStoneAI(move.first, move.second, 2, false);
 		int moveValue = minimax(tempBoard, 6, true, INT_MIN, INT_MAX);
 		tempBoard.removeStone(move.first, move.second, 2);
 		return std::make_pair(move, moveValue);
@@ -76,7 +76,7 @@ std::vector<std::pair<int, int>> AI::sortMoves(const std::unordered_set<std::pai
     std::vector<std::pair<int, int>>						sortedMoves(possibleMoves.begin(), possibleMoves.end());
 
     for (const auto& move : possibleMoves) {
-        bitboard.placeStoneAI(move.first, move.second, maximizingPlayer ? 2 : 1);
+        bitboard.placeStoneAI(move.first, move.second, maximizingPlayer ? 2 : 1, false);
         moveScores[move] = heuristic(bitboard, 0);
         bitboard.removeStone(move.first, move.second, maximizingPlayer ? 2 : 1);
     }
@@ -105,7 +105,7 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 		auto& possibleMove = sortedMoves[i];
 		
 		if (maximizingPlayer) {
-			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2);
+			std::vector<std::pair<int, int>> removedStones = bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2, true);
 			// capture stones in placStoneAI and keep in memory the stones to replace after
 			if (i > 3) {
 				value = minimax(bitboard, reductionDepth, false, alpha, beta);
@@ -113,6 +113,7 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 				value = minimax(bitboard, depth - 1, false, alpha, beta);
 			}
 			// replace captured stones here
+			
 			bitboard.removeStone(possibleMove.first, possibleMove.second, 2);
 
 			bestValue = std::max(bestValue, value);
@@ -120,7 +121,7 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 			if (beta <= alpha)
 				break;
 		} else {
-			bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 1);
+			std::vector<std::pair<int, int>> removedStones = bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2, true);
 			if (i > 3) {
 				value = minimax(bitboard, reductionDepth, true, alpha, beta);
 			} else {

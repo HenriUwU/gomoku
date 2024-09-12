@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:47:40 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/12 10:07:15 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:12:13 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ int	Bitboard::isCapturingMove(int x, int y, int player) {
 	return nbCaptures;
 }
 
-void	Bitboard::makeCapture(int x, int y, int player) {
-	makeHorizontalCapture(x, y, player);
-	makeVerticalCapture(x, y, player);
-	makeDiagonalCapture(x, y, player);
-	makeAntiDiagonalCapture(x, y, player);
+int	Bitboard::makeCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones) {
+	int captures = 0;
+	
+	captures += makeHorizontalCapture(x, y, player, removedStones);
+	captures += makeVerticalCapture(x, y, player, removedStones);
+	captures += makeDiagonalCapture(x, y, player, removedStones);
+	captures += makeAntiDiagonalCapture(x, y, player, removedStones);
+	
+	return captures;
 }
 
 void	Bitboard::verifyHorizontalCapture(int &nbCaptures, int x, int y, int player) {
@@ -172,8 +176,9 @@ void	Bitboard::verifyAntiDiagonalCapture(int &nbCaptures, int x, int y, int play
 	}
 }
 
-void	Bitboard::makeHorizontalCapture(int x, int y, int player) {
+int	Bitboard::makeHorizontalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones) {
 	uint32_t	linesBitboard = (player == 1) ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
+	int			captures = 0;
 
 	if (x <= 15) {
 		uint32_t rightSelection = getSelection(linesBitboard, 4, x);
@@ -182,7 +187,9 @@ void	Bitboard::makeHorizontalCapture(int x, int y, int player) {
 			if (isPair == PAIR) {			
 				removeStone(x + 1, y, (player == 1) ? 2 : 1);
 				removeStone(x + 2, y, (player == 1) ? 2 : 1);
-				(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+				removedStones.push_back(std::make_pair(x + 1, y));
+				removedStones.push_back(std::make_pair(x + 2, y));
+				captures++;
 			}
 		}
 	}
@@ -194,14 +201,18 @@ void	Bitboard::makeHorizontalCapture(int x, int y, int player) {
 			if (isPair == PAIR) {
 				removeStone(x - 1, y, (player == 1) ? 2 : 1);
 				removeStone(x - 2, y, (player == 1) ? 2 : 1);
-				(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+				removedStones.push_back(std::make_pair(x - 1, y));
+				removedStones.push_back(std::make_pair(x - 2, y));
+				captures++;
 			}
 		}
 	}
+	return captures;
 }
 
-void	Bitboard::makeVerticalCapture(int x, int y, int player) {
+int	Bitboard::makeVerticalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones) {
 	uint32_t	columnsBitboard = (player == 1) ? _firstPlayerBoardColumns[x] : _secondPlayerBoardColumns[x];
+	int			captures = 0;
 	
 	if (y <= 15) {
 		uint32_t rightSelection = getSelection(columnsBitboard, 4, y);
@@ -210,7 +221,9 @@ void	Bitboard::makeVerticalCapture(int x, int y, int player) {
 			if (isPair == PAIR) {
 				removeStone(x, y + 1, (player == 1) ? 2 : 1);
 				removeStone(x, y + 2, (player == 1) ? 2 : 1);
-				(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+				removedStones.push_back(std::make_pair(x, y + 1));
+				removedStones.push_back(std::make_pair(x, y + 2));
+				captures++;
 			}
 		}
 	}
@@ -221,14 +234,18 @@ void	Bitboard::makeVerticalCapture(int x, int y, int player) {
 			if (isPair == PAIR) {
 				removeStone(x, y - 1, (player == 1) ? 2 : 1);
 				removeStone(x, y - 2, (player == 1) ? 2 : 1);
-				(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+				removedStones.push_back(std::make_pair(x, y - 1));
+				removedStones.push_back(std::make_pair(x, y - 2));
+				captures++;
 			}
 		}
 	}
+	return captures;
 }
 
-void	Bitboard::makeDiagonalCapture(int x, int y, int player) {
+int	Bitboard::makeDiagonalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones) {
 	int boardSide = (x + y < BOARD_SIZE) ? 1 : 2;
+	int	captures = 0;
 	
 	int yCopy = rotateY45(x, y);
 	uint32_t	diagonalsBitboard = (player == 1) ? _firstPlayerBoardDiagonals[yCopy] : _secondPlayerBoardDiagonals[yCopy];
@@ -241,7 +258,9 @@ void	Bitboard::makeDiagonalCapture(int x, int y, int player) {
 				if (isPair == PAIR) {
 					removeStone(x + 1, y - 1, (player == 1) ? 2 : 1);
 					removeStone(x + 2, y - 2, (player == 1) ? 2 : 1);
-					(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+					removedStones.push_back(std::make_pair(x + 1, y - 1));
+					removedStones.push_back(std::make_pair(x + 2, y - 2));
+					captures++;
 				}
 			}
 		}
@@ -252,12 +271,13 @@ void	Bitboard::makeDiagonalCapture(int x, int y, int player) {
 				if (isPair == PAIR) {
 					removeStone(x - 1, y + 1, (player == 1) ? 2 : 1);
 					removeStone(x - 2, y + 2, (player == 1) ? 2 : 1);
-					(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+					removedStones.push_back(std::make_pair(x - 1, y + 1));
+					removedStones.push_back(std::make_pair(x - 2, y + 2));
+					captures++;
 				}
 			}
 		}
-	}
-	else if (boardSide == 2 && yCopy <= 15) {
+	} else if (boardSide == 2 && yCopy <= 15) {
 		if (x + 3 <= BOARD_SIZE - 1) {
 			uint32_t rightSelection = getSelection(diagonalsBitboard, 4, x);
 			if (rightSelection == CAPTURE) {
@@ -265,7 +285,9 @@ void	Bitboard::makeDiagonalCapture(int x, int y, int player) {
 				if (isPair == PAIR) {
 					removeStone(x + 1, y - 1, (player == 1) ? 2 : 1);
 					removeStone(x + 2, y - 2, (player == 1) ? 2 : 1);
-					(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+					removedStones.push_back(std::make_pair(x + 1, y - 1));
+					removedStones.push_back(std::make_pair(x + 2, y - 2));
+					captures++;
 				}
 			}
 		}
@@ -276,15 +298,19 @@ void	Bitboard::makeDiagonalCapture(int x, int y, int player) {
 				if (isPair == PAIR) {
 					removeStone(x - 1, y + 1, (player == 1) ? 2 : 1);
 					removeStone(x - 2, y + 2, (player == 1) ? 2 : 1);
-					(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+					removedStones.push_back(std::make_pair(x - 1, y + 1));
+					removedStones.push_back(std::make_pair(x - 2, y + 2));
+					captures++;
 				}
 			}
 		}
 	}
+	return captures;
 }
 
-void	Bitboard::makeAntiDiagonalCapture(int x, int y, int player) {
+int	Bitboard::makeAntiDiagonalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones) {
 	int boardSide = (x < y + 1) ? 1 : 2;
+	int	captures = 0;
 
 	int yCopy = rotateY315(x, y);
 	uint32_t	antiDiagonalsBitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[yCopy] : _secondPlayerBoardAntiDiagonals[yCopy];
@@ -297,7 +323,9 @@ void	Bitboard::makeAntiDiagonalCapture(int x, int y, int player) {
 				if (isPair == PAIR) {
 					removeStone(x + 1, y + 1, (player == 1) ? 2 : 1);
 					removeStone(x + 2, y + 2, (player == 1) ? 2 : 1);
-					(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+					removedStones.push_back(std::make_pair(x + 1, y + 1));
+					removedStones.push_back(std::make_pair(x + 2, y + 2));
+					captures++;
 				}
 			}
 		}
@@ -308,12 +336,13 @@ void	Bitboard::makeAntiDiagonalCapture(int x, int y, int player) {
 				if (isPair == PAIR)  {
 					removeStone(x - 1, y - 1, (player == 1) ? 2 : 1);
 					removeStone(x - 2, y - 2, (player == 1) ? 2 : 1);
-					(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+					removedStones.push_back(std::make_pair(x - 1, y - 1));
+					removedStones.push_back(std::make_pair(x - 2, y - 2));
+					captures++;
 				}
 			}
 		}
-	}
-	else if (boardSide == 2 && yCopy >= 3) {
+	} else if (boardSide == 2 && yCopy >= 3) {
 		if (x + 3 <= BOARD_SIZE - 1) {
 			uint32_t rightSelection = getSelection(antiDiagonalsBitboard, 4, x);
 			if (rightSelection == CAPTURE) {
@@ -321,7 +350,9 @@ void	Bitboard::makeAntiDiagonalCapture(int x, int y, int player) {
 				if (isPair == PAIR) {
 					removeStone(x + 1, y + 1, (player == 1) ? 2 : 1);
 					removeStone(x + 2, y + 2, (player == 1) ? 2 : 1);
-					(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+					removedStones.push_back(std::make_pair(x + 1, y + 1));
+					removedStones.push_back(std::make_pair(x + 2, y + 2));
+					captures++;
 				}
 			}
 		}
@@ -332,9 +363,12 @@ void	Bitboard::makeAntiDiagonalCapture(int x, int y, int player) {
 				if (isPair == PAIR) {
 					removeStone(x - 1, y - 1, (player == 1) ? 2 : 1);
 					removeStone(x - 2, y - 2, (player == 1) ? 2 : 1);
-					(player == 1) ? playersCaptures[0] += 1 : playersCaptures[1] += 1;
+					removedStones.push_back(std::make_pair(x - 1, y - 1));
+					removedStones.push_back(std::make_pair(x - 2, y - 2));
+					captures++;
 				}
 			}
 		}
 	}
+	return captures;
 }

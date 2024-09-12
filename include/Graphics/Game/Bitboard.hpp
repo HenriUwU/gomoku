@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/09 13:58:38 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:17:41 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ class Bitboard {
 		void		printBoard();
 		void		update(int x, int y, int player, bool add);
 		void		removeStone(int x, int y, int player);
-		void		placeStoneAI(int x, int y, int player);
+		std::vector<std::pair<int, int>>	placeStoneAI(int x, int y, int player, bool mode);
 		void		clear();
 
 		void		verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
@@ -99,11 +99,11 @@ class Bitboard {
 		void		checkPatternDiagonal(int x, int y, int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
 		void		checkPatternAntiDiagonal(int x, int y, int &nbPattern, uint32_t pattern, uint32_t opponentPattern, int patternSize, int player);
 
-		void		makeCapture(int x, int y, int player);
-		void		makeHorizontalCapture(int x, int y, int player);
-		void		makeVerticalCapture(int x, int y, int player);
-		void		makeDiagonalCapture(int x, int y, int player);
-		void		makeAntiDiagonalCapture(int x, int y, int player);
+		int			makeCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones);
+		int			makeHorizontalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones);
+		int			makeVerticalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones);
+		int			makeDiagonalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones);
+		int			makeAntiDiagonalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones);
 		
 		uint32_t	getSelection(uint32_t bitboard, int nbBits, int bitsPos);
 

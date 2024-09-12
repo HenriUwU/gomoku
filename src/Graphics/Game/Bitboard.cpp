@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/12 14:46:22 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:20:12 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	(player == 1) ? _firstPlayerBoardLines[y] |= mask : _secondPlayerBoardLines[y] |= mask;
 
 	update(x, y, player, true);
-	makeCapture(x, y, player);
+	
+	std::vector<std::pair<int, int>> onverraplustard;
+
+	int captures = makeCapture(x, y, player, onverraplustard);
+	(player == 1) ? playersCaptures[0] += captures : playersCaptures[1] += captures;
 
 	if (fiveInARow(x, y, player) || (playersCaptures[0] == 5 || playersCaptures[1] == 5) || fifthCaptureAvailable()) {
 		if (player == 1)
@@ -58,7 +62,7 @@ bool	Bitboard::fifthCaptureAvailable() {
 			{
 				if (isLegalMove(x, y, 1))
 				{
-					placeStoneAI(x, y, 1);
+					placeStoneAI(x, y, 1, false);
 					if (isCapturingMove(x, y, 1))
 					{
 						removeStone(x, y, 1);
@@ -76,7 +80,7 @@ bool	Bitboard::fifthCaptureAvailable() {
 			{
 				if (isLegalMove(x, y, 2))
 				{
-					placeStoneAI(x, y, 2);
+					placeStoneAI(x, y, 2, false);
 					if (isCapturingMove(x, y, 2))
 					{
 						removeStone(x, y, 2);
@@ -90,11 +94,17 @@ bool	Bitboard::fifthCaptureAvailable() {
 	return (false);
 }
 
-void	Bitboard::placeStoneAI(int x, int y, int player) {
-	uint32_t	mask = uint32_t(1) << x;
+std::vector<std::pair<int, int>>	Bitboard::placeStoneAI(int x, int y, int player, bool mode) {
+	uint32_t							mask = uint32_t(1) << x;
+	std::vector<std::pair<int, int>>	removedStones;
 
 	(player == 1) ? _firstPlayerBoardLines[y] |= mask : _secondPlayerBoardLines[y] |= mask;
 	update(x, y, player, true);
+	
+	if (mode)
+		makeCapture(x, y, player, removedStones);
+	
+	return removedStones;
 }
 
 void	Bitboard::removeStone(int x, int y, int player) {
