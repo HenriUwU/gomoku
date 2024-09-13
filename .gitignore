@@ -1,5 +1,4 @@
 .vscode
-Gomoku
-.build
-build
 .cache
+Gomoku
+build
