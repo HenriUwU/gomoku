@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/12 15:17:41 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:24:26 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,6 @@ class Bitboard {
 
 		std::unordered_set<std::pair<int, int>, pair_hash>	getAllStones();
 		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);
+		
+		void	explore(int player);
 };

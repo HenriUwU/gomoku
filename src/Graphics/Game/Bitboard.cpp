@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/12 15:20:12 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:39:39 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,28 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMov
 		}
 	}
 	return (uniqueMoves);
+}
+
+void	Bitboard::explore(int player) {
+	if (player == 0) {
+		std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
+	
+		for (auto& stone : currentStones) {
+			int 	i = 4;
+			bool	isStone = false;
+			while (i > 0) {
+				// Horizontal axis, right direction
+				if (getBit(stone.first + i, stone.second)) {
+					isStone = true;
+					std::cout << "il y a une pierre ici, x: " << stone.first << " et y: " << stone.second << std::endl;
+				}
+				i--;
+				if (!getBit(stone.first + i, stone.second) && isStone) {
+					std::cout << "je place un tmp ici, x: " << stone.first + i << " et y: " << stone.second + i << std::endl;
+				}
+			}
+		}
+	}
 }
 
 void	Bitboard::printBoard(){
