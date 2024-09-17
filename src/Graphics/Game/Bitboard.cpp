@@ -181,20 +181,28 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMov
 
 void	Bitboard::explore(int player) {
 	if (player == 0) {
+		uint32_t patterns[10] = {
+			// In a row
+			{0b1100, }, {0b0011}, {0b1110}, {0b0111}, {0b1111},
+			// Broken
+			{0b1001}, {0b1010}, {0b0101}, {0b1011}, {0b1101},
+		};
+
 		std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
-	
+
 		for (auto& stone : currentStones) {
-			int 	i = 4;
-			bool	isStone = false;
-			while (i > 0) {
-				// Horizontal axis, right direction
-				if (getBit(stone.first + i, stone.second)) {
-					isStone = true;
-					std::cout << "il y a une pierre ici, x: " << stone.first << " et y: " << stone.second << std::endl;
-				}
-				i--;
-				if (!getBit(stone.first + i, stone.second) && isStone) {
-					std::cout << "je place un tmp ici, x: " << stone.first + i << " et y: " << stone.second + i << std::endl;
+			int x = stone.first;
+			int y = stone.second;
+			// Horizontal axis, right direction
+			uint32_t	firstPlayerBitboard = _firstPlayerBoardLines[y];
+			uint32_t	secondPlayerBitboard = _secondPlayerBoardLines[y];
+			for (int i = 0; i < 10; i++) {
+				if (x + 4 < BOARD_SIZE) {
+					uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
+					uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);	
+
+					if (firstPlayerSelection == patterns[i])
+
 				}
 			}
 		}
