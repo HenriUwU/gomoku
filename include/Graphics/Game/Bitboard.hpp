@@ -109,6 +109,7 @@ class Bitboard {
 
 		std::unordered_set<std::pair<int, int>, pair_hash>	getAllStones();
 		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);
+		std::unordered_set<std::pair<int, int>, pair_hash>	autrement(int player);
 		
 		void	explore(int player);
 };

@@ -179,34 +179,198 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMov
 	return (uniqueMoves);
 }
 
-void	Bitboard::explore(int player) {
-	if (player == 0) {
-		uint32_t patterns[10] = {
-			// In a row
-			{0b1100, }, {0b0011}, {0b1110}, {0b0111}, {0b1111},
-			// Broken
-			{0b1001}, {0b1010}, {0b0101}, {0b1011}, {0b1101},
-		};
+std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::autrement(int player) {
+	uint32_t patterns[10] = {
+		// In a row
+		0b1100, 0b0011, 0b1110, 0b0111, 0b1111,
+		// Broken
+		0b1001, 0b1010, 0b0101, 0b1011, 0b1101
+	};
 
-		std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
+	std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
+	std::unordered_set<std::pair<int, int>, pair_hash>		possibleMoves;
 
-		for (auto& stone : currentStones) {
-			int x = stone.first;
-			int y = stone.second;
-			// Horizontal axis, right direction
+	for (auto& stone : currentStones) {
+		for (int i = 0; i < 10; i++) {
+			int xMin = 0;
+			int xMax = 0;
+			// Horizontal axis
+			int 		x = stone.first;
+			int 		y = stone.second;
 			uint32_t	firstPlayerBitboard = _firstPlayerBoardLines[y];
 			uint32_t	secondPlayerBitboard = _secondPlayerBoardLines[y];
-			for (int i = 0; i < 10; i++) {
-				if (x + 4 < BOARD_SIZE) {
-					uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
-					uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);	
+			// Horizontal axis, right direction
+			if (x + 3 < BOARD_SIZE) {
+				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
+				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
 
-					if (firstPlayerSelection == patterns[i])
+				if (firstPlayerSelection == patterns[i] || secondPlayerSelection == patterns[i]) {
+					xMin = (x - 1 > 0) ? x - 1 : x;
+					xMax = (x + 4 < BOARD_SIZE) ? x + 4 : BOARD_SIZE - 1;
 
+					while (xMin < xMax) {
+						if (isLegalMove(xMin, y, player))
+							possibleMoves.emplace(xMin, y);
+						xMin++;
+					}
+				}
+			}
+			// Horizontal axis, left direction
+			if (x - 3 > 0) {
+				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x - 3);
+				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x - 3);
+
+				if (firstPlayerSelection == patterns[i] || secondPlayerSelection == patterns[i]) {
+					xMin = (x - 4 > 0) ? x - 4 : 0;
+					xMax = (x + 1 < BOARD_SIZE) ? x + 1 : BOARD_SIZE - 1;
+
+					while (xMin < xMax) {
+						if (isLegalMove(xMin, y, player))
+							possibleMoves.emplace(xMin, y);
+						xMin++;
+					}
+				}
+			}
+			// Vertical axis
+			x = stone.second;
+			y = stone.first;
+			firstPlayerBitboard = _firstPlayerBoardColumns[y];
+			secondPlayerBitboard = _secondPlayerBoardColumns[y];
+			// Vertical axis, up direction
+			if (x + 3 < BOARD_SIZE) {
+				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
+				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
+
+				if (firstPlayerSelection == patterns[i] || secondPlayerSelection == patterns[i]) {
+					xMin = (x - 1 > 0) ? x - 1 : x;
+					xMax = (x + 4 < BOARD_SIZE) ? x + 4 : BOARD_SIZE - 1;
+
+					while (xMin < xMax) {
+						if (isLegalMove(y, xMin, player))
+							possibleMoves.emplace(y, xMin);
+						xMin++;
+					}
+				}
+			}
+			// Vertical axis, down direction
+			if (x - 3 > 0) {
+				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x - 3);
+				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x - 3);
+
+				if (firstPlayerSelection == patterns[i] || secondPlayerSelection == patterns[i]) {
+					xMin = (x - 4 > 0) ? x - 4 : 0;
+					xMax = (x + 1 < BOARD_SIZE) ? x + 1 : BOARD_SIZE - 1;
+
+					while (xMin < xMax) {
+						if (isLegalMove(y, xMin, player))
+							possibleMoves.emplace(y, xMin);
+						xMin++;
+					}
+				}
+			}
+			// Diagonal axis
+			int boardSide = (x < stone.second + 1) ? 1 : 2;
+			x = stone.first;
+			y = rotateY45(x, stone.second);
+			firstPlayerBitboard = _firstPlayerBoardDiagonals[y];
+			secondPlayerBitboard = _secondPlayerBoardDiagonals[y];
+			// Diagonal axis, up direction
+			if ((boardSide == 1 && x + 3 <= y + 1) || (boardSide == 2 && x + 3 <= BOARD_SIZE)) {
+				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
+				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
+
+				if (firstPlayerSelection == patterns[i] || secondPlayerSelection == patterns[i]) {
+					if (boardSide == 1) {
+						xMin = (x - 1 < 0) ? x : x - 1;
+						xMax = (x + 4 >= y + 1) ? y : x + 4;
+					}
+					else {
+						xMin = (x - 1 <= y + 1) ? x : x - 1;
+						xMax = (x + 4 >= BOARD_SIZE - 1) ? BOARD_SIZE - 1 : x + 4;
+					}
+
+					while (xMin < xMax) {
+						if (isLegalMove(xMin, (xMin < 4) ? stone.second + xMin : stone.second + 4, player))
+							possibleMoves.emplace(xMin, (xMin < 4) ? stone.second + xMin : stone.second + 4);
+						xMin++;
+					}
+				}
+			}
+			// Diagonal axis, down direction
+			if ((boardSide == 1 && x - 3 >= 0) || (boardSide == 2 && x - 3 > y + 1)) {
+				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x - 3);
+				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x - 3);
+
+				if (firstPlayerSelection == patterns[i] || secondPlayerSelection == patterns[i]) {
+					if (boardSide == 1) {
+						xMin = (x - 4 < 0) ? x : x - 4;
+						xMax = (x + 1 >= y + 1) ? y : x + 1;
+					}
+					else {
+						xMin = (x - 4 <= y + 1) ? y + 1 : x - 4;
+						xMax = (x + 1 > BOARD_SIZE - 1) ? BOARD_SIZE - 1 : x + 1;
+					}
+
+					while (xMin < xMax) {
+						if (isLegalMove(xMin, (xMin < 4) ? stone.second + xMin : stone.second + 4, player))
+							possibleMoves.emplace(xMin, (xMin < 4) ? stone.second + xMin : stone.second + 4);
+						xMin++;
+					}
+				}
+			}
+			// Anti-Diagonal axis
+			boardSide = (x < BOARD_SIZE - stone.second) ? 1 : 2;
+			x = stone.first;
+			y = rotateY315(x, stone.second);
+			firstPlayerBitboard = _firstPlayerBoardAntiDiagonals[y];
+			secondPlayerBitboard = _secondPlayerBoardAntiDiagonals[y];
+			// Anti-Diagonal axis, up direction
+			if ((boardSide == 1 && x + 3 <= BOARD_SIZE - y) || (boardSide == 2 && x + 3 <= BOARD_SIZE - 1)) {
+				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
+				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
+
+				if (firstPlayerSelection == patterns[i] || secondPlayerSelection == patterns[i]) {
+					if (boardSide == 1) {
+						xMin = (x - 4 < 0) ? x : x - 4;
+						xMax = (x + 1 >= BOARD_SIZE - y) ? BOARD_SIZE - y - 1 : x + 1;
+					}
+					else {
+						xMin = (x - 4 < BOARD_SIZE - y) ? BOARD_SIZE - y - 1 : x - 4;
+						xMax = (x + 1 > BOARD_SIZE - 1) ? BOARD_SIZE - 1 : x + 1;
+					}
+
+					while (xMin < xMax) {
+						if (isLegalMove(xMin, (xMin < 4) ? stone.second - xMin : stone.second - 4, player))
+							possibleMoves.emplace(xMin, (xMin < 4) ? stone.second - xMin : stone.second - 4);
+						xMin++;
+					}
+				}
+			}
+			// Anti-Diagonal axis, down direction
+			if ((boardSide == 1 && x - 3 >= 0) || (boardSide == 2 && x - 3 >= BOARD_SIZE - y)) {
+				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x - 3);
+				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x - 3);
+
+				if (firstPlayerSelection == patterns[i] || secondPlayerSelection == patterns[i]) {
+					if (boardSide == 1) {
+						xMin = (x - 4 < 0) ? x : x - 4;
+						xMax = (x + 1 >= BOARD_SIZE - y) ? y : x + 1;
+					}
+					else {
+						xMin = (x - 4 <= BOARD_SIZE - y) ? BOARD_SIZE - y : x - 4;
+						xMax = (x + 1 > BOARD_SIZE - 1) ? BOARD_SIZE - 1 : x + 1;
+					}
+
+					while (xMin < xMax) {
+						if (isLegalMove(xMin, (xMin < 4) ? stone.second - xMin : stone.second - 4, player))
+							possibleMoves.emplace(xMin, (xMin < 4) ? stone.second - xMin : stone.second - 4);
+						xMin++;
+					}
 				}
 			}
 		}
 	}
+	return (possibleMoves);
 }
 
 void	Bitboard::printBoard(){

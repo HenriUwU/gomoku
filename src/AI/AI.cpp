@@ -37,7 +37,9 @@ void	AI::play(Bitboard &bitboard) {
 
 std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	std::vector<std::future<std::pair<std::pair<int, int> , int>>>	futureMoves;
-	std::unordered_set<std::pair<int, int>, pair_hash>				possibleMoves = bitboard.generatePossibleMoves(2);
+	std::unordered_set<std::pair<int, int>, pair_hash>				possibleMoves = bitboard.autrement(2);
+	if (possibleMoves.empty())
+		possibleMoves = bitboard.generatePossibleMoves(2);
 	std::pair<int, int>												bestMove = {9, 9};
 	double															bestValue = -INFINITY;
 	
@@ -98,8 +100,9 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 		return heuristic(bitboard, depth);
 	}
 
-	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
-	bitboard.explore(maximizingPlayer);
+	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.autrement(maximizingPlayer ? 2 : 1);
+	if (possibleMoves.empty())
+		possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
 	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, maximizingPlayer);
 
 	int bestValue = maximizingPlayer ? INT_MIN : INT_MAX;

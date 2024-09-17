@@ -6,7 +6,7 @@ project(Gomoku VERSION 1.0 LANGUAGES CXX)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp")
 
-add_compile_options(-Wall -Wextra -Werror -g3 -Ofast -fopenmp -Wpedantic)
+add_compile_options(-Wall -Wextra -Werror -g3 -Ofast -fopenmp -Wpedantic -std=c++14)
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE "include")
