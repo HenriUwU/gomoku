@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 14:46:39 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/13 15:24:43 by laprieur         ###   ########.fr       */
+/*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
+/*   Updated: 2024/09/17 17:42:43 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,21 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, maximizingPlayer);
 
 	int bestValue = maximizingPlayer ? INT_MIN : INT_MAX;
-	int value;
 
 	int reductionDepth = (depth > 2) ? depth - 2 : 0;
 
 	for (size_t i = 0; i < sortedMoves.size(); ++i) {
+		int value = 0;
 		auto& possibleMove = sortedMoves[i];
 		
 		if (maximizingPlayer) {
 			std::vector<std::pair<int, int>> removedStones = bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 2, true);
+			value += (removedStones.size() * 500) / 2;
 			// capture stones in placStoneAI and keep in memory the stones to replace after
 			if (i > 3) {
-				value = minimax(bitboard, reductionDepth, false, alpha, beta);
+				value += minimax(bitboard, reductionDepth, false, alpha, beta);
 			} else {
-				value = minimax(bitboard, depth - 1, false, alpha, beta);
+				value += minimax(bitboard, depth - 1, false, alpha, beta);
 			}
 			// replace captured stones here
 			for (const auto& stone : removedStones) {
@@ -133,10 +134,11 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 				break;
 		} else {
 			std::vector<std::pair<int, int>> removedStones = bitboard.placeStoneAI(possibleMove.first, possibleMove.second, 1, true);
+			value -= (removedStones.size() * 500) / 2;
 			if (i > 3) {
-				value = minimax(bitboard, reductionDepth, true, alpha, beta);
+				value += minimax(bitboard, reductionDepth, true, alpha, beta);
 			} else {
-				value = minimax(bitboard, depth - 1, true, alpha, beta);
+				value += minimax(bitboard, depth - 1, true, alpha, beta);
 			}
 			for (const auto& stone : removedStones) {
 				bitboard.placeStoneAI(stone.first, stone.second, 2, false);
