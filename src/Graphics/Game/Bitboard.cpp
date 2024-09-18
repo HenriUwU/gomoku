@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/13 15:39:39 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:06:49 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMov
 	return (uniqueMoves);
 }
 
-std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::autrement(int player) {
+std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int player) {
 	uint32_t patterns[10] = {
 		// In a row
 		0b1100, 0b0011, 0b1110, 0b0111, 0b1111,
@@ -275,7 +275,7 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::autrement(int playe
 			firstPlayerBitboard = _firstPlayerBoardDiagonals[y];
 			secondPlayerBitboard = _secondPlayerBoardDiagonals[y];
 			// Diagonal axis, up direction
-			if ((boardSide == 1 && x + 3 <= y + 1) || (boardSide == 2 && x + 3 <= BOARD_SIZE)) {
+			if ((boardSide == 1 && x + 3 < y + 1) || (boardSide == 2 && x + 3 < BOARD_SIZE)) {
 				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
 				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
 
@@ -285,13 +285,13 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::autrement(int playe
 						xMax = (x + 4 >= y + 1) ? y : x + 4;
 					}
 					else {
-						xMin = (x - 1 <= y + 1) ? x : x - 1;
+						xMin = (x - 1 < y + 1) ? x : x - 1;
 						xMax = (x + 4 >= BOARD_SIZE - 1) ? BOARD_SIZE - 1 : x + 4;
 					}
 
 					while (xMin < xMax) {
-						if (isLegalMove(xMin, (xMin < 4) ? stone.second + xMin : stone.second + 4, player))
-							possibleMoves.emplace(xMin, (xMin < 4) ? stone.second + xMin : stone.second + 4);
+						if (isLegalMove(xMin, reverseRotate45(xMin, y), player))
+							possibleMoves.emplace(xMin, reverseRotate45(xMin, y));
 						xMin++;
 					}
 				}
@@ -312,8 +312,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::autrement(int playe
 					}
 
 					while (xMin < xMax) {
-						if (isLegalMove(xMin, (xMin < 4) ? stone.second + xMin : stone.second + 4, player))
-							possibleMoves.emplace(xMin, (xMin < 4) ? stone.second + xMin : stone.second + 4);
+						if (isLegalMove(xMin, reverseRotate45(xMin, y), player))
+							possibleMoves.emplace(xMin, reverseRotate45(xMin, y));
 						xMin++;
 					}
 				}
@@ -340,8 +340,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::autrement(int playe
 					}
 
 					while (xMin < xMax) {
-						if (isLegalMove(xMin, (xMin < 4) ? stone.second - xMin : stone.second - 4, player))
-							possibleMoves.emplace(xMin, (xMin < 4) ? stone.second - xMin : stone.second - 4);
+						if (isLegalMove(xMin, reverseRotate315(xMin, y), player))
+							possibleMoves.emplace(xMin, reverseRotate315(xMin, y));
 						xMin++;
 					}
 				}
@@ -362,8 +362,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::autrement(int playe
 					}
 
 					while (xMin < xMax) {
-						if (isLegalMove(xMin, (xMin < 4) ? stone.second - xMin : stone.second - 4, player))
-							possibleMoves.emplace(xMin, (xMin < 4) ? stone.second - xMin : stone.second - 4);
+						if (isLegalMove(xMin, reverseRotate315(xMin, y), player))
+							possibleMoves.emplace(xMin, reverseRotate315(xMin, y));
 						xMin++;
 					}
 				}

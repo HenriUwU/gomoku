@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/13 15:24:26 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:07:00 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ class Bitboard {
 		int			isCapturingMove(int x, int y, int player);
 		int			rotateY45(int x, int y);
 		int			rotateY315(int x, int y);
+		int			reverseRotate45(int x, int y);
+		int			reverseRotate315(int x, int y);
 		int			checkPattern(PatternInfo patterns[], int nbPattern) __attribute__((hot));
 		int			countAdjacentStones(int x, int y) const;
 
@@ -109,7 +111,7 @@ class Bitboard {
 
 		std::unordered_set<std::pair<int, int>, pair_hash>	getAllStones();
 		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);
-		std::unordered_set<std::pair<int, int>, pair_hash>	autrement(int player);
+		std::unordered_set<std::pair<int, int>, pair_hash>	generateMoves(int player);
 		
 		void	explore(int player);
 };

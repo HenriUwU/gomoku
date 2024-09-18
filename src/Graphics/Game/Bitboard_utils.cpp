@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_utils.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:57:17 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/12 10:07:07 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:03:59 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@ int	Bitboard::getBit(int x, int y) const {
 		return (2);
 		
 	return (0);
+}
+
+int Bitboard::reverseRotate45(int x, int y) {
+    if (x + y < BOARD_SIZE)
+        return (y - x);
+    else
+        return (y + (BOARD_SIZE - x));
+}
+
+int Bitboard::reverseRotate315(int x, int y) {
+    if (x < y + 1)
+        return (y + x);
+    else
+        return (y - (BOARD_SIZE + x));
 }
 
 int	Bitboard::rotateY45(int x, int y) {
