@@ -1,4 +1,3 @@
 Dockerfile
 .git
 .gitignore
-/lib/SFML
