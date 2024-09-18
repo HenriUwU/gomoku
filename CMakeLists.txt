@@ -13,6 +13,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE "include")
 
 target_link_libraries(${PROJECT_NAME} pthread sfml-graphics sfml-audio sfml-window sfml-system sfml-network)
 
+set(SFML_DIR "${CMAKE_SOURCE_DIR}/lib/SFML/lib/cmake/SFML")
+
 find_package(SFML 2.6 COMPONENTS system window graphics network audio REQUIRED)
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND mv "$<TARGET_FILE:${PROJECT_NAME}>" "..")
