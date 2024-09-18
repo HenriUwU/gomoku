@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/18 12:06:49 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:14:09 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,6 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 
 	for (auto& stone : currentStones) {
 		for (int i = 0; i < 10; i++) {
-			int xMin = 0;
-			int xMax = 0;
 			// Horizontal axis
 			int 		x = stone.first;
 			int 		y = stone.second;
@@ -201,6 +199,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 			uint32_t	secondPlayerBitboard = _secondPlayerBoardLines[y];
 			// Horizontal axis, right direction
 			if (x + 3 < BOARD_SIZE) {
+				int xMin = 0;
+				int xMax = 0;
 				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
 				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
 
@@ -217,6 +217,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 			}
 			// Horizontal axis, left direction
 			if (x - 3 > 0) {
+				int xMin = 0;
+				int xMax = 0;
 				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x - 3);
 				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x - 3);
 
@@ -238,6 +240,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 			secondPlayerBitboard = _secondPlayerBoardColumns[y];
 			// Vertical axis, up direction
 			if (x + 3 < BOARD_SIZE) {
+				int xMin = 0;
+				int xMax = 0;
 				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
 				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
 
@@ -254,6 +258,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 			}
 			// Vertical axis, down direction
 			if (x - 3 > 0) {
+				int xMin = 0;
+				int xMax = 0;
 				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x - 3);
 				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x - 3);
 
@@ -276,6 +282,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 			secondPlayerBitboard = _secondPlayerBoardDiagonals[y];
 			// Diagonal axis, up direction
 			if ((boardSide == 1 && x + 3 < y + 1) || (boardSide == 2 && x + 3 < BOARD_SIZE)) {
+				int xMin = 0;
+				int xMax = 0;
 				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
 				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
 
@@ -290,14 +298,16 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 					}
 
 					while (xMin < xMax) {
-						if (isLegalMove(xMin, reverseRotate45(xMin, y), player))
-							possibleMoves.emplace(xMin, reverseRotate45(xMin, y));
+						if (isLegalMove(xMin, (boardSide == 1) ? y - xMin : y + (BOARD_SIZE - xMin), player))
+							possibleMoves.emplace(xMin, (boardSide == 1) ? y - xMin : y + (BOARD_SIZE - xMin));
 						xMin++;
 					}
 				}
 			}
 			// Diagonal axis, down direction
 			if ((boardSide == 1 && x - 3 >= 0) || (boardSide == 2 && x - 3 > y + 1)) {
+				int xMin = 0;
+				int xMax = 0;
 				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x - 3);
 				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x - 3);
 
@@ -312,8 +322,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 					}
 
 					while (xMin < xMax) {
-						if (isLegalMove(xMin, reverseRotate45(xMin, y), player))
-							possibleMoves.emplace(xMin, reverseRotate45(xMin, y));
+						if (isLegalMove(xMin, (boardSide == 1) ? y - xMin : y + (BOARD_SIZE - xMin), player))
+							possibleMoves.emplace(xMin, (boardSide == 1) ? y - xMin : y + (BOARD_SIZE - xMin));
 						xMin++;
 					}
 				}
@@ -326,6 +336,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 			secondPlayerBitboard = _secondPlayerBoardAntiDiagonals[y];
 			// Anti-Diagonal axis, up direction
 			if ((boardSide == 1 && x + 3 <= BOARD_SIZE - y) || (boardSide == 2 && x + 3 <= BOARD_SIZE - 1)) {
+				int xMin = 0;
+				int xMax = 0;
 				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
 				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
 
@@ -340,14 +352,16 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 					}
 
 					while (xMin < xMax) {
-						if (isLegalMove(xMin, reverseRotate315(xMin, y), player))
-							possibleMoves.emplace(xMin, reverseRotate315(xMin, y));
+						if (isLegalMove(xMin, (boardSide == 1) ? y + xMin : y - (BOARD_SIZE + xMin), player))
+							possibleMoves.emplace(xMin, (boardSide == 1) ? y + xMin : y - (BOARD_SIZE + xMin));
 						xMin++;
 					}
 				}
 			}
 			// Anti-Diagonal axis, down direction
 			if ((boardSide == 1 && x - 3 >= 0) || (boardSide == 2 && x - 3 >= BOARD_SIZE - y)) {
+				int xMin = 0;
+				int xMax = 0;
 				uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x - 3);
 				uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x - 3);
 
@@ -362,8 +376,8 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 					}
 
 					while (xMin < xMax) {
-						if (isLegalMove(xMin, reverseRotate315(xMin, y), player))
-							possibleMoves.emplace(xMin, reverseRotate315(xMin, y));
+						if (isLegalMove(xMin, (boardSide == 1) ? y + xMin : y - (BOARD_SIZE + xMin), player))
+							possibleMoves.emplace(xMin, (boardSide == 1) ? y + xMin : y - (BOARD_SIZE + xMin));
 						xMin++;
 					}
 				}

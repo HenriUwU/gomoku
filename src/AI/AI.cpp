@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/18 12:22:51 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:46:03 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
 		std::vector<std::pair<int, int>> removedStones = tempBoard.placeStoneAI(move.first, move.second, 2, true);
-		int moveValue = minimax(tempBoard, 6, true, INT_MIN, INT_MAX);
+		int moveValue = minimax(tempBoard, 8, true, INT_MIN, INT_MAX);
 		for (const auto& stone : removedStones) {
 			tempBoard.placeStoneAI(stone.first, stone.second, 1, false);
 		}
@@ -59,6 +59,11 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	};
 
 	for (const auto& move : possibleMoves) {
+		unsigned int maxThreads = std::thread::hardware_concurrency();
+		if (futureMoves.size() >= maxThreads) {
+        futureMoves.front().get();  // Get the result of the first future
+        futureMoves.erase(futureMoves.begin());  // Remove the completed task
+    	}
 		futureMoves.push_back(std::async(std::launch::async, evaluateMove, move));
 	}
 
@@ -102,7 +107,6 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 	}
 
 	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generateMoves(maximizingPlayer ? 2 : 1);
-	std::cout << "possibleMoves: " << possibleMoves.size() << std::endl;
 	if (possibleMoves.empty())
 		possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
 	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, maximizingPlayer);
