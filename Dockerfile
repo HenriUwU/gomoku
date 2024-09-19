@@ -4,6 +4,7 @@ FROM ubuntu:22.04
 RUN apt update && apt upgrade -y
 RUN apt install cmake g++ build-essential -y \
     libsndfile1 \
+    libsndfile1-dev \
     libsndfile-dev \
     libopenal-dev \
     libvorbis-dev \
@@ -13,12 +14,15 @@ RUN apt install cmake g++ build-essential -y \
     libx11-dev \
     wget \
     gnupg \
+    xterm \
+    alsa-base \
+    alsa-utils \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and install libFLAC
 RUN wget http://ftp.de.debian.org/debian/pool/main/f/flac/libflac12_1.4.2+ds-2_amd64.deb && \
     dpkg -i libflac12_1.4.2+ds-2_amd64.deb && \
-    apt-get install -f -y  # Fix any missing dependencies
+    apt-get install -f -y
 
 # Clean up
 RUN rm libflac12_1.4.2+ds-2_amd64.deb
