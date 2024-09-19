@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/03 14:55:34 by hsebille          #+#    #+#              #
-#    Updated: 2024/08/08 15:36:46 by hsebille         ###   ########.fr        #
+#    Updated: 2024/09/19 14:29:32 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC				:=	src/main.cpp								\
 					src/Graphics/Menu/SettingsMenu.cpp			\
 					src/Graphics/Utils.cpp						\
 					src/Music/Music.cpp							\
+					src/AI/AI_utils.cpp							\
 				
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
