@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/19 15:11:43 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:17:33 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	std::unordered_set<std::pair<int, int>, pair_hash>				possibleMoves = bitboard.generateMoves(2);
 	if (possibleMoves.empty())
 		possibleMoves = bitboard.generatePossibleMoves(2);
-	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, true);
-	std::pair<int, int>												bestMove = {9, 9};
-	double															bestValue = -INFINITY;
+	std::pair<int, int>								bestMove = {9, 9};
+	double											bestValue = -INFINITY;
 	
 	if (possibleMoves.empty())
 		return bestMove;
+
+	std::vector<std::pair<int, int>>		sortedMoves = sortMoves(possibleMoves, bitboard, true);
 
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
@@ -84,6 +85,7 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generateMoves(maximizingPlayer ? 2 : 1);
 	if (possibleMoves.empty())
 		possibleMoves = bitboard.generatePossibleMoves(maximizingPlayer ? 2 : 1);
+	
 	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, maximizingPlayer);
 
 	int bestValue = maximizingPlayer ? INT_MIN : INT_MAX;

@@ -11,36 +11,29 @@ struct pair_hash {
 };
 
 int partition(std::vector<std::pair<std::pair<int, int>, int>> &vec, int low, int high) {
-	// Find the median of the first, middle, and last elements
 	int mid = low + (high - low) / 2;
 
-	// Use the median of three values as the pivot
 	if (vec[low].second > vec[mid].second) std::swap(vec[low], vec[mid]);
 	if (vec[low].second > vec[high].second) std::swap(vec[low], vec[high]);
 	if (vec[mid].second > vec[high].second) std::swap(vec[mid], vec[high]);
 
-	// Now, the median is at `mid`, so we swap it to the low position
 	std::swap(vec[low], vec[mid]);
 
-	int pivot = vec[low].second;  // pivot is the median element now
+	int pivot = vec[low].second;
 	int i = low - 1, j = high + 1;
 
 	while (true) {
-		// Increment i until an element >= pivot is found
 		do {
 			i++;
 		} while (vec[i].second < pivot);
 
-		// Decrement j until an element <= pivot is found
 		do {
 			j--;
 		} while (vec[j].second > pivot);
 
-		// If i >= j, partitioning is done
 		if (i >= j)
 			return j;
 
-		// Swap elements at i and j if i < j
 		std::swap(vec[i], vec[j]);
 	}
 }

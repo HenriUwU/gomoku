@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.hpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:01:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/19 14:54:22 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:48:57 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ class AI {
 		AI();
 		~AI();
 		
-		int									minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) __attribute__((hot));
-		int									heuristic(Bitboard &bitboard, int depth) __attribute__((hot));
+		int													minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) __attribute__((hot));
+		int													heuristic(Bitboard &bitboard, int depth) __attribute__((hot));
 		
-		int									countStones(Bitboard &bitboard);
-		int									checkPatterns(Bitboard &bitboard, int player, int opponent);
+		int													countStones(Bitboard &bitboard);
+		int													checkPatterns(Bitboard &bitboard, int player, int opponent);
 
-		void								play(Bitboard &bitboard);
+		void												play(Bitboard &bitboard);
 		
-		std::pair<int, int>					findBestMove(Bitboard& bitboard);
-		std::vector<std::pair<int, int>>	sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
+		std::pair<int, int>									findBestMove(Bitboard& bitboard);
+		std::vector<std::pair<int, int>>					sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
+		void												quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int low, int high);
 };
