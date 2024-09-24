@@ -48,4 +48,4 @@ RUN rm -rf build && mkdir build && cd build && cmake .. -DSNDFILE_INC_DIR=/usr/l
 
 # SET XHOST ON THE HOST MACHINE: xhost +local:
 # BUILD DOCKER: docker build --no-cache -t gomoku .
-# ENTER DOCKER: docker docker run -it --net=host --env="DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix:rw --device /dev/snd gomoku ./Gomoku
+# ENTER DOCKER: docker run -it --net=host --env="DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix:rw --device /dev/snd gomoku ./Gomoku
