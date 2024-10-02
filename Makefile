@@ -6,7 +6,7 @@
 #    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/03 14:55:34 by hsebille          #+#    #+#              #
-#    Updated: 2024/09/24 15:05:37 by laprieur         ###   ########.fr        #
+#    Updated: 2024/10/02 14:58:28 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ NAME			:= Gomoku
 SRC				:=	src/main.cpp								\
 					src/AI/AI.cpp								\
 					src/AI/heuristic.cpp						\
+					src/Graphics/GIF/AnimatedGIF.cpp			\
 					src/Graphics/Game/Bitboard_captures.cpp		\
 					src/Graphics/Game/Bitboard_double-three.cpp	\
 					src/Graphics/Game/Bitboard_patterns.cpp		\

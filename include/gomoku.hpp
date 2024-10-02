@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:34:20 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/12 11:50:56 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:55:06 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct pair_hash {
 };
 
 #include "AI/AI.hpp"
+#include "Graphics/GIF/AnimatedGIF.hpp"
 #include "Graphics/Game/Bitboard.hpp"
 #include "Graphics/Game/Gameplay.hpp"
 #include "Graphics/Menu/MainMenu.hpp"

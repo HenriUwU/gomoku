@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/09 14:27:29 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:56:20 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ int main() {
 		std::cerr << "Error: could not load cursor texture" << std::endl;
 		return 1;
 	}
+	
+	AnimatedGIF winGif;
+	winGif.loadFile("assets/images/menu/help/win.gif");
+	
+	sf::Sprite sprite;
+
 	
 	cursorSprite.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
@@ -100,6 +106,8 @@ int main() {
 				break;				
 		}
 		window.draw(cursorSprite);
+		winGif.update(sprite);
+        window.draw(sprite);
 		window.display();
 	}
 }
