@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/02 16:55:28 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:01:47 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	HelpMenu::display(sf::RenderWindow& window) {
 	window.clear(sf::Color(38, 1, 69));
 
 	if (helpMenuState == RULES) {
+		_winGifSprite.setPosition(1100, 495);
 		window.draw(_rulesPageSprite);
 		_winGif.update(_winGifSprite);
-		window.clear();
 		window.draw(_winGifSprite);
 	}
 	if (helpMenuState == CAPTURES)
@@ -74,8 +74,8 @@ void	HelpMenu::init() {
 	loadTextures(3, "assets/images/menu/help/", pages, _pageTextures);
 	loadTextures(4, "assets/images/buttons/", buttons, _pageTextures);
 	
-	// _winGif.loadFile("assets/images/menu/help/win.gif");
-
+	_winGif.loadFile("assets/images/menu/help/win.gif");
+	
 	_rulesPageSprite.setTexture(_pageTextures[RULESPAGE]);
 	_capturesPageSprite.setTexture(_pageTextures[CAPTURESPAGE]);
 	_doubleThreesPageSprite.setTexture(_pageTextures[DOUBLETHREESPAGE]);
