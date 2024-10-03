@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/03 15:51:24 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:34:18 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,15 @@ void	HelpMenu::display(sf::RenderWindow& window) {
 		_captureGif.update(_captureGifSprite);
 		window.draw(_captureGifSprite);
 	}
-	if (helpMenuState == DOUBLETHREE)
+	if (helpMenuState == DOUBLETHREE) {
 		window.draw(_doubleThreesPageSprite);
+		_doubleThreeGifSprite.setPosition(110, 446);
+		_exceptionDoubleThreeGifSprite.setPosition(1018, 446);
+		_doubleThreeGif.update(_doubleThreeGifSprite);
+		_exceptionDoubleThreeGif.update(_exceptionDoubleThreeGifSprite);
+		window.draw(_doubleThreeGifSprite);
+		window.draw(_exceptionDoubleThreeGifSprite);
+	}
 
 	window.draw(_backwardButtonSprite);
 	if (helpMenuState != DOUBLETHREE)
@@ -80,6 +87,8 @@ void	HelpMenu::init() {
 	
 	_winGif.loadFile("assets/images/menu/help/win.gif");
 	_captureGif.loadFile("assets/images/menu/help/capture.gif");
+	_doubleThreeGif.loadFile("assets/images/menu/help/double_three.gif");
+	_exceptionDoubleThreeGif.loadFile("assets/images/menu/help/exception_double_three.gif");
 	
 	_rulesPageSprite.setTexture(_pageTextures[RULESPAGE]);
 	_capturesPageSprite.setTexture(_pageTextures[CAPTURESPAGE]);

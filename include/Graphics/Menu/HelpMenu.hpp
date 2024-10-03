@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:50:31 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/03 15:38:52 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:20:27 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ class HelpMenu {
 
 		AnimatedGIF					_winGif;
 		AnimatedGIF					_captureGif;
+		AnimatedGIF					_doubleThreeGif;
+		AnimatedGIF					_exceptionDoubleThreeGif;
 		sf::Sprite					_rulesPageSprite;
 		sf::Sprite					_capturesPageSprite;
 		sf::Sprite					_doubleThreesPageSprite;
@@ -35,6 +37,8 @@ class HelpMenu {
 		sf::Sprite					_forwardButtonSprite;
 		sf::Sprite					_winGifSprite;
 		sf::Sprite					_captureGifSprite;
+		sf::Sprite					_doubleThreeGifSprite;
+		sf::Sprite					_exceptionDoubleThreeGifSprite;
 		std::vector<sf::Texture>	_pageTextures;
 
 	public:
