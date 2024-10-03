@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/03 13:01:47 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:51:24 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@ void	HelpMenu::display(sf::RenderWindow& window) {
 	window.clear(sf::Color(38, 1, 69));
 
 	if (helpMenuState == RULES) {
-		_winGifSprite.setPosition(1100, 495);
 		window.draw(_rulesPageSprite);
+		_winGifSprite.setPosition(1001, 440);
 		_winGif.update(_winGifSprite);
 		window.draw(_winGifSprite);
 	}
-	if (helpMenuState == CAPTURES)
+	if (helpMenuState == CAPTURES) {
 		window.draw(_capturesPageSprite);
+		_captureGifSprite.setPosition(1021, 471);
+		_captureGif.update(_captureGifSprite);
+		window.draw(_captureGifSprite);
+	}
 	if (helpMenuState == DOUBLETHREE)
 		window.draw(_doubleThreesPageSprite);
 
@@ -75,6 +79,7 @@ void	HelpMenu::init() {
 	loadTextures(4, "assets/images/buttons/", buttons, _pageTextures);
 	
 	_winGif.loadFile("assets/images/menu/help/win.gif");
+	_captureGif.loadFile("assets/images/menu/help/capture.gif");
 	
 	_rulesPageSprite.setTexture(_pageTextures[RULESPAGE]);
 	_capturesPageSprite.setTexture(_pageTextures[CAPTURESPAGE]);
