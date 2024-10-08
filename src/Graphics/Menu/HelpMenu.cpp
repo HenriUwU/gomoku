@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 10:42:55 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/03 17:34:18 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:24:48 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ HelpMenu::~HelpMenu() {}
 
 void	HelpMenu::display(sf::RenderWindow& window) {
 	window.clear(sf::Color(38, 1, 69));
-
 	if (helpMenuState == RULES) {
 		window.draw(_rulesPageSprite);
 		_winGifSprite.setPosition(1001, 440);
@@ -42,18 +41,16 @@ void	HelpMenu::display(sf::RenderWindow& window) {
 		window.draw(_doubleThreeGifSprite);
 		window.draw(_exceptionDoubleThreeGifSprite);
 	}
-
 	window.draw(_backwardButtonSprite);
 	if (helpMenuState != DOUBLETHREE)
 		window.draw(_forwardButtonSprite);
 }
 
 void	HelpMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window) {
-	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-	
 	if (gameState != HELP)
 		return;
 	
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDHOVEREDBUTTON]);
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {

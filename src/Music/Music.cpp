@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:46:08 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/12 11:50:25 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:29:24 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 Music::Music() {
 	const std::string musics[] = {"menu", "1vs1", "aiVersus"};
+	
 	for (int i = 0; i < 3; i++) {
 		std::unique_ptr<sf::Music> music = std::make_unique<sf::Music>();
 		std::string filePath = "assets/musics/" + musics[i] + "Music.ogg";
@@ -38,6 +39,7 @@ void	Music::stopAllMusics() {
 
 void Music::playMusic() {
 	static GameState previousGameState = NONE;
+	
 	if (previousGameState != gameState) {
 		switch (gameState) {
 			case MENU:
