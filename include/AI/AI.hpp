@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:01:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/08 10:35:43 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:38:25 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@
 	
 class Bitboard;
 
-enum NodeType { EXACT, LOWERBOUND, UPPERBOUND };
+enum NodeType {
+	EXACT,
+	LOWERBOUND,
+	UPPERBOUND
+};
 
 struct TTEntry {
-    uint64_t key;    // Clé unique pour la position
-    int value;       // Valeur de l'évaluation
-    int depth;       // Profondeur à laquelle cette évaluation a été faite
-    NodeType type;   // Type de nœud (exact, limite inférieure, limite supérieure)
+    int			value;       // Valeur de l'évaluation
+    int			depth;       // Profondeur à laquelle cette évaluation a été faite
+    uint64_t	key;    // Clé unique pour la position
+    NodeType	type;   // Type de nœud (exact, limite inférieure, limite supérieure)
 };
 
 class AI {
