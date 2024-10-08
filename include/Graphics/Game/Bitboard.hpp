@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/18 12:07:00 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:33:55 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,31 @@
 
 #include "gomoku.hpp"
 
-typedef enum {
-	FIVE_IN_A_ROW = 0b11111,
-	
-	PAIR = 0b0110,
-	CAPTURE = 0b1001,
-	
-	FIRST_FREE_THREE = 0b01110,
-	SECOND_FREE_THREE = 0b010110,
-	THIRD_FREE_THREE = 0b011010,
-} Patterns;
+enum Patterns {
+	FIVE_IN_A_ROW		= 0b11111,
+	PAIR				= 0b0110,
+	CAPTURE				= 0b1001,
+	FIRST_FREE_THREE	= 0b01110,
+	SECOND_FREE_THREE	= 0b010110,
+	THIRD_FREE_THREE	= 0b011010
+};
 
-typedef enum {
+enum Directions {
 	HORIZONTAL,
 	VERTICAL,
 	DIAGONAL,
-	ANTIDIAGONAL,
-}	Directions;
+	ANTIDIAGONAL
+};
 
 class Bitboard {
 	private:
 		static const int					BOARD_SIZE = 19;
-
 		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardLines;
 		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardLines;
-
 		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardColumns;
 		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardColumns;
-		
 		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardDiagonals;
 		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardDiagonals;
-
 		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardAntiDiagonals;
 		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardAntiDiagonals;	
 
@@ -83,7 +77,6 @@ class Bitboard {
 		void		printBoard();
 		void		update(int x, int y, int player, bool add);
 		void		removeStone(int x, int y, int player);
-		std::vector<std::pair<int, int>>	placeStoneAI(int x, int y, int player, bool mode);
 		void		clear();
 
 		void		verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
@@ -109,9 +102,8 @@ class Bitboard {
 		
 		uint32_t	getSelection(uint32_t bitboard, int nbBits, int bitsPos);
 
+		std::vector<std::pair<int, int>>					placeStoneAI(int x, int y, int player, bool mode);
 		std::unordered_set<std::pair<int, int>, pair_hash>	getAllStones();
 		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);
 		std::unordered_set<std::pair<int, int>, pair_hash>	generateMoves(int player);
-		
-		void	explore(int player);
 };

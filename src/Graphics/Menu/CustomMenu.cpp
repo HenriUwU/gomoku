@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 22:14:13 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/12 10:06:01 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:25:34 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	CustomMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& wind
 void	CustomMenu::handleStonesSelection(const sf::RenderWindow& window) {
 	bool			stoneHovered = false;
 	StonesColors	stoneColorsArray[8] = {BLACK_WHITE, GREEN_RED, SALMON_CORAL, PINK_FLUOYELLOW, BLACK_YELLOW, ORANGE_VIOLET, DARKGREEN_LIGHTGREEN, TURQUOISEGREEN_INDIGO};
+	
 	for (int i = 0; i < 8; i++) {
 		if (_stonesSprites[i].getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 			stoneHovered = true;
@@ -73,6 +74,7 @@ void	CustomMenu::handleStonesSelection(const sf::RenderWindow& window) {
 void	CustomMenu::handleAvatarSelection(const sf::RenderWindow& window) {
 	bool	avatarHovered = false;
 	Avatar	avatarsArray[6] = {TOMMY, LAURE, ALEX, HERIC, MOUSSE, GUNTHER};
+	
 	for (int i = 0; i < 6; i++) {
 		if (_avatarsSprites[i].getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 			avatarHovered = true;
@@ -92,6 +94,7 @@ void	CustomMenu::handleAvatarSelection(const sf::RenderWindow& window) {
 void	CustomMenu::handleBoardSelection(const sf::RenderWindow& window) {
 	bool		boardHovered = false;
 	BoardColor	boardsColorsArray[8] = {AZURE, YELLOW, RED, ORANGE, PINK, GREEN, GRAY, BLACK};
+	
 	for (int i = 0; i < 8; i++) {
 		if (_boardsSprites[i].getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y)) {
 			boardHovered = true;

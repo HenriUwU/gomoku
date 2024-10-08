@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:05:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/07/22 14:22:27 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:23:36 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ class SettingsMenu {
 		SettingsMenu();
 		~SettingsMenu();
 
-		void init();
-		void display(sf::RenderWindow& window);		
-		void handleKeys(const sf::Event& event, const sf::RenderWindow& window);
-		void handleAiMode(const sf::RenderWindow& window);
-		void handleVolume(const sf::Event& event, const sf::RenderWindow& window, Music& music);
+		void	init();
+		void	display(sf::RenderWindow& window);		
+		void	handleKeys(const sf::Event& event, const sf::RenderWindow& window);
+		void	handleAiMode(const sf::RenderWindow& window);
+		void	handleVolume(const sf::Event& event, const sf::RenderWindow& window, Music& music);
 };
