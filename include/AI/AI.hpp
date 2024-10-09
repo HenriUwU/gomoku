@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.hpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:01:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/24 13:48:57 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:42:51 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,12 @@
 	
 class Bitboard;
 
-enum NodeType { EXACT, LOWERBOUND, UPPERBOUND };
-
-struct TTEntry {
-    uint64_t key;    // Clé unique pour la position
-    int value;       // Valeur de l'évaluation
-    int depth;       // Profondeur à laquelle cette évaluation a été faite
-    NodeType type;   // Type de nœud (exact, limite inférieure, limite supérieure)
-};
+#define MINIMAX_DEPTH 6
+#define MAX_TESTED_MOVES 15
 
 class AI {
 	private:
-		std::unordered_map<uint64_t, TTEntry>	_transpositionTable;
 		static const int						BOARD_SIZE = 19;
-		
-		uint64_t								_zobristTable[BOARD_SIZE][BOARD_SIZE][2];
-		int										_centerScores[BOARD_SIZE][BOARD_SIZE];
 
 	public:
 		AI();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI_utils.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:01 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/24 15:02:20 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:21:20 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,15 @@ std::vector<std::pair<int, int>>	AI::sortMoves(const std::unordered_set<std::pai
 	for (size_t i = 0; i < movesToSort.size(); i++)
 		std::cout << "((" << movesToSort[i].first.first << ", " << movesToSort[i].first.second << "), " << movesToSort[i].second << ")\n";
 	std::cout << "================================="<< std::endl << std::endl; */
-	
-	for (size_t i = 0; i < movesToSort.size(); i++)
-		sortedMoves.insert(sortedMoves.begin(), movesToSort[i].first);
+
+	if (maximizingPlayer) {
+		for (size_t i = 0; i < movesToSort.size(); i++)
+			sortedMoves.insert(sortedMoves.begin(), movesToSort[i].first);
+	}
+	if (!maximizingPlayer) {
+		for (size_t i = 0; i < movesToSort.size(); i++)
+			sortedMoves.push_back(movesToSort[i].first);
+	}
 
 /* 	std::cout << "========== sortedMoves =========="<< std::endl;
 	for (size_t i = 0; i < sortedMoves.size(); i++)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/24 14:17:33 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:53:22 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,26 @@ void	AI::play(Bitboard &bitboard) {
 std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 	std::vector<std::future<std::pair<std::pair<int, int> , int>>>	futureMoves;
 	std::unordered_set<std::pair<int, int>, pair_hash>				possibleMoves = bitboard.generateMoves(2);
+	std::pair<int, int>												bestMove = {9, 9};
+	double															bestValue = -INFINITY;
+	
 	if (possibleMoves.empty())
 		possibleMoves = bitboard.generatePossibleMoves(2);
-	std::pair<int, int>								bestMove = {9, 9};
-	double											bestValue = -INFINITY;
-	
 	if (possibleMoves.empty())
 		return bestMove;
 
 	std::vector<std::pair<int, int>>		sortedMoves = sortMoves(possibleMoves, bitboard, true);
+	std::cout << "Sorted Moves : " << std::endl;
+	for (size_t i = 0; i < sortedMoves.size(); i++) {
+		std::cout << "Move: " << sortedMoves[i].first << " " << sortedMoves[i].second << std::endl;
+	}
+	
+	std::cout << std::endl << std::endl;
 
 	auto evaluateMove = [&](std::pair<int, int> move) {
 		Bitboard tempBoard = bitboard;
 		std::vector<std::pair<int, int>> removedStones = tempBoard.placeStoneAI(move.first, move.second, 2, true);
-		int moveValue = minimax(tempBoard, 8, true, INT_MIN, INT_MAX);
+		int moveValue = minimax(tempBoard, MINIMAX_DEPTH, false, INT_MIN, INT_MAX);
 		for (const auto& stone : removedStones) {
 			tempBoard.placeStoneAI(stone.first, stone.second, 1, false);
 		}
@@ -45,7 +51,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 		return std::make_pair(move, moveValue);
 	};
 	
-	for (unsigned long i = 0; i < 6; i++) {
+	for (unsigned long i = 0; i < MAX_TESTED_MOVES; i++) {
 		unsigned int maxThreads = std::thread::hardware_concurrency();
 		if (sortedMoves.size() <= i)
 			break;
@@ -56,13 +62,16 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 		futureMoves.push_back(std::async(std::launch::async, evaluateMove, sortedMoves[i]));
 	}
 
+	std::cout << "Selected and actually tested moves : " << std::endl;
 	for (auto& futureMove : futureMoves) {
 		std::pair<std::pair<int, int> , int> result = futureMove.get();
 		std::pair<int, int> move = result.first;
 		int moveValue = result.second;
+		std::cout << "Move: " << move.first << " " << move.second << " Value: " << moveValue << std::endl;
 		
 		bitboard.placeStoneAI(move.first, move.second, 2, false);
 		if (bitboard.isGameOver()) {
+			std::cout << "Move: " << move.first << " " << move.second << " Value: " << "is a finishing move." << std::endl;
 			bitboard.removeStone(move.first, move.second, 2);
 			return move;
 		}
@@ -73,6 +82,8 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 			bestMove = move;
 		}
 	}
+	
+	std::cout << std::endl << std::endl;
 
 	return bestMove;
 }
@@ -90,7 +101,7 @@ int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha,
 
 	int bestValue = maximizingPlayer ? INT_MIN : INT_MAX;
 
-	for (size_t i = 0; i < 6; ++i) {
+	for (size_t i = 0; i < MAX_TESTED_MOVES; ++i) {
 		int value = 0;
 		
 		if (i >= sortedMoves.size())
