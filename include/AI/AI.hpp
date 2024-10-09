@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 13:01:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/08 10:38:25 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:36:30 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ struct TTEntry {
 
 class AI {
 	private:
+		static const int						BOARD_SIZE = 19;
 		int										_centerScores[BOARD_SIZE][BOARD_SIZE];
 		uint64_t								_zobristTable[BOARD_SIZE][BOARD_SIZE][2];
-		static const int						BOARD_SIZE = 19;
 		std::unordered_map<uint64_t, TTEntry>	_transpositionTable;
 
 	public:
