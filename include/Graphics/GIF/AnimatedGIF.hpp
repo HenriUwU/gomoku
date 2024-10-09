@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:46:09 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/02 16:01:39 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:28:26 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 class AnimatedGIF {
 	private:
-		sf::Time											startTime;
-		sf::Time											totalDelay;
-		sf::Clock											clock;
-		sf::Vector2i										size;
-		std::vector<std::tuple<int, sf::Texture>>			frames;
-		std::vector<std::tuple<int, sf::Texture>>::iterator	frameIter;
+		sf::Time											_startTime;
+		sf::Time											_totalDelay;
+		sf::Clock											_clock;
+		sf::Vector2i										_size;
+		std::vector<std::tuple<int, sf::Texture>>			_frames;
+		std::vector<std::tuple<int, sf::Texture>>::iterator	_frameIter;
 
 	public:
 		AnimatedGIF();

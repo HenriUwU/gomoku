@@ -7,7 +7,7 @@ const introduction = await Astro.glob('../contents/introduction.md');
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="icon" type="image/x-icon" href="/favicon.svg">
+        <link rel="icon" type="image/x-icon" href="/gomoku/favicon.svg">
         <title>Gomoku Documentation</title>
         <script src="https://cdn.jsdelivr.net/npm/marked@3.0.7/marked.min.js"></script>
     </head>
@@ -32,37 +32,38 @@ const introduction = await Astro.glob('../contents/introduction.md');
                         <a href="#" data-file="../src/contents/project/analytic.md">Analytic</a>
                     </li>
                     <h4>
-                        <span class="category">Graphic</span>
-                        <div class="menu-separator"></div>
-                    </h4>
-                    <li>
-                        <a href="#" data-file="../src/contents/graphic/projects.md">Projects</a>
-                    </li>
-                    <li>
-                        <a href="#" data-file="../src/contents/graphic/groups.md">Groups</a>
-                    </li>
-                    <li>
-                        <a href="#" data-file="../src/contents/graphic/transfer.md">Transfer</a>
-                    </li>
-                    <li>
-                        <a href="#" data-file="../src/contents/graphic/all-reports.md">All Reports</a>
-                    </li>
-                    <li>
-                        <a href="#" data-file="../src/contents/graphic/notifications.md">Notifications</a>
-                    </li>
-                    <h4>
                         <span class="category">Algorithm</span>
                         <div class="menu-separator"></div>
                     </h4>
                     <li>
-                        <a href="#" data-file="../src/contents/algorithm/profile.md">Profile</a>
+                        <a href="#" data-file="../src/contents/algorithm/profile.md">Minimax</a>
                     </li>
                     <li>
-                        <a href="#" data-file="../src/contents/algorithm/settings.md">Settings</a>
+                        <a href="#" data-file="../src/contents/algorithm/settings.md">Alpha-beta</a>
+                    </li>
+                    <h4>
+                        <span class="category">Graphic</span>
+                        <div class="menu-separator"></div>
+                    </h4>
+                    <li>
+                        <a href="#" data-file="../src/contents/graphic/projects.md">Game</a>
+                    </li>
+                    <li>
+                        <a href="#" data-file="../src/contents/graphic/groups.md">SFML</a>
+                    </li>
+                    <li>
+                        <a href="#" data-file="../src/contents/graphic/transfer.md">GIF</a>
+                    </li>
+                    <h4>
+                        <span class="category">Music</span>
+                        <div class="menu-separator"></div>
+                    </h4>
+                    <li>
+                        <a href="#" data-file="../src/contents/algorithm/profile.md">Music</a>
                     </li>
                 </ul>
                 <div class="github-logo">
-                    <a href="https://github.com/HenriUwU/gomoku"><img class="github" src="/github.svg"></a>
+                    <a href="https://github.com/HenriUwU/gomoku"><img class="github" src="/gomoku/github.svg"></a>
                 </div>
             </aside>
             <div class="main-content">

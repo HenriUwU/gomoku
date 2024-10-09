@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:47:04 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/02 16:01:48 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:30:06 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,45 +27,45 @@ void	AnimatedGIF::loadFile(const std::string& filename) {
 	int *delays = 0;
 	int z = 0, comp = 0;
 
-	void *pixels = stbi__load_gif_main(&s, &delays, &size.x, &size.y, &z, &comp, STBI_rgb_alpha);
+	void *pixels = stbi__load_gif_main(&s, &delays, &_size.x, &_size.y, &z, &comp, STBI_rgb_alpha);
 
 	sf::Image image;
-	int step = size.x * size.y * 4;
+	int step = _size.x * _size.y * 4;
 
 	for (int i = 0; i < z; i++) {
-		image.create(size.x, size.y, (const sf::Uint8*) pixels + step * i);
+		image.create(_size.x, _size.y, (const sf::Uint8*) pixels + step * i);
 
 		sf::Texture texture;
 		texture.loadFromImage(image);
 
-		frames.push_back(std::tuple<int, sf::Texture>(delays[i], texture));
+		_frames.push_back(std::tuple<int, sf::Texture>(delays[i], texture));
 	}
 
-	frameIter = frames.begin();
+	_frameIter = _frames.begin();
 
 	stbi_image_free(pixels);
 	if(delays)
 		stbi_image_free(delays);
 	fclose(f);
 
-	totalDelay = sf::Time::Zero;
-	startTime = clock.getElapsedTime();
+	_totalDelay = sf::Time::Zero;
+	_startTime = _clock.getElapsedTime();
 }
 
 const sf::Vector2i& AnimatedGIF::getSize() {
-	return size;
+	return _size;
 }
 
 void	AnimatedGIF::update(sf::Sprite& sprite) {
-	sf::Time delay = sf::milliseconds(std::get<0>(*frameIter));
+	sf::Time delay = sf::milliseconds(std::get<0>(*_frameIter));
 
-	while (startTime + totalDelay + delay < clock.getElapsedTime()) {
-		frameIter++;
-		if (frameIter == frames.end()) frameIter = frames.begin();
-			totalDelay += delay;
-		delay = sf::milliseconds(std::get<0>(*frameIter));
+	while (_startTime + _totalDelay + delay < _clock.getElapsedTime()) {
+		_frameIter++;
+		if (_frameIter == _frames.end()) _frameIter = _frames.begin();
+			_totalDelay += delay;
+		delay = sf::milliseconds(std::get<0>(*_frameIter));
 	}
 
-	sf::Texture &texture = std::get<1>(*frameIter);
+	sf::Texture &texture = std::get<1>(*_frameIter);
 	sprite.setTexture(texture);
 }

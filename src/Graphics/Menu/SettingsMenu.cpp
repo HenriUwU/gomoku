@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/12 10:05:46 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:27:31 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,10 @@ void	SettingsMenu::display(sf::RenderWindow& window) {
 }
 
 void	SettingsMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& window) {
-	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
-
 	if (gameState != SETTINGS)
 		return;
 
+	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
 	if (_backwardButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		_backwardButtonSprite.setTexture(_pageTextures[BACKWARDHOVEREDBUTTON]);
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
@@ -93,7 +92,6 @@ void	SettingsMenu::handleVolume(const sf::Event& event, const sf::RenderWindow& 
 	
 	if (event.type == sf::Event::MouseMoved && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-
 		if (mousePos.y >= barY && mousePos.y <= barY + barHeight) {
 			int relativeX = mousePos.x - barX;
 			if (relativeX >= 0 && relativeX <= barWidth) {

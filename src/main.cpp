@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/03 12:58:14 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:28:36 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,10 @@ int main() {
 	Bitboard			bitboard;
 
 	if (!cursorTexture.loadFromFile("assets/images/icons/cursor.png")) {
-		std::cerr << "Error: could not load cursor texture" << std::endl;
+		std::cerr << "Error: could not load cursor texture." << std::endl;
 		return 1;
 	}
-	
-/* 	AnimatedGIF winGif;
-	winGif.loadFile("assets/images/menu/help/win.gif");
-	
-	sf::Sprite sprite; */
 
-	
 	cursorSprite.setTexture(cursorTexture);
 	window.setMouseCursorVisible(false);
 	sf::Event event;
@@ -106,8 +100,6 @@ int main() {
 				break;				
 		}
 		window.draw(cursorSprite);
-/* 		winGif.update(sprite);
-        window.draw(sprite); */
 		window.display();
 	}
 }
