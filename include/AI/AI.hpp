@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:34:05 by laprieur          #+#    #+#             */
-/*   Updated: 2024/10/09 14:34:07 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:35:19 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ class Bitboard;
 class AI {
 	private:
 		static const int						BOARD_SIZE = 19;
-		int										_centerScores[BOARD_SIZE][BOARD_SIZE];
-		uint64_t								_zobristTable[BOARD_SIZE][BOARD_SIZE][2];
-		std::unordered_map<uint64_t, TTEntry>	_transpositionTable;
 
 	public:
 		AI();
