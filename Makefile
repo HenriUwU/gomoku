@@ -6,7 +6,7 @@
 #    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 14:32:27 by hsebille          #+#    #+#              #
-#    Updated: 2024/10/09 14:32:27 by hsebille         ###   ########.fr        #
+#    Updated: 2024/10/09 17:03:48 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,24 +16,25 @@ NAME			:= Gomoku
 #                                 INGREDIENTS                                  #
 # **************************************************************************** #
 
-SRC				:=	src/main.cpp								\
-					src/AI/AI.cpp								\
-					src/AI/heuristic.cpp						\
-					src/Graphics/GIF/AnimatedGIF.cpp			\
-					src/Graphics/Game/Bitboard_captures.cpp		\
-					src/Graphics/Game/Bitboard_double-three.cpp	\
-					src/Graphics/Game/Bitboard_patterns.cpp		\
-					src/Graphics/Game/Bitboard_utils.cpp		\
-					src/Graphics/Game/Bitboard_victory.cpp		\
-					src/Graphics/Game/Bitboard.cpp				\
-					src/Graphics/Game/Gameplay.cpp				\
-					src/Graphics/Menu/CustomMenu.cpp			\
-					src/Graphics/Menu/HelpMenu.cpp				\
-					src/Graphics/Menu/MainMenu.cpp				\
-					src/Graphics/Menu/SettingsMenu.cpp			\
-					src/Graphics/Utils.cpp						\
-					src/Music/Music.cpp							\
-					src/AI/AI_utils.cpp							\
+SRC				:=	src/main.cpp									\
+					src/AI/AI.cpp									\
+					src/AI/heuristic.cpp							\
+					src/Graphics/GIF/AnimatedGIF.cpp				\
+					src/Graphics/Game/Bitboard_captures.cpp			\
+					src/Graphics/Game/Bitboard_double-three.cpp		\
+					src/Graphics/Game/Bitboard_patterns.cpp			\
+					src/Graphics/Game/Bitboard_utils.cpp			\
+					src/Graphics/Game/Bitboard_victory.cpp			\
+					src/Graphics/Game/Bitboard.cpp					\
+					src/Graphics/Game/Gameplay.cpp					\
+					src/Graphics/Menu/CustomMenu.cpp				\
+					src/Graphics/Menu/HelpMenu.cpp					\
+					src/Graphics/Menu/MainMenu.cpp					\
+					src/Graphics/Menu/SettingsMenu.cpp				\
+					src/Graphics/Utils.cpp							\
+					src/Music/Music.cpp								\
+					src/AI/AI_utils.cpp								\
+					src/Graphics/Game/Bitboard_generate_moves.cpp	\
 				
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/18 16:14:09 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:02:24 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 						if (isLegalMove(xMin, y, player))
 							possibleMoves.emplace(xMin, y);
 						xMin++;
-					}
+					} 
 				}
 			}
 			// Horizontal axis, left direction

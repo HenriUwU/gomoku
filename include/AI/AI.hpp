@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 14:31:38 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/09 14:32:07 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:07:19 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ class Bitboard;
 
 #define MINIMAX_DEPTH 6
 #define MAX_TESTED_MOVES 15
+#define NB_HEURISTIC_PATTERNS 22
 
 class AI {
 	private:

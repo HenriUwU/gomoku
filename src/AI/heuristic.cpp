@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2024/10/09 12:52:37 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:07:31 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	AI::countStones(Bitboard &bitboard) {
 int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 	
-	PatternInfo patterns[22] = {
+	PatternInfo patterns[NB_HEURISTIC_PATTERNS] = {
 		// Two in a row
 		{0b0110, 0b0000, 4, player, 100},
 		{0b0110, 0b0000, 4, opponent, -100},
@@ -87,7 +87,7 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		{0b0110, 0b0001, 4, opponent, 1000}
 	};
 	
-	score += bitboard.checkPattern(patterns, 22);
+	score += bitboard.checkPattern(patterns, NB_HEURISTIC_PATTERNS);
 	
 	return (score);
 }
