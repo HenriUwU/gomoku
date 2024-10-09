@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:26 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/12 14:46:27 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:41:29 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,7 +283,7 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 		}
 	}
 
-	if (_currentPlayer == 1 || _aiThreadRunning)
+	if (_currentPlayer == 1)
 		window.draw(_firstPlayerStoneSprite);
 	else if (!_aiThreadRunning)
 		window.draw(_secondPlayerStoneSprite);

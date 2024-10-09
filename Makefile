@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
+#    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/03 14:55:34 by hsebille          #+#    #+#              #
-#    Updated: 2024/10/08 11:46:11 by laprieur         ###   ########.fr        #
+#    Created: 2024/10/09 14:32:27 by hsebille          #+#    #+#              #
+#    Updated: 2024/10/09 14:32:27 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

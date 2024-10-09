@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/28 13:01:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/08 14:36:30 by laprieur         ###   ########.fr       */
+/*   Created: 2024/10/09 14:34:05 by laprieur          #+#    #+#             */
+/*   Updated: 2024/10/09 14:34:07 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,8 @@
 	
 class Bitboard;
 
-enum NodeType {
-	EXACT,
-	LOWERBOUND,
-	UPPERBOUND
-};
-
-struct TTEntry {
-    int			value;       // Valeur de l'évaluation
-    int			depth;       // Profondeur à laquelle cette évaluation a été faite
-    uint64_t	key;    // Clé unique pour la position
-    NodeType	type;   // Type de nœud (exact, limite inférieure, limite supérieure)
-};
+#define MINIMAX_DEPTH 6
+#define MAX_TESTED_MOVES 15
 
 class AI {
 	private:
