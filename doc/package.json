@@ -10,6 +10,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/markdown-component": "^1.0.5",
+    "@astropub/md": "^1.0.0",
     "astro": "^4.12.2"
   }
 }
