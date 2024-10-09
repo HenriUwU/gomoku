@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:04:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/09 17:22:01 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:37:12 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,16 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 
 	for (auto& stone : currentStones) {
 		for (int i = 0; i < 10; i++) {
-			generateMovesHorizontal(possibleMoves, stone, patterns, i);
+			generateMovesHorizontal(possibleMoves, stone, patterns, i, player);
+			generateMovesVertical(possibleMoves, stone, patterns, i, player);
+			generateMovesDiagonal(possibleMoves, stone, patterns, i, player);
 		}
 	}
+	
+	return (possibleMoves);
 }
 
-void	Bitboard::generateMovesHorizontal(std::unordered_set& possibleMoves, std::pair<int, int>, uint32_t patterns[], int patternIndex) {
+void	Bitboard::generateMovesHorizontal(std::unordered_set<std::pair<int, int>, pair_hash>& possibleMoves, std::pair<int, int> stone, uint32_t patterns[], int patternIndex, int player) {
 	int x = stone.first;
 	int y = stone.second;
 
@@ -74,7 +78,7 @@ void	Bitboard::generateMovesHorizontal(std::unordered_set& possibleMoves, std::p
 	}
 }
 
-void	Bitboard::generateMovesVertical(std::unordered_set& possibleMoves, std::pair<int, int>, uint32_t patterns[], int patternIndex) {
+void	Bitboard::generateMovesVertical(std::unordered_set<std::pair<int, int>, pair_hash>& possibleMoves, std::pair<int, int> stone, uint32_t patterns[], int patternIndex, int player) {
 	int x = stone.second;
 	int y = stone.first;
 
@@ -114,6 +118,65 @@ void	Bitboard::generateMovesVertical(std::unordered_set& possibleMoves, std::pai
 			while (xMin < xMax) {
 				if (isLegalMove(y, xMin, player))
 					possibleMoves.emplace(y, xMin);
+				xMin++;
+			}
+		}
+	}
+}
+
+void	Bitboard::generateMovesDiagonal(std::unordered_set<std::pair<int, int>, pair_hash>& possibleMoves, std::pair<int, int> stone, uint32_t patterns[], int patternIndex, int player) {
+	int boardSide = (stone.first + stone.second < BOARD_SIZE) ? 1 : 2;
+	int x = stone.first;
+	int y = rotateY45(x, stone.second);
+	
+	uint32_t firstPlayerBitboard = _firstPlayerBoardDiagonals[y];
+	uint32_t secondPlayerBitboard = _secondPlayerBoardDiagonals[y];
+	
+	if ((boardSide == 1 && x + 3 < y + 1) || (boardSide == 2 && x + 3 < BOARD_SIZE)) {
+		int xMin = 0;
+		int xMax = 0;
+		uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x);
+		uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x);
+		
+		if ((firstPlayerSelection == patterns[patternIndex] && secondPlayerSelection == 0b0000)
+		|| (secondPlayerSelection == patterns[patternIndex] && firstPlayerSelection == 0b0000)) {
+			if (boardSide == 1) {
+				xMin = (x - 1 < 0) ? x : x - 1;
+				xMax = (x + 4 >= y + 1) ? y : x + 4;
+			}
+			else {
+				xMin = (x - 1 < y + 1) ? x : x - 1;
+				xMax = (x + 4 >= BOARD_SIZE - 1) ? BOARD_SIZE - 1 : x + 4;
+			}
+
+			while (xMin < xMax) {
+				if (isLegalMove(xMin, (boardSide == 1) ? y - xMin : y + (BOARD_SIZE - xMin), player))
+					possibleMoves.emplace(xMin, (boardSide == 1) ? y - xMin : y + (BOARD_SIZE - xMin));
+				xMin++;
+			}
+		}
+	}
+	
+	if ((boardSide == 1 && x - 3 >= 0) || (boardSide == 2 && x - 3 > y + 1)) {
+		int xMin = 0;
+		int xMax = 0;
+		uint32_t firstPlayerSelection = getSelection(firstPlayerBitboard, 4, x - 3);
+		uint32_t secondPlayerSelection = getSelection(secondPlayerBitboard, 4, x - 3);
+
+		if ((firstPlayerSelection == patterns[patternIndex] && secondPlayerSelection == 0b0000)
+		|| (secondPlayerSelection == patterns[patternIndex] && firstPlayerSelection == 0b0000)) {
+			if (boardSide == 1) {
+				xMin = (x - 4 < 0) ? x : x - 4;
+				xMax = (x + 1 >= y + 1) ? y : x + 1;
+			}
+			else {
+				xMin = (x - 4 <= y + 1) ? y + 1 : x - 4;
+				xMax = (x + 1 > BOARD_SIZE - 1) ? BOARD_SIZE - 1 : x + 1;
+			}
+
+			while (xMin < xMax) {
+				if (isLegalMove(xMin, (boardSide == 1) ? y - xMin : y + (BOARD_SIZE - xMin), player))
+					possibleMoves.emplace(xMin, (boardSide == 1) ? y - xMin : y + (BOARD_SIZE - xMin));
 				xMin++;
 			}
 		}

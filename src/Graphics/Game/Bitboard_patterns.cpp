@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_patterns.cpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:41:12 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/24 15:13:09 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:26:00 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,3 @@ int     Bitboard::checkPattern(PatternInfo patterns[], int nbPattern) {
 	}
 	return (score);
 }
-
-/* function (x, y, selection)
-{
-	while (index < 5 (parce que alignement de 5)) {
-		get x and y for lines
-		get new selection for lines
-		verify pattern with new selection
-
-		get x and y for columns
-		get new selection for columns
-
-		same for the rest.
-
-		increment x or y, according to in which direction the selection was taken		
-	}
-} */

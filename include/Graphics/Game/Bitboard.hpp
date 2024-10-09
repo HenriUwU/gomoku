@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/09 17:08:25 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:36:28 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,7 @@ class Bitboard {
 		std::unordered_set<std::pair<int, int>, pair_hash>	getAllStones();
 		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);
 		std::unordered_set<std::pair<int, int>, pair_hash>	generateMoves(int player);
+		void												generateMovesHorizontal(std::unordered_set<std::pair<int, int>, pair_hash>& possibleMoves, std::pair<int, int> stone, uint32_t patterns[], int patternIndex, int player);
+		void												generateMovesVertical(std::unordered_set<std::pair<int, int>, pair_hash>& possibleMoves, std::pair<int, int> stone, uint32_t patterns[], int patternIndex, int player);
+		void												generateMovesDiagonal(std::unordered_set<std::pair<int, int>, pair_hash>& possibleMoves, std::pair<int, int> stone, uint32_t patterns[], int patternIndex, int player);
 };

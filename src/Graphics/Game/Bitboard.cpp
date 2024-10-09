@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2024/10/09 17:02:24 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:30:33 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMov
 	return (uniqueMoves);
 }
 
-std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int player) {
+/* std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int player) {
 	uint32_t patterns[10] = {
 		// In a row
 		0b1100, 0b0011, 0b1110, 0b0111, 0b1111,
@@ -385,7 +385,7 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 		}
 	}
 	return (possibleMoves);
-}
+} */
 
 void	Bitboard::printBoard(){
 	for (int y = 0; y < BOARD_SIZE; ++y) {
