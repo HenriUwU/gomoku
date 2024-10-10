@@ -47,8 +47,10 @@ In the context of this project, Gomoku will be played on a 19x19 Goban, without 
 
 <br>
 
-		◦ A player who manages to line up five stones wins only if the opponent cannot break this line by capturing a pair.
-		◦ If the player has already lost four pairs and the opponent can capture one more, the opponent wins by capture.
+		◦ A player who manages to line up five stones wins only if the 
+		  opponent cannot break this line by capturing a pair.
+		◦ If the player has already lost four pairs and the opponent can capture one more,
+		  the opponent wins by capture.
 		◦ If there is no possibility of this happening, there is no need to continue the game.
 
 <br>
@@ -162,7 +164,7 @@ Captures are made by flanking a pair of the opponent’s stones, as demonstrated
 <br>
 
 <div style="display: flex; flex-direction: row; justify-content: center;">
-	<img src="/public/capture.png" width="218" height="209">
+	<img src="/gomoku/capture.png" width="218" height="209">
 </div>
 
 <br>
@@ -180,7 +182,7 @@ Also note that one can not move into a capture. Example :
 <br>
 
 <div style="display: flex; flex-direction: row; justify-content: center;">
-	<img src="/public/invalid_capture.png" width="241" height="78">
+	<img src="/gomoku/invalid_capture.png" width="241" height="78">
 </div>
 
 <br>
@@ -202,13 +204,13 @@ Both of these scenarios are free-threes:
 <br>
 
 <div style="display: flex; flex-direction: row; justify-content: center;">
-	<img src="../../../public/free-threes_1.png" width="237" height="235">
+	<img src="/gomoku/free-threes_1.png" width="237" height="235">
 </div>
 
 <br>
 
 <div style="display: flex; flex-direction: row; justify-content: center;">
-	<img src="../../../public/free-threes_2.png" width="304" height="91">
+	<img src="/gomoku/free-threes_2.png" width="304" height="91">
 </div>
 
 <br>
@@ -222,7 +224,7 @@ Example:
 <br>
 
 <div style="display: flex; flex-direction: row; justify-content: center;">
-	<img src="/public/double_three.png" width="390" height="257">
+	<img src="/gomoku/double_three.png" width="390" height="257">
 </div>
 
 <br>
