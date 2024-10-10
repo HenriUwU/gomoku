@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/10/09 13:53:22 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/10 13:44:33 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 
 int AI::minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) {
 	if (depth == 0 || bitboard.isGameOver()) {
-		return heuristic(bitboard, depth);
+		return heuristic(bitboard);
 	}
 
 	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generateMoves(maximizingPlayer ? 2 : 1);

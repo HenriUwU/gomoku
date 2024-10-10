@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:04:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/10 13:29:50 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/10 13:56:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMov
 }
 
 std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int player) {
-	uint32_t patterns[NB_INTERESTING_PATTERNS] = {
+	uint32_t patterns[PATTERNS_OF_FOUR] = {
 		0b1100, 0b0011, 0b1110, 0b0111, 0b1111,
 		0b1001, 0b1010, 0b0101, 0b1011, 0b1101
 	};
@@ -223,12 +223,12 @@ void	Bitboard::generateMovesAntiDiagonal(std::unordered_set<std::pair<int, int>,
 		if ((firstPlayerSelection == patterns[patternIndex] && secondPlayerSelection == 0b0000)
 		|| (secondPlayerSelection == patterns[patternIndex] && firstPlayerSelection == 0b0000)) {
 			if (boardSide == 1) {
-				xMin = (x - 4 < 0) ? x : x - 4;
-				xMax = (x + 1 >= BOARD_SIZE - y) ? BOARD_SIZE - y - 1 : x + 1;
+				xMin = (x - 1 < 0) ? x : x - 1;
+				xMax = (x + 4 >= BOARD_SIZE - y) ? BOARD_SIZE - y : x + 4;
 			}
 			else {
-				xMin = (x - 4 < BOARD_SIZE - y) ? BOARD_SIZE - y - 1 : x - 4;
-				xMax = (x + 1 >= BOARD_SIZE - 1) ? BOARD_SIZE - 1 : x + 1;
+				xMin = (x - 1 < BOARD_SIZE - y) ? BOARD_SIZE - y : x - 1;
+				xMax = (x + 4 > BOARD_SIZE) ? BOARD_SIZE : x + 4;
 			}
 			
 			while (xMin < xMax) {
