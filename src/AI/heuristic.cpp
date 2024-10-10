@@ -6,15 +6,14 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2024/10/09 17:07:31 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/10 13:43:41 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AI/AI.hpp"
 
-int	AI::heuristic(Bitboard &bitboard, int depth) {
+int	AI::heuristic(Bitboard &bitboard) {
 	int	evaluation = 0;
-	(void)depth;
 	
 	std::unordered_set<std::pair<int, int>, pair_hash>	plate = bitboard.getAllStones();
 

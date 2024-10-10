@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:57:17 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/18 12:03:59 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/10 13:29:34 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,32 @@ void Bitboard::update(int x, int y, int player, bool add) {
             _secondPlayerBoardAntiDiagonals[antiDiagIndex] &= ~mask;
         }
     }
+}
+
+void	Bitboard::printBoard(){
+	for (int y = 0; y < BOARD_SIZE; ++y) {
+		for (int x = 0; x < BOARD_SIZE; ++x) {
+			uint32_t mask = uint32_t(1) << x;
+
+			if (_firstPlayerBoardDiagonals[y] & mask) {
+				std::cout << "1 ";
+			} else if (_secondPlayerBoardDiagonals[y] & mask) {
+				std::cout << "2 ";
+			} else {
+				std::cout << ". ";
+			}
+		}
+		std::cout << "\n";
+	}
+}
+
+void	Bitboard::clear() {
+	_firstPlayerBoardLines.fill(0);
+	_secondPlayerBoardLines.fill(0);
+	_firstPlayerBoardColumns.fill(0);
+	_secondPlayerBoardColumns.fill(0);
+	_firstPlayerBoardDiagonals.fill(0);
+	_secondPlayerBoardDiagonals.fill(0);
+	_firstPlayerBoardAntiDiagonals.fill(0);
+	_secondPlayerBoardAntiDiagonals.fill(0);
 }
