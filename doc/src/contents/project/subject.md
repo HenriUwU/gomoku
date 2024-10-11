@@ -1,3 +1,10 @@
+<style>
+	code {
+		font-family: 'Courier New', Courier, monospace;
+		color: #d63384;
+	}
+</style>
+
 # Subject
 
 <br>
@@ -47,11 +54,17 @@ In the context of this project, Gomoku will be played on a 19x19 Goban, without 
 
 <br>
 
-		◦ A player who manages to line up five stones wins only if the 
-		  opponent cannot break this line by capturing a pair.
-		◦ If the player has already lost four pairs and the opponent can capture one more,
-		  the opponent wins by capture.
-		◦ If there is no possibility of this happening, there is no need to continue the game.
+<li style="margin-left: 40px;">
+A player who manages to line up five stones wins only if the opponent cannot break this line by capturing a pair.
+</li>
+
+<li style="margin-left: 40px;">
+If the player has already lost four pairs and the opponent can capture one more, the opponent wins by capture.
+</li>
+
+<li style="margin-left: 40px;">
+If there is no possibility of this happening, there is no need to continue the game.
+</li>
 
 <br>
 
@@ -67,12 +80,12 @@ In the context of this project, Gomoku will be played on a 19x19 Goban, without 
 
 <br>
 
-- You have to provide a Makefile which must produce your program. It must not
+- You have to provide a `Makefile` which must produce your program. It must not
 relink.
 
 <br>
 
-- Your Makefile must at least contain the rules:<br>$(NAME), all, clean, fclean and re.
+- Your `Makefile` must at least contain the rules:<br>`$(NAME)`, `all`, `clean`, `fclean` and `re`.
 
 <br>
 
@@ -169,7 +182,7 @@ Captures are made by flanking a pair of the opponent’s stones, as demonstrated
 
 <br>
 
-In this scenario, by playing in a, Blue captures the red pair and removes the stones from the game. The now-free intersections can be played on as if they were never occupied.
+In this scenario, by playing in `a`, Blue captures the red pair and removes the stones from the game. The now-free intersections can be played on as if they were never occupied.
 
 <br>
 
@@ -187,7 +200,7 @@ Also note that one can not move into a capture. Example :
 
 <br>
 
-In this scenario, Red can play in a without losing the pair. However, if later Red takes one of the Blue stones, his position becomes vulnerable to capture...
+In this scenario, Red can play in `a` without losing the pair. However, if later Red takes one of the Blue stones, his position becomes vulnerable to capture...
 
 <br>
 
@@ -229,7 +242,7 @@ Example:
 
 <br>
 
-In this scenario, by playing in a, Red would introduce a double-three, therefore this is a forbidden move. However, if there were a blue stone in b, one of the three-aligned would be obstructed, therefore the move in a would be legal.
+In this scenario, by playing in `a`, Red would introduce a double-three, therefore this is a forbidden move. However, if there were a blue stone in `b`, one of the three-aligned would be obstructed, therefore the move in a would be legal.
 
 <br>
 

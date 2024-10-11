@@ -1,19 +1,7 @@
 <style>
-	pre {
-		background-color: #f8f8f8;
-		border: 1px solid #ddd;
-		border-radius: 4px;
-		padding: 10px;
-		overflow: auto;
-	}
-
 	code {
 		font-family: 'Courier New', Courier, monospace;
 		color: #d63384;
-	}
-
-	.language-docker {
-		color: #007acc;
 	}
 </style>
 
@@ -22,28 +10,6 @@
 <br>
 
 This bonus aims to create a Docker that reproduces a basic Unix environment with only the necessaries dependencies installed to prove that the project can be run on any machine.
-
-<br>
-
-## Dockerfile
-
----
-
-<br>
-
-Let's breakdown the Dockerfile. 
-
-<br>
-
-First, we set the base image for the Docker:
-
-<br>
-
-```Dockerfile
-FROM ubuntu:22.04
-```
-
-Then, we install 
 
 <br>
 
@@ -92,3 +58,16 @@ We also install the `libFLAC`, a library that implements the Free Lossless Audio
 
 <br>
 
+To run the docker, you first need to set `xhost` on the host machine with the following command: `xhost +local:`.
+
+<br>
+
+Then, you need to build the Docker: `docker build --no-cache -t gomoku .`.
+
+<br>
+
+And run it with: `docker run --net=host --env="DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix:rw --device /dev/snd -it gomoku`.
+
+<br>
+
+Here it is! Now, you are in the Docker and you can launch the program by running: `./Gomoku`.

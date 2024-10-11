@@ -1,3 +1,10 @@
+<style>
+	code {
+		font-family: 'Courier New', Courier, monospace;
+		color: #d63384;
+	}
+</style>
+
 # Toolbox
 
 <br>
@@ -12,7 +19,7 @@ For this project, we used several tools, let's discover them!
 
 <br>
 
-The first tool we used was [gprof](https://en.wikipedia.org/wiki/Gprof). It's a powerful profiler (performance analysis) for Unix applications. It used a hybrid of instrumentation and sampling and was created as an extended version of the older "prof" tool. Unlike prof, gprof is capable of limited call graph collecting and printing.
+The first tool we used was [gprof](https://en.wikipedia.org/wiki/Gprof). It's a powerful profiler (performance analysis) for Unix applications. It used a hybrid of instrumentation and sampling and was created as an extended version of the older `prof` tool. Unlike prof, gprof is capable of limited call graph collecting and printing.
 
 <br>
 
@@ -20,7 +27,7 @@ The first tool we used was [gprof](https://en.wikipedia.org/wiki/Gprof). It's a 
 
 <br>
 
-The use is pretty simple. First, you need to add the `-pg` option in your compilation flags to gather caller-function data. A call to the monitor function 'mcount' is inserted before each function call.
+The use is pretty simple. First, you need to add the `-pg` option in your compilation flags to gather caller-function data. A call to the monitor function `mcount` is inserted before each function call.
 
 <br>
 
@@ -28,7 +35,7 @@ Then, you need to run the program, test it and exit.
 
 <br>
 
-Sampling data is saved in a 'gmon.out' file just before the program exits, and can be analyzed with the 'gprof' command-line tool.
+Sampling data is saved in a `gmon.out` file just before the program exits, and can be analyzed with the `gprof` command-line tool.
 
 <br>
 
@@ -36,7 +43,7 @@ Here's the command-line to test it with our program:
 
 <br>
 
-'gprof *executable-file* gmon.out > *outfile*'
+`gprof *executable-file* gmon.out > *outfile*`
 
 <br>
 
