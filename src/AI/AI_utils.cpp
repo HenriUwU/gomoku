@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:01 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/10 13:44:21 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:44:05 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void AI::quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int lo
 		quicksort(vec, pivot + 1, high);
 	}
 }
-
 
 std::vector<std::pair<int, int>>	AI::sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer) {
 	std::vector<std::pair<std::pair<int, int>, int>>	movesToSort;

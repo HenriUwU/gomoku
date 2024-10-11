@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2024/10/10 13:30:18 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:49:12 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	int captures = makeCapture(x, y, player, onverraplustard);
 	(player == 1) ? playersCaptures[0] += captures : playersCaptures[1] += captures;
 
-	if (fiveInARow(x, y, player) || (playersCaptures[0] == 5 || playersCaptures[1] == 5) || fifthCaptureAvailable()) {
+	if (isGameOver() || (playersCaptures[0] == 5 || playersCaptures[1] == 5) || fifthCaptureAvailable()) {
 		if (player == 1)
 			endGameState = P1VICTORY;
 		else if (player == 2 && gameState != AIVERSUS)
