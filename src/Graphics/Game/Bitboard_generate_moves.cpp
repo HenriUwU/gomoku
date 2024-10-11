@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:04:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/10 13:56:53 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:25:07 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generateMoves(int p
 			generateMovesHorizontal(possibleMoves, stone, patterns, i, player);
 			generateMovesVertical(possibleMoves, stone, patterns, i, player);
 			generateMovesDiagonal(possibleMoves, stone, patterns, i, player);
+			generateMovesAntiDiagonal(possibleMoves, stone, patterns, i, player);
 		}
 	}
 	
