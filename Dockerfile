@@ -1,50 +1,53 @@
-FROM ubuntu:22.04
+# Set base image
+FROM	ubuntu:22.04
 
-# Update and install dependencies
-RUN apt update && apt upgrade -y
-RUN apt install cmake g++ build-essential -y \
-    libsndfile1 \
-    libsndfile1-dev \
-    libsndfile-dev \
-    libopenal-dev \
-    libvorbis-dev \
-    libogg-dev \
-    libxrandr-dev \
-    libxcursor-dev \
-    libx11-dev \
-    wget \
-    gnupg \
-    xterm \
-    alsa-base \
-    alsa-utils \
-    && rm -rf /var/lib/apt/lists/*
+# Update and upgrade
+RUN		apt update && apt upgrade -y
+
+# Install dependencies
+RUN		apt install cmake g++ build-essential -y \
+		libsndfile1 \
+		libsndfile1-dev \
+		libopenal-dev \
+		libvorbis-dev \
+		libogg-dev \
+		libxrandr-dev \
+		libxcursor-dev \
+		libx11-dev \
+		wget \
+		xterm \
+		alsa-base \
+		alsa-utils \
+		libasound2 \
+		libasound2-dev \
+		pulseaudio \
+		&& rm -rf /var/lib/apt/lists/*
 
 # Download and install libFLAC
-RUN wget http://ftp.de.debian.org/debian/pool/main/f/flac/libflac12_1.4.2+ds-2_amd64.deb && \
-    dpkg -i libflac12_1.4.2+ds-2_amd64.deb && \
-    apt-get install -f -y
+RUN		wget http://ftp.de.debian.org/debian/pool/main/f/flac/libflac12_1.4.2+ds-2_amd64.deb && \
+		dpkg -i libflac12_1.4.2+ds-2_amd64.deb && \
+		apt-get install -f -y
 
 # Clean up
-RUN rm libflac12_1.4.2+ds-2_amd64.deb
+RUN		rm libflac12_1.4.2+ds-2_amd64.deb
 
 # Create the project directory
-RUN mkdir /Gomoku
+RUN		mkdir /Gomoku
 
 # Copy the source code, including the SFML library, to the container
-COPY . /Gomoku
+COPY	. /Gomoku
 
 # Set the working directory to /Gomoku
-WORKDIR /Gomoku
+WORKDIR	/Gomoku
 
-# Ensure SFML library is in the right location
 # Set CMAKE_PREFIX_PATH to point to SFML libraries
-ENV CMAKE_PREFIX_PATH="/Gomoku/lib/SFML/lib/cmake/SFML"
+ENV		CMAKE_PREFIX_PATH="/Gomoku/lib/SFML/lib/cmake/SFML"
 
 # Set the SFML_DIR variable for find_package
-ENV SFML_DIR="/Gomoku/lib/SFML/lib/cmake/SFML"
+ENV		SFML_DIR="/Gomoku/lib/SFML/lib/cmake/SFML"
 
 # Create a build directory and run CMake
-RUN rm -rf build && mkdir build && cd build && cmake .. -DSNDFILE_INC_DIR=/usr/lib/x86_64-linux-gnu/ -DSNDFILE_LIB_DIR=/usr/include/ && make
+RUN		rm -rf build && mkdir build && cd build && cmake .. -DSNDFILE_INC_DIR=/usr/lib/x86_64-linux-gnu/ -DSNDFILE_LIB_DIR=/usr/include/ && make
 
 # SET XHOST ON THE HOST MACHINE: xhost +local:
 # BUILD DOCKER: docker build --no-cache -t gomoku .
