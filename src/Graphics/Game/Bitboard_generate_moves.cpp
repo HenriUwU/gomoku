@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:04:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/11 13:25:07 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:14:07 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,8 +233,8 @@ void	Bitboard::generateMovesAntiDiagonal(std::unordered_set<std::pair<int, int>,
 			}
 			
 			while (xMin < xMax) {
-				if (isLegalMove(xMin, (boardSide == 1) ? y + xMin : y - (BOARD_SIZE + xMin), player))
-					possibleMoves.emplace(xMin, (boardSide == 1) ? y + xMin : y - (BOARD_SIZE + xMin));
+				if (isLegalMove(xMin, (boardSide == 1) ? y + xMin : xMin - BOARD_SIZE + y, player))
+					possibleMoves.emplace(xMin, (boardSide == 1) ? y + xMin : xMin - BOARD_SIZE + y);
 				xMin++;
 			}
 		}
