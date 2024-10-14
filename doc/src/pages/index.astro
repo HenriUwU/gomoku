@@ -1,6 +1,7 @@
 ---
 import '../styles/index.css';
 const introduction = await Astro.glob('../contents/introduction.md');
+import Sidebar from '../layouts/Sidebar.astro';
 ---
 
 <html lang="en">
@@ -13,7 +14,8 @@ const introduction = await Astro.glob('../contents/introduction.md');
     </head>
     <body>
         <div class="container">
-            <aside class="sidebar">
+            <Sidebar />
+            <!-- <aside class="sidebar">
                 <div class="sidebar-header">
                     <a href="#" data-file="../src/contents/introduction.md"><h2 class="title">Gomoku</h2></a>
                 </div>
@@ -78,7 +80,7 @@ const introduction = await Astro.glob('../contents/introduction.md');
                         <a href="#Help" data-file="../src/contents/bonuses/help.md">Help</a>
                     </li>
                     <li>
-                        <a href="#Documentation" data-file="../src/contents/bonuses/documentation.md">Documentation</a>
+                        <a href="/gomoku/bonuses/documentation">Documentation</a>
                     </li>
                     <li>
                         <a href="#Docker" data-file="../src/contents/bonuses/docker.md">Docker</a>
@@ -87,13 +89,12 @@ const introduction = await Astro.glob('../contents/introduction.md');
                 <div class="github-logo">
                     <a href="https://github.com/HenriUwU/gomoku"><img class="github" src="/gomoku/github.svg"></a>
                 </div>
-            </aside>
+            </aside> -->
             <div class="main-content">
                 {introduction.map((intro) =>
                     <intro.Content />
                 )}
             </div>
         </div>
-		<script src="../scripts/loadContent.js"></script>
     </body>
 </html>
