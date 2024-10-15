@@ -13,22 +13,22 @@ This documentation is a part (as a bonus) of our Gomoku project.
 <br>
 
 1. **Project**
-	1. <a href="#Subject" data-file="../src/contents/project/subject.md">Subject</a>
-	2. <a href="#Team" data-file="../src/contents/project/team.md">Team</a>
-	3. <a href="#Toolbox" data-file="../src/contents/project/toolbox.md">Toolbox</a>
-	4. <a href="#Resources" data-file="../src/contents/project/resources.md">Resources</a>
+	1. <a href="/gomoku/project/subject">Subject</a>
+	2. <a href="/gomoku/project/team">Team</a>
+	3. <a href="/gomoku/project/toolbox">Toolbox</a>
+	4. <a href="/gomoku/project/resources">Resources</a>
 2. **Algorithm**
-	1. <a href="#Minimax" data-file="../src/contents/algorithm/minimax.md">Minimax</a>
-	2. <a href="#Alpha-beta" data-file="../src/contents/algorithm/alpha_beta.md">Alpha-beta</a>
+	1. <a href="/gomoku/algorithm/minimax">Minimax</a>
+	2. <a href="/gomoku/algorithm/alpha_beta">Alpha-beta</a>
 3. **Graphic**
-	1. <a href="#Game" data-file="../src/contents/graphic/game.md">Game</a>
-	2. <a href="#SFML" data-file="../src/contents/graphic/sfml.md">SFML</a>
-	3. <a href="#GIF" data-file="../src/contents/graphic/gif.md">GIF</a>
+	1. <a href="/gomoku/graphic/game">Game</a>
+	2. <a href="/gomoku/graphic/sfml">SFML</a>
+	3. <a href="/gomoku/graphic/gif">GIF</a>
 4. **Music**
-	1. <a href="#Music" data-file="../src/contents/music/music.md">Music</a>
+	1. <a href="/gomoku/music/music">Music</a>
 5. **Bonuses**
-	1. <a href="#Customization" data-file="../src/contents/bonuses/customization.md">Customization</a>
-	2. <a href="#AIModes" data-file="../src/contents/bonuses/ai_modes.md">AI Modes</a>
-	3. <a href="#Help" data-file="../src/contents/bonuses/help.md">Help</a>
-	4. <a href="#Documentation" data-file="../src/contents/bonuses/documentation.md">Documentation</a>
-	5. <a href="#Docker" data-file="../src/contents/bonuses/docker.md">Docker</a>
+	1. <a href="/gomoku/bonuses/customization">Customization</a>
+	2. <a href="/gomoku/bonuses/ai_modes">AI Modes</a>
+	3. <a href="/gomoku/bonuses/help">Help</a>
+	4. <a href="/gomoku/bonuses/documentation">Documentation</a>
+	5. <a href="/gomoku/bonuses/docker">Docker</a>
