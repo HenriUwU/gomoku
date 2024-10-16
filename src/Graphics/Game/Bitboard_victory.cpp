@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:39:41 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/16 22:25:35 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:31:39 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,7 +319,7 @@ bool    Bitboard::fiveInARowHorizontal(int x, int y, int player) {
     
     for (int i = 0; i < nbBits; i++) {
 		if (i + 5 <= nbBits) {
-			uint32_t five = getSelection(selection, 5, i);
+			uint32_t five = (selection >> i) & 0b11111;
 			if (five == 0b11111 && !isHorizontalAlignmentBreakable(selectionStart, y, nbBits, player))
 				return true;
 		}
