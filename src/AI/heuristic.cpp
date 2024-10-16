@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2024/10/10 13:43:41 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:56:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		{0b011110, 0b000000, 6, opponent, -100000},
 		
 		// Possible captures
-		{0b0110, 0b1000, 4, player, -1000},
-		{0b0110, 0b0001, 4, player, -1000},
-		{0b0110, 0b1000, 4, opponent, 1000},
-		{0b0110, 0b0001, 4, opponent, 1000}
+		{0b0110, 0b1000, 4, player, (playersCaptures[0] == 4 ? INT_MIN : 1000 * (-playersCaptures[0]))},
+		{0b0110, 0b0001, 4, player, (playersCaptures[0] == 4 ? INT_MIN : 1000 * (-playersCaptures[0]))},
+		{0b0110, 0b1000, 4, opponent, (playersCaptures[1] == 4 ? INT_MAX : 1000 * playersCaptures[1])},
+		{0b0110, 0b0001, 4, opponent, (playersCaptures[1] == 4 ? INT_MAX : 1000 * playersCaptures[1])},
 	};
 	
 	score += bitboard.checkPattern(patterns, NB_HEURISTIC_PATTERNS);
