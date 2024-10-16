@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard_double-three.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:21:52 by hsebille          #+#    #+#             */
-/*   Updated: 2024/09/12 10:07:12 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:41:27 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,22 @@ bool	Bitboard::isDoubleThree(int x, int y, int player) {
 	int	nbFreeThree = 0;
 
 	verifyFreeThreeHorizontal(nbFreeThree, x, y, player);
-	verifyFreeThreeVertical(nbFreeThree, x, y, player);
-	verifyFreeThreeDiagonal(nbFreeThree, x, y, player);
-	verifyFreeThreeAntiDiagonal(nbFreeThree, x, y, player);
-
 	if (nbFreeThree >= 2) {
 		return (true);
 	}
+	verifyFreeThreeVertical(nbFreeThree, x, y, player);
+	if (nbFreeThree >= 2) {
+		return (true);
+	}
+	verifyFreeThreeDiagonal(nbFreeThree, x, y, player);
+	if (nbFreeThree >= 2) {
+		return (true);
+	}
+	verifyFreeThreeAntiDiagonal(nbFreeThree, x, y, player);
+	if (nbFreeThree >= 2) {
+		return (true);
+	}
+
 	return (false);
 }
 
@@ -57,208 +66,76 @@ static bool verifyOpponentPattern(uint32_t selection, int nbBits) {
     return false;
 }
 
-void	Bitboard::verifyFreeThreeHorizontal(int &nbFreeThree, int x, int y, int player) {
-	uint32_t	pBitboard = (player == 1) ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
-	uint32_t	oBitboard = (player == 1) ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y];
-	uint32_t	pSelection = 0;
-	uint32_t	oSelection = 0;
-	uint32_t	pBitboardMask = uint32_t(1) << x;
-	int			nbBits = 0;
+void Bitboard::verifyFreeThree(int &nbFreeThree, int x, int y, int player, bool isVertical, bool isDiagonal, bool isAntiDiagonal) {
+    uint32_t pBitboard, oBitboard;
+    uint32_t pSelection = 0, oSelection = 0;
+    uint32_t pBitboardMask = uint32_t(1) << (isVertical ? y : x);
+    int nbBits = 0;
 
-	pBitboard |= pBitboardMask;
-	
-	if (x - 4 < 0) {
-		nbBits = 5 + x;
-		pSelection = getSelection(pBitboard, nbBits, 0);
-		oSelection = getSelection(oBitboard, nbBits, 0);
-	} else if (x + 4 > BOARD_SIZE - 1) {
-		nbBits = BOARD_SIZE - (x - 4);
-		pSelection = getSelection(pBitboard, nbBits, x - 4);
-		oSelection = getSelection(oBitboard, nbBits, x - 4);
-	} else {
-		nbBits = 9;
-		pSelection = getSelection(pBitboard, nbBits, x - 4);
-		oSelection = getSelection(oBitboard, nbBits, x - 4);
-	}
-	
-	for (int i = 0; i < nbBits; i++) {
-		if (i + 5 <= nbBits) {
-			uint32_t pFive = getSelection(pSelection, 5, i);
-			uint32_t oFive = getSelection(oSelection, 5, i);
-			if (verifyPlayerPattern(pFive, 5) && !verifyOpponentPattern(oFive, 5))
-				nbFreeThree++;
-		}
-		if (i + 6 <= nbBits) {
-			uint32_t pSix = getSelection(pSelection, 6, i);
-			uint32_t oSix = getSelection(oSelection, 6, i);
-			if (verifyPlayerPattern(pSix, 6) && !verifyOpponentPattern(oSix, 6))
-				nbFreeThree++;
-		}
-	}	
+    if (isVertical) {
+        pBitboard = (player == 1) ? _firstPlayerBoardColumns[x] : _secondPlayerBoardColumns[x];
+        oBitboard = (player == 1) ? _secondPlayerBoardColumns[x] : _firstPlayerBoardColumns[x];
+    } else if (isDiagonal) {
+        y = rotateY45(x, y);
+        pBitboard = (player == 1) ? _firstPlayerBoardDiagonals[y] : _secondPlayerBoardDiagonals[y];
+        oBitboard = (player == 1) ? _secondPlayerBoardDiagonals[y] : _firstPlayerBoardDiagonals[y];
+    } else if (isAntiDiagonal) {
+        y = rotateY315(x, y);
+        pBitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[y] : _secondPlayerBoardAntiDiagonals[y];
+        oBitboard = (player == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y];
+    } else {
+        pBitboard = (player == 1) ? _firstPlayerBoardLines[y] : _secondPlayerBoardLines[y];
+        oBitboard = (player == 1) ? _secondPlayerBoardLines[y] : _firstPlayerBoardLines[y];
+    }
+
+    pBitboard |= pBitboardMask;
+
+    // Determine nbBits based on the position
+    if ((isVertical && y - 4 < 0) || (isDiagonal && !isAntiDiagonal && y >= 4)) {
+        nbBits = 5 + (isVertical ? y : x);
+        pSelection = getSelection(pBitboard, nbBits, 0);
+        oSelection = getSelection(oBitboard, nbBits, 0);
+    } else if ((isVertical && y + 4 > BOARD_SIZE - 1) || (isDiagonal && isAntiDiagonal && y < 14)) {
+        nbBits = (isVertical ? BOARD_SIZE - (y - 4) : (BOARD_SIZE - y) - (x - 4));
+        pSelection = getSelection(pBitboard, nbBits, (isVertical ? y - 4 : x - 4));
+        oSelection = getSelection(oBitboard, nbBits, (isVertical ? y - 4 : x - 4));
+    } else {
+        nbBits = 9;
+        pSelection = getSelection(pBitboard, nbBits, (isVertical ? y - 4 : x - 4));
+        oSelection = getSelection(oBitboard, nbBits, (isVertical ? y - 4 : x - 4));
+    }
+
+    // Check for free three patterns
+    for (int i = 0; i < nbBits; i++) {
+        if (i + 5 <= nbBits) {
+            uint32_t pFive = getSelection(pSelection, 5, i);
+            uint32_t oFive = getSelection(oSelection, 5, i);
+            if (verifyPlayerPattern(pFive, 5) && !verifyOpponentPattern(oFive, 5))
+                nbFreeThree++;
+        }
+        if (i + 6 <= nbBits) {
+            uint32_t pSix = getSelection(pSelection, 6, i);
+            uint32_t oSix = getSelection(oSelection, 6, i);
+            if (verifyPlayerPattern(pSix, 6) && !verifyOpponentPattern(oSix, 6))
+                nbFreeThree++;
+        }
+    }
 }
 
-void	Bitboard::verifyFreeThreeVertical(int &nbFreeThree, int x, int y, int player) {
-	uint32_t	pBitboard = (player == 1) ? _firstPlayerBoardColumns[x] : _secondPlayerBoardColumns[x];
-	uint32_t	oBitboard = (player == 1) ? _secondPlayerBoardColumns[x] : _firstPlayerBoardColumns[x];
-	uint32_t	pSelection = 0;
-	uint32_t	oSelection = 0;
-	uint32_t	pBitboardMask = uint32_t(1) << y;
-	int			nbBits = 0;
-
-	pBitboard |= pBitboardMask;
-	
-	if (y - 4 < 0) {
-		nbBits = 5 + y;
-		pSelection = getSelection(pBitboard, nbBits, 0);
-		oSelection = getSelection(oBitboard, nbBits, 0);
-	} else if (y + 4 > BOARD_SIZE - 1) {
-		nbBits = BOARD_SIZE - (y - 4);
-		pSelection = getSelection(pBitboard, nbBits, y - 4);
-		oSelection = getSelection(oBitboard, nbBits, y - 4);
-	} else {
-		nbBits = 9;
-		pSelection = getSelection(pBitboard, nbBits, y - 4);
-		oSelection = getSelection(oBitboard, nbBits, y - 4);
-	}
-		
-	for (int i = 0; i < nbBits; i++) {
-		if (i + 5 <= nbBits) {
-			uint32_t pFive = getSelection(pSelection, 5, i);
-			uint32_t oFive = getSelection(oSelection, 5, i);
-			if (verifyPlayerPattern(pFive, 5) && !verifyOpponentPattern(oFive, 5))
-				nbFreeThree++;
-		}
-		if (i + 6 <= nbBits) {
-			uint32_t pSix = getSelection(pSelection, 6, i);
-			uint32_t oSix = getSelection(oSelection, 6, i);
-			if (verifyPlayerPattern(pSix, 6) && !verifyOpponentPattern(oSix, 6))
-				nbFreeThree++;
-		}
-	}
+// Specific functions for each direction
+void Bitboard::verifyFreeThreeHorizontal(int &nbFreeThree, int x, int y, int player) {
+    verifyFreeThree(nbFreeThree, x, y, player, false, false, false);
 }
 
-void	Bitboard::verifyFreeThreeDiagonal(int &nbFreeThree, int x, int y, int player) {
-	int boardSide = (x + y < BOARD_SIZE) ? 1 : 2;
-	y = rotateY45(x, y);
-
-	uint32_t	pBitboard = (player == 1) ? _firstPlayerBoardDiagonals[y] : _secondPlayerBoardDiagonals[y];
-	uint32_t	oBitboard = (player == 1) ? _secondPlayerBoardDiagonals[y] : _firstPlayerBoardDiagonals[y];
-	uint32_t	pSelection = 0;
-	uint32_t	oSelection = 0;
-	uint32_t	pBitboardMask = uint32_t(1) << x;
-	int			nbBits = 0;
-
-	pBitboard |= pBitboardMask;
-	
-	if (boardSide == 1 && y >= 4) {
-		if (x - 4 <= 0) {
-			nbBits = (5 + x < y + 1) ? 5 + x : y + 1;
-			pSelection = getSelection(pBitboard, nbBits, 0);
-			oSelection = getSelection(oBitboard, nbBits, 0);
-		} else if (x + 4 >= y + 1 || x + 4 > BOARD_SIZE - 1) {
-			nbBits = (y + 1) - (x - 4);
-			pSelection = getSelection(pBitboard, nbBits, x - 4);
-			oSelection = getSelection(oBitboard, nbBits, x - 4);
-		} else {
-			nbBits = 9;
-			pSelection = getSelection(pBitboard, nbBits, x - 4);
-			oSelection = getSelection(oBitboard, nbBits, x - 4);
-		}
-	} else if (boardSide == 2 && y < 14) {
-		if (x - 4 < y + 1) {
-			nbBits = x - (y + 1);
-			if (x + 4 > BOARD_SIZE - 1)
-				nbBits += BOARD_SIZE - x;
-			else
-				nbBits += 5;
-			pSelection = getSelection(pBitboard, nbBits, y + 1);
-			oSelection = getSelection(oBitboard, nbBits, y + 1);
-		} else if (x + 4 > BOARD_SIZE - 1) {
-			nbBits = 5 + ((BOARD_SIZE - 1) - x);
-			pSelection = getSelection(pBitboard, nbBits, x - 4);
-			oSelection = getSelection(oBitboard, nbBits, x - 4);
-		} else {
-			nbBits = 9;
-			pSelection = getSelection(pBitboard, nbBits, x - 4);
-			oSelection = getSelection(oBitboard, nbBits, x - 4);
-		}
-	}
-		
-	for (int i = 0; i < nbBits; i++) {
-		if (i + 5 <= nbBits) {
-			uint32_t pFive = getSelection(pSelection, 5, i);
-			uint32_t oFive = getSelection(oSelection, 5, i);
-			if (verifyPlayerPattern(pFive, 5) && !verifyOpponentPattern(oFive, 5))
-				nbFreeThree++;
-		}
-		if (i + 6 <= nbBits) {
-			uint32_t pSix = getSelection(pSelection, 6, i);
-			uint32_t oSix = getSelection(oSelection, 6, i);
-			if (verifyPlayerPattern(pSix, 6) && !verifyOpponentPattern(oSix, 6))
-				nbFreeThree++;
-		}
-	}
+void Bitboard::verifyFreeThreeVertical(int &nbFreeThree, int x, int y, int player) {
+    verifyFreeThree(nbFreeThree, x, y, player, true, false, false);
 }
 
-void	Bitboard::verifyFreeThreeAntiDiagonal(int &nbFreeThree, int x, int y, int player) {
-	int boardSide = (x < y + 1) ? 1 : 2;
-	y = rotateY315(x, y);
-
-	uint32_t	pBitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[y] : _secondPlayerBoardAntiDiagonals[y];
-	uint32_t	oBitboard = (player == 1) ? _secondPlayerBoardAntiDiagonals[y] : _firstPlayerBoardAntiDiagonals[y];
-	uint32_t	pSelection = 0;
-	uint32_t	oSelection = 0;
-	uint32_t	pBitboardMask = uint32_t(1) << x;
-	int			nbBits = 0;
-
-	pBitboard |= pBitboardMask;
-	
-	if (boardSide == 1 && y <= 14) {
-		if (x - 4 <= 0) {
-			nbBits = (5 + x < BOARD_SIZE - y) ? 5 + x : BOARD_SIZE - y;
-			pSelection = getSelection(pBitboard, nbBits, 0);
-			oSelection = getSelection(oBitboard, nbBits, 0);
-		} else if (x + 4 >= BOARD_SIZE - y) {
-			nbBits = (BOARD_SIZE - y) - (x - 4);
-			pSelection = getSelection(pBitboard, nbBits, x - 4);
-			oSelection = getSelection(oBitboard, nbBits, x - 4);
-		} else {
-			nbBits = 9;
-			pSelection = getSelection(pBitboard, nbBits, x - 4);
-			oSelection = getSelection(oBitboard, nbBits, x - 4);
-		}
-	} else if (boardSide == 2 && y > 4) {
-		if (x - 4 < BOARD_SIZE - y) {
-			nbBits = x - (BOARD_SIZE - y);
-			if (x + 4 > BOARD_SIZE - 1)
-				nbBits += BOARD_SIZE - x;
-			else
-				nbBits += 5;
-			pSelection = getSelection(pBitboard, nbBits, BOARD_SIZE - y);
-			oSelection = getSelection(oBitboard, nbBits, BOARD_SIZE - y);
-		} else if (x + 4 > BOARD_SIZE - 1) {
-			nbBits = 5 + ((BOARD_SIZE - 1) - x);
-			pSelection = getSelection(pBitboard, nbBits, x - 4);
-			oSelection = getSelection(oBitboard, nbBits, x - 4);
-		} else {
-			nbBits = 9;
-			pSelection = getSelection(pBitboard, nbBits, x - 4);
-			oSelection = getSelection(oBitboard, nbBits, x - 4);
-		}
-	}
-		
-	for (int i = 0; i < nbBits; i++) {
-		if (i + 5 <= nbBits) {
-			uint32_t pFive = getSelection(pSelection, 5, i);
-			uint32_t oFive = getSelection(oSelection, 5, i);
-			if (verifyPlayerPattern(pFive, 5) && !verifyOpponentPattern(oFive, 5))
-				nbFreeThree++;
-		}
-		if (i + 6 <= nbBits) {
-			uint32_t pSix = getSelection(pSelection, 6, i);
-			uint32_t oSix = getSelection(oSelection, 6, i);
-			if (verifyPlayerPattern(pSix, 6) && !verifyOpponentPattern(oSix, 6))
-				nbFreeThree++;
-		}
-	}
+void Bitboard::verifyFreeThreeDiagonal(int &nbFreeThree, int x, int y, int player) {
+    verifyFreeThree(nbFreeThree, x, y, player, false, true, false);
 }
+
+void Bitboard::verifyFreeThreeAntiDiagonal(int &nbFreeThree, int x, int y, int player) {
+    verifyFreeThree(nbFreeThree, x, y, player, false, false, true);
+}
+
