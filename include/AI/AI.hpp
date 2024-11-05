@@ -38,6 +38,6 @@ class AI {
 		void	play(Bitboard &bitboard);
 		void	quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int low, int high);
 		
-		std::pair<int, int>					findBestMove(Bitboard& bitboard);
+		std::pair<int, int>					findBestMove(Bitboard& bitboard) __attribute__((hot));
 		std::vector<std::pair<int, int>>	sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
 };
