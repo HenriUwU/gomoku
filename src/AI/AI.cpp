@@ -32,6 +32,11 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 		return bestMove;
 
 	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, true);
+	std::cout << "Sorted Moves : " << std::endl;
+	for (size_t i = 0; i < sortedMoves.size(); i++) {
+		std::cout << "Move: " << sortedMoves[i].first << " " << sortedMoves[i].second << std::endl;
+	}
+	std::cout << std::endl;
 
 	unsigned int maxThreads = std::thread::hardware_concurrency();
 	ThreadPool pool(maxThreads);
@@ -49,6 +54,7 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 			tempBoard.removeStone(move.first, move.second, 2);
 
 			std::lock_guard<std::mutex> lock(bestMoveMutex);
+			std::cout << "Tested move : " << move.first << " | " << move.second << std::endl;
 			if (moveValue > bestValue) {
 				bestValue = moveValue;
 				bestMove = move;
@@ -56,7 +62,11 @@ std::pair<int, int> AI::findBestMove(Bitboard &bitboard) {
 		});
 	}
 
-	pool.waitForAll();
+	pool.waitForAll(); 
+
+	std::cout << std::endl;
+	std::cout << "final move : " << bestMove.first << " | " << bestMove.second << std::endl;
+	std::cout << std::endl;
 
 	return (bestMove);
 }
