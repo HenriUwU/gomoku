@@ -19,6 +19,8 @@ NAME			:= Gomoku
 SRC				:=	src/main.cpp									\
 					src/AI/AI.cpp									\
 					src/AI/heuristic.cpp							\
+					src/AI/ThreadPool.cpp							\
+					src/AI/AI_utils.cpp								\
 					src/Graphics/GIF/AnimatedGIF.cpp				\
 					src/Graphics/Game/Bitboard_captures.cpp			\
 					src/Graphics/Game/Bitboard_double-three.cpp		\
@@ -33,7 +35,6 @@ SRC				:=	src/main.cpp									\
 					src/Graphics/Menu/SettingsMenu.cpp				\
 					src/Graphics/Utils.cpp							\
 					src/Music/Music.cpp								\
-					src/AI/AI_utils.cpp								\
 					src/Graphics/Game/Bitboard_generate_moves.cpp	\
 				
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)

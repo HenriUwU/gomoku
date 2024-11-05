@@ -32,6 +32,7 @@
 #include <chrono>
 #include <future>
 #include <iomanip>
+#include <queue>
 
 struct PatternInfo {
 	uint32_t	pattern;
@@ -48,6 +49,7 @@ struct pair_hash {
 	}
 };
 
+#include "AI/ThreadPool.hpp"
 #include "AI/AI.hpp"
 #include "Graphics/GIF/AnimatedGIF.hpp"
 #include "Graphics/Game/Bitboard.hpp"

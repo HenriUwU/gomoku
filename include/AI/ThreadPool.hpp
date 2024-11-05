@@ -13,31 +13,29 @@
 #pragma once
 
 #include "gomoku.hpp"
-	
-class Bitboard;
 
-#define MINIMAX_DEPTH 6
-#define MAX_TESTED_MOVES 6
-#define NB_HEURISTIC_PATTERNS 22
-
-class AI {
+class ThreadPool {
 	private:
-		static const int	BOARD_SIZE = 19;
-		std::mutex			bestMoveMutex;
-
+		std::queue<std::function<void()>>	tasks;
+		std::vector<std::thread>			workers;
+		std::mutex							queueMutex;
+		std::condition_variable				condition;
+		std::condition_variable				doneCondition;
+		int									activeTasks;
+		bool								stop;
 
 	public:
-		AI();
-		~AI();
-		
-		int		minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) __attribute__((hot));
-		int		heuristic(Bitboard &bitboard) __attribute__((hot));
-		int		countStones(Bitboard &bitboard);
-		int		checkPatterns(Bitboard &bitboard, int player, int opponent);
+		ThreadPool(size_t nbThreads);
+		~ThreadPool();
 
-		void	play(Bitboard &bitboard);
-		void	quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int low, int high);
-		
-		std::pair<int, int>					findBestMove(Bitboard& bitboard);
-		std::vector<std::pair<int, int>>	sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
+		template<class F>
+		void enqueue(F&& f) {
+			{
+				std::unique_lock<std::mutex> lock(queueMutex);
+				tasks.emplace(std::forward<F>(f));
+			}
+			condition.notify_one();
+		}
+
+		void waitForAll();
 };
