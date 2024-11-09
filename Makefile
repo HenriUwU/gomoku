@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
+#    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 14:32:27 by hsebille          #+#    #+#              #
-#    Updated: 2024/10/10 11:48:56 by laprieur         ###   ########.fr        #
+#    Updated: 2024/11/09 15:19:42 by hsebille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
 #                                    TOOLS                                     #
 # **************************************************************************** #
 
-MAKEFLAGS		+= --silent --no-print-directory
+MAKEFLAGS		+= --silent --no-print-directory -j8
 
 # **************************************************************************** #
 #                                   RECIPES                                    #

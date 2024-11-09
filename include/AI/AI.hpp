@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/16 22:51:02 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/09 15:25:33 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,25 @@
 class Bitboard;
 
 #define MINIMAX_DEPTH 6
-#define MAX_TESTED_MOVES 6
+#define MAX_TESTED_MOVES 15
 #define NB_HEURISTIC_PATTERNS 22
+
+struct Move {
+	std::pair<int, int> position;
+	int score;
+};
 
 class AI {
 	private:
 		static const int	BOARD_SIZE = 19;
 		std::mutex			bestMoveMutex;
 
-
 	public:
 		AI();
 		~AI();
 		
 		int		minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) __attribute__((hot));
+		Move	negamax(Bitboard &bitboard, int depth, bool aiTurn, int alpha, int beta) __attribute__((hot));
 		int		heuristic(Bitboard &bitboard) __attribute__((hot));
 		int		countStones(Bitboard &bitboard);
 		int		checkPatterns(Bitboard &bitboard, int player, int opponent);
