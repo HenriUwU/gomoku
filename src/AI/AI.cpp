@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/09 22:20:24 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/09 22:32:11 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,6 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 	
 	int myId = playerTwoTurn ? 2 : 1;
 	int opponentId = playerTwoTurn ? 1 : 2;
-	
-	if (playerTwoTurn) {
-		myId = 2;
-		opponentId = 1;
-	}
-	else {
-		myId = 1;
-		opponentId = 2;
-	}
 	
 	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generatePossibleMoves(myId);
 	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, playerTwoTurn);
