@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/16 22:40:40 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/09 20:00:53 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ class Bitboard {
 		Bitboard();
 		~Bitboard();
 
+		int			hash();
 		int			getBit(int x, int y) const;
 		int			isCapturingMove(int x, int y, int player);
 		int			rotateY45(int x, int y);
@@ -80,6 +81,7 @@ class Bitboard {
 		void		update(int x, int y, int player, bool add);
 		void		removeStone(int x, int y, int player);
 		void		clear();
+		void		initializeZobristTable();
 
 		void		verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
 		void		verifyVerticalCapture(int &nbCaptures, int x, int y, int player);

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/09 15:25:33 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/09 15:48:55 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ class AI {
 	private:
 		static const int	BOARD_SIZE = 19;
 		std::mutex			bestMoveMutex;
+		std::unordered_map<int, int>	heuristicValueOfBoards;
+		std::unordered_map<int, int>	heuristicPatterns;
 
 	public:
 		AI();
