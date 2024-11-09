@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/09 22:32:11 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/09 23:06:59 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ AI::~AI() {}
 void	AI::play(Bitboard &bitboard) {
 	Bitboard tmp = bitboard;
 	std::pair<int, int> move = negamax(tmp, MINIMAX_DEPTH, true, INT_MIN, INT_MAX).position;
+	if (move.first == -1 || move.second == -1)
+		bitboard.placeStone(9, 9, 2);
 	bitboard.placeStone(move.first, move.second, 2);
 }
 
