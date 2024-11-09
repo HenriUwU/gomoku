@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/09 15:48:55 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/09 21:31:40 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 	
 class Bitboard;
 
-#define MINIMAX_DEPTH 6
-#define MAX_TESTED_MOVES 15
+#define MINIMAX_DEPTH 10
+#define MAX_TESTED_MOVES 6
 #define NB_HEURISTIC_PATTERNS 22
 
 struct Move {
