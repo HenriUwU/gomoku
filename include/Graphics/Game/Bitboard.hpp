@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/09 20:00:53 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:42:02 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ class Bitboard {
 		Bitboard();
 		~Bitboard();
 
-		int			hash();
+		int			hash() const;
 		int			getBit(int x, int y) const;
 		int			isCapturingMove(int x, int y, int player);
 		int			rotateY45(int x, int y);
@@ -57,6 +57,7 @@ class Bitboard {
 		int			reverseRotate315(int x, int y);
 		int			checkPattern(PatternInfo patterns[], int nbPattern) __attribute__((hot));
 		int			countAdjacentStones(int x, int y) const;
+		int 		mixArrayHash(const std::array<uint32_t, BOARD_SIZE>& arr, int prime) const;
 
 		bool		placeStone(int x, int y, int player);
 		bool		isLegalMove(int x, int y, int player);
@@ -81,7 +82,6 @@ class Bitboard {
 		void		update(int x, int y, int player, bool add);
 		void		removeStone(int x, int y, int player);
 		void		clear();
-		void		initializeZobristTable();
 
 		void		verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
 		void		verifyVerticalCapture(int &nbCaptures, int x, int y, int player);

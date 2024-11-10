@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/09 23:06:59 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:46:21 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,16 @@ void	AI::play(Bitboard &bitboard) {
 
 Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, int beta) {
 	if (depth == 0 || bitboard.isGameOver()) {
-		int value = heuristic(bitboard);
+		int value = 0;
+		std::unordered_map<int, int>::iterator it = _heuristicValuesOfBoards.find(bitboard.hash());
+
+		if (it != _heuristicValuesOfBoards.end()) {
+			value = it->second;
+		} else {
+			value = heuristic(bitboard);
+			_heuristicValuesOfBoards.insert({bitboard.hash(), value});
+		}
+		
 		if (playerTwoTurn)
 			return {std::pair<int, int>(-1, -1), value};
 		else

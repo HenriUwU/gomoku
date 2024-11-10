@@ -6,41 +6,44 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:57:17 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/09 20:00:42 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:43:23 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Graphics/Game/Bitboard.hpp"
 
-int Bitboard::hash() {
+int Bitboard::hash() const {
 	int hash = 0;
+	const int prime1 = 73856093;
+	const int prime2 = 19349663;
+	const int prime3 = 83492791;
+	const int prime4 = 32452843;
 
-	// Iterate over each line in all directions
-	for (int i = 0; i < BOARD_SIZE; ++i) {
-		// Mix first player data
-		hash ^= _firstPlayerBoardLines[i] * (i + 1);
-		hash ^= _firstPlayerBoardColumns[i] * (i + 2);
-		hash ^= _firstPlayerBoardDiagonals[i] * (i + 3);
-		hash ^= _firstPlayerBoardAntiDiagonals[i] * (i + 4);
-
-		// Mix second player data
-		hash ^= _secondPlayerBoardLines[i] * (i + 5);
-		hash ^= _secondPlayerBoardColumns[i] * (i + 6);
-		hash ^= _secondPlayerBoardDiagonals[i] * (i + 7);
-		hash ^= _secondPlayerBoardAntiDiagonals[i] * (i + 8);
-	}
-
-	// Apply bit shifts and XOR to mix the bits more
-	hash ^= (hash << 13); // Left shift and XOR for bit mixing
-	hash ^= (hash >> 17); // Right shift and XOR for further mixing
-	hash ^= (hash << 5);  // Another left shift and XOR to finalize mixing
-
-	// Ensure the hash is non-negative (optional, but good practice)
-	if (hash < 0) {
-		hash = -hash;
-	}
+	hash ^= mixArrayHash(_firstPlayerBoardLines, prime1);
+	hash ^= mixArrayHash(_secondPlayerBoardLines, prime2);
+	hash ^= mixArrayHash(_firstPlayerBoardColumns, prime3);
+	hash ^= mixArrayHash(_secondPlayerBoardColumns, prime4);
+	hash ^= mixArrayHash(_firstPlayerBoardDiagonals, prime1);
+	hash ^= mixArrayHash(_secondPlayerBoardDiagonals, prime2);
+	hash ^= mixArrayHash(_firstPlayerBoardAntiDiagonals, prime3);
+	hash ^= mixArrayHash(_secondPlayerBoardAntiDiagonals, prime4);
 
 	return hash;
+}
+
+int Bitboard::mixArrayHash(const std::array<uint32_t, BOARD_SIZE>& arr, int prime) const {
+	int result = 0;
+	for (int i = 0; i < BOARD_SIZE; ++i) {
+		uint32_t value = arr[i];
+
+		value ^= (i * prime);
+		value = (value << 13) | (value >> 19);
+		value *= prime;
+
+		result ^= value;
+		result += (value << 3) + (value >> 2);
+	}
+	return result;
 }
 
 uint32_t	Bitboard::getSelection(uint32_t bitboard, int nbBits, int bitsPos) {
