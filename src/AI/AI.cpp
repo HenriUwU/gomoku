@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/10 14:46:21 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:58:05 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,36 +19,35 @@ AI::~AI() {}
 void	AI::play(Bitboard &bitboard) {
 	Bitboard tmp = bitboard;
 	std::pair<int, int> move = negamax(tmp, MINIMAX_DEPTH, true, INT_MIN, INT_MAX).position;
-	if (move.first == -1 || move.second == -1)
-		bitboard.placeStone(9, 9, 2);
 	bitboard.placeStone(move.first, move.second, 2);
 }
 
 Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, int beta) {
+	int hash = bitboard.hash();
 	if (depth == 0 || bitboard.isGameOver()) {
 		int value = 0;
-		std::unordered_map<int, int>::iterator it = _heuristicValuesOfBoards.find(bitboard.hash());
+		std::unordered_map<int, int>::iterator it = _heuristicValuesOfBoards.find(hash);
 
 		if (it != _heuristicValuesOfBoards.end()) {
 			value = it->second;
 		} else {
 			value = heuristic(bitboard);
-			_heuristicValuesOfBoards.insert({bitboard.hash(), value});
+			_heuristicValuesOfBoards.insert({hash, value});
 		}
 		
 		if (playerTwoTurn)
-			return {std::pair<int, int>(-1, -1), value};
+			return {std::pair<int, int>(9, 9), value};
 		else
-			return {std::pair<int, int>(-1, -1), -value};
+			return {std::pair<int, int>(9, 9), -value};
 	}
 	
 	int myId = playerTwoTurn ? 2 : 1;
 	int opponentId = playerTwoTurn ? 1 : 2;
 	
 	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generatePossibleMoves(myId);
-	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, playerTwoTurn);
+	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, myId);
 	
-	Move bestMove = {std::pair<int, int>(-1, -1), INT_MIN};
+	Move bestMove = {std::pair<int, int>(9, 9), INT_MIN};
 	
 	for (size_t i = 0; i < MAX_TESTED_MOVES && i < sortedMoves.size() ; i++) {
 		auto& possibleMove = sortedMoves[i];

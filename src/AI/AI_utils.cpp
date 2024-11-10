@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:01 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/09 16:59:42 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:44:55 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,41 @@ void AI::quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int lo
 	}
 }
 
-std::vector<std::pair<int, int>>	AI::sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer) {
+std::vector<std::pair<int, int>>	AI::sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool playerTwoTurn) {
 	std::vector<std::pair<std::pair<int, int>, int>>	movesToSort;
 	std::vector<std::pair<int, int>>					sortedMoves;
+	int player = playerTwoTurn ? 2 : 1;
+	int opponent = playerTwoTurn ? 1 : 2;
 
 	for (const auto& move : possibleMoves) {
-		std::pair<std::pair<int, int>, int> moveAndValue;
-		std::vector<std::pair<int, int>> removedStones = bitboard.placeStoneAI(move.first, move.second, maximizingPlayer ? 2 : 1, true);
-		moveAndValue.second = heuristic(bitboard);
+		std::pair<std::pair<int, int>, int>	moveAndValue;
+		int heuristicValue = 0;
+		
+		std::vector<std::pair<int, int>>	removedStones = bitboard.placeStoneAI(move.first, move.second, player, true);
+		
+		std::unordered_map<int,int>::iterator it = _heuristicValuesOfBoards.find(bitboard.hash());
+		if (it != _heuristicValuesOfBoards.end())
+			heuristicValue = it->second;
+		else {
+			heuristicValue = heuristic(bitboard);
+			_heuristicValuesOfBoards[bitboard.hash()] = heuristicValue;
+		}
+		if (!playerTwoTurn)
+			heuristicValue = -heuristicValue;
+
 		for (const auto& stone : removedStones)
-			bitboard.placeStoneAI(stone.first, stone.second, maximizingPlayer ? 1 : 2, false);
-		bitboard.removeStone(move.first, move.second, maximizingPlayer ? 2 : 1);
+			bitboard.placeStoneAI(stone.first, stone.second, opponent, false);
+		bitboard.removeStone(move.first, move.second, playerTwoTurn ? 2 : 1);
+		
 		moveAndValue.first = move;
+		moveAndValue.second = heuristicValue;
 		movesToSort.push_back(moveAndValue);
 	}
 	
 	quicksort(movesToSort, 0, movesToSort.size() - 1);
 
-	if (maximizingPlayer) {
-		for (size_t i = 0; i < movesToSort.size(); i++)
-			sortedMoves.insert(sortedMoves.begin(), movesToSort[i].first);
-	}
-	if (!maximizingPlayer) {
-		for (size_t i = 0; i < movesToSort.size(); i++)
-			sortedMoves.push_back(movesToSort[i].first);
-	}
+	for (size_t i = 0; i < movesToSort.size(); i++)
+		sortedMoves.insert(sortedMoves.begin(), movesToSort[i].first);
 
 	return sortedMoves;
 }
