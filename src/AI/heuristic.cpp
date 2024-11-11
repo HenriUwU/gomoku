@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2024/10/16 22:56:53 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/11 19:40:54 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,27 @@
 int	AI::heuristic(Bitboard &bitboard) {
 	int	evaluation = 0;
 	
-	std::unordered_set<std::pair<int, int>, pair_hash>	plate = bitboard.getAllStones();
+	for (int y = 0; y < BOARD_SIZE; y++) {
+		for (int x = 0; x < BOARD_SIZE; x++) {
+			if (bitboard.getBit(x, y) == 1) {
+				if (bitboard.fiveInARow(x, y, 1))
+					return (INT_MIN);
+			}
+			if (bitboard.getBit(x, y) == 2) {
+				if (bitboard.fiveInARow(x, y, 2))
+					return (INT_MAX);
+			}
 
-	for (auto& stone : plate) {
-		int x = stone.first;
-		int y = stone.second;
-
-		if (bitboard.fiveInARow(x, y, 1))
-			return (INT_MIN);
-		if (bitboard.fiveInARow(x, y, 2))
-			return (INT_MAX);
+			if (bitboard.getBit(x, y) == 2)
+				evaluation += 100;
+			else if (bitboard.getBit(x, y) == 1)
+				evaluation -= 100;
+		}
 	}
-	
-	evaluation += countStones(bitboard);
+
 	evaluation += checkPatterns(bitboard, 2, 1);
 
 	return (evaluation);
-}
-
-int	AI::countStones(Bitboard &bitboard) {
-	int score = 0;
-	
-	std::unordered_set<std::pair<int, int>, pair_hash>	plate = bitboard.getAllStones();
-	
-	for (auto& stone : plate) {
-		int x = stone.first;
-		int y = stone.second;
-		int stonePlaced = bitboard.getBit(x, y);
-		if (stonePlaced == 1)
-			score -= 100;
-		else if (stonePlaced == 2)
-			score += 100;
-	}
-	
-	return (score);
 }
 
 int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
