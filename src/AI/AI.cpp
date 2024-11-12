@@ -23,22 +23,12 @@ void	AI::play(Bitboard &bitboard) {
 }
 
 Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, int beta) {
-	int hash = bitboard.hash();
 	if (depth == 0 || bitboard.isGameOver()) {
-		int value = 0;
-		std::unordered_map<int, int>::iterator it = _heuristicValuesOfBoards.find(hash);
-
-		if (it != _heuristicValuesOfBoards.end()) {
-			value = it->second;
-		} else {
-			value = heuristic(bitboard);
-			_heuristicValuesOfBoards.insert({hash, value});
-		}
-		
+		int value = heuristic(bitboard);
 		if (playerTwoTurn)
-			return {std::pair<int, int>(9, 9), value};
+			return {std::pair<int, int>(-1, -1), value};
 		else
-			return {std::pair<int, int>(9, 9), -value};
+			return {std::pair<int, int>(-1, -1), -value};
 	}
 	
 	int myId = playerTwoTurn ? 2 : 1;
