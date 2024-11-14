@@ -43,6 +43,8 @@ int	AI::heuristic(Bitboard &bitboard) {
 			return (1000000000);
 	}
 
+	evaluation += checkPatterns(bitboard, 1, 2);
+
 	return (evaluation);
 }
 

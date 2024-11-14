@@ -74,8 +74,18 @@ std::vector<std::pair<int, int>>	AI::sortMoves(const std::unordered_set<std::pai
 	
 	quicksort(movesToSort, 0, movesToSort.size() - 1);
 
+	std::cout << "Current player: " << myId << std::endl;
+	std::cout << "initial movesToSort: " << std::endl;
+	for (size_t i = 0; i < movesToSort.size(); i++)
+		std::cout << "move: " << movesToSort[i].first.first << " " << movesToSort[i].first.second << " value: " << movesToSort[i].second << std::endl;
+
 	for (size_t i = 0; i < movesToSort.size(); i++)
 		sortedMoves.insert(sortedMoves.begin(), movesToSort[i].first);
+
+	std::cout << "final sortedMoves: " << std::endl;
+	for (size_t i = 0; i < sortedMoves.size(); i++)
+		std::cout << "move: " << sortedMoves[i].first << " " << sortedMoves[i].second << std::endl;
+	std::cout << std::endl;
 
 	return sortedMoves;
 }
