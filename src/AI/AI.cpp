@@ -24,11 +24,10 @@ void	AI::play(Bitboard &bitboard) {
 
 Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, int beta) {
 	if (depth == 0 || bitboard.isGameOver()) {
-		int value = heuristic(bitboard);
 		if (playerTwoTurn)
-			return {std::pair<int, int>(-1, -1), value};
+			return {std::pair<int, int>(-1, -1), heuristic(bitboard)};
 		else
-			return {std::pair<int, int>(-1, -1), -value};
+			return {std::pair<int, int>(-1, -1), -heuristic(bitboard)};
 	}
 	
 	int myId = playerTwoTurn ? 2 : 1;
