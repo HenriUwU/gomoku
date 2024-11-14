@@ -34,7 +34,7 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 	int opponentId = playerTwoTurn ? 1 : 2;
 	
 	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generatePossibleMoves(myId);
-	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, myId);
+	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, playerTwoTurn);
 	
 	Move bestMove = {std::pair<int, int>(9, 9), INT_MIN};
 	
