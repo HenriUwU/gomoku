@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:01 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/10 17:44:55 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:43:45 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,23 @@ std::vector<std::pair<int, int>>	AI::sortMoves(const std::unordered_set<std::pai
 	
 	quicksort(movesToSort, 0, movesToSort.size() - 1);
 
-	std::cout << "Current player: " << myId << std::endl;
-	std::cout << "initial movesToSort: " << std::endl;
-	for (size_t i = 0; i < movesToSort.size(); i++)
-		std::cout << "move: " << movesToSort[i].first.first << " " << movesToSort[i].first.second << " value: " << movesToSort[i].second << std::endl;
+	// std::cout << "Current player: " << myId << std::endl;
+	// std::cout << "initial movesToSort: " << std::endl;
+	// for (size_t i = 0; i < movesToSort.size(); i++)
+	// 	std::cout << "move: " << movesToSort[i].first.first << " " << movesToSort[i].first.second << " value: " << movesToSort[i].second << std::endl;
 
-	for (size_t i = 0; i < movesToSort.size(); i++)
-		sortedMoves.insert(sortedMoves.begin(), movesToSort[i].first);
+	if (playerTwoTurn) {
+		for (size_t i = 0; i < movesToSort.size(); i++)
+			sortedMoves.insert(sortedMoves.begin(), movesToSort[i].first);
+	} else {
+		for (size_t i = 0; i < movesToSort.size(); i++)
+			sortedMoves.push_back(movesToSort[i].first);
+	}
 
-	std::cout << "final sortedMoves: " << std::endl;
-	for (size_t i = 0; i < sortedMoves.size(); i++)
-		std::cout << "move: " << sortedMoves[i].first << " " << sortedMoves[i].second << std::endl;
-	std::cout << std::endl;
+	// std::cout << "final sortedMoves: " << std::endl;
+	// for (size_t i = 0; i < sortedMoves.size(); i++)
+	// 	std::cout << "move: " << sortedMoves[i].first << " " << sortedMoves[i].second << std::endl;
+	// std::cout << std::endl;
 
 	return sortedMoves;
 }

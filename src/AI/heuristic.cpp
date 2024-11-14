@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/11 19:40:54 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:38:00 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	AI::heuristic(Bitboard &bitboard) {
 			return (1000000000);
 	}
 
-	evaluation += checkPatterns(bitboard, 1, 2);
+	evaluation += checkPatterns(bitboard, 2, 1);
 
 	return (evaluation);
 }
