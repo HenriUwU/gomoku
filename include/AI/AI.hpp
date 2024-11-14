@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/10 14:50:16 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:58:37 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 	
 class Bitboard;
 
-#define MINIMAX_DEPTH 6
-#define MAX_TESTED_MOVES 15
+#define MINIMAX_DEPTH 10
+#define MAX_TESTED_MOVES 6
 #define NB_HEURISTIC_PATTERNS 22
 
 struct Move {
@@ -34,7 +34,7 @@ class AI {
 	public:
 		AI();
 		~AI();
-		
+		   
 		int		minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) __attribute__((hot));
 		Move	negamax(Bitboard &bitboard, int depth, bool aiTurn, int alpha, int beta) __attribute__((hot));
 		int		heuristic(Bitboard &bitboard) __attribute__((hot));
