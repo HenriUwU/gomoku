@@ -19,21 +19,29 @@ int	AI::heuristic(Bitboard &bitboard) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
 			if (bitboard.getBit(x, y) == 1) {
 				if (bitboard.fiveInARow(x, y, 1))
-					return (INT_MIN);
+					return (-1000000000);
+				evaluation -= 100;
 			}
 			if (bitboard.getBit(x, y) == 2) {
 				if (bitboard.fiveInARow(x, y, 2))
-					return (INT_MAX);
-			}
-
-			if (bitboard.getBit(x, y) == 2)
+					return (1000000000);
 				evaluation += 100;
-			else if (bitboard.getBit(x, y) == 1)
-				evaluation -= 100;
+			}
 		}
 	}
 
-	evaluation += checkPatterns(bitboard, 2, 1);
+	if (playersCaptures[0] == 4) {
+		PatternInfo pattern[] = {0b0110, 0b0000, 4, 1, 100};
+
+		if (bitboard.checkPattern(pattern, 1) > 0)
+			return (-1000000000);
+	}
+	if (playersCaptures[1] == 4) {
+		PatternInfo pattern[] = {0b0110, 0b0000, 4, 2, 100};
+
+		if (bitboard.checkPattern(pattern, 1) > 0)
+			return (1000000000);
+	}
 
 	return (evaluation);
 }
@@ -67,10 +75,10 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		{0b011110, 0b000000, 6, opponent, -100000},
 		
 		// Possible captures
-		{0b0110, 0b1000, 4, player, (playersCaptures[0] == 4 ? INT_MIN : 1000 * (-playersCaptures[0]))},
-		{0b0110, 0b0001, 4, player, (playersCaptures[0] == 4 ? INT_MIN : 1000 * (-playersCaptures[0]))},
-		{0b0110, 0b1000, 4, opponent, (playersCaptures[1] == 4 ? INT_MAX : 1000 * playersCaptures[1])},
-		{0b0110, 0b0001, 4, opponent, (playersCaptures[1] == 4 ? INT_MAX : 1000 * playersCaptures[1])},
+		{0b0110, 0b1000, 4, player, (1000 * (-playersCaptures[0]))},
+		{0b0110, 0b0001, 4, player, (1000 * (-playersCaptures[0]))},
+		{0b0110, 0b1000, 4, opponent, (1000 * playersCaptures[1])},
+		{0b0110, 0b0001, 4, opponent, (1000 * playersCaptures[1])},
 	};
 	
 	score += bitboard.checkPattern(patterns, NB_HEURISTIC_PATTERNS);
