@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:01 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/14 18:50:52 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:17:19 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,15 @@ std::vector<std::pair<int, int>>	AI::sortMoves(const std::unordered_set<std::pai
 		
 		std::vector<std::pair<int, int>>	removedStones = bitboard.placeStoneAI(move.first, move.second, myId, true);
 		
-		heuristicValue = heuristic(bitboard);
+		heuristicValue = 0;
+		std::unordered_map<int, int>::iterator it = _heuristicValuesOfBoards.find(bitboard.hash());
+		
+		if (it != _heuristicValuesOfBoards.end())
+			heuristicValue = it->second;
+		else {
+			heuristicValue = heuristic(bitboard);
+			_heuristicValuesOfBoards[bitboard.hash()] = heuristicValue;
+		}
 
 		for (const auto& stone : removedStones)
 			bitboard.placeStoneAI(stone.first, stone.second, opId, false);
