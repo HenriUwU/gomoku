@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/14 20:42:49 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:05:55 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		{0b011110, 0b100000, 6, player, 100000},
 		{0b011110, 0b000001, 6, player, 100000},
 		{0b011110, 0b000000, 6, player, 1000000},
-		{0b011110, 0b000001, 6, opponent, -10000},
-		{0b011110, 0b100000, 6, opponent, -10000},
+		{0b011110, 0b000001, 6, opponent, -100000},
+		{0b011110, 0b100000, 6, opponent, -100000},
 		{0b011110, 0b000000, 6, opponent, -1000000},
 		
 		// Possible captures

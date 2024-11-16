@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/10 14:42:02 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/16 14:50:45 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ class Bitboard {
 		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardDiagonals;
 		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardDiagonals;
 		std::array<uint32_t, BOARD_SIZE>	_firstPlayerBoardAntiDiagonals;
-		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardAntiDiagonals;	
+		std::array<uint32_t, BOARD_SIZE>	_secondPlayerBoardAntiDiagonals;
+		
+		size_t								_firstHash[BOARD_SIZE];
+		size_t								_secondHash[BOARD_SIZE];
 
 	public:
 		Bitboard();

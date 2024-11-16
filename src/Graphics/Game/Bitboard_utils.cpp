@@ -6,29 +6,27 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:57:17 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/10 14:43:23 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/16 14:50:57 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Graphics/Game/Bitboard.hpp"
 
 int Bitboard::hash() const {
-	int hash = 0;
-	const int prime1 = 73856093;
-	const int prime2 = 19349663;
-	const int prime3 = 83492791;
-	const int prime4 = 32452843;
+	std::size_t	res;
+	std::size_t	plTmp;
+	std::size_t	opTmp;
 
-	hash ^= mixArrayHash(_firstPlayerBoardLines, prime1);
-	hash ^= mixArrayHash(_secondPlayerBoardLines, prime2);
-	hash ^= mixArrayHash(_firstPlayerBoardColumns, prime3);
-	hash ^= mixArrayHash(_secondPlayerBoardColumns, prime4);
-	hash ^= mixArrayHash(_firstPlayerBoardDiagonals, prime1);
-	hash ^= mixArrayHash(_secondPlayerBoardDiagonals, prime2);
-	hash ^= mixArrayHash(_firstPlayerBoardAntiDiagonals, prime3);
-	hash ^= mixArrayHash(_secondPlayerBoardAntiDiagonals, prime4);
+	res = 0;
+	for (int i = 0; i < BOARD_SIZE; i++)
+	{
+		plTmp = std::hash<int>{}(this->_firstHash[i]);
+		opTmp = std::hash<int>{}(this->_secondHash[i]);
+		res = plTmp + 0x9e3779b9 + (res<<6) + (res>>2);
+		res = opTmp + 0x9e3779b9 + (res<<6) + (res>>2);
+	}
 
-	return hash;
+	return (res);
 }
 
 int Bitboard::mixArrayHash(const std::array<uint32_t, BOARD_SIZE>& arr, int prime) const {
@@ -156,6 +154,11 @@ void Bitboard::update(int x, int y, int player, bool add) {
 			_secondPlayerBoardAntiDiagonals[antiDiagIndex] &= ~mask;
 		}
 	}
+	
+	if (player == 1)
+		this->_firstHash[y] = std::hash<int>{}(this->_firstPlayerBoardLines[y]);
+	else
+		this->_secondHash[y] = std::hash<int>{}(this->_secondPlayerBoardLines[y]);
 }
 
 void	Bitboard::printBoard(){
