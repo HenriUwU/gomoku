@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/16 15:07:52 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:43:12 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ class Bitboard;
 
 #define MINIMAX_DEPTH 10
 #define MAX_TESTED_MOVES 6
-#define NB_HEURISTIC_PATTERNS 22
+#define NB_HEURISTIC_PATTERNS 18
 
 struct Move {
 	std::pair<int, int> position;
@@ -28,8 +28,10 @@ struct Move {
 class AI {
 	private:
 		static const int	BOARD_SIZE = 19;
-		std::mutex			bestMoveMutex;
 		std::unordered_map<int, int>	_heuristicValuesOfBoards;
+		
+		int								_firstPlayerNbCaptures;
+		int								_secondPlayerNbCaptures;
 
 	public:
 		AI();

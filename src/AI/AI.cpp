@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/16 14:53:18 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:32:39 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ AI::~AI() {}
 
 void	AI::play(Bitboard &bitboard) {
 	Bitboard tmp = bitboard;
+	_firstPlayerNbCaptures = playersCaptures[0];
+	_secondPlayerNbCaptures = playersCaptures[1];
 	std::pair<int, int> move = negamax(tmp, MINIMAX_DEPTH, true, INT_MIN, INT_MAX).position;
 	bitboard.placeStone(move.first, move.second, 2);
 }
 
 Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, int beta) {
-	if (depth == 0 || bitboard.isGameOver()) {
+	if (depth == 0 || bitboard.isGameOver() || _firstPlayerNbCaptures == 5 || _secondPlayerNbCaptures == 5) {
 		int heuristic = 0;
 		int hash = bitboard.hash();
 		
@@ -54,6 +56,10 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 		Move tmp;
 
 		std::vector<std::pair<int, int>> removedStones = bitboard.placeStoneAI(possibleMove.first, possibleMove.second, myId, true);
+		if (playerTwoTurn)
+			_firstPlayerNbCaptures += removedStones.size() / 2;
+		else
+			_secondPlayerNbCaptures += removedStones.size() / 2;
 
 		if (i == 0)
 			tmp = negamax(bitboard, depth - 1, !playerTwoTurn, -beta, -alpha);
