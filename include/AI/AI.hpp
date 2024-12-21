@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.hpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/16 17:43:12 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:15:48 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ class AI {
 		void	play(Bitboard &bitboard);
 		void	quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int low, int high);
 		
+        std::pair<int, int>                 moveSuggestion(Bitboard &bitboard, int player);
 		std::pair<int, int>					findBestMove(Bitboard& bitboard) __attribute__((hot));
 		std::vector<std::pair<int, int>>	sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
 };

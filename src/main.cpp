@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/08 10:28:36 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:54:34 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int										playersCaptures[2]	= {0, 0};
 bool									aiPlaying			= false;
 bool									isStonePlaceable	= false;
 bool									startTimer			= false;
+bool									moveSuggestion		= true;
 AIMode									aiMode				= NOAIMODE;
 Avatar									playerOneAvatar		= NOAVATAR;
 GameState								gameState			= MENU;
@@ -24,7 +25,6 @@ BoardColor								boardColor			= NOBOARD;
 EndGameState							endGameState		= NOVICTORY;
 StonesColors							stonesColors		= NOSTONESCOLORS;
 HelpMenuState							helpMenuState		= RULES;
-MoveSuggestion							moveSuggestion		= ENABLED;
 ForbiddenMoves							forbiddenMoves		= NOFORBIDDENMOVE;
 std::chrono::steady_clock::time_point	gameStartTime;
 

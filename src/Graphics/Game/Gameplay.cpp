@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:26 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/09 15:09:13 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:11:25 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Graphics/Game/Gameplay.hpp"
 
-Gameplay::Gameplay() : _playerJustMoved(0), _isFirstMove(true), _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
+Gameplay::Gameplay() : _playerJustMoved(0), _isFirstMove(true), _didSuggestMove(false), _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
 	init();
 }
 
@@ -150,8 +150,8 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 	}
 	
 	sf::RectangleShape clickableZone(sf::Vector2f(26, 26));
-    clickableZone.setPosition(1162, 404);
-    clickableZone.setFillColor(sf::Color(0, 0, 0, 0));
+	clickableZone.setPosition(1162, 404);
+	clickableZone.setFillColor(sf::Color(0, 0, 0, 0));
 	window.draw(clickableZone);
 	if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left
 		&& clickableZone.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
@@ -212,6 +212,22 @@ void	Gameplay::defineBoard() {
 	}
 }
 
+void	Gameplay::moveSuggestion(sf::RenderWindow& window) {
+	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
+	sf::Vector2f nearestIntersection(startPoint.first + _suggestedMove.first * 48, startPoint.second + _suggestedMove.second * 48);
+	if (_currentPlayer == 1) {
+		sf::Color spriteColor = _firstPlayerMoveSuggestionSprite.getColor();
+		_firstPlayerMoveSuggestionSprite.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, 150));
+		_firstPlayerMoveSuggestionSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+		window.draw(_firstPlayerMoveSuggestionSprite);
+	} else if (_currentPlayer == 2) {
+		sf::Color spriteColor = _secondPlayerMoveSuggestionSprite.getColor();
+		_secondPlayerMoveSuggestionSprite.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, 150));
+		_secondPlayerMoveSuggestionSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+		window.draw(_secondPlayerMoveSuggestionSprite);
+	}
+}
+
 void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isAIPlaying) {
 	float cellSize = 48;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
@@ -232,10 +248,10 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 	sf::Vector2f worldPos = window.mapPixelToCoords(stonePos);
 		
 	float relativeX = worldPos.x - startPoint.first;
-    float relativeY = worldPos.y - startPoint.second;
+	float relativeY = worldPos.y - startPoint.second;
 
 	int col = static_cast<int>(relativeX / _cellSize);
-    int row = static_cast<int>(relativeY / _cellSize);
+	int row = static_cast<int>(relativeY / _cellSize);
 
 	if (col >= 0 && col < 19 && row >= 0 && row < 19) {
 		if (bitboard.getBit(col, row) != 0)
@@ -274,6 +290,7 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 				}
 				isStonePlaceable = true;
 				_playerJustMoved = _currentPlayer;
+				_didSuggestMove = false;
 				if (_playerJustMoved == 1)
 					_player1TotalTime += _lastMoveDuration;
 				else
@@ -283,6 +300,12 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 		}
 	}
 
+	if (aiMode == NOAIMODE && _didSuggestMove == false) {
+		_didSuggestMove = true;
+		AI ai;
+		_suggestedMove = ai.moveSuggestion(bitboard, _currentPlayer);
+	}
+	moveSuggestion(window);
 	if (_currentPlayer == 1)
 		window.draw(_firstPlayerStoneSprite);
 	else if (!_aiThreadRunning)
@@ -330,6 +353,8 @@ void    Gameplay::init() {
 	_gridAndIndexSprite.setTexture(_pageTextures[GRIDANDINDEX]);
 	_firstPlayerStoneSprite.setTexture(_stonesTextures[0]);
 	_secondPlayerStoneSprite.setTexture(_stonesTextures[1]);
+	_firstPlayerMoveSuggestionSprite.setTexture(_stonesTextures[0]);
+	_secondPlayerMoveSuggestionSprite.setTexture(_stonesTextures[1]);
 
 	_firstPlayerAvatarSprite.setPosition(167, 278);
 	_secondPlayerAvatarSprite.setPosition(1607, 278);

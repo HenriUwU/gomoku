@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:34:20 by laprieur          #+#    #+#             */
-/*   Updated: 2024/12/21 14:40:14 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:53:57 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,6 @@ enum HelpMenuState {
 	DOUBLETHREE
 };
 
-enum MoveSuggestion {
-	ENABLED,
-	DISABLED
-};
-
 enum StonesColors {
 	BLACK_WHITE,
 	GREEN_RED,
@@ -142,6 +137,7 @@ extern int										playersCaptures[2];
 extern bool										aiPlaying;
 extern bool										isStonePlaceable;
 extern bool										startTimer;
+extern bool										moveSuggestion;
 extern AIMode									aiMode;
 extern Avatar									playerOneAvatar;
 extern GameState								gameState;
@@ -149,7 +145,6 @@ extern BoardColor								boardColor;
 extern EndGameState								endGameState;
 extern StonesColors								stonesColors;
 extern HelpMenuState							helpMenuState;
-extern MoveSuggestion							moveSuggestion;
 extern ForbiddenMoves							forbiddenMoves;
 extern std::chrono::steady_clock::time_point	gameStartTime;
 
