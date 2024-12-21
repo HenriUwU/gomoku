@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:34:20 by laprieur          #+#    #+#             */
-/*   Updated: 2024/12/21 14:53:57 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:39:46 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ extern int										playersCaptures[2];
 extern bool										aiPlaying;
 extern bool										isStonePlaceable;
 extern bool										startTimer;
-extern bool										moveSuggestion;
+extern bool										moveSuggestionEnabled;
 extern AIMode									aiMode;
 extern Avatar									playerOneAvatar;
 extern GameState								gameState;

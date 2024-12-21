@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:26 by laprieur          #+#    #+#             */
-/*   Updated: 2024/12/21 16:11:25 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:57:23 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,12 +300,13 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 		}
 	}
 
-	if (aiMode == NOAIMODE && _didSuggestMove == false) {
+	if (moveSuggestionEnabled == true && aiMode == NOAIMODE && _didSuggestMove == false) {
 		_didSuggestMove = true;
 		AI ai;
 		_suggestedMove = ai.moveSuggestion(bitboard, _currentPlayer);
 	}
-	moveSuggestion(window);
+	if (moveSuggestionEnabled == true)
+		moveSuggestion(window);
 	if (_currentPlayer == 1)
 		window.draw(_firstPlayerStoneSprite);
 	else if (!_aiThreadRunning)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/16 17:32:13 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:04:04 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,16 @@ bool	Bitboard::isLegalMove(int x, int y, int player) {
 	if (isDoubleThree(x, y, player) && !isCapturingMove(x, y, player)) {
 		if (!aiPlaying)
 			forbiddenMoves = DOUBLE_THREE;
+		return (false);
+	}
+	return (true);
+}
+
+bool    Bitboard::isLegalMoveForAI(int x, int y, int player) {
+	if (getBit(x, y))
+		return (false);
+
+	if (isDoubleThree(x, y, player) && !isCapturingMove(x, y, player)) {
 		return (false);
 	}
 	return (true);

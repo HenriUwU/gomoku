@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/16 14:50:45 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:04:49 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ class Bitboard {
 
 		bool		placeStone(int x, int y, int player);
 		bool		isLegalMove(int x, int y, int player);
+        bool        isLegalMoveForAI(int x, int y, int player);
+        
 		bool		isDoubleThree(int x, int y, int player);
 		bool		fiveInARow(int x, int y, int player);
 		bool		fiveInARowHorizontal(int x, int y, int player);

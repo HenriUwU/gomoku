@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/12/21 14:55:52 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:40:25 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ SettingsMenu::~SettingsMenu() {}
 void	SettingsMenu::display(sf::RenderWindow& window) {
 	handleAiMode(window);
 
-	if (moveSuggestion == true)
+	if (moveSuggestionEnabled == true)
 		_switchButtonSprite.setTexture(_pageTextures[SWITCHONBUTTON]);
 	else
 		_switchButtonSprite.setTexture(_pageTextures[SWITCHOFFBUTTON]);
@@ -73,10 +73,10 @@ void	SettingsMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& wi
 
 	if (_switchButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
-			if (moveSuggestion == true)
-				moveSuggestion = false;
+			if (moveSuggestionEnabled == true)
+				moveSuggestionEnabled = false;
 			else
-				moveSuggestion = true;
+				moveSuggestionEnabled = true;
 		}
 	}
 }
