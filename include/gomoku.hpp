@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gomoku.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:34:20 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/09 19:18:23 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:40:14 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ struct pair_hash {
 
 enum AIMode {
 	IMPOSSIBLE,
-	AGGRESSIVE,
-	PASSIVE,
-	DEFENSIVE,
+	CHALLENGING,
+	CRAZY,
+	EASY,
 	NOAIMODE
 };
 

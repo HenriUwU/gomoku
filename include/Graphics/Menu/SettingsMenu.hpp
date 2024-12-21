@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:05:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/08 10:23:36 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/12/21 14:38:11 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ class SettingsMenu {
 		sf::Sprite					_volumeSprites[11];
 		sf::Sprite					_switchButtonSprite;
 		sf::Sprite					_boxImpossibleAISprite;
-		sf::Sprite					_boxAggressiveAISprite;
-		sf::Sprite					_boxPassiveAISprite;
-		sf::Sprite					_boxDefensiveAISprite;
+		sf::Sprite					_boxChallengingAISprite;
+		sf::Sprite					_boxCrazyAISprite;
+		sf::Sprite					_boxEasyAISprite;
 		std::vector<sf::Texture>	_pageTextures;
 		std::vector<sf::Texture>	_volumeTextures;
 
