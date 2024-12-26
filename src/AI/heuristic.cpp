@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/16 18:36:16 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/21 11:51:02 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,8 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 	score += bitboard.checkPattern(patterns, NB_HEURISTIC_PATTERNS);
 	
 	return (score);
+}
+
+int AI::evaluatePosition(int x, int y, Bitboard &bitboard) {
+	
 }

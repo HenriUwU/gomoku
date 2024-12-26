@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/16 14:50:45 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:39:01 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ class Bitboard {
 		int			checkPattern(PatternInfo patterns[], int nbPattern) __attribute__((hot));
 		int			countAdjacentStones(int x, int y) const;
 		int 		mixArrayHash(const std::array<uint32_t, BOARD_SIZE>& arr, int prime) const;
+		int			findSinglePattern(PatternInfo pattern, int x, int y);
 
 		bool		placeStone(int x, int y, int player);
 		bool		isLegalMove(int x, int y, int player);
@@ -80,7 +81,11 @@ class Bitboard {
 		bool		diagonalCaptureInAlignment(int x, int y, int player);
 		bool		antiDiagonalCaptureInAlignment(int x, int y, int player);
 		bool		fifthCaptureAvailable();
-
+		bool		horizontalPattern(PatternInfo pattern, int x, int y, int player);
+		bool		verticalPattern(PatternInfo pattern, int x, int y, int player);
+		bool		diagonalPattern(PatternInfo pattern, int x, int y, int player);
+		bool		antiDiagonalPattern(PatternInfo pattern, int x, int y, int player);
+	
 		void		printBoard();
 		void		update(int x, int y, int player, bool add);
 		void		removeStone(int x, int y, int player);
