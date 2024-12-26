@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/16 17:32:39 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:12:36 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void	AI::play(Bitboard &bitboard) {
 	_secondPlayerNbCaptures = playersCaptures[1];
 	std::pair<int, int> move = negamax(tmp, MINIMAX_DEPTH, true, INT_MIN, INT_MAX).position;
 	bitboard.placeStone(move.first, move.second, 2);
+}
+
+std::pair<int, int> AI::moveSuggestion(Bitboard &bitboard, int player) {
+    Bitboard tmp = bitboard;
+	_firstPlayerNbCaptures = playersCaptures[0];
+	_secondPlayerNbCaptures = playersCaptures[1];
+	std::pair<int, int> move = negamax(tmp, MINIMAX_DEPTH, (player == 1) ? false : true, INT_MIN, INT_MAX).position;
+	return move;
 }
 
 Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, int beta) {

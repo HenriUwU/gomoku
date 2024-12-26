@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 14:55:24 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/08 10:27:31 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:40:25 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,40 +21,40 @@ SettingsMenu::~SettingsMenu() {}
 void	SettingsMenu::display(sf::RenderWindow& window) {
 	handleAiMode(window);
 
-	if (moveSuggestion == ENABLED)
+	if (moveSuggestionEnabled == true)
 		_switchButtonSprite.setTexture(_pageTextures[SWITCHONBUTTON]);
 	else
 		_switchButtonSprite.setTexture(_pageTextures[SWITCHOFFBUTTON]);
 
 	if (aiMode == IMPOSSIBLE) {
 		_boxImpossibleAISprite.setTexture(_pageTextures[CHECKEDBOX]);
-		_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
-		_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
-		_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
-	} else if (aiMode == PASSIVE) {
-		_boxAggressiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+		_boxChallengingAISprite.setTexture(_pageTextures[BOX]);
+		_boxCrazyAISprite.setTexture(_pageTextures[BOX]);
+		_boxEasyAISprite.setTexture(_pageTextures[BOX]);
+	} else if (aiMode == CRAZY) {
+		_boxChallengingAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
-		_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
-		_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
-	} else if (aiMode == AGGRESSIVE) {
-		_boxPassiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
-		_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
-		_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxCrazyAISprite.setTexture(_pageTextures[BOX]);
+		_boxEasyAISprite.setTexture(_pageTextures[BOX]);
+	} else if (aiMode == CHALLENGING) {
+		_boxCrazyAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+		_boxEasyAISprite.setTexture(_pageTextures[BOX]);
+		_boxChallengingAISprite.setTexture(_pageTextures[BOX]);
 		_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
-	} else if (aiMode == DEFENSIVE) {
-		_boxDefensiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+	} else if (aiMode == EASY) {
+		_boxEasyAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
-		_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
-		_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxChallengingAISprite.setTexture(_pageTextures[BOX]);
+		_boxCrazyAISprite.setTexture(_pageTextures[BOX]);
 	}
 
 	window.draw(_settingsMenuSprite);
 	window.draw(_backwardButtonSprite);
 	window.draw(_switchButtonSprite);
 	window.draw(_boxImpossibleAISprite);
-	window.draw(_boxAggressiveAISprite);
-	window.draw(_boxPassiveAISprite);
-	window.draw(_boxDefensiveAISprite);
+	window.draw(_boxChallengingAISprite);
+	window.draw(_boxCrazyAISprite);
+	window.draw(_boxEasyAISprite);
 	window.draw(_volumeSprites[_currentVolumeLevel]);
 }
 
@@ -73,10 +73,10 @@ void	SettingsMenu::handleKeys(const sf::Event& event, const sf::RenderWindow& wi
 
 	if (_switchButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
-			if (moveSuggestion == ENABLED)
-				moveSuggestion = DISABLED;
+			if (moveSuggestionEnabled == true)
+				moveSuggestionEnabled = false;
 			else
-				moveSuggestion = ENABLED;
+				moveSuggestionEnabled = true;
 		}
 	}
 }
@@ -115,26 +115,26 @@ void	SettingsMenu::handleAiMode(const sf::RenderWindow& window) {
 			_boxImpossibleAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = IMPOSSIBLE;
-	} else if (_boxAggressiveAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+	} else if (_boxChallengingAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_boxAggressiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+			_boxChallengingAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			aiMode = PASSIVE;
-	} else if (_boxPassiveAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+			aiMode = CRAZY;
+	} else if (_boxCrazyAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_boxPassiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+			_boxCrazyAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			aiMode = AGGRESSIVE;
-	} else if (_boxDefensiveAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
+			aiMode = CHALLENGING;
+	} else if (_boxEasyAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 		if (aiMode == NOAIMODE)
-			_boxDefensiveAISprite.setTexture(_pageTextures[CHECKEDBOX]);
+			_boxEasyAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			aiMode = DEFENSIVE;
+			aiMode = EASY;
 	} else if (aiMode == NOAIMODE) {
 		_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
-		_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
-		_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
-		_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
+		_boxChallengingAISprite.setTexture(_pageTextures[BOX]);
+		_boxCrazyAISprite.setTexture(_pageTextures[BOX]);
+		_boxEasyAISprite.setTexture(_pageTextures[BOX]);
 	}
 }
 
@@ -160,14 +160,14 @@ void	SettingsMenu::init() {
 	_settingsMenuSprite.setTexture(_pageTextures[PAGE]);
 	_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
-	_boxAggressiveAISprite.setTexture(_pageTextures[BOX]);
-	_boxPassiveAISprite.setTexture(_pageTextures[BOX]);
-	_boxDefensiveAISprite.setTexture(_pageTextures[BOX]);
+	_boxChallengingAISprite.setTexture(_pageTextures[BOX]);
+	_boxCrazyAISprite.setTexture(_pageTextures[BOX]);
+	_boxEasyAISprite.setTexture(_pageTextures[BOX]);
 
 	_backwardButtonSprite.setPosition(100, 104);
 	_switchButtonSprite.setPosition(890, 582);
 	_boxImpossibleAISprite.setPosition(683, 724);
-	_boxAggressiveAISprite.setPosition(683, 810);
-	_boxPassiveAISprite.setPosition(990, 723);
-	_boxDefensiveAISprite.setPosition(990, 810);
+	_boxChallengingAISprite.setPosition(683, 810);
+	_boxCrazyAISprite.setPosition(1030, 723);
+	_boxEasyAISprite.setPosition(1030, 810);
 }

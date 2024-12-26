@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/05 15:37:58 by hsebille          #+#    #+#             */
-/*   Updated: 2024/12/26 15:39:01 by hsebille         ###   ########.fr       */
+/*   Created: 2024/12/26 15:40:43 by hsebille          #+#    #+#             */
+/*   Updated: 2024/12/26 15:40:44 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ class Bitboard {
 
 		bool		placeStone(int x, int y, int player);
 		bool		isLegalMove(int x, int y, int player);
+        bool        isLegalMoveForAI(int x, int y, int player);
+        
 		bool		isDoubleThree(int x, int y, int player);
 		bool		fiveInARow(int x, int y, int player);
 		bool		fiveInARowHorizontal(int x, int y, int player);

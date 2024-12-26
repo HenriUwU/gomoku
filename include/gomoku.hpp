@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gomoku.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:34:20 by laprieur          #+#    #+#             */
-/*   Updated: 2024/11/09 19:18:23 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:39:46 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ struct pair_hash {
 
 enum AIMode {
 	IMPOSSIBLE,
-	AGGRESSIVE,
-	PASSIVE,
-	DEFENSIVE,
+	CHALLENGING,
+	CRAZY,
+	EASY,
 	NOAIMODE
 };
 
@@ -107,11 +107,6 @@ enum HelpMenuState {
 	DOUBLETHREE
 };
 
-enum MoveSuggestion {
-	ENABLED,
-	DISABLED
-};
-
 enum StonesColors {
 	BLACK_WHITE,
 	GREEN_RED,
@@ -142,6 +137,7 @@ extern int										playersCaptures[2];
 extern bool										aiPlaying;
 extern bool										isStonePlaceable;
 extern bool										startTimer;
+extern bool										moveSuggestionEnabled;
 extern AIMode									aiMode;
 extern Avatar									playerOneAvatar;
 extern GameState								gameState;
@@ -149,7 +145,6 @@ extern BoardColor								boardColor;
 extern EndGameState								endGameState;
 extern StonesColors								stonesColors;
 extern HelpMenuState							helpMenuState;
-extern MoveSuggestion							moveSuggestion;
 extern ForbiddenMoves							forbiddenMoves;
 extern std::chrono::steady_clock::time_point	gameStartTime;
 

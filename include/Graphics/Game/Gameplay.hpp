@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:33:07 by laprieur          #+#    #+#             */
-/*   Updated: 2024/09/09 10:44:33 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:07:30 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ class Gameplay {
 	private:
 		int										_playerJustMoved;
 		bool									_isFirstMove;
+    	bool									_didSuggestMove;
 		float									_cellSize;
 		sf::Font								_font;
 		sf::Sprite								_firstPlayerAvatarSprite;
@@ -55,6 +56,8 @@ class Gameplay {
 		sf::Sprite								_gamePageSprite;
 		sf::Sprite								_firstPlayerStoneSprite;
 		sf::Sprite								_secondPlayerStoneSprite;
+		sf::Sprite								_firstPlayerMoveSuggestionSprite;
+		sf::Sprite								_secondPlayerMoveSuggestionSprite;
 		sf::Sprite								_popupSprite;
 		sf::Sprite								_popupMainMenuButtonSprite;
 		sf::Sprite								_popupPlayAgainButtonSprite;
@@ -63,6 +66,7 @@ class Gameplay {
 		std::atomic<bool>						_isAIPlaying{true};
 		std::atomic<bool>						_aiThreadRunning{false};
 		std::atomic<bool>						_stopAITimer{false};
+		std::pair<int, int>						_suggestedMove;
 		std::vector<sf::Text>					_player1Stats;
 		std::vector<sf::Text>					_player2Stats;
 		std::vector<sf::Texture>				_pageTextures;
@@ -89,6 +93,7 @@ class Gameplay {
 		void	defineStones();
 		void	defineAvatars();
 		void	defineBoard();
+		void	moveSuggestion(sf::RenderWindow& window);
 		void	mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isAIPlaying);
 		void	AITurn(Bitboard& bitboard);
 };

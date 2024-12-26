@@ -6,26 +6,26 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:28:37 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/08 10:28:36 by laprieur         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:39:20 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gomoku.hpp"
 
-int										musicVolume			= 100;
-int										playersCaptures[2]	= {0, 0};
-bool									aiPlaying			= false;
-bool									isStonePlaceable	= false;
-bool									startTimer			= false;
-AIMode									aiMode				= NOAIMODE;
-Avatar									playerOneAvatar		= NOAVATAR;
-GameState								gameState			= MENU;
-BoardColor								boardColor			= NOBOARD;
-EndGameState							endGameState		= NOVICTORY;
-StonesColors							stonesColors		= NOSTONESCOLORS;
-HelpMenuState							helpMenuState		= RULES;
-MoveSuggestion							moveSuggestion		= ENABLED;
-ForbiddenMoves							forbiddenMoves		= NOFORBIDDENMOVE;
+int										musicVolume				= 100;
+int										playersCaptures[2]		= {0, 0};
+bool									aiPlaying				= false;
+bool									isStonePlaceable		= false;
+bool									startTimer				= false;
+bool									moveSuggestionEnabled   = true;
+AIMode									aiMode					= NOAIMODE;
+Avatar									playerOneAvatar			= NOAVATAR;
+GameState								gameState				= MENU;
+BoardColor								boardColor				= NOBOARD;
+EndGameState							endGameState			= NOVICTORY;
+StonesColors							stonesColors			= NOSTONESCOLORS;
+HelpMenuState							helpMenuState			= RULES;
+ForbiddenMoves							forbiddenMoves			= NOFORBIDDENMOVE;
 std::chrono::steady_clock::time_point	gameStartTime;
 
 int main() {
