@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:41:12 by hsebille          #+#    #+#             */
-/*   Updated: 2024/12/26 15:39:29 by hsebille         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:42:29 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ bool Bitboard::verticalPattern(PatternInfo pattern, int x, int y, int player) {
 }
 
 bool Bitboard::diagonalPattern(PatternInfo pattern, int x, int y, int player) {
-	int boardSide = (x < y + 1) ? 1 : 2;
+	// int boardSide = (x < y + 1) ? 1 : 2;
 	int yRotated = rotateY45(x, y);
 	uint32_t pBitboard = (player == 1) ? _firstPlayerBoardDiagonals[yRotated] : _secondPlayerBoardDiagonals[yRotated];	
 	uint32_t oBitboard = (player == 1) ? _secondPlayerBoardDiagonals[yRotated] : _firstPlayerBoardDiagonals[yRotated];
@@ -124,7 +124,7 @@ bool Bitboard::diagonalPattern(PatternInfo pattern, int x, int y, int player) {
 }
 
 bool Bitboard::antiDiagonalPattern(PatternInfo pattern, int x, int y, int player) {
-	int boardSide = (x < BOARD_SIZE - y) ? 1 : 2;
+	// int boardSide = (x < BOARD_SIZE - y) ? 1 : 2;
 	int yRotated = rotateY315(x, y);
 	uint32_t pBitboard = (player == 1) ? _firstPlayerBoardAntiDiagonals[yRotated] : _secondPlayerBoardAntiDiagonals[yRotated];	
 	uint32_t oBitboard = (player == 1) ? _secondPlayerBoardAntiDiagonals[yRotated] : _firstPlayerBoardAntiDiagonals[yRotated];
