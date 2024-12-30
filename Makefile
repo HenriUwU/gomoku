@@ -29,6 +29,7 @@ SRC				:=	src/main.cpp									\
 					src/Graphics/Game/Bitboard_victory.cpp			\
 					src/Graphics/Game/Bitboard.cpp					\
 					src/Graphics/Game/Gameplay.cpp					\
+					src/Graphics/Game/Gameplay_utils.cpp			\
 					src/Graphics/Menu/CustomMenu.cpp				\
 					src/Graphics/Menu/HelpMenu.cpp					\
 					src/Graphics/Menu/MainMenu.cpp					\

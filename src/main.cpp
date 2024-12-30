@@ -77,7 +77,7 @@ int main() {
 				gameplay.display(event, window, bitboard);
 				if (forbiddenMoves == NOFORBIDDENMOVE && endGameState == NOVICTORY && endGameState != SEEGAMESTATE)
 					gameplay.mouseHover(window, bitboard, false);
-				break;
+				break; 
 			case AIVERSUS:
 				if (!startTimer) {
 					startTimer = true;
