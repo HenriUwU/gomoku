@@ -22,21 +22,21 @@ SRC				:=	src/main.cpp									\
 					src/AI/ThreadPool.cpp							\
 					src/AI/AI_utils.cpp								\
 					src/Graphics/GIF/AnimatedGIF.cpp				\
-					src/Graphics/Game/Bitboard_captures.cpp			\
-					src/Graphics/Game/Bitboard_double-three.cpp		\
-					src/Graphics/Game/Bitboard_patterns.cpp			\
-					src/Graphics/Game/Bitboard_utils.cpp			\
-					src/Graphics/Game/Bitboard_victory.cpp			\
+					src/Graphics/Game/BitboardCaptures.cpp			\
+					src/Graphics/Game/BitboardDoubleThree.cpp		\
+					src/Graphics/Game/BitboardPatterns.cpp			\
+					src/Graphics/Game/BitboardUtils.cpp				\
+					src/Graphics/Game/BitboardVictory.cpp			\
+					src/Graphics/Game/BitboardGenerateMoves.cpp		\
 					src/Graphics/Game/Bitboard.cpp					\
 					src/Graphics/Game/Gameplay.cpp					\
-					src/Graphics/Game/Gameplay_utils.cpp			\
+					src/Graphics/Game/GameplayUtils.cpp				\
 					src/Graphics/Menu/CustomMenu.cpp				\
 					src/Graphics/Menu/HelpMenu.cpp					\
 					src/Graphics/Menu/MainMenu.cpp					\
 					src/Graphics/Menu/SettingsMenu.cpp				\
 					src/Graphics/Utils.cpp							\
 					src/Music/Music.cpp								\
-					src/Graphics/Game/Bitboard_generate_moves.cpp	\
 				
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)

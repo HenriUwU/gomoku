@@ -16,10 +16,7 @@ Gameplay::Gameplay() : _playerJustMoved(0), _isFirstMove(true), _didSuggestMove(
 	init();
 }
 
-Gameplay::~Gameplay() {
-	if (_aiThread.joinable())
-		_aiThread.join();
-}
+Gameplay::~Gameplay() { }
 
 void	Gameplay::moveSuggestion(sf::RenderWindow& window) {
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
@@ -37,7 +34,7 @@ void	Gameplay::moveSuggestion(sf::RenderWindow& window) {
 	}
 }
 
-void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard) {
+void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard) {
 	float cellSize = 48;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
 
@@ -53,7 +50,6 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard) {
 	_secondPlayerStoneSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
 
 	sf::Vector2i stonePos(nearestIntersection.x, nearestIntersection.y);
-
 	sf::Vector2f worldPos = window.mapPixelToCoords(stonePos);
 		
 	float relativeX = worldPos.x - startPoint.first;
@@ -61,11 +57,6 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard) {
 
 	int col = static_cast<int>(relativeX / _cellSize);
 	int row = static_cast<int>(relativeY / _cellSize);
-
-	if (col >= 0 && col < 19 && row >= 0 && row < 19) {
-		if (bitboard.getBit(col, row) != 0)
-			return ;
-	}
 	
 	if (_isFirstMove) {
 		if (gameState == AIVERSUS)
@@ -80,22 +71,22 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard) {
 		_stopAITimer = false;
 		_aiThreadRunning = true;
 		aiPlaying = true;
-		_aiThread = std::thread(&Gameplay::AITurn, this, std::ref(bitboard));
-		if (_aiThread.joinable()) {
-			_aiThread.join();
-		}
+
+		std::thread([this, &bitboard]() {
+			this->AITurn(bitboard);
+			_aiThreadRunning = false;
+		}).detach();
 	}
 	
 	if (!isStonePlaceable && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		if (col >= 0 && col < 19 && row >= 0 && row < 19) {
-			PatternInfo pattern = {0b0110, 0b1001, 5, 1, 1};
+			// PatternInfo pattern = {0b0110, 0b1001, 5, 1, 1};
 
-			if (bitboard.findSinglePattern(pattern, col, row)) {
-				std::cout << "Wallah il a trouvé le pattern." << std::endl;
-			}
+			// if (bitboard.findSinglePattern(pattern, col, row)) {
+			// 	std::cout << "Wallah il a trouvé le pattern." << std::endl;
+			// }
 
-			if ((_currentPlayer == 1 && bitboard.placeStone(col, row, _currentPlayer))
-			|| (gameState != AIVERSUS && bitboard.placeStone(col, row, _currentPlayer))) {
+			if ((_currentPlayer == 1 && bitboard.placeStone(col, row, _currentPlayer)) || (gameState != AIVERSUS && bitboard.placeStone(col, row, _currentPlayer))) {
 				if (_isFirstMove) {
 					_isFirstMove = false;
 					_moveStartTime = std::chrono::steady_clock::now();
@@ -105,6 +96,7 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard) {
 					_lastMoveDuration = _moveEndTime - _moveStartTime;
 					_moveStartTime = _moveEndTime;
 				}
+
 				isStonePlaceable = true;
 				_playerJustMoved = _currentPlayer;
 				_didSuggestMove = false;
@@ -124,9 +116,10 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard) {
 	}
 	if (moveSuggestionEnabled == true && gameState != AIVERSUS && _didSuggestMove == true)
 		moveSuggestion(window);
-	if (_currentPlayer == 1)
+		
+	if (_currentPlayer == 1 && !bitboard.getBit(col, row))
 		window.draw(_firstPlayerStoneSprite);
-	else if (!_aiThreadRunning)
+	else if (gameState != AIVERSUS && !bitboard.getBit(col, row))
 		window.draw(_secondPlayerStoneSprite);
 }
 

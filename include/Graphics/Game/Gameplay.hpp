@@ -80,20 +80,22 @@ class Gameplay {
 		std::chrono::steady_clock::time_point	_moveStartTime;
 		std::chrono::steady_clock::time_point	_moveEndTime;
 
-	public:
-		Gameplay();
-		~Gameplay();
-
 		void	init();
-		void	display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	returnButton(const sf::Event& event, const sf::RenderWindow& window, Bitboard& bitboard);
+		void	resetGame(Bitboard& bitboard);
+		void	AITurn(Bitboard& bitboard);
 		void	statistics();
-		void	popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	drawStones(sf::RenderWindow& window, const Bitboard& bitboard);
 		void	defineStones();
 		void	defineAvatars();
 		void	defineBoard();
+		void	popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	moveSuggestion(sf::RenderWindow& window);
-		void	mouseHover(sf::RenderWindow& window, Bitboard& bitboard);
-		void	AITurn(Bitboard& bitboard);
+
+	public:
+		Gameplay();
+		~Gameplay();
+
+		void	display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
+		void	play(sf::RenderWindow& window, Bitboard& bitboard);
 };

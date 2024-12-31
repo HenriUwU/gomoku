@@ -26,6 +26,23 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboar
 	popUp(event, window, bitboard);
 }
 
+void Gameplay::resetGame(Bitboard& bitboard) {
+	endGameState = NOVICTORY;
+	std::fill(playersCaptures, playersCaptures + 2, 0);
+	bitboard.clear();
+	_player1TotalTime = std::chrono::milliseconds::zero();
+	_player2TotalTime = std::chrono::milliseconds::zero();
+	_lastMoveDuration = std::chrono::milliseconds::zero();
+	setStatistics(_player1Stats, _font, 1);
+	setStatistics(_player2Stats, _font, 2);
+	startTimer = false;
+	_isFirstMove = true;
+	_moveStartTime = std::chrono::steady_clock::now();
+	_playerJustMoved = 0;
+	_aiThreadRunning = false;
+	aiPlaying = false;
+}
+
 void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& window, Bitboard& bitboard) {
 	if (event.type == sf::Event::MouseMoved) {
 		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
@@ -36,18 +53,7 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 	if (event.type == sf::Event::MouseButtonPressed)
 		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
 			gameState = MENU;
-			endGameState = NOVICTORY;
-			std::fill(playersCaptures, playersCaptures + 2, 0);
-			bitboard.clear();
-			_player1TotalTime = std::chrono::milliseconds::zero();
-			_player2TotalTime = std::chrono::milliseconds::zero();
-			_lastMoveDuration = std::chrono::milliseconds::zero();
-			setStatistics(_player1Stats, _font, 1);
-			setStatistics(_player2Stats, _font, 2);
-			startTimer = false;
-			_isFirstMove = true;
-			_moveStartTime = std::chrono::steady_clock::now();
-			_playerJustMoved = 0;
+			resetGame(bitboard);
 		}
 }
 

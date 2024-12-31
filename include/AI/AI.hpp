@@ -17,7 +17,8 @@
 class Bitboard;
 
 #define MINIMAX_DEPTH 10
-#define MAX_TESTED_MOVES 6
+#define MAX_TESTED_MOVES 10
+#define MOVE_SUGGESTION_DEPTH 6
 #define NB_HEURISTIC_PATTERNS 18
 
 struct Move {
