@@ -26,6 +26,30 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboar
 	popUp(event, window, bitboard);
 }
 
+std::pair<int, int> Gameplay::calculatePosition(sf::RenderWindow& window) {
+	float cellSize = 48;
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+	if (mousePosition.x > GRIDSTARTPOINT_X + GRIDPIXELSIZE || mousePosition.x < GRIDSTARTPOINT_X
+		|| mousePosition.y > GRIDSTARTPOINT_Y + GRIDPIXELSIZE || mousePosition.y < GRIDSTARTPOINT_Y)
+		return std::make_pair(-1, -1);
+	
+	float xIndex = std::round((mousePosition.x - GRIDSTARTPOINT_X) / cellSize);
+	float yIndex = std::round((mousePosition.y - GRIDSTARTPOINT_Y) / cellSize);
+
+	sf::Vector2f nearestIntersection(GRIDSTARTPOINT_X + xIndex * cellSize, GRIDSTARTPOINT_Y + yIndex * cellSize);
+	_firstPlayerStoneSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+	_secondPlayerStoneSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+
+	sf::Vector2i stonePos(nearestIntersection.x, nearestIntersection.y);
+		
+	float relativeX = stonePos.x - GRIDSTARTPOINT_X;
+	float relativeY = stonePos.y - GRIDSTARTPOINT_Y;
+
+	int col = static_cast<int>(relativeX / cellSize);
+	int row = static_cast<int>(relativeY / cellSize);
+	return std::make_pair(col, row);
+}
+
 void Gameplay::resetGame(Bitboard& bitboard) {
 	endGameState = NOVICTORY;
 	std::fill(playersCaptures, playersCaptures + 2, 0);

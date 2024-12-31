@@ -42,6 +42,11 @@ enum Statistics {
 class Bitboard;
 class AI;
 
+#define GRIDPIXELSIZE 868
+#define GRIDSTARTPOINT_X 527
+#define GRIDSTARTPOINT_Y 50
+#define CELLPIXELSIZE 48
+
 class Gameplay {
 	private:
 		int										_playerJustMoved;
@@ -91,8 +96,8 @@ class Gameplay {
 		void	popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	moveSuggestion(sf::RenderWindow& window);
 
-		std::pair<int,int>	suggestMove(Bitboard& bitboard, AI& ai);
-
+		std::pair<int,int>	calculatePosition(sf::RenderWindow& window);
+		
 	public:
 		Gameplay();
 		~Gameplay();
