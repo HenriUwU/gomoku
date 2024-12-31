@@ -21,16 +21,12 @@ Gameplay::~Gameplay() { }
 void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 	std::pair<int, int> position = calculatePosition(window);
 	
-	if (_isFirstMove) {
-		if (gameState == AIVERSUS)
-			_currentPlayer = 2;
-		else
-			_currentPlayer = 1;
-		setStatistics(_player1Stats, _font, 1);
-		setStatistics(_player2Stats, _font, 2);
-	}
+	if (_isFirstMove && gameState == AIVERSUS)
+		_currentPlayer = 2;
+	else if (_isFirstMove && gameState != AIVERSUS)
+		_currentPlayer = 1;
+
 	if (gameState == AIVERSUS && !bitboard.isGameOver() && _currentPlayer == 2 && !aiPlaying) {
-		_stopAITimer = false;
 		aiPlaying = true;
 
 		std::thread([this, &bitboard, &ai]() {
@@ -39,7 +35,7 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 	}
 	
 	if (!isStonePlaceable && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-		if (position.first >= 0 && position.first < 19 && position.second >= 0 && position.second < 19) {
+		if (position.first != -1 && position.second != -1) {
 			// PatternInfo pattern = {0b0110, 0b1001, 5, 1, 1};
 
 			// if (bitboard.findSinglePattern(pattern, col, position.second)) {

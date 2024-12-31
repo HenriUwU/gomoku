@@ -69,7 +69,6 @@ class Gameplay {
 		sf::Sprite								_popupPlayAgainButtonSprite;
 		std::atomic<int>						_currentPlayer{1};
 		std::atomic<bool>						_isAIPlaying{true};
-		std::atomic<bool>						_stopAITimer{false};
 		std::pair<int, int>						_suggestedMove;
 		std::vector<sf::Text>					_player1Stats;
 		std::vector<sf::Text>					_player2Stats;
