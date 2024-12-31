@@ -15,7 +15,6 @@
 int										musicVolume				= 100;
 int										playersCaptures[2]		= {0, 0};
 bool									aiPlaying				= false;
-bool									isStonePlaceable		= false;
 bool									startTimer				= false;
 bool									moveSuggestionEnabled   = true;
 AIMode									aiMode					= NOAIMODE;
@@ -52,8 +51,6 @@ int main() {
 	while (window.isOpen()) {
 		window.clear();
 		while (window.pollEvent(event)) {
-			if ((gameState == GAME || gameState == AIVERSUS) && isStonePlaceable && event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
-				isStonePlaceable = false;
 			mainMenu.handleKeys(event, window);
 			customMenu.handleKeys(event, window);
 			settingsMenu.handleKeys(event, window);

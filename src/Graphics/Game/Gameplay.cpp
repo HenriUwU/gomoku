@@ -34,43 +34,38 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 		}).detach();
 	}
 	
-	if (!isStonePlaceable && sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-		if (position.first != -1 && position.second != -1) {
-			// PatternInfo pattern = {0b0110, 0b1001, 5, 1, 1};
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && position.first != -1 && position.second != -1) {
+		if (!bitboard.isLegalMove(position.first, position.second, _currentPlayer))
+			return;
+		bitboard.placeStone(position.first, position.second, _currentPlayer);
 
-			// if (bitboard.findSinglePattern(pattern, col, position.second)) {
-			// 	std::cout << "Wallah il a trouvé le pattern." << std::endl;
-			// }
-
-			if ((_currentPlayer == 1 && bitboard.placeStone(position.first, position.second, _currentPlayer)) || (gameState != AIVERSUS && bitboard.placeStone(position.first, position.second, _currentPlayer))) {
-				if (_isFirstMove) {
-					_isFirstMove = false;
-					_moveStartTime = std::chrono::steady_clock::now();
-					_lastMoveDuration = _moveStartTime - gameStartTime;
-				} else {
-					_moveEndTime = std::chrono::steady_clock::now();
-					_lastMoveDuration = _moveEndTime - _moveStartTime;
-					_moveStartTime = _moveEndTime;
-				}
-
-				isStonePlaceable = true;
-				_playerJustMoved = _currentPlayer;
-				_didSuggestMove = false;
-				if (_playerJustMoved == 1)
-					_player1TotalTime += _lastMoveDuration;
-				else
-					_player2TotalTime += _lastMoveDuration;
-				_currentPlayer = (_currentPlayer == 1) ? 2 : 1;
-			}
+		if (_isFirstMove) {
+			_isFirstMove = false;
+			_moveStartTime = std::chrono::steady_clock::now();
+			_lastMoveDuration = _moveStartTime - gameStartTime;
+		} else {
+			_moveEndTime = std::chrono::steady_clock::now();
+			_lastMoveDuration = _moveEndTime - _moveStartTime;
+			_moveStartTime = _moveEndTime;
 		}
+
+		if (_currentPlayer == 1)
+			_player1TotalTime += _lastMoveDuration;
+		if (_currentPlayer == 2)
+			_player2TotalTime += _lastMoveDuration;
+		_didSuggestMove = false;
+		_playerJustMoved = _currentPlayer;
+		_currentPlayer = (_currentPlayer == 1) ? 2 : 1;
 	}
 
-	if (moveSuggestionEnabled == true && gameState != AIVERSUS && _didSuggestMove == false) {
-		_suggestedMove = ai.moveSuggestion(bitboard, _currentPlayer);
-		_didSuggestMove = true;
+	if (moveSuggestionEnabled) {
+		if (gameState != AIVERSUS && _didSuggestMove == false) {
+			_suggestedMove = ai.moveSuggestion(bitboard, _currentPlayer);
+			_didSuggestMove = true;
+		}
+		if (gameState != AIVERSUS && _didSuggestMove == true)
+			moveSuggestion(window);
 	}
-	if (moveSuggestionEnabled == true && gameState != AIVERSUS && _didSuggestMove == true)
-		moveSuggestion(window);
 
 	if (_currentPlayer == 1 && !bitboard.getBit(position.first, position.second))
 		window.draw(_firstPlayerStoneSprite);

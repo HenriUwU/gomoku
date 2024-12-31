@@ -135,7 +135,6 @@ enum EndGameState {
 extern int										musicVolume;
 extern int										playersCaptures[2];
 extern bool										aiPlaying;
-extern bool										isStonePlaceable;
 extern bool										startTimer;
 extern bool										moveSuggestionEnabled;
 extern AIMode									aiMode;
