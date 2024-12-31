@@ -17,7 +17,7 @@
 class Bitboard;
 
 #define MINIMAX_DEPTH 10
-#define MAX_TESTED_MOVES 10
+#define MAX_TESTED_MOVES 6
 #define MOVE_SUGGESTION_DEPTH 4
 #define NB_HEURISTIC_PATTERNS 18
 

@@ -56,8 +56,11 @@ int main() {
 			settingsMenu.handleKeys(event, window);
 			settingsMenu.handleVolume(event, window, music);
 			helpMenu.handleKeys(event, window);
-			if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape))
+			if ((event.type == sf::Event::Closed && !aiPlaying) || (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape && !aiPlaying)) {
+				gameplay.setClosingApp(true);
+				std::this_thread::sleep_for(std::chrono::milliseconds(100));
 				window.close();
+			}
 		}   
 		sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 		cursorSprite.setPosition(mousePos.x, mousePos.y);

@@ -69,6 +69,7 @@ class Gameplay {
 		sf::Sprite								_popupPlayAgainButtonSprite;
 		std::atomic<int>						_currentPlayer{1};
 		std::atomic<bool>						_isAIPlaying{true};
+		std::atomic<bool>						_closingApp{false};
 		std::pair<int, int>						_suggestedMove;
 		std::vector<sf::Text>					_player1Stats;
 		std::vector<sf::Text>					_player2Stats;
@@ -103,4 +104,6 @@ class Gameplay {
 
 		void	display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai);
+
+		void	setClosingApp(bool closingApp) { _closingApp = closingApp; }
 };

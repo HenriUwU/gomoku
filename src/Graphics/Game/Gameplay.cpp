@@ -35,8 +35,9 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 	}
 	
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && position.first != -1 && position.second != -1) {
-		if (!bitboard.isLegalMove(position.first, position.second, _currentPlayer))
+		if (!bitboard.isLegalMove(position.first, position.second, _currentPlayer) || (aiPlaying && _currentPlayer == 2))
 			return;
+			
 		bitboard.placeStone(position.first, position.second, _currentPlayer);
 
 		if (_isFirstMove) {
@@ -75,6 +76,9 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 
 void	Gameplay::AITurn(Bitboard& bitboard, AI& ai) {
 	if (aiPlaying) {
+		if (_closingApp)
+			return;
+
 		ai.play(bitboard);
 		if (_isFirstMove) {
 			_isFirstMove = false;

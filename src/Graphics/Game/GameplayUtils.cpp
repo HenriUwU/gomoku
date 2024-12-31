@@ -73,7 +73,7 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 		else
 			_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	}
-	if (event.type == sf::Event::MouseButtonPressed)
+	if (!aiPlaying && event.type == sf::Event::MouseButtonPressed)
 		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
 			gameState = MENU;
 			resetGame(bitboard);
@@ -115,6 +115,7 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	if (endGameState != NOVICTORY) {
+		aiPlaying = false;
 		if (_popupMainMenuButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 			_popupMainMenuButtonSprite.setTexture(_popupTextures[MAINMENUHOVEREDBUTTON]);
 			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
