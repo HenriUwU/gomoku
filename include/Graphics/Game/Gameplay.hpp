@@ -45,7 +45,7 @@ class AI;
 #define GRIDPIXELSIZE 868
 #define GRIDSTARTPOINT_X 527
 #define GRIDSTARTPOINT_Y 50
-#define CELLPIXELSIZE 48
+#define CELLPIXELSIZE (float)48
 
 class Gameplay {
 	private:
