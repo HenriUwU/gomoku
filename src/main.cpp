@@ -39,6 +39,7 @@ int main() {
 	Music				music;
 	Gameplay			gameplay;
 	Bitboard			bitboard;
+	AI					ai;
 
 	if (!cursorTexture.loadFromFile("assets/images/icons/cursor.png")) {
 		std::cerr << "Error: could not load cursor texture." << std::endl;
@@ -76,7 +77,7 @@ int main() {
 				}
 				gameplay.display(event, window, bitboard);
 				if (forbiddenMoves == NOFORBIDDENMOVE && endGameState == NOVICTORY && endGameState != SEEGAMESTATE)
-					gameplay.play(window, bitboard);
+					gameplay.play(window, bitboard, ai);
 				break; 
 			case AIVERSUS:
 				if (!startTimer) {
@@ -85,7 +86,7 @@ int main() {
 				}
 				gameplay.display(event, window, bitboard);
 				if (forbiddenMoves == NOFORBIDDENMOVE && endGameState == NOVICTORY && endGameState != SEEGAMESTATE)
-					gameplay.play(window, bitboard);
+					gameplay.play(window, bitboard, ai);
 				break;
 			case CUSTOM:
 				customMenu.display(window);

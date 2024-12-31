@@ -40,6 +40,7 @@ enum Statistics {
 };
 
 class Bitboard;
+class AI;
 
 class Gameplay {
 	private:
@@ -61,10 +62,8 @@ class Gameplay {
 		sf::Sprite								_popupSprite;
 		sf::Sprite								_popupMainMenuButtonSprite;
 		sf::Sprite								_popupPlayAgainButtonSprite;
-		std::thread								_aiThread;
 		std::atomic<int>						_currentPlayer{1};
 		std::atomic<bool>						_isAIPlaying{true};
-		std::atomic<bool>						_aiThreadRunning{false};
 		std::atomic<bool>						_stopAITimer{false};
 		std::pair<int, int>						_suggestedMove;
 		std::vector<sf::Text>					_player1Stats;
@@ -83,7 +82,7 @@ class Gameplay {
 		void	init();
 		void	returnButton(const sf::Event& event, const sf::RenderWindow& window, Bitboard& bitboard);
 		void	resetGame(Bitboard& bitboard);
-		void	AITurn(Bitboard& bitboard);
+		void	AITurn(Bitboard& bitboard, AI& ai);
 		void	statistics();
 		void	drawStones(sf::RenderWindow& window, const Bitboard& bitboard);
 		void	defineStones();
@@ -92,10 +91,12 @@ class Gameplay {
 		void	popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	moveSuggestion(sf::RenderWindow& window);
 
+		std::pair<int,int>	suggestMove(Bitboard& bitboard, AI& ai);
+
 	public:
 		Gameplay();
 		~Gameplay();
 
 		void	display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
-		void	play(sf::RenderWindow& window, Bitboard& bitboard);
+		void	play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai);
 };

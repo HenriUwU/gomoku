@@ -39,7 +39,7 @@ void Gameplay::resetGame(Bitboard& bitboard) {
 	_isFirstMove = true;
 	_moveStartTime = std::chrono::steady_clock::now();
 	_playerJustMoved = 0;
-	_aiThreadRunning = false;
+	_didSuggestMove = false;
 	aiPlaying = false;
 }
 
@@ -77,7 +77,7 @@ void	Gameplay::statistics() {
 }
 
 void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
-	if (forbiddenMoves == DOUBLE_THREE && !_aiThreadRunning)
+	if (forbiddenMoves == DOUBLE_THREE)
 		_popupSprite.setTexture(_popupTextures[FORBIDDENMOVE]);
 	else if (endGameState == P1VICTORY)
 		_popupSprite.setTexture(_popupTextures[PLAYER1VICTORY]);
@@ -86,40 +86,23 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 	else if (endGameState == AIVICTORY)
 		_popupSprite.setTexture(_popupTextures[MEGATRONVICTORY]);
 	else
-		return ;
+		return;
+
 	window.draw(_popupSprite);
-	
+
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	if (endGameState != NOVICTORY) {
 		if (_popupMainMenuButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 			_popupMainMenuButtonSprite.setTexture(_popupTextures[MAINMENUHOVEREDBUTTON]);
 			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
 				gameState = MENU;
-				endGameState = NOVICTORY;
-				bitboard.clear();
-				std::fill(playersCaptures, playersCaptures + 2, 0);
-				_player1TotalTime = std::chrono::milliseconds::zero();
-				_player2TotalTime = std::chrono::milliseconds::zero();
-				_lastMoveDuration = std::chrono::milliseconds::zero();
-				setStatistics(_player1Stats, _font, 1);
-				setStatistics(_player2Stats, _font, 2);
+				resetGame(bitboard);
 			}
 		}
 		else if (_popupPlayAgainButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 			_popupPlayAgainButtonSprite.setTexture(_popupTextures[PLAYAGAINHOVEREDBUTTON]);
 			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
-				endGameState = NOVICTORY;
-				bitboard.clear();
-				std::fill(playersCaptures, playersCaptures + 2, 0);
-				_player1TotalTime = std::chrono::milliseconds::zero();
-				_player2TotalTime = std::chrono::milliseconds::zero();
-				_lastMoveDuration = std::chrono::milliseconds::zero();
-				setStatistics(_player1Stats, _font, 1);
-				setStatistics(_player2Stats, _font, 2);
-				startTimer = true;
-				gameStartTime = std::chrono::steady_clock::now();
-				_moveStartTime = gameStartTime;
-				_isFirstMove = true;
+				resetGame(bitboard);
 			}
 		}
 		else {

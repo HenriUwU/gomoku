@@ -18,23 +18,7 @@ Gameplay::Gameplay() : _playerJustMoved(0), _isFirstMove(true), _didSuggestMove(
 
 Gameplay::~Gameplay() { }
 
-void	Gameplay::moveSuggestion(sf::RenderWindow& window) {
-	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
-	sf::Vector2f nearestIntersection(startPoint.first + _suggestedMove.first * 48, startPoint.second + _suggestedMove.second * 48);
-	if (_currentPlayer == 1) {
-		sf::Color spriteColor = _firstPlayerMoveSuggestionSprite.getColor();
-		_firstPlayerMoveSuggestionSprite.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, 150));
-		_firstPlayerMoveSuggestionSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
-		window.draw(_firstPlayerMoveSuggestionSprite);
-	} else if (_currentPlayer == 2) {
-		sf::Color spriteColor = _secondPlayerMoveSuggestionSprite.getColor();
-		_secondPlayerMoveSuggestionSprite.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, 150));
-		_secondPlayerMoveSuggestionSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
-		window.draw(_secondPlayerMoveSuggestionSprite);
-	}
-}
-
-void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard) {
+void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 	float cellSize = 48;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
 
@@ -67,14 +51,12 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard) {
 		setStatistics(_player2Stats, _font, 2);
 	}
 	
-	if (gameState == AIVERSUS && !bitboard.isGameOver() && _currentPlayer == 2 && !_aiThreadRunning) {
+	if (gameState == AIVERSUS && !bitboard.isGameOver() && _currentPlayer == 2 && !aiPlaying) {
 		_stopAITimer = false;
-		_aiThreadRunning = true;
 		aiPlaying = true;
 
-		std::thread([this, &bitboard]() {
-			this->AITurn(bitboard);
-			_aiThreadRunning = false;
+		std::thread([this, &bitboard, &ai]() {
+				this->AITurn(bitboard, ai);
 		}).detach();
 	}
 	
@@ -110,37 +92,52 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard) {
 	}
 
 	if (moveSuggestionEnabled == true && gameState != AIVERSUS && _didSuggestMove == false) {
-		_didSuggestMove = true;
-		AI ai;
 		_suggestedMove = ai.moveSuggestion(bitboard, _currentPlayer);
+		_didSuggestMove = true;
 	}
 	if (moveSuggestionEnabled == true && gameState != AIVERSUS && _didSuggestMove == true)
 		moveSuggestion(window);
-		
+
 	if (_currentPlayer == 1 && !bitboard.getBit(col, row))
 		window.draw(_firstPlayerStoneSprite);
 	else if (gameState != AIVERSUS && !bitboard.getBit(col, row))
 		window.draw(_secondPlayerStoneSprite);
 }
 
-void	Gameplay::AITurn(Bitboard& bitboard) {
-	AI ai;
-	ai.play(bitboard);
-	if (_isFirstMove) {
-		_isFirstMove = false;
-		_moveStartTime = std::chrono::steady_clock::now();
-		_lastMoveDuration = _moveStartTime - gameStartTime;
-	} else {
-		_moveEndTime = std::chrono::steady_clock::now();
-		_lastMoveDuration = _moveEndTime - _moveStartTime;
-		_moveStartTime = _moveEndTime;
+void	Gameplay::AITurn(Bitboard& bitboard, AI& ai) {
+	if (aiPlaying) {
+		ai.play(bitboard);
+		if (_isFirstMove) {
+			_isFirstMove = false;
+			_moveStartTime = std::chrono::steady_clock::now();
+			_lastMoveDuration = _moveStartTime - gameStartTime;
+		} else {
+			_moveEndTime = std::chrono::steady_clock::now();
+			_lastMoveDuration = _moveEndTime - _moveStartTime;
+			_moveStartTime = _moveEndTime;
+		}
+		_playerJustMoved = 2;
+		if (_playerJustMoved == 1)
+			_player1TotalTime += _lastMoveDuration;
+		else
+			_player2TotalTime += _lastMoveDuration;
+		_currentPlayer = 1;
+		aiPlaying = false;
 	}
-	_playerJustMoved = 2;
-	if (_playerJustMoved == 1)
-		_player1TotalTime += _lastMoveDuration;
-	else
-		_player2TotalTime += _lastMoveDuration;
-	_currentPlayer = 1;
-	aiPlaying = false;
-	_aiThreadRunning = false;
+}
+
+void	Gameplay::moveSuggestion(sf::RenderWindow& window) {
+	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
+	sf::Vector2f nearestIntersection(startPoint.first + _suggestedMove.first * 48, startPoint.second + _suggestedMove.second * 48);
+	if (_currentPlayer == 1) {
+		sf::Color spriteColor = _firstPlayerMoveSuggestionSprite.getColor();
+		_firstPlayerMoveSuggestionSprite.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, 150));
+		_firstPlayerMoveSuggestionSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+		window.draw(_firstPlayerMoveSuggestionSprite);
+	} else if (_currentPlayer == 2) {
+		sf::Color spriteColor = _secondPlayerMoveSuggestionSprite.getColor();
+		_secondPlayerMoveSuggestionSprite.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, 150));
+		_secondPlayerMoveSuggestionSprite.setPosition(nearestIntersection.x - 13, nearestIntersection.y - 13);
+		window.draw(_secondPlayerMoveSuggestionSprite);
+	}
 }
