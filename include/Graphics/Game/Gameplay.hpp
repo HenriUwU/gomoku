@@ -94,6 +94,6 @@ class Gameplay {
 		void	defineAvatars();
 		void	defineBoard();
 		void	moveSuggestion(sf::RenderWindow& window);
-		void	mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isAIPlaying);
+		void	mouseHover(sf::RenderWindow& window, Bitboard& bitboard);
 		void	AITurn(Bitboard& bitboard);
 };

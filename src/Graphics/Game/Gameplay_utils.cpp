@@ -35,7 +35,6 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 	}
 	if (event.type == sf::Event::MouseButtonPressed)
 		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
-			std::cout << "clearing bitboard" << std::endl;
 			gameState = MENU;
 			endGameState = NOVICTORY;
 			std::fill(playersCaptures, playersCaptures + 2, 0);

@@ -37,7 +37,7 @@ void	Gameplay::moveSuggestion(sf::RenderWindow& window) {
 	}
 }
 
-void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isAIPlaying) {
+void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard) {
 	float cellSize = 48;
 	std::pair <unsigned int, unsigned int>	startPoint = std::make_pair(527, 50);
 
@@ -68,20 +68,20 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 	}
 	
 	if (_isFirstMove) {
-		if (isAIPlaying)
+		if (gameState == AIVERSUS)
 			_currentPlayer = 2;
+		else
+			_currentPlayer = 1;
 		setStatistics(_player1Stats, _font, 1);
 		setStatistics(_player2Stats, _font, 2);
 	}
 	
-	if (isAIPlaying && !bitboard.isGameOver() && _currentPlayer == 2 && !_aiThreadRunning) {
-		std::cout << "ai played" << std::endl;
+	if (gameState == AIVERSUS && !bitboard.isGameOver() && _currentPlayer == 2 && !_aiThreadRunning) {
 		_stopAITimer = false;
 		_aiThreadRunning = true;
 		aiPlaying = true;
 		_aiThread = std::thread(&Gameplay::AITurn, this, std::ref(bitboard));
 		if (_aiThread.joinable()) {
-			std::cout << "ai thread joined" << std::endl;
 			_aiThread.join();
 		}
 	}
@@ -95,7 +95,7 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 			}
 
 			if ((_currentPlayer == 1 && bitboard.placeStone(col, row, _currentPlayer))
-			|| (!isAIPlaying && bitboard.placeStone(col, row, _currentPlayer))) {
+			|| (gameState != AIVERSUS && bitboard.placeStone(col, row, _currentPlayer))) {
 				if (_isFirstMove) {
 					_isFirstMove = false;
 					_moveStartTime = std::chrono::steady_clock::now();
@@ -117,12 +117,12 @@ void	Gameplay::mouseHover(sf::RenderWindow& window, Bitboard& bitboard, bool isA
 		}
 	}
 
-	if (moveSuggestionEnabled == true && !isAIPlaying && _didSuggestMove == false) {
+	if (moveSuggestionEnabled == true && gameState != AIVERSUS && _didSuggestMove == false) {
 		_didSuggestMove = true;
 		AI ai;
 		_suggestedMove = ai.moveSuggestion(bitboard, _currentPlayer);
 	}
-	if (moveSuggestionEnabled == true && !isAIPlaying)
+	if (moveSuggestionEnabled == true && gameState != AIVERSUS && _didSuggestMove == true)
 		moveSuggestion(window);
 	if (_currentPlayer == 1)
 		window.draw(_firstPlayerStoneSprite);
