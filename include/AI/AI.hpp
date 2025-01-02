@@ -19,7 +19,9 @@ class Bitboard;
 #define MINIMAX_DEPTH 10
 #define MAX_TESTED_MOVES 6
 #define MOVE_SUGGESTION_DEPTH 4
-#define NB_HEURISTIC_PATTERNS 18
+
+#define NB_HEURISTIC_PATTERNS 20
+#define NB_DEFENSIVE_PATTERNS 6
 
 struct Move {
 	std::pair<int, int> position;
@@ -34,20 +36,18 @@ class AI {
 		int								_firstPlayerNbCaptures;
 		int								_secondPlayerNbCaptures;
 
+		int		heuristic(Bitboard &bitboard) __attribute__((hot));
+		int		checkPatterns(Bitboard &bitboard, int player, int opponent);
+
+		void	quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int low, int high);
+
+		std::vector<std::pair<int, int>>	sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
+		Move								negamax(Bitboard &bitboard, int depth, bool aiTurn, int alpha, int beta) __attribute__((hot));
+
 	public:
 		AI();
 		~AI();
-		   
-		int		minimax(Bitboard &bitboard, int depth, bool maximizingPlayer, int alpha, int beta) __attribute__((hot));
-		Move	negamax(Bitboard &bitboard, int depth, bool aiTurn, int alpha, int beta) __attribute__((hot));
-		int		heuristic(Bitboard &bitboard) __attribute__((hot));
-		int		countStones(Bitboard &bitboard);
-		int		checkPatterns(Bitboard &bitboard, int player, int opponent);
 
-		void	play(Bitboard &bitboard);
-		void	quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int low, int high);
-		
-        std::pair<int, int>                 moveSuggestion(Bitboard &bitboard, int player);
-		std::pair<int, int>					findBestMove(Bitboard& bitboard) __attribute__((hot));
-		std::vector<std::pair<int, int>>	sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
+        std::pair<int, int>	moveSuggestion(Bitboard &bitboard, int player);
+		void				play(Bitboard &bitboard);
 };

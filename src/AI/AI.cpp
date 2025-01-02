@@ -37,9 +37,8 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 		int heuristic = 0;
 		int hash = bitboard.hash();
 		
-		std::unordered_map<int, int>::iterator it = _heuristicValuesOfBoards.find(hash);
-		if (it != _heuristicValuesOfBoards.end()) {
-			heuristic = it->second;
+		if (_heuristicValuesOfBoards.find(hash) != _heuristicValuesOfBoards.end()) {
+			heuristic = _heuristicValuesOfBoards[hash];
 		}
 		else {
 			heuristic = this->heuristic(bitboard);
@@ -78,12 +77,14 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 				tmp = negamax(bitboard, depth - 1, !playerTwoTurn, -beta, -tmp.score);
 		}
 
+		tmp.score += removedStones.size() * 10000 * ((playerTwoTurn ? _secondPlayerNbCaptures : _firstPlayerNbCaptures) + 1);
 		tmp.score = -tmp.score;
 
 		for (const auto& stone : removedStones) {
 			bitboard.placeStoneAI(stone.first, stone.second, opponentId, false);
 		}
 		bitboard.removeStone(possibleMove.first, possibleMove.second, myId);
+		removedStones.clear();
 
 		if (tmp.score > bestMove.score) {
 			bestMove.score = tmp.score;

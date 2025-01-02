@@ -28,17 +28,10 @@ int	AI::heuristic(Bitboard &bitboard) {
 		}
 	}
 
-	PatternInfo openFour[] = {0b000000, 0b011110, 6, 2, 1};
-	PatternInfo subOpenFour[] = {0b000001, 0b011110, 6, 2, 1};
-	PatternInfo subOpenFour2[] = {0b100000, 0b011110, 6, 2, 1};
-
-	if (bitboard.checkPattern(openFour, 1) || bitboard.checkPattern(subOpenFour, 1) || bitboard.checkPattern(subOpenFour2, 1))
-		return (-1000000000);
-
-	if (_firstPlayerNbCaptures == 5)
-		return (-1000000000);
-	else if (_secondPlayerNbCaptures == 5)
-		return (1000000000);
+	if (_firstPlayerNbCaptures >= 5)
+		return (INT_MIN);
+	else if (_secondPlayerNbCaptures >= 5)
+		return (INT_MAX);
 		
 	evaluation += checkPatterns(bitboard, 2, 1);
 
@@ -48,7 +41,7 @@ int	AI::heuristic(Bitboard &bitboard) {
 int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 	
-	PatternInfo patterns[NB_HEURISTIC_PATTERNS] = {
+	PatternInfo mainPatterns[NB_HEURISTIC_PATTERNS] = {
 		{0b0110, 0b0000, 4, player, 100},
 		{0b0110, 0b0000, 4, opponent, -100},
 		
@@ -65,21 +58,28 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		{0b011110, 0b000001, 6, opponent, -100000},
 		{0b011110, 0b100000, 6, opponent, -100000},
 		{0b011110, 0b000000, 6, opponent, -1000000},
+
+		{0b11111, 0b00000, 5, player, 100000000},
+		{0b11111, 0b00000, 5, opponent, 100000000},
 		
-		{0b0110, 0b1000, 4, player, (1000 * (-_firstPlayerNbCaptures))},
-		{0b0110, 0b0001, 4, player, (1000 * (-_firstPlayerNbCaptures))},
-		{0b0110, 0b1000, 4, opponent, (1000 * _secondPlayerNbCaptures)},
-		{0b0110, 0b0001, 4, opponent, (1000 * _secondPlayerNbCaptures)},
+		{0b0110, 0b1000, 4, player, (10000 * (-_firstPlayerNbCaptures))},
+		{0b0110, 0b0001, 4, player, (10000 * (-_firstPlayerNbCaptures))},
+		{0b0110, 0b1000, 4, opponent, (10000 * _secondPlayerNbCaptures)},
+		{0b0110, 0b0001, 4, opponent, (10000 * _secondPlayerNbCaptures)},
 	};
 
-	PatternInfo defensivePatterns[] = {
+	PatternInfo defensivePatterns[NB_DEFENSIVE_PATTERNS] = {
 		{0b10000, 0b01110, 5, player, 1000},
 		{0b00001, 0b01110, 5, player, 1000},
 		{0b10001, 0b01110, 5, player, 10000},
+
+		{0b100000, 0b011110, 6, player, 100000},
+		{0b000001, 0b011110, 6, player, 100000},
+		{0b100001, 0b011110, 6, player, 1000000},
 	};
 	
-	score += bitboard.checkPattern(patterns, NB_HEURISTIC_PATTERNS);
-	score += bitboard.checkPattern(defensivePatterns, 3);
+	score += bitboard.checkPattern(mainPatterns, NB_HEURISTIC_PATTERNS);
+	score += bitboard.checkPattern(defensivePatterns, NB_DEFENSIVE_PATTERNS);
 	
 	return (score);
 }
