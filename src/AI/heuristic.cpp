@@ -19,14 +19,21 @@ int	AI::heuristic(Bitboard &bitboard) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
 			if (bitboard.getBit(x, y) == 1) {
 				if (bitboard.fiveInARow(x, y, 1))
-					return (-1000000000);
+					return (INT_MIN);
 			}
 			if (bitboard.getBit(x, y) == 2) {
 				if (bitboard.fiveInARow(x, y, 2))
-					return (1000000000);
+					return (INT_MAX);
 			}
 		}
 	}
+
+	PatternInfo openFour[] = {0b000000, 0b011110, 6, 2, 1};
+	PatternInfo subOpenFour[] = {0b000001, 0b011110, 6, 2, 1};
+	PatternInfo subOpenFour2[] = {0b100000, 0b011110, 6, 2, 1};
+
+	if (bitboard.checkPattern(openFour, 1) || bitboard.checkPattern(subOpenFour, 1) || bitboard.checkPattern(subOpenFour2, 1))
+		return (-1000000000);
 
 	if (_firstPlayerNbCaptures == 5)
 		return (-1000000000);
@@ -42,38 +49,30 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 	int score = 0;
 	
 	PatternInfo patterns[NB_HEURISTIC_PATTERNS] = {
-		// Two in a row
-		{0b0110, 0b0000, 4, player, 49},
-		{0b0110, 0b0000, 4, opponent, -50},
+		{0b0110, 0b0000, 4, player, 100},
+		{0b0110, 0b0000, 4, opponent, -100},
 		
-		// Three in a row
-		{0b01110, 0b10000, 5, player, 490},
-		{0b01110, 0b00001, 5, player, 490},
-		{0b01110, 0b00000, 5, player, 4900},
-		{0b01110, 0b10000, 5, opponent, -500},
-		{0b01110, 0b00001, 5, opponent, -500},
-		{0b01110, 0b00000, 5, opponent, -5000},
+		{0b01110, 0b10000, 5, player, 1000},
+		{0b01110, 0b00001, 5, player, 1000},
+		{0b01110, 0b00000, 5, player, 10000},
+		{0b01110, 0b10000, 5, opponent, -1000},
+		{0b01110, 0b00001, 5, opponent, -1000},
+		{0b01110, 0b00000, 5, opponent, -10000},
 		
-		// Four in a row
-		{0b011110, 0b100000, 6, player, 9000},
-		{0b011110, 0b000001, 6, player, 9000},
-		{0b011110, 0b000000, 6, player, 99000},
-		{0b011110, 0b000001, 6, opponent, -10000},
-		{0b011110, 0b100000, 6, opponent, -10000},
-		{0b011110, 0b000000, 6, opponent, -100000},
+		{0b011110, 0b100000, 6, player, 100000},
+		{0b011110, 0b000001, 6, player, 100000},
+		{0b011110, 0b000000, 6, player, 1000000},
+		{0b011110, 0b000001, 6, opponent, -100000},
+		{0b011110, 0b100000, 6, opponent, -100000},
+		{0b011110, 0b000000, 6, opponent, -1000000},
 		
-		// Possible captures
-		{0b0110, 0b1000, 4, player, (2000 * (-_firstPlayerNbCaptures))},
-		{0b0110, 0b0001, 4, player, (2000 * (-_firstPlayerNbCaptures))},
-		{0b0110, 0b1000, 4, opponent, (2000 * _secondPlayerNbCaptures)},
-		{0b0110, 0b0001, 4, opponent, (2000 * _secondPlayerNbCaptures)},
+		{0b0110, 0b1000, 4, player, (1000 * (-_firstPlayerNbCaptures))},
+		{0b0110, 0b0001, 4, player, (1000 * (-_firstPlayerNbCaptures))},
+		{0b0110, 0b1000, 4, opponent, (1000 * _secondPlayerNbCaptures)},
+		{0b0110, 0b0001, 4, opponent, (1000 * _secondPlayerNbCaptures)},
 	};
 	
 	score += bitboard.checkPattern(patterns, NB_HEURISTIC_PATTERNS);
 	
 	return (score);
 }
-
-// int AI::evaluatePosition(int x, int y, Bitboard &bitboard) {
-	
-// }

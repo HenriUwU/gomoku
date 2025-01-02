@@ -63,7 +63,6 @@ void Gameplay::resetGame(Bitboard& bitboard) {
 	_moveStartTime = std::chrono::steady_clock::now();
 	_playerJustMoved = 0;
 	_didSuggestMove = false;
-	aiPlaying = false;
 }
 
 void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& window, Bitboard& bitboard) {
@@ -115,7 +114,6 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	if (endGameState != NOVICTORY) {
-		aiPlaying = false;
 		if (_popupMainMenuButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 			_popupMainMenuButtonSprite.setTexture(_popupTextures[MAINMENUHOVEREDBUTTON]);
 			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
@@ -133,6 +131,7 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 			_popupMainMenuButtonSprite.setTexture(_popupTextures[MAINMENUBUTTON]);
 			_popupPlayAgainButtonSprite.setTexture(_popupTextures[PLAYAGAINBUTTON]);
 		}
+		aiPlaying = false;
 		startTimer = false;
 		_popupMainMenuButtonSprite.setPosition(743.8, 547.5);
 		_popupPlayAgainButtonSprite.setPosition(980.8, 547.5);

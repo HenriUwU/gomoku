@@ -38,8 +38,9 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 		int hash = bitboard.hash();
 		
 		std::unordered_map<int, int>::iterator it = _heuristicValuesOfBoards.find(hash);
-		if (it != _heuristicValuesOfBoards.end())
+		if (it != _heuristicValuesOfBoards.end()) {
 			heuristic = it->second;
+		}
 		else {
 			heuristic = this->heuristic(bitboard);
 			_heuristicValuesOfBoards[hash] = heuristic;

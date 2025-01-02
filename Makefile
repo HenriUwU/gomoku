@@ -20,7 +20,7 @@ SRC				:=	src/main.cpp									\
 					src/AI/AI.cpp									\
 					src/AI/heuristic.cpp							\
 					src/AI/ThreadPool.cpp							\
-					src/AI/AI_utils.cpp								\
+					src/AI/AIUtils.cpp								\
 					src/Graphics/GIF/AnimatedGIF.cpp				\
 					src/Graphics/Game/BitboardCaptures.cpp			\
 					src/Graphics/Game/BitboardDoubleThree.cpp		\
