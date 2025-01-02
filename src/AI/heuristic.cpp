@@ -71,8 +71,15 @@ int	AI::checkPatterns(Bitboard &bitboard, int player, int opponent) {
 		{0b0110, 0b1000, 4, opponent, (1000 * _secondPlayerNbCaptures)},
 		{0b0110, 0b0001, 4, opponent, (1000 * _secondPlayerNbCaptures)},
 	};
+
+	PatternInfo defensivePatterns[] = {
+		{0b10000, 0b01110, 5, player, 1000},
+		{0b00001, 0b01110, 5, player, 1000},
+		{0b10001, 0b01110, 5, player, 10000},
+	};
 	
 	score += bitboard.checkPattern(patterns, NB_HEURISTIC_PATTERNS);
+	score += bitboard.checkPattern(defensivePatterns, 3);
 	
 	return (score);
 }
