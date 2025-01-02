@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Graphics/Game/Bitboard.hpp"
+#include "Bitboard.hpp"
 
 int Bitboard::hash() const {
 	std::size_t	res;

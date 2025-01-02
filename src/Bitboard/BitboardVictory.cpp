@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Graphics/Game/Bitboard.hpp"
+#include "Bitboard.hpp"
 
 bool    Bitboard::fiveInARow(int x, int y, int player) {
 	if (fiveInARowHorizontal(x, y, player))

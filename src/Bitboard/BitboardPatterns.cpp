@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Graphics/Game/Bitboard.hpp"
+#include "Bitboard.hpp"
 
 int     Bitboard::checkPattern(PatternInfo patterns[], int nbPattern) {
 	int	score = 0;

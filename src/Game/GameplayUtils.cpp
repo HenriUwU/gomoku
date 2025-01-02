@@ -1,4 +1,4 @@
-#include "Graphics/Game/Gameplay.hpp"
+#include "Gameplay.hpp"
 
 void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
 	returnButton(event, window, bitboard);

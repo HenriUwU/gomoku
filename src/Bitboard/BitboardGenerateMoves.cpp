@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Graphics/Game/Bitboard.hpp"
+#include "Bitboard.hpp"
 
 std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMoves(int player) {
 	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;

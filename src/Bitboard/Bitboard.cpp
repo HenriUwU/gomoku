@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Graphics/Game/Bitboard.hpp"
+#include "Bitboard.hpp"
 
 Bitboard::Bitboard() {
 	_firstPlayerBoardLines.fill(0);

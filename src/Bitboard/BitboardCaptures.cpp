@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Graphics/Game/Bitboard.hpp"
+#include "Bitboard.hpp"
 
 int	Bitboard::isCapturingMove(int x, int y, int player) {
 	int			nbCaptures = 0;

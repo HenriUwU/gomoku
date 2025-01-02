@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Graphics/Game/Bitboard.hpp"
+#include "Bitboard.hpp"
 
 uint32_t pPatterns[3]   = { 0b01110,  0b010110, 0b011010 };
 uint32_t o5Patterns[3]  = { 0b10000,  0b00001,  0b10001  };

@@ -50,11 +50,10 @@ struct pair_hash {
 	}
 };
 
-#include "AI/ThreadPool.hpp"
 #include "AI/AI.hpp"
 #include "Graphics/GIF/AnimatedGIF.hpp"
-#include "Graphics/Game/Bitboard.hpp"
-#include "Graphics/Game/Gameplay.hpp"
+#include "Bitboard/Bitboard.hpp"
+#include "Game/Gameplay.hpp"
 #include "Graphics/Menu/MainMenu.hpp"
 #include "Graphics/Menu/CustomMenu.hpp"
 #include "Graphics/Menu/SettingsMenu.hpp"

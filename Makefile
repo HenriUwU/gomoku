@@ -16,34 +16,33 @@ NAME			:= Gomoku
 #                                 INGREDIENTS                                  #
 # **************************************************************************** #
 
-SRC				:=	src/main.cpp									\
-					src/AI/AI.cpp									\
-					src/AI/heuristic.cpp							\
-					src/AI/ThreadPool.cpp							\
-					src/AI/AIUtils.cpp								\
-					src/Graphics/GIF/AnimatedGIF.cpp				\
-					src/Graphics/Game/BitboardCaptures.cpp			\
-					src/Graphics/Game/BitboardDoubleThree.cpp		\
-					src/Graphics/Game/BitboardPatterns.cpp			\
-					src/Graphics/Game/BitboardUtils.cpp				\
-					src/Graphics/Game/BitboardVictory.cpp			\
-					src/Graphics/Game/BitboardGenerateMoves.cpp		\
-					src/Graphics/Game/Bitboard.cpp					\
-					src/Graphics/Game/Gameplay.cpp					\
-					src/Graphics/Game/GameplayUtils.cpp				\
-					src/Graphics/Menu/CustomMenu.cpp				\
-					src/Graphics/Menu/HelpMenu.cpp					\
-					src/Graphics/Menu/MainMenu.cpp					\
-					src/Graphics/Menu/SettingsMenu.cpp				\
-					src/Graphics/Utils.cpp							\
-					src/Music/Music.cpp								\
+SRC				:=	src/main.cpp								\
+					src/AI/AI.cpp								\
+					src/AI/heuristic.cpp						\
+					src/AI/AIUtils.cpp							\
+					src/Graphics/GIF/AnimatedGIF.cpp			\
+					src/Bitboard/BitboardCaptures.cpp			\
+					src/Bitboard/BitboardDoubleThree.cpp		\
+					src/Bitboard/BitboardPatterns.cpp			\
+					src/Bitboard/BitboardUtils.cpp				\
+					src/Bitboard/BitboardVictory.cpp			\
+					src/Bitboard/BitboardGenerateMoves.cpp		\
+					src/Bitboard/Bitboard.cpp					\
+					src/Game/Gameplay.cpp						\
+					src/Game/GameplayUtils.cpp					\
+					src/Graphics/Menu/CustomMenu.cpp			\
+					src/Graphics/Menu/HelpMenu.cpp				\
+					src/Graphics/Menu/MainMenu.cpp				\
+					src/Graphics/Menu/SettingsMenu.cpp			\
+					src/Graphics/Utils.cpp						\
+					src/Music/Music.cpp							\
 				
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
 
 COMPILER		:=	g++
 DEBUG_FLAGS		:=	-Wall -Wextra -Werror -Ofast -fopenmp -Wpedantic -lpthread
-INCLUDE_FLAGS	:=	-Ilib/SFML/include -Iinclude -Iinclude/Graphics -Iinclude/Graphics/Game -Iinclude/Graphics/Menu -Iinclude/AI -Iinclude/Music -Ilib/stb -I$(HOME)/local/include
+INCLUDE_FLAGS	:=	-Ilib/SFML/include -Iinclude -Iinclude/Game -Iinclude/Graphics -Iinclude/Graphics/Menu -Iinclude/AI -Iinclude/Music -Iinclude/Bitboard -Ilib/stb -I$(HOME)/local/include
 SFML_FLAGS		:=	-L$(HOME)/local/lib -Llib/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -latomic
 RPATH_FLAGS		:=	-Wl,-rpath,'$$ORIGIN/lib/SFML/lib'
 
