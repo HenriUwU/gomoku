@@ -67,7 +67,7 @@ std::vector<std::pair<int, int>>	AI::sortMoves(const std::unordered_set<std::pai
 			heuristicValue = heuristic(bitboard);
 			_heuristicValuesOfBoards[bitboard.hash()] = heuristicValue;
 		}
-		heuristicValue += removedStones.size() * 10000 * ((playerTwoTurn ? _secondPlayerNbCaptures : (-_firstPlayerNbCaptures)) + 1);
+		// heuristicValue += removedStones.size() * 10000 * ((playerTwoTurn ? _secondPlayerNbCaptures : (-_firstPlayerNbCaptures)) + 1);
 
 		for (const auto& stone : removedStones)
 			bitboard.placeStoneAI(stone.first, stone.second, opId, false);

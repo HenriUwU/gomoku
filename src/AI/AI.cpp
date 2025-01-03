@@ -87,7 +87,7 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 	
 	Move bestMove = {std::pair<int, int>(9, 9), INT_MIN};
 	
-	for (size_t i = 0; i < MAX_TESTED_MOVES && i < sortedMoves.size() ; i++) {
+	for (size_t i = 0; i < sortedMoves.size() ; i++) {
 		auto& possibleMove = sortedMoves[i];
 		Move tmp;
 
@@ -105,7 +105,7 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 				tmp = negamax(bitboard, depth - 1, !playerTwoTurn, -beta, -tmp.score);
 		}
 
-		tmp.score += removedStones.size() * 10000 * ((playerTwoTurn ? _secondPlayerNbCaptures : _firstPlayerNbCaptures) + 1);
+		// tmp.score += removedStones.size() * 10000 * ((playerTwoTurn ? _secondPlayerNbCaptures : _firstPlayerNbCaptures) + 1);
 		tmp.score = -tmp.score;
 
 		for (const auto& stone : removedStones) {

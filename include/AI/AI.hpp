@@ -22,7 +22,7 @@ class Bitboard;
 
 #define MAX_TESTED_MOVES 6
 
-#define NB_HEURISTIC_PATTERNS 20
+#define NB_HEURISTIC_PATTERNS 16
 #define NB_DEFENSIVE_PATTERNS 6
 
 struct Move {
@@ -40,6 +40,8 @@ class AI {
 
 		int		heuristic(Bitboard &bitboard) __attribute__((hot));
 		int		checkPatterns(Bitboard &bitboard, int player, int opponent);
+		int		evaluateAlignments(Bitboard& bitboard);
+
 
 		void	quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int low, int high);
 

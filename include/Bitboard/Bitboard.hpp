@@ -91,21 +91,20 @@ class Bitboard {
 		Bitboard();
 		~Bitboard();
 
-		int			hash() const;
-		int			getBit(int x, int y) const;
-		int			checkPattern(PatternInfo patterns[], int nbPattern) __attribute__((hot));
+		int		hash() const;
+		int		getBit(int x, int y) const;
+		int		evaluatePatterns(PatternInfo patterns[], int nbPattern);
 
-		bool		placeStone(int x, int y, int player);
+		bool	placeStone(int x, int y, int player);
         
-		bool		isGameOver();
-		bool		isLegalMove(int x, int y, int player);
-		bool		fiveInARow(int x, int y, int player);
-        bool		isLegalMoveForAI(int x, int y, int player);
-
+		bool	isGameOver();
+		bool	isLegalMove(int x, int y, int player);
+		bool	fiveInARow(int x, int y, int player);
+        bool	isLegalMoveForAI(int x, int y, int player);
 	
-		void		clear();
-		void		printBoard();
-		void		removeStone(int x, int y, int player);
+		void	clear();
+		void	printBoard();
+		void	removeStone(int x, int y, int player);
 
 		std::vector<std::pair<int, int>>					placeStoneAI(int x, int y, int player, bool mode);
 		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);
