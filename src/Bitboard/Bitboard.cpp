@@ -79,8 +79,6 @@ void	Bitboard::removeStone(int x, int y, int player) {
 }
 
 bool	Bitboard::isGameOver() {
-	
-	
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
 			if (fiveInARow(x, y, 1) || fiveInARow(x, y, 2))

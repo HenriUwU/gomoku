@@ -61,7 +61,7 @@ void AI::crazyMode(Bitboard &bitboard) {
 }
 
 Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, int beta) {
-	if (depth == 0 || bitboard.isGameOver() || _firstPlayerNbCaptures == 5 || _secondPlayerNbCaptures == 5) {
+	if (depth == 0 || bitboard.isGameOver() || _firstPlayerNbCaptures >= 5 || _secondPlayerNbCaptures >= 5) {
 		int heuristic = 0;
 		int hash = bitboard.hash();
 		
