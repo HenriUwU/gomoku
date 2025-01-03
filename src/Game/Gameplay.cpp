@@ -79,7 +79,10 @@ void	Gameplay::AITurn(Bitboard& bitboard, AI& ai) {
 		if (_closingApp)
 			return;
 
-		ai.play(bitboard);
+		if (aiMode != CRAZY)
+			ai.play(bitboard);
+		else
+			ai.crazyMode(bitboard);
 		if (_isFirstMove) {
 			_isFirstMove = false;
 			_moveStartTime = std::chrono::steady_clock::now();

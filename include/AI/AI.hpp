@@ -16,9 +16,11 @@
 	
 class Bitboard;
 
-#define MINIMAX_DEPTH 10
+#define IMPOSSIBLE_AI_DEPTH 10
+#define CHALLENGING_AI_DEPTH 6
+#define EASY_AI_DEPTH 4
+
 #define MAX_TESTED_MOVES 6
-#define MOVE_SUGGESTION_DEPTH 4
 
 #define NB_HEURISTIC_PATTERNS 20
 #define NB_DEFENSIVE_PATTERNS 6
@@ -50,4 +52,5 @@ class AI {
 
         std::pair<int, int>	moveSuggestion(Bitboard &bitboard, int player);
 		void				play(Bitboard &bitboard);
+		void				crazyMode(Bitboard &bitboard);
 };

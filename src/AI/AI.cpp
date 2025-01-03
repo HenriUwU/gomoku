@@ -17,10 +17,31 @@ AI::AI() {}
 AI::~AI() {}
 
 void	AI::play(Bitboard &bitboard) {
+	int depth = IMPOSSIBLE_AI_DEPTH;
+	
+	switch (aiMode)	{
+		case IMPOSSIBLE:
+			std::cout << "playing as IMPOSSIBLE" << std::endl;
+			depth = IMPOSSIBLE_AI_DEPTH;
+			break;
+		case CHALLENGING:
+			std::cout << "playing as CHALLENGING" << std::endl;
+			depth = CHALLENGING_AI_DEPTH;
+			break;
+		case EASY:
+			std::cout << "playing as EASY" << std::endl;
+			depth = EASY_AI_DEPTH;
+			break;
+		case NOAIMODE:
+			depth = IMPOSSIBLE_AI_DEPTH;
+		default:
+			break;
+	}
+
 	Bitboard tmp = bitboard;
 	_firstPlayerNbCaptures = playersCaptures[0];
 	_secondPlayerNbCaptures = playersCaptures[1];
-	std::pair<int, int> move = negamax(tmp, MINIMAX_DEPTH, true, INT_MIN, INT_MAX).position;
+	std::pair<int, int> move = negamax(tmp, depth, true, INT_MIN, INT_MAX).position;
 	bitboard.placeStone(move.first, move.second, 2);
 }
 
@@ -28,8 +49,20 @@ std::pair<int, int> AI::moveSuggestion(Bitboard &bitboard, int player) {
     Bitboard tmp = bitboard;
 	_firstPlayerNbCaptures = playersCaptures[0];
 	_secondPlayerNbCaptures = playersCaptures[1];
-	std::pair<int, int> move = negamax(tmp, MOVE_SUGGESTION_DEPTH, (player == 1) ? false : true, INT_MIN, INT_MAX).position;
+	std::pair<int, int> move = negamax(tmp, EASY_AI_DEPTH, (player == 1) ? false : true, INT_MIN, INT_MAX).position;
 	return move;
+}
+
+void AI::crazyMode(Bitboard &bitboard) {
+	while (1) {
+		int x = rand() % 19;
+		int y = rand() % 19;
+
+		if (bitboard.isLegalMoveForAI(x, y, 2)) {
+			bitboard.placeStone(x, y, 2);
+			break;
+		}
+	}
 }
 
 Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, int beta) {
