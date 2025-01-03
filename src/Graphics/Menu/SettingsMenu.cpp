@@ -111,30 +111,17 @@ void	SettingsMenu::handleAiMode(const sf::RenderWindow& window) {
 	sf::Vector2i	mousePos = sf::Mouse::getPosition(window);
 	
 	if (_boxImpossibleAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		if (aiMode == NOAIMODE)
-			_boxImpossibleAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = IMPOSSIBLE;
 	} else if (_boxChallengingAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		if (aiMode == NOAIMODE)
-			_boxChallengingAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = CRAZY;
 	} else if (_boxCrazyAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		if (aiMode == NOAIMODE)
-			_boxCrazyAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = CHALLENGING;
 	} else if (_boxEasyAISprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
-		if (aiMode == NOAIMODE)
-			_boxEasyAISprite.setTexture(_pageTextures[CHECKEDBOX]);
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			aiMode = EASY;
-	} else if (aiMode == NOAIMODE) {
-		_boxImpossibleAISprite.setTexture(_pageTextures[BOX]);
-		_boxChallengingAISprite.setTexture(_pageTextures[BOX]);
-		_boxCrazyAISprite.setTexture(_pageTextures[BOX]);
-		_boxEasyAISprite.setTexture(_pageTextures[BOX]);
 	}
 }
 

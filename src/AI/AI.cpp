@@ -21,19 +21,14 @@ void	AI::play(Bitboard &bitboard) {
 	
 	switch (aiMode)	{
 		case IMPOSSIBLE:
-			std::cout << "playing as IMPOSSIBLE" << std::endl;
 			depth = IMPOSSIBLE_AI_DEPTH;
 			break;
 		case CHALLENGING:
-			std::cout << "playing as CHALLENGING" << std::endl;
 			depth = CHALLENGING_AI_DEPTH;
 			break;
 		case EASY:
-			std::cout << "playing as EASY" << std::endl;
 			depth = EASY_AI_DEPTH;
 			break;
-		case NOAIMODE:
-			depth = IMPOSSIBLE_AI_DEPTH;
 		default:
 			break;
 	}

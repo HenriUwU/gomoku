@@ -64,8 +64,7 @@ enum AIMode {
 	IMPOSSIBLE,
 	CHALLENGING,
 	CRAZY,
-	EASY,
-	NOAIMODE
+	EASY
 };
 
 enum Avatar {
