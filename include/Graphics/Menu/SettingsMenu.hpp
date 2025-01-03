@@ -40,13 +40,14 @@ class SettingsMenu {
 		std::vector<sf::Texture>	_pageTextures;
 		std::vector<sf::Texture>	_volumeTextures;
 
+		void	init();
+		void	handleAiMode(const sf::RenderWindow& window);
+
 	public:
 		SettingsMenu();
 		~SettingsMenu();
 
-		void	init();
 		void	display(sf::RenderWindow& window);		
 		void	handleKeys(const sf::Event& event, const sf::RenderWindow& window);
-		void	handleAiMode(const sf::RenderWindow& window);
 		void	handleVolume(const sf::Event& event, const sf::RenderWindow& window, Music& music);
 };

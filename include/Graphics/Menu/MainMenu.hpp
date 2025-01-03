@@ -42,18 +42,19 @@ class MainMenu {
 		sf::Sprite					_blueButtonHelpSprite;
 		std::vector<sf::Texture>	_buttonsTextures;
 
-	public:
-		MainMenu();
-		~MainMenu();
-
 		int		getSelectedItemIndex() const { return _selectedItemIndex; }
 
 		void	init();
-		void	display(sf::RenderWindow& window);
 		void	moveUp();
 		void	moveDown();
 		void	moveLeft();
 		void	moveRight();
-		void	handleKeys(const sf::Event& event, sf::RenderWindow& window);
 		void	handleMouseMovement(const sf::Vector2i& mousePos);
+
+	public:
+		MainMenu();
+		~MainMenu();
+
+		void	display(sf::RenderWindow& window);
+		void	handleKeys(const sf::Event& event, sf::RenderWindow& window);
 };

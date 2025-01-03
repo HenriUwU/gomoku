@@ -37,14 +37,15 @@ class CustomMenu {
 		std::vector<sf::Texture>	_avatarsTextures;
 		std::vector<sf::Texture>	_boardsTextures;
 		
+		void	init();
+		void	handleStonesSelection(const sf::RenderWindow& window);
+		void	handleAvatarSelection(const sf::RenderWindow& window);
+		void	handleBoardSelection(const sf::RenderWindow& window);
+
 	public:
 		CustomMenu();
 		~CustomMenu();
 
-		void	init();
 		void	display(sf::RenderWindow& window);
 		void	handleKeys(const sf::Event& event, const sf::RenderWindow& window);
-		void	handleStonesSelection(const sf::RenderWindow& window);
-		void	handleAvatarSelection(const sf::RenderWindow& window);
-		void	handleBoardSelection(const sf::RenderWindow& window);
 };

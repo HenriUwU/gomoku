@@ -41,11 +41,12 @@ class HelpMenu {
 		sf::Sprite					_exceptionDoubleThreeGifSprite;
 		std::vector<sf::Texture>	_pageTextures;
 
+		void	init();
+		
 	public:
 		HelpMenu();
 		~HelpMenu();
 
-		void	init();
 		void	display(sf::RenderWindow& window);
 		void	handleKeys(const sf::Event& event, const sf::RenderWindow& window);
 };

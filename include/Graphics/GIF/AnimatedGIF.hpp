@@ -26,13 +26,14 @@ class AnimatedGIF {
 		std::vector<std::tuple<int, sf::Texture>>			_frames;
 		std::vector<std::tuple<int, sf::Texture>>::iterator	_frameIter;
 
+		const sf::Vector2i&	getSize(void);
+
 	public:
 		AnimatedGIF();
 		~AnimatedGIF();
 
-		void				loadFile(const std::string& filename);
-		const sf::Vector2i&	getSize(void);
 		void				update(sf::Sprite& sprite);
+		void				loadFile(const std::string& filename);
 };
 
 #endif
