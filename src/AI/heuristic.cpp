@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/05 22:13:58 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:24:42 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int AI::heuristic(Bitboard& bitboard) {
 	else if (_secondPlayerNbCaptures >= 5)
 		return (INT_MAX);
 
-	//-- Check for alignents --//
+	//-- Check for alignments --//
 	score += evaluateAlignments(bitboard);
 
 	return score;
