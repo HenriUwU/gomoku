@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/05 21:14:07 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:08:36 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,13 @@ int AI::evaluateAlignments(Bitboard& bitboard) {
 		{0b11111, 0b00000, 5, 2, 100000000},
 		{0b11111, 0b00000, 5, 1, 100000000},
 		
-		{0b0110, 0b1000, 4, 2, (10000 * (-_firstPlayerNbCaptures))},
-		{0b0110, 0b0001, 4, 2, (10000 * (-_firstPlayerNbCaptures))},
-		{0b0110, 0b1000, 4, 1, (10000 * _secondPlayerNbCaptures)},
-		{0b0110, 0b0001, 4, 1, (10000 * _secondPlayerNbCaptures)},
+		{0b0110, 0b1000, 4, 2, (10000 * ((-_firstPlayerNbCaptures) - 1))},
+		{0b0110, 0b0001, 4, 2, (10000 * ((-_firstPlayerNbCaptures) - 1))},
+		{0b0110, 0b1000, 4, 1, (10000 * (_secondPlayerNbCaptures) + 1)},
+		{0b0110, 0b0001, 4, 1, (10000 * (_secondPlayerNbCaptures) + 1)},
 	};
 
-	// PatternInfo defensivePatterns[NB_DEFENSIVE_PATTERNS] = {
-	// 	{0b10000, 0b01110, 5, 2, 1000},
-	// 	{0b00001, 0b01110, 5, 2, 1000},
-	// 	{0b10001, 0b01110, 5, 2, 10000},
-
-	// 	{0b100000, 0b011110, 6, 2, 100000},
-	// 	{0b000001, 0b011110, 6, 2, 100000},
-	// 	{0b100001, 0b011110, 6, 2, 1000000},
-	// };
-
 	score += bitboard.evaluatePatterns(mainPatterns, NB_HEURISTIC_PATTERNS);
-	// score += bitboard.evaluatePatterns(defensivePatterns, NB_DEFENSIVE_PATTERNS);
 
 	return score;
 }

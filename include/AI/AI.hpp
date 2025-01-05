@@ -6,17 +6,17 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/05 10:53:07 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:05:07 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "gomoku.hpp"
-	
+
 class Bitboard;
 
-#define IMPOSSIBLE_AI_DEPTH 10
+#define IMPOSSIBLE_AI_DEPTH 15
 #define CHALLENGING_AI_DEPTH 6
 #define EASY_AI_DEPTH 4
 
