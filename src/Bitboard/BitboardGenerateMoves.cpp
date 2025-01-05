@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bitboard_generate_moves.cpp                        :+:      :+:    :+:   */
+/*   BitboardGenerateMoves.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:04:42 by hsebille          #+#    #+#             */
-/*   Updated: 2024/12/21 17:05:04 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:11:55 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMoves(int player) {
 	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;
 	std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
-	int														margin = 1;
+	int														margin = 2;
 
 	for (auto& stone : currentStones) {
 		int startX = std::max(0, stone.first - margin);

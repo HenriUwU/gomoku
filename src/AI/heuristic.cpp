@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/05 22:08:36 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 22:13:58 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ int AI::evaluateAlignments(Bitboard& bitboard) {
 	int score = 0;
 
 	PatternInfo mainPatterns[NB_HEURISTIC_PATTERNS] = {
-		{0b0110, 0b0000, 4, 2, 100},
-		{0b0110, 0b0000, 4, 1, -100},
-		
 		{0b01110, 0b10000, 5, 2, 1000},
 		{0b01110, 0b00001, 5, 2, 1000},
 		{0b01110, 0b00000, 5, 2, 10000},
