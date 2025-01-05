@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.hpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2024/12/21 15:15:48 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/05 10:53:07 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ class Bitboard;
 
 #define MAX_TESTED_MOVES 6
 
-#define NB_HEURISTIC_PATTERNS 16
+#define NB_HEURISTIC_PATTERNS 20
 #define NB_DEFENSIVE_PATTERNS 6
 
 struct Move {
