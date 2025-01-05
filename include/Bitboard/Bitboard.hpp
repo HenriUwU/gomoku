@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:40:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/12/26 15:40:44 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 15:12:42 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ class Bitboard {
 
 		bool	placeStone(int x, int y, int player);
         
-		bool	isGameOver();
 		bool	isLegalMove(int x, int y, int player);
-		bool	fiveInARow(int x, int y, int player);
+		bool	fiveInARow();
         bool	isLegalMoveForAI(int x, int y, int player);
 	
 		void	clear();
 		void	printBoard();
-		void	removeStone(int x, int y, int player);
+		void	removeStone(int x, int y, int player);		
+		void	printBoardWithPossibleMoves(std::vector<std::pair<int, int>> sortedMoves);
 
 		std::vector<std::pair<int, int>>					placeStoneAI(int x, int y, int player, bool mode);
 		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);

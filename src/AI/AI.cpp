@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2024/12/21 16:12:36 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/05 16:16:20 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void AI::crazyMode(Bitboard &bitboard) {
 }
 
 Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, int beta) {
-	if (depth == 0 || bitboard.isGameOver() || _firstPlayerNbCaptures >= 5 || _secondPlayerNbCaptures >= 5) {
+	if (depth == 0 || bitboard.fiveInARow() || _firstPlayerNbCaptures >= 5 || _secondPlayerNbCaptures >= 5) {
 		int heuristic = 0;
 		int hash = bitboard.hash();
 		
@@ -84,6 +84,11 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 	
 	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generatePossibleMoves(myId);
 	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, playerTwoTurn);
+	
+	if (sortedMoves.empty()) {
+		bitboard.printBoard();
+		std::cout << "No possible moves for player: " << myId << std::endl;
+	}
 	
 	Move bestMove = {std::pair<int, int>(9, 9), INT_MIN};
 	

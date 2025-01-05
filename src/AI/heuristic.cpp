@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:33 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/05 11:02:43 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:59:44 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,14 @@ int AI::heuristic(Bitboard& bitboard) {
 	int score = 0;
 
 	//-- Hard checks for victories or loses --//
-	for (int y = 0; y < BOARD_SIZE; y++) {
-		for (int x = 0; x < BOARD_SIZE; x++) {
-			if (bitboard.getBit(x, y) == 1) {
-				if (bitboard.fiveInARow(x, y, 1))
-					return (INT_MIN);
-			}
-			if (bitboard.getBit(x, y) == 2) {
-				if (bitboard.fiveInARow(x, y, 2))
-					return (INT_MAX);
-			}
-		}
-	}
+	PatternInfo playerOnePattern[] = {0b11111, 0b00000, 5, 1, 1};
+	PatternInfo playerTwoPattern[] = {0b11111, 0b00000, 5, 2, 1};
+
+	if (bitboard.evaluatePatterns(playerOnePattern, 1))
+		return (INT_MIN);
+	if (bitboard.evaluatePatterns(playerTwoPattern, 1))
+		return (INT_MAX);
+	
 	if (_firstPlayerNbCaptures >= 5)
 		return (INT_MIN);
 	else if (_secondPlayerNbCaptures >= 5)
