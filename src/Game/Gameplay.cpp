@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:26 by laprieur          #+#    #+#             */
-/*   Updated: 2024/12/21 16:57:23 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:30:14 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 	else if (_isFirstMove && gameState != AIVERSUS)
 		_currentPlayer = 1;
 
-	if (gameState == AIVERSUS && !bitboard.isGameOver() && _currentPlayer == 2 && !aiPlaying) {
+	if (gameState == AIVERSUS && !bitboard.fiveInARow() && _currentPlayer == 2 && !aiPlaying) {
 		aiPlaying = true;
 
 		std::thread([this, &bitboard, &ai]() {

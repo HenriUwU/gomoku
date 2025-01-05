@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bitboard_patterns.cpp                              :+:      :+:    :+:   */
+/*   BitboardPatterns.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:41:12 by hsebille          #+#    #+#             */
-/*   Updated: 2024/12/26 15:42:29 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:33:22 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int evaluateLine(PatternInfo pattern, uint32_t playerBoardLine, uint32_t opponen
 	int score = 0;
 	int x = 0;
 
-	while (x < (19 - pattern.patternSize)) {
+	while (x <= (19 - pattern.patternSize)) {
 		uint32_t playerSelection = (playerBoardLine >> x) & ((1 << pattern.patternSize) - 1);
 		uint32_t opponentSelection = (opponentBoardLine >> x) & ((1 << pattern.patternSize) - 1);
 

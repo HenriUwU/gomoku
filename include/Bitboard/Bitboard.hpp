@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:40:43 by hsebille          #+#    #+#             */
-/*   Updated: 2024/12/26 15:40:44 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 21:28:43 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,6 @@ class Bitboard {
 		int		makeAntiDiagonalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones);
 
 		bool	isDoubleThree(int x, int y, int player);
-		bool	fiveInARowHorizontal(int x, int y, int player);
-		bool	fiveInARowVertical(int x, int y, int player);
-		bool	fiveInARowDiagonal(int x, int y, int player);
-		bool	fiveInARowAntiDiagonal(int x, int y, int player);
-		bool	isHorizontalAlignmentBreakable(int x, int y, int bitsInAlignment, int player);
-		bool	isVerticalAlignmentBreakable(int x, int y, int bitsInAlignment, int player);
-		bool	isDiagonalAlignmentBreakable(int x, int y, int bitsInAlignment, int player);
-		bool	isAntiDiagonalAlignmentBreakable(int x, int y, int bitsInAlignment, int player);
-		bool	horizontalCaptureInAlignment(int x, int y, int player);
-		bool	verticalCaptureInAlignment(int x, int y, int player);
-		bool	diagonalCaptureInAlignment(int x, int y, int player);
-		bool	antiDiagonalCaptureInAlignment(int x, int y, int player);
 
 		void	update(int x, int y, int player, bool add);
 		void	verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
@@ -94,17 +82,17 @@ class Bitboard {
 		int		hash() const;
 		int		getBit(int x, int y) const;
 		int		evaluatePatterns(PatternInfo patterns[], int nbPattern);
+		int		fiveInARow();
 
 		bool	placeStone(int x, int y, int player);
-        
-		bool	isGameOver();
 		bool	isLegalMove(int x, int y, int player);
-		bool	fiveInARow(int x, int y, int player);
         bool	isLegalMoveForAI(int x, int y, int player);
+		bool	isAlignmentBreakable(PatternInfo alignment[], int player, int opponent);
 	
 		void	clear();
 		void	printBoard();
-		void	removeStone(int x, int y, int player);
+		void	removeStone(int x, int y, int player);		
+		void	printBoardWithPossibleMoves(std::vector<std::pair<int, int>> sortedMoves);
 
 		std::vector<std::pair<int, int>>					placeStoneAI(int x, int y, int player, bool mode);
 		std::unordered_set<std::pair<int, int>, pair_hash>	generatePossibleMoves(int player);

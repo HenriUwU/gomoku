@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2024/12/21 17:04:04 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:30:03 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	int captures = makeCapture(x, y, player, onverraplustard);
 	(player == 1) ? playersCaptures[0] += captures : playersCaptures[1] += captures;
 
-	if (isGameOver() || (playersCaptures[0] == 5 || playersCaptures[1] == 5)) {
+	if (fiveInARow() || (playersCaptures[0] == 5 || playersCaptures[1] == 5)) {
 		if (player == 1)
 			endGameState = P1VICTORY;
 		else if (player == 2 && gameState != AIVERSUS)
@@ -76,16 +76,6 @@ void	Bitboard::removeStone(int x, int y, int player) {
 			update(x, y, 2, false);
 		}
 	}
-}
-
-bool	Bitboard::isGameOver() {
-	for (int y = 0; y < BOARD_SIZE; y++) {
-		for (int x = 0; x < BOARD_SIZE; x++) {
-			if (fiveInARow(x, y, 1) || fiveInARow(x, y, 2))
-				return (true);
-		}
-	}
-	return (false);
 }
 
 bool	Bitboard::isLegalMove(int x, int y, int player) {
