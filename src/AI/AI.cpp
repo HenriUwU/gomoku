@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:42:41 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/05 16:16:20 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 18:28:01 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,6 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 	std::unordered_set<std::pair<int, int>, pair_hash> possibleMoves = bitboard.generatePossibleMoves(myId);
 	std::vector<std::pair<int, int>> sortedMoves = sortMoves(possibleMoves, bitboard, playerTwoTurn);
 	
-	if (sortedMoves.empty()) {
-		bitboard.printBoard();
-		std::cout << "No possible moves for player: " << myId << std::endl;
-	}
-	
 	Move bestMove = {std::pair<int, int>(9, 9), INT_MIN};
 	
 	for (size_t i = 0; i < sortedMoves.size() ; i++) {
@@ -109,8 +104,6 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 			if (alpha < tmp.score && tmp.score < beta)
 				tmp = negamax(bitboard, depth - 1, !playerTwoTurn, -beta, -tmp.score);
 		}
-
-		// tmp.score += removedStones.size() * 10000 * ((playerTwoTurn ? _secondPlayerNbCaptures : _firstPlayerNbCaptures) + 1);
 		tmp.score = -tmp.score;
 
 		for (const auto& stone : removedStones) {

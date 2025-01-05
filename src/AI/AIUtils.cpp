@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AI_utils.cpp                                       :+:      :+:    :+:   */
+/*   AIUtils.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:29:01 by hsebille          #+#    #+#             */
-/*   Updated: 2024/11/16 13:17:19 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/05 17:41:03 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ std::vector<std::pair<int, int>>	AI::sortMoves(const std::unordered_set<std::pai
 			heuristicValue = heuristic(bitboard);
 			_heuristicValuesOfBoards[bitboard.hash()] = heuristicValue;
 		}
-		// heuristicValue += removedStones.size() * 10000 * ((playerTwoTurn ? _secondPlayerNbCaptures : (-_firstPlayerNbCaptures)) + 1);
 
 		for (const auto& stone : removedStones)
 			bitboard.placeStoneAI(stone.first, stone.second, opId, false);
