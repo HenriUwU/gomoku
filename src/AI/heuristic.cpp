@@ -74,7 +74,7 @@ int AI::evaluateAlignments(Bitboard& bitboard) {
 		{0b11101, 0b00000, 5, 1, -1000000},
 		
 		{0b11111, 0b00000, 5, 2, 100000000},
-		{0b11111, 0b00000, 5, 1, 100000000},
+		{0b11111, 0b00000, 5, 1, -100000000},
 		
 		{0b0110, 0b1000, 4, 2, (10000 * ((-_firstPlayerNbCaptures) - 1))},
 		{0b0110, 0b0001, 4, 2, (10000 * ((-_firstPlayerNbCaptures) - 1))},
