@@ -22,10 +22,9 @@ SRC				:=	src/main.cpp								\
 					src/AI/AIUtils.cpp							\
 					src/Graphics/GIF/AnimatedGIF.cpp			\
 					src/Bitboard/BitboardCaptures.cpp			\
-					src/Bitboard/BitboardDoubleThree.cpp		\
 					src/Bitboard/BitboardPatterns.cpp			\
 					src/Bitboard/BitboardUtils.cpp				\
-					src/Bitboard/BitboardVictory.cpp			\
+					src/Bitboard/BitboardRules.cpp				\
 					src/Bitboard/BitboardGenerateMoves.cpp		\
 					src/Bitboard/Bitboard.cpp					\
 					src/Game/Gameplay.cpp						\

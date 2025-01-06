@@ -66,11 +66,6 @@ class Bitboard {
 		void	verifyVerticalCapture(int &nbCaptures, int x, int y, int player);
 		void	verifyDiagonalCapture(int &nbCaptures, int x, int y, int player);
 		void	verifyAntiDiagonalCapture(int &nbCaptures, int x, int y, int player);
-		void	verifyFreeThree(int &nbFreeThree, int x, int y, int player, bool isVertical, bool isDiagonal, bool isAntiDiagonal);
-		void	verifyFreeThreeHorizontal(int &nbFreeThree, int x, int y, int player);
-		void	verifyFreeThreeVertical(int &nbFreeThree, int x, int y, int player);
-		void	verifyFreeThreeDiagonal(int &nbFreeThree, int x, int y, int player);
-		void	verifyFreeThreeAntiDiagonal(int &nbFreeThree, int x, int y, int player);
 
 		std::unordered_set<std::pair<int, int>, pair_hash>	getAllStones();
 		uint32_t											getSelection(uint32_t bitboard, int nbBits, int bitsPos);
