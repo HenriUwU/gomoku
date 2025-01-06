@@ -26,6 +26,7 @@ StonesColors							stonesColors			= NOSTONESCOLORS;
 HelpMenuState							helpMenuState			= RULES;
 ForbiddenMoves							forbiddenMoves			= NOFORBIDDENMOVE;
 std::chrono::steady_clock::time_point	gameStartTime;
+std::chrono::steady_clock::time_point	gameEndTime;
 
 int main() {
 	sf::RenderWindow	window(sf::VideoMode(1920, 1080), "Gomoku");

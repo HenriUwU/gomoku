@@ -41,7 +41,7 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 		auto currentTime = std::chrono::steady_clock::now();
 		std::chrono::duration<double> timeElapsed = currentTime - _moveStartTime;
 
-		if (timeElapsed.count() < 0.25)
+		if (timeElapsed.count() < MOVE_INTERVAL)
 			return;
 			
 		bitboard.placeStone(position.first, position.second, _currentPlayer);
@@ -65,12 +65,12 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 		_currentPlayer = (_currentPlayer == 1) ? 2 : 1;
 	}
 
-	if (moveSuggestionEnabled) {
-		if (gameState != AIVERSUS && _didSuggestMove == false) {
+	if (moveSuggestionEnabled && gameState != AIVERSUS) {
+		if (_didSuggestMove == false) {
 			_suggestedMove = ai.moveSuggestion(bitboard, _currentPlayer);
 			_didSuggestMove = true;
 		}
-		if (gameState != AIVERSUS && _didSuggestMove == true)
+		if (_didSuggestMove == true)
 			moveSuggestion(window);
 	}
 

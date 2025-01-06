@@ -16,7 +16,7 @@
 
 class Bitboard;
 
-#define IMPOSSIBLE_AI_DEPTH 15
+#define IMPOSSIBLE_AI_DEPTH 10
 #define CHALLENGING_AI_DEPTH 6
 #define EASY_AI_DEPTH 4
 

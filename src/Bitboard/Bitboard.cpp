@@ -41,6 +41,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	(player == 1) ? playersCaptures[0] += captures : playersCaptures[1] += captures;
 
 	if (fiveInARow() || (playersCaptures[0] == 5 || playersCaptures[1] == 5)) {
+		gameEndTime = std::chrono::steady_clock::now();
 		if (player == 1)
 			endGameState = P1VICTORY;
 		else if (player == 2 && gameState != AIVERSUS)
