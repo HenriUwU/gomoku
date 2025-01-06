@@ -12,16 +12,6 @@
 
 #include "Bitboard.hpp"
 
-int	Bitboard::isCapturingMove(int x, int y, int player) {
-	int			nbCaptures = 0;
-	verifyHorizontalCapture(nbCaptures, x, y, player);
-	verifyVerticalCapture(nbCaptures, x, y, player);
-	verifyDiagonalCapture(nbCaptures, x, y, player);
-	verifyAntiDiagonalCapture(nbCaptures, x, y, player);
-	
-	return nbCaptures;
-}
-
 int	Bitboard::makeCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones) {
 	int captures = 0;
 	
