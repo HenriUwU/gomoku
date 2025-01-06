@@ -49,8 +49,6 @@ class Bitboard {
 
 		int		rotateY45(int x, int y);
 		int		rotateY315(int x, int y);
-		int		reverseRotate45(int x, int y);
-		int		reverseRotate315(int x, int y);
 		int		makeCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones);
 		int		isCapturingMove(int x, int y, int player);
 		int		makeHorizontalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones);

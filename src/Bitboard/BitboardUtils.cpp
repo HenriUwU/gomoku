@@ -73,20 +73,6 @@ int	Bitboard::getBit(int x, int y) const {
 	return (0);
 }
 
-int Bitboard::reverseRotate45(int x, int y) {
-	if (x + y < BOARD_SIZE)
-		return (y - x);
-	else
-		return (y + (BOARD_SIZE - x));
-}
-
-int Bitboard::reverseRotate315(int x, int y) {
-	if (x < y + 1)
-		return (y + x);
-	else
-		return (y - (BOARD_SIZE + x));
-}
-
 int	Bitboard::rotateY45(int x, int y) {
 	if (x + y < BOARD_SIZE)
 		return (x + y);
@@ -167,42 +153,6 @@ void Bitboard::update(int x, int y, int player, bool add) {
 		this->_firstHash[y] = std::hash<int>{}(this->_firstPlayerBoardLines[y]);
 	else
 		this->_secondHash[y] = std::hash<int>{}(this->_secondPlayerBoardLines[y]);
-}
-
-void	Bitboard::printBoard() {
-	for (int y = 0; y < BOARD_SIZE; ++y) {
-		for (int x = 0; x < BOARD_SIZE; ++x) {
-			uint32_t mask = uint32_t(1) << x;
-
-			if (_firstPlayerBoardLines[y] & mask) {
-				std::cout << "1 ";
-			} else if (_secondPlayerBoardLines[y] & mask) {
-				std::cout << "2 ";
-			} else {
-				std::cout << ". ";
-			}
-		}
-		std::cout << "\n";
-	}
-}
-
-void	Bitboard::printBoardWithPossibleMoves(std::vector<std::pair<int, int>> sortedMoves) {
-	for (int y = 0; y < BOARD_SIZE; ++y) {
-		for (int x = 0; x < BOARD_SIZE; ++x) {
-			uint32_t mask = uint32_t(1) << x;
-
-			if (_firstPlayerBoardLines[y] & mask) {
-				std::cout << "1 ";
-			} else if (_secondPlayerBoardLines[y] & mask) {
-				std::cout << "2 ";
-			} else if (std::find(sortedMoves.begin(), sortedMoves.end(), std::make_pair(x, y)) != sortedMoves.end()) {
-				std::cout << "X ";
-			} else {
-				std::cout << ". ";
-			}
-		}
-		std::cout << "\n";
-	}
 }
 
 void	Bitboard::clear() {
