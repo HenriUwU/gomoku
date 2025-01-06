@@ -15,20 +15,17 @@
 int AI::heuristic(Bitboard& bitboard) {
 	int score = 0;
 
-	//-- Hard checks for victories or loses --//
-	int win = bitboard.fiveInARow();
-
-	if (win == 1)
-		return (INT_MIN);
-	else if (win == 2)
-		return (INT_MAX);
-	
 	if (_firstPlayerNbCaptures >= 5)
 		return (INT_MIN);
-	else if (_secondPlayerNbCaptures >= 5)
+	if (_secondPlayerNbCaptures >= 5)
 		return (INT_MAX);
 
-	//-- Check for alignments --//
+	int win = bitboard.fiveInARow();
+	if (win == 1)
+		return (INT_MIN);
+	if (win == 2)
+		return (INT_MAX);
+
 	score += evaluateAlignments(bitboard);
 
 	return score;
@@ -38,9 +35,26 @@ int AI::evaluateAlignments(Bitboard& bitboard) {
 	int score = 0;
 
 	PatternInfo mainPatterns[NB_HEURISTIC_PATTERNS] = {
+		{0b01010, 0b00000, 5, 2, 100},
+		{0b10001, 0b00000, 5, 2, 100},
+		{0b10010, 0b00000, 5, 2, 100},
+		{0b01001, 0b00000, 5, 2, 100},
+		{0b01010, 0b00000, 5, 1, -100},
+		{0b10001, 0b00000, 5, 1, -100},
+		{0b10010, 0b00000, 5, 1, -100},
+		{0b01001, 0b00000, 5, 1, -100},
+
+		{0b0101010, 0b0000000, 7, 2, 750},
+		{0b011010, 0b000000, 6, 2, 10000},
+		{0b010110, 0b000000, 6, 2, 10000},
+		{0b0101010, 0b0000000, 7, 1, -750},
+		{0b011010, 0b000000, 6, 1, -10000},
+		{0b010110, 0b000000, 6, 1, -10000},
+
 		{0b01110, 0b10000, 5, 2, 1000},
 		{0b01110, 0b00001, 5, 2, 1000},
 		{0b01110, 0b00000, 5, 2, 10000},
+
 		{0b01110, 0b10000, 5, 1, -1000},
 		{0b01110, 0b00001, 5, 1, -1000},
 		{0b01110, 0b00000, 5, 1, -10000},

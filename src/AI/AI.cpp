@@ -44,7 +44,7 @@ std::pair<int, int> AI::suggestMove(Bitboard &bitboard, int player) {
     Bitboard tmp = bitboard;
 	_firstPlayerNbCaptures = playersCaptures[0];
 	_secondPlayerNbCaptures = playersCaptures[1];
-	std::pair<int, int> move = negamax(tmp, EASY_AI_DEPTH, (player == 1) ? false : true, INT_MIN, INT_MAX).position;
+	std::pair<int, int> move = negamax(tmp, MOVE_SUGGESTION_DEPTH, (player == 1) ? false : true, INT_MIN, INT_MAX).position;
 	return move;
 }
 
