@@ -120,8 +120,10 @@ void	Gameplay::statistics() {
 		ssPlayer1AverageMoveTime << std::fixed << std::setprecision(2) << player1AverageMoveTime.count();
 		ssPlayer2AverageMoveTime << std::fixed << std::setprecision(2) << player2AverageMoveTime.count();
 
-		
-		_player1Stats[3].setString(ssPlayer1AverageMoveTime.str() + "s");
+		if (_player1AverageMoveTime.size() == 0)
+			_player1Stats[3].setString("0.00s");
+		else
+			_player1Stats[3].setString(ssPlayer1AverageMoveTime.str() + "s");
 		_player2Stats[3].setString(ssPlayer2AverageMoveTime.str() + "s");
 
 		(_playerJustMoved == 1) ? _player1Stats[1].setString(std::to_string(_playersTotalMoves[0])) : _player2Stats[1].setString(std::to_string(_playersTotalMoves[1]));
