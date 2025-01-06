@@ -37,38 +37,14 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && position.first != -1 && position.second != -1) {
 		if (!bitboard.isLegalMove(position.first, position.second, _currentPlayer) || (aiPlaying && _currentPlayer == 2))
 			return;
+
+		auto currentTime = std::chrono::steady_clock::now();
+		std::chrono::duration<double> timeElapsed = currentTime - _moveStartTime;
+
+		if (timeElapsed.count() < 0.25)
+			return;
 			
 		bitboard.placeStone(position.first, position.second, _currentPlayer);
-
-		// PatternInfo mainPatterns[NB_HEURISTIC_PATTERNS] = {
-		// 	{0b0110, 0b0000, 4, 1, 100},
-		// 	{0b0110, 0b0000, 4, 2, -100},
-			
-		// 	{0b01110, 0b10000, 5, 1, 1000},
-		// 	{0b01110, 0b00001, 5, 1, 1000},
-		// 	{0b01110, 0b00000, 5, 1, 10000},
-		// 	{0b01110, 0b10000, 5, 2, -1000},
-		// 	{0b01110, 0b00001, 5, 2, -1000},
-		// 	{0b01110, 0b00000, 5, 2, -10000},
-			
-		// 	{0b011110, 0b100000, 6, 1, 100000},
-		// 	{0b011110, 0b000001, 6, 1, 100000},
-		// 	{0b011110, 0b000000, 6, 1, 1000000},
-		// 	{0b011110, 0b000001, 6, 2, -100000},
-		// 	{0b011110, 0b100000, 6, 2, -100000},
-		// 	{0b011110, 0b000000, 6, 2, -1000000},
-
-		// 	{0b11111, 0b00000, 5, 1, 100000000},
-		// 	{0b11111, 0b00000, 5, 2, 100000000},
-			
-		// 	{0b0110, 0b1000, 4, 1, 10000},
-		// 	{0b0110, 0b0001, 4, 1, 10000},
-		// 	{0b0110, 0b1000, 4, 2, 10000},
-		// 	{0b0110, 0b0001, 4, 2, 10000},
-		// };
-		// bitboard.printBoard();
-		// bitboard.evaluatePatterns(mainPatterns, NB_HEURISTIC_PATTERNS);
-		// std::cout << std::endl << std::endl;
 
 		if (_isFirstMove) {
 			_isFirstMove = false;
