@@ -72,3 +72,25 @@ bool Bitboard::isAlignmentBreakable(PatternInfo alignment[], int player, int opp
 	}
 	return (false);
 }
+
+bool	Bitboard::isLegalMove(int x, int y, int player) {
+	if (getBit(x, y))
+		return (false);
+
+	if (isDoubleThree(x, y, player) && !isCapturingMove(x, y, player)) {
+		if (!aiPlaying)
+			forbiddenMoves = DOUBLE_THREE;
+		return (false);
+	}
+	return (true);
+}
+
+bool    Bitboard::isLegalMoveForAI(int x, int y, int player) {
+	if (getBit(x, y))
+		return (false);
+
+	if (isDoubleThree(x, y, player) && !isCapturingMove(x, y, player)) {
+		return (false);
+	}
+	return (true);
+}

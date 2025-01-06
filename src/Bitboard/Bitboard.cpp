@@ -71,38 +71,3 @@ void	Bitboard::removeStone(int x, int y, int player) {
 		}
 	}
 }
-
-bool	Bitboard::isLegalMove(int x, int y, int player) {
-	if (getBit(x, y))
-		return (false);
-
-	if (isDoubleThree(x, y, player) && !isCapturingMove(x, y, player)) {
-		if (!aiPlaying)
-			forbiddenMoves = DOUBLE_THREE;
-		return (false);
-	}
-	return (true);
-}
-
-bool    Bitboard::isLegalMoveForAI(int x, int y, int player) {
-	if (getBit(x, y))
-		return (false);
-
-	if (isDoubleThree(x, y, player) && !isCapturingMove(x, y, player)) {
-		return (false);
-	}
-	return (true);
-}
-
-std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::getAllStones() {
-	std::unordered_set<std::pair<int, int>, pair_hash>	stones;
-
-	for (int y = 0; y < BOARD_SIZE; y++) {
-		for (int x = 0; x < BOARD_SIZE; x++) {
-			if (getBit(x, y)) {
-				stones.emplace(x, y);
-			}
-		}
-	}
-	return (stones);
-}

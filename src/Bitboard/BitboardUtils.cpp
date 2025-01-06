@@ -35,6 +35,19 @@ std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMov
 	return (uniqueMoves);
 }
 
+std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::getAllStones() {
+	std::unordered_set<std::pair<int, int>, pair_hash>	stones;
+
+	for (int y = 0; y < BOARD_SIZE; y++) {
+		for (int x = 0; x < BOARD_SIZE; x++) {
+			if (getBit(x, y)) {
+				stones.emplace(x, y);
+			}
+		}
+	}
+	return (stones);
+}
+
 int Bitboard::hash() const {
 	std::size_t	res;
 	std::size_t	plTmp;
