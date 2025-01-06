@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:26 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/06 12:09:40 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:19:46 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,25 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 		auto currentTime = std::chrono::steady_clock::now();
 		std::chrono::duration<double> timeElapsed = currentTime - _moveStartTime;
 
-		if (timeElapsed.count() < 0.25)
+		if (timeElapsed.count() < MOVE_INTERVAL)
 			return;
 			
 		bitboard.placeStone(position.first, position.second, _currentPlayer);
         
         (_currentPlayer == 1) ? _playersTotalMoves[0] += 1 : _playersTotalMoves[1] += 1; 
+		
+        updateTime();
 
-		if (_isFirstMove) {
-			_isFirstMove = false;
-			_moveStartTime = std::chrono::steady_clock::now();
-			_lastMoveDuration = _moveStartTime - gameStartTime;
-		} else {
-			_moveEndTime = std::chrono::steady_clock::now();
-			_lastMoveDuration = _moveEndTime - _moveStartTime;
-			_moveStartTime = _moveEndTime;
-		}
-
-		if (_currentPlayer == 1)
-			_player1TotalTime += _lastMoveDuration;
-		if (_currentPlayer == 2)
-			_player2TotalTime += _lastMoveDuration;
 		_didSuggestMove = false;
-		_playerJustMoved = _currentPlayer;
 		_currentPlayer = (_currentPlayer == 1) ? 2 : 1;
 	}
 
-	if (moveSuggestionEnabled) {
-		if (gameState != AIVERSUS && _didSuggestMove == false) {
-			_suggestedMove = ai.moveSuggestion(bitboard, _currentPlayer);
+	if (moveSuggestionEnabled && gameState != AIVERSUS) {
+		if (_didSuggestMove == false) {
+			_suggestedMove = ai.suggestMove(bitboard, _currentPlayer);
 			_didSuggestMove = true;
 		}
-		if (gameState != AIVERSUS && _didSuggestMove == true)
+		if (_didSuggestMove == true)
 			moveSuggestion(window);
 	}
 
@@ -91,20 +78,7 @@ void	Gameplay::AITurn(Bitboard& bitboard, AI& ai) {
 			ai.play(bitboard);
 		else
 			ai.crazyMode(bitboard);
-		if (_isFirstMove) {
-			_isFirstMove = false;
-			_moveStartTime = std::chrono::steady_clock::now();
-			_lastMoveDuration = _moveStartTime - gameStartTime;
-		} else {
-			_moveEndTime = std::chrono::steady_clock::now();
-			_lastMoveDuration = _moveEndTime - _moveStartTime;
-			_moveStartTime = _moveEndTime;
-		}
-		_playerJustMoved = 2;
-		if (_playerJustMoved == 1)
-			_player1TotalTime += _lastMoveDuration;
-		else
-			_player2TotalTime += _lastMoveDuration;
+		updateTime();
 		_currentPlayer = 1;
 		aiPlaying = false;
 	}

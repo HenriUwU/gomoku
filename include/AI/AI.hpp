@@ -16,14 +16,11 @@
 
 class Bitboard;
 
-#define IMPOSSIBLE_AI_DEPTH 15
+#define IMPOSSIBLE_AI_DEPTH 10
 #define CHALLENGING_AI_DEPTH 6
 #define EASY_AI_DEPTH 4
-
 #define MAX_TESTED_MOVES 6
-
 #define NB_HEURISTIC_PATTERNS 18
-#define NB_DEFENSIVE_PATTERNS 6
 
 struct Move {
 	std::pair<int, int> position;
@@ -52,7 +49,7 @@ class AI {
 		AI();
 		~AI();
 
-        std::pair<int, int>	moveSuggestion(Bitboard &bitboard, int player);
+        std::pair<int, int>	suggestMove(Bitboard &bitboard, int player);
 		void				play(Bitboard &bitboard);
 		void				crazyMode(Bitboard &bitboard);
 };

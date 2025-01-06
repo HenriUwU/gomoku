@@ -46,6 +46,8 @@ class AI;
 #define GRIDSTARTPOINT_X 527
 #define GRIDSTARTPOINT_Y 50
 #define CELLPIXELSIZE (float)48
+#define MOVE_INTERVAL (float)0.5
+#define ENDGAME_INTERVAL (float)1
 
 class Gameplay {
 	private:
@@ -96,6 +98,7 @@ class Gameplay {
 		void	defineBoard();
 		void	popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	moveSuggestion(sf::RenderWindow& window);
+		void	updateTime();
 
 		std::pair<int,int>	calculatePosition(sf::RenderWindow& window);
 		

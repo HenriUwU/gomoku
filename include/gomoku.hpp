@@ -144,6 +144,7 @@ extern StonesColors								stonesColors;
 extern HelpMenuState							helpMenuState;
 extern ForbiddenMoves							forbiddenMoves;
 extern std::chrono::steady_clock::time_point	gameStartTime;
+extern std::chrono::steady_clock::time_point	gameEndTime;
 
 void	loadTextures(int nbTextures, const std::string pathStart, const std::string prefixes[], std::vector<sf::Texture>& textures);
 void	setTextures(int nbTextures, const std::vector<sf::Texture>& textures, std::vector<sf::Sprite>& sprites);

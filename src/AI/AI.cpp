@@ -40,7 +40,7 @@ void	AI::play(Bitboard &bitboard) {
 	bitboard.placeStone(move.first, move.second, 2);
 }
 
-std::pair<int, int> AI::moveSuggestion(Bitboard &bitboard, int player) {
+std::pair<int, int> AI::suggestMove(Bitboard &bitboard, int player) {
     Bitboard tmp = bitboard;
 	_firstPlayerNbCaptures = playersCaptures[0];
 	_secondPlayerNbCaptures = playersCaptures[1];
@@ -87,7 +87,7 @@ Move AI::negamax(Bitboard &bitboard, int depth, bool playerTwoTurn, int alpha, i
 	
 	Move bestMove = {std::pair<int, int>(9, 9), INT_MIN};
 	
-	for (size_t i = 0; i < sortedMoves.size() ; i++) {
+	for (size_t i = 0; i < MAX_TESTED_MOVES && i < sortedMoves.size() ; i++) {
 		auto& possibleMove = sortedMoves[i];
 		Move tmp;
 

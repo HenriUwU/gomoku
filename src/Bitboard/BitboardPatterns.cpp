@@ -22,13 +22,6 @@ int evaluateLine(PatternInfo pattern, uint32_t playerBoardLine, uint32_t opponen
 
 		if (playerSelection == pattern.pattern && opponentSelection == pattern.opponentPattern) {
 			score += pattern.multiplier;
-			// std::cout 
-			// 		<< "PlayerSelection: " << std::bitset<32>(playerSelection).to_string().substr(32 - pattern.patternSize)
-			// 		<< " | OpponentSelection: " << std::bitset<32>(opponentSelection).to_string().substr(32 - pattern.patternSize)
-			// 		<< " | Pattern: " << std::bitset<32>(pattern.pattern).to_string().substr(32 - pattern.patternSize)
-			// 		<< " | OpponentPattern: " << std::bitset<32>(pattern.opponentPattern).to_string().substr(32 - pattern.patternSize)
-			// 		<< " | PlayerType: " << pattern.playerType
-			// 		<< std::endl;
 		}
 		x++;
 	}
