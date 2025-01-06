@@ -40,7 +40,7 @@ void	AI::play(Bitboard &bitboard) {
 	bitboard.placeStone(move.first, move.second, 2);
 }
 
-std::pair<int, int> AI::moveSuggestion(Bitboard &bitboard, int player) {
+std::pair<int, int> AI::suggestMove(Bitboard &bitboard, int player) {
     Bitboard tmp = bitboard;
 	_firstPlayerNbCaptures = playersCaptures[0];
 	_secondPlayerNbCaptures = playersCaptures[1];

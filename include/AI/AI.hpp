@@ -49,7 +49,7 @@ class AI {
 		AI();
 		~AI();
 
-        std::pair<int, int>	moveSuggestion(Bitboard &bitboard, int player);
+        std::pair<int, int>	suggestMove(Bitboard &bitboard, int player);
 		void				play(Bitboard &bitboard);
 		void				crazyMode(Bitboard &bitboard);
 };

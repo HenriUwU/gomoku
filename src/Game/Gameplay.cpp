@@ -53,7 +53,7 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 
 	if (moveSuggestionEnabled && gameState != AIVERSUS) {
 		if (_didSuggestMove == false) {
-			_suggestedMove = ai.moveSuggestion(bitboard, _currentPlayer);
+			_suggestedMove = ai.suggestMove(bitboard, _currentPlayer);
 			_didSuggestMove = true;
 		}
 		if (_didSuggestMove == true)
