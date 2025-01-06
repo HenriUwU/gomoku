@@ -97,6 +97,7 @@ class Gameplay {
 		void	defineBoard();
 		void	popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	moveSuggestion(sf::RenderWindow& window);
+		void	updateTime();
 
 		std::pair<int,int>	calculatePosition(sf::RenderWindow& window);
 		

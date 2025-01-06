@@ -208,6 +208,23 @@ void	Gameplay::defineBoard() {
 	}
 }
 
+void	Gameplay::updateTime() {
+	if (_isFirstMove) {
+		_isFirstMove = false;
+		_moveStartTime = std::chrono::steady_clock::now();
+		_lastMoveDuration = _moveStartTime - gameStartTime;
+	} else {
+		_moveEndTime = std::chrono::steady_clock::now();
+		_lastMoveDuration = _moveEndTime - _moveStartTime;
+		_moveStartTime = _moveEndTime;
+	}
+	_playerJustMoved = _currentPlayer;
+	if (_playerJustMoved == 1)
+		_player1TotalTime += _lastMoveDuration;
+	else
+		_player2TotalTime += _lastMoveDuration;
+}
+
 void    Gameplay::init() {
 	const std::string	backwardButton[] = {"backwardButton", "backwardHoveredButton"};
 	const std::string	others[]		 = {"gridAndIndex", "1VS1Page", "aiVersusPage"};

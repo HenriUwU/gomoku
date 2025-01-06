@@ -45,23 +45,9 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 			return;
 			
 		bitboard.placeStone(position.first, position.second, _currentPlayer);
+		updateTime();
 
-		if (_isFirstMove) {
-			_isFirstMove = false;
-			_moveStartTime = std::chrono::steady_clock::now();
-			_lastMoveDuration = _moveStartTime - gameStartTime;
-		} else {
-			_moveEndTime = std::chrono::steady_clock::now();
-			_lastMoveDuration = _moveEndTime - _moveStartTime;
-			_moveStartTime = _moveEndTime;
-		}
-
-		if (_currentPlayer == 1)
-			_player1TotalTime += _lastMoveDuration;
-		if (_currentPlayer == 2)
-			_player2TotalTime += _lastMoveDuration;
 		_didSuggestMove = false;
-		_playerJustMoved = _currentPlayer;
 		_currentPlayer = (_currentPlayer == 1) ? 2 : 1;
 	}
 
@@ -89,20 +75,7 @@ void	Gameplay::AITurn(Bitboard& bitboard, AI& ai) {
 			ai.play(bitboard);
 		else
 			ai.crazyMode(bitboard);
-		if (_isFirstMove) {
-			_isFirstMove = false;
-			_moveStartTime = std::chrono::steady_clock::now();
-			_lastMoveDuration = _moveStartTime - gameStartTime;
-		} else {
-			_moveEndTime = std::chrono::steady_clock::now();
-			_lastMoveDuration = _moveEndTime - _moveStartTime;
-			_moveStartTime = _moveEndTime;
-		}
-		_playerJustMoved = 2;
-		if (_playerJustMoved == 1)
-			_player1TotalTime += _lastMoveDuration;
-		else
-			_player2TotalTime += _lastMoveDuration;
+		updateTime();
 		_currentPlayer = 1;
 		aiPlaying = false;
 	}
