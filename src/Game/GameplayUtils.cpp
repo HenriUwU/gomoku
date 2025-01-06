@@ -249,6 +249,7 @@ void	Gameplay::updateTime() {
 		_moveStartTime = _moveEndTime;
 	}
 	_playerJustMoved = _currentPlayer;
+    (_currentPlayer == 1) ? _playersTotalMoves[0] += 1 : _playersTotalMoves[1] += 1; 
 	if (_playerJustMoved == 1) {
 		_player1TotalTime += _lastMoveDuration;
 		_player1AverageMoveTime.push_back(_lastMoveDuration);

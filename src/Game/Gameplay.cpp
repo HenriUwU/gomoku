@@ -43,13 +43,9 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 
 		if (timeElapsed.count() < MOVE_INTERVAL)
 			return;
-			
 		bitboard.placeStone(position.first, position.second, _currentPlayer);
-        
-        (_currentPlayer == 1) ? _playersTotalMoves[0] += 1 : _playersTotalMoves[1] += 1; 
 		
         updateTime();
-
 		_didSuggestMove = false;
 		_currentPlayer = (_currentPlayer == 1) ? 2 : 1;
 	}
