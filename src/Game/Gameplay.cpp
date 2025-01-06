@@ -26,7 +26,7 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 	else if (_isFirstMove && gameState != AIVERSUS)
 		_currentPlayer = 1;
 
-	if (gameState == AIVERSUS && !bitboard.fiveInARow() && _currentPlayer == 2 && !aiPlaying) {
+	if (gameState == AIVERSUS && _currentPlayer == 2 && !aiPlaying) {
 		aiPlaying = true;
 
 		std::thread([this, &bitboard, &ai]() {
