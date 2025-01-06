@@ -12,6 +12,29 @@
 
 #include "Bitboard.hpp"
 
+std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMoves(int player) {
+	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;
+	std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
+	int														margin = 2;
+
+	for (auto& stone : currentStones) {
+		int startX = std::max(0, stone.first - margin);
+		int endX = std::min(BOARD_SIZE - 1, stone.first + margin);
+		int startY = std::max(0, stone.second - margin);
+		int endY = std::min(BOARD_SIZE - 1, stone.second + margin);
+
+		for (int x = startX; x <= endX; ++x) {
+			for (int y = startY; y <= endY; ++y) {
+				if (!getBit(x, y)) {
+					if (isLegalMoveForAI(x, y, player))
+						uniqueMoves.emplace(x, y);
+				}
+			}
+		}
+	}
+	return (uniqueMoves);
+}
+
 int Bitboard::hash() const {
 	std::size_t	res;
 	std::size_t	plTmp;
@@ -27,21 +50,6 @@ int Bitboard::hash() const {
 	}
 
 	return (res);
-}
-
-int Bitboard::mixArrayHash(const std::array<uint32_t, BOARD_SIZE>& arr, int prime) const {
-	int result = 0;
-	for (int i = 0; i < BOARD_SIZE; ++i) {
-		uint32_t value = arr[i];
-
-		value ^= (i * prime);
-		value = (value << 13) | (value >> 19);
-		value *= prime;
-
-		result ^= value;
-		result += (value << 3) + (value >> 2);
-	}
-	return result;
 }
 
 uint32_t	Bitboard::getSelection(uint32_t bitboard, int nbBits, int bitsPos) {

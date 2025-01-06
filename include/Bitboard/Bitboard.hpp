@@ -47,7 +47,6 @@ class Bitboard {
 		size_t								_firstHash[BOARD_SIZE];
 		size_t								_secondHash[BOARD_SIZE];
 
-		int 	mixArrayHash(const std::array<uint32_t, BOARD_SIZE>& arr, int prime) const;
 		int		rotateY45(int x, int y);
 		int		rotateY315(int x, int y);
 		int		reverseRotate45(int x, int y);
