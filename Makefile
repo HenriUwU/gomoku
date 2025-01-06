@@ -25,7 +25,6 @@ SRC				:=	src/main.cpp								\
 					src/Bitboard/BitboardPatterns.cpp			\
 					src/Bitboard/BitboardUtils.cpp				\
 					src/Bitboard/BitboardRules.cpp				\
-					src/Bitboard/BitboardGenerateMoves.cpp		\
 					src/Bitboard/Bitboard.cpp					\
 					src/Game/Gameplay.cpp						\
 					src/Game/GameplayUtils.cpp					\
