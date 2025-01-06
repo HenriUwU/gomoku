@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:53:56 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/06 12:17:48 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:10:40 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboar
 	window.draw(_firstPlayerAvatarSprite);
 	window.draw(_secondPlayerAvatarSprite);
 	window.draw(_gridAndIndexSprite);
+	(_currentPlayer == 1) ? _turnIndicatorText.setPosition(140, 750) : _turnIndicatorText.setPosition(1560, 750);
+	window.draw(_turnIndicatorText);
 	for (int i = 0; i < 5; i++) {
 		window.draw(_player1Stats[i]);
 		window.draw(_player2Stats[i]);
@@ -64,6 +66,9 @@ std::pair<int, int> Gameplay::calculatePosition(sf::RenderWindow& window) {
 void Gameplay::resetGame(Bitboard& bitboard) {
 	endGameState = NOVICTORY;
 	std::fill(playersCaptures, playersCaptures + 2, 0);
+	std::fill(_playersTotalMoves, _playersTotalMoves + 2, 0);
+	std::fill(_player1AverageMoveTime.begin(), _player1AverageMoveTime.end(), std::chrono::duration<double>(0));
+	std::fill(_player2AverageMoveTime.begin(), _player2AverageMoveTime.end(), std::chrono::duration<double>(0));
 	bitboard.clear();
 	_player1TotalTime = std::chrono::milliseconds::zero();
 	_player2TotalTime = std::chrono::milliseconds::zero();
@@ -105,6 +110,18 @@ void	Gameplay::statistics() {
 		std::string totalTime = ssTotalTime.str() + "s";
 		std::string lastMoveTime = ssLastMoveDuration.str() + "s";
 		
+		std::chrono::duration<double>	player1AverageMoveTime = (std::accumulate(_player1AverageMoveTime.begin(), _player1AverageMoveTime.end(), std::chrono::duration<double>(0))) / _player1AverageMoveTime.size();
+		std::chrono::duration<double>	player2AverageMoveTime = (std::accumulate(_player2AverageMoveTime.begin(), _player2AverageMoveTime.end(), std::chrono::duration<double>(0))) / _player2AverageMoveTime.size();
+		
+		std::stringstream	ssPlayer1AverageMoveTime;
+		std::stringstream	ssPlayer2AverageMoveTime;
+		
+		ssPlayer1AverageMoveTime << std::fixed << std::setprecision(2) << player1AverageMoveTime.count();
+		ssPlayer2AverageMoveTime << std::fixed << std::setprecision(2) << player2AverageMoveTime.count();
+
+		_player1Stats[3].setString(ssPlayer1AverageMoveTime.str() + "s");
+		_player2Stats[3].setString(ssPlayer2AverageMoveTime.str() + "s");
+
 		(_playerJustMoved == 1) ? _player1Stats[1].setString(std::to_string(_playersTotalMoves[0])) : _player2Stats[1].setString(std::to_string(_playersTotalMoves[1]));
 		(_playerJustMoved == 1) ? _player1Stats[2].setString(lastMoveTime) : _player2Stats[2].setString(lastMoveTime);
 		(_playerJustMoved == 1) ? _player1Stats[4].setString(totalTime) : _player2Stats[4].setString(totalTime);
@@ -232,10 +249,13 @@ void	Gameplay::updateTime() {
 		_moveStartTime = _moveEndTime;
 	}
 	_playerJustMoved = _currentPlayer;
-	if (_playerJustMoved == 1)
+	if (_playerJustMoved == 1) {
 		_player1TotalTime += _lastMoveDuration;
-	else
+		_player1AverageMoveTime.push_back(_lastMoveDuration);
+	} else {
 		_player2TotalTime += _lastMoveDuration;
+		_player2AverageMoveTime.push_back(_lastMoveDuration);
+	}
 }
 
 void    Gameplay::init() {
@@ -269,4 +289,9 @@ void    Gameplay::init() {
 	_font.loadFromFile("assets/fonts/Exo2/Exo2-BlackItalic.ttf");
 	setStatistics(_player1Stats, _font, 1);
 	setStatistics(_player2Stats, _font, 2);
+	
+	_turnIndicatorText.setFont(_font);
+	_turnIndicatorText.setString("It's your turn!");
+	_turnIndicatorText.setCharacterSize(33);
+	_turnIndicatorText.setFillColor(sf::Color::White);
 }

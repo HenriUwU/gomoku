@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:32:32 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/06 12:11:42 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:52:17 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ void	setStatistics(std::vector<sf::Text>& stats, sf::Font& font, int player) {
 		stats[i].setFillColor(sf::Color::White);
 	}
 	if (player == 1) {
-		stats[0].setPosition(312, 504);
-		stats[1].setPosition(295, 556);
-		stats[2].setPosition(298, 609);
-		stats[3].setPosition(298, 620);
-		stats[4].setPosition(298, 630);
+		stats[0].setPosition(311, 504);
+		stats[1].setPosition(263, 557);
+		stats[2].setPosition(296, 610);
+		stats[3].setPosition(276, 663);
+		stats[4].setPosition(294, 716);
 	} else if (player == 2) {
-		stats[0].setPosition(1730, 504);
-		stats[1].setPosition(1715, 556);
-		stats[2].setPosition(1718, 609);
-		stats[3].setPosition(1718, 620);
-		stats[4].setPosition(1718, 630);
+		stats[0].setPosition(1731, 504);
+		stats[1].setPosition(1683, 557);
+		stats[2].setPosition(1716, 610);
+		stats[3].setPosition(1696, 663);
+		stats[4].setPosition(1714, 716);
 	}
 }

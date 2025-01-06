@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:33:07 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/06 11:53:09 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:49:32 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,41 +51,44 @@ class AI;
 
 class Gameplay {
 	private:
-		int										_playerJustMoved;
-        int                                     _playersTotalMoves[2];
-		bool									_isFirstMove;
-    	bool									_didSuggestMove;
-		float									_cellSize;
-		sf::Font								_font;
-		sf::Sprite								_firstPlayerAvatarSprite;
-		sf::Sprite								_secondPlayerAvatarSprite;
-		sf::Sprite								_gobanSprite;
-		sf::Sprite								_backwardButtonSprite;
-		sf::Sprite								_gridAndIndexSprite;
-		sf::Sprite								_gamePageSprite;
-		sf::Sprite								_firstPlayerStoneSprite;
-		sf::Sprite								_secondPlayerStoneSprite;
-		sf::Sprite								_firstPlayerMoveSuggestionSprite;
-		sf::Sprite								_secondPlayerMoveSuggestionSprite;
-		sf::Sprite								_popupSprite;
-		sf::Sprite								_popupMainMenuButtonSprite;
-		sf::Sprite								_popupPlayAgainButtonSprite;
-		std::atomic<int>						_currentPlayer{1};
-		std::atomic<bool>						_isAIPlaying{true};
-		std::atomic<bool>						_closingApp{false};
-		std::pair<int, int>						_suggestedMove;
-		std::vector<sf::Text>					_player1Stats;
-		std::vector<sf::Text>					_player2Stats;
-		std::vector<sf::Texture>				_pageTextures;
-		std::vector<sf::Texture>				_popupTextures;
-		std::vector<sf::Texture>				_stonesTextures;
-		std::vector<sf::Texture>				_avatarsTextures;
-		std::vector<sf::Texture>				_boardsTextures;
-		std::chrono::duration<double>			_player1TotalTime;
-		std::chrono::duration<double>			_player2TotalTime;
-		std::chrono::duration<double>			_lastMoveDuration;
-		std::chrono::steady_clock::time_point	_moveStartTime;
-		std::chrono::steady_clock::time_point	_moveEndTime;
+		int										    _playerJustMoved;
+        int                                         _playersTotalMoves[2];
+		bool									    _isFirstMove;
+    	bool									    _didSuggestMove;
+		float									    _cellSize;
+		sf::Font								    _font;
+        sf::Text                                    _turnIndicatorText;
+		sf::Sprite								    _firstPlayerAvatarSprite;
+		sf::Sprite								    _secondPlayerAvatarSprite;
+		sf::Sprite								    _gobanSprite;
+		sf::Sprite								    _backwardButtonSprite;
+		sf::Sprite								    _gridAndIndexSprite;
+		sf::Sprite								    _gamePageSprite;
+		sf::Sprite								    _firstPlayerStoneSprite;
+		sf::Sprite								    _secondPlayerStoneSprite;
+		sf::Sprite								    _firstPlayerMoveSuggestionSprite;
+		sf::Sprite								    _secondPlayerMoveSuggestionSprite;
+		sf::Sprite								    _popupSprite;
+		sf::Sprite								    _popupMainMenuButtonSprite;
+		sf::Sprite								    _popupPlayAgainButtonSprite;
+		std::atomic<int>						    _currentPlayer{1};
+		std::atomic<bool>						    _isAIPlaying{true};
+		std::atomic<bool>						    _closingApp{false};
+		std::pair<int, int>						    _suggestedMove;
+		std::vector<sf::Text>					    _player1Stats;
+		std::vector<sf::Text>					    _player2Stats;
+		std::vector<sf::Texture>				    _pageTextures;
+		std::vector<sf::Texture>				    _popupTextures;
+		std::vector<sf::Texture>				    _stonesTextures;
+		std::vector<sf::Texture>				    _avatarsTextures;
+		std::vector<sf::Texture>				    _boardsTextures;
+        std::vector<std::chrono::duration<double>>  _player1AverageMoveTime;
+        std::vector<std::chrono::duration<double>>  _player2AverageMoveTime;
+		std::chrono::duration<double>			    _player1TotalTime;
+		std::chrono::duration<double>			    _player2TotalTime;
+		std::chrono::duration<double>			    _lastMoveDuration;
+		std::chrono::steady_clock::time_point	    _moveStartTime;
+		std::chrono::steady_clock::time_point	    _moveEndTime;
 
 		void	init();
 		void	returnButton(const sf::Event& event, const sf::RenderWindow& window, Bitboard& bitboard);
