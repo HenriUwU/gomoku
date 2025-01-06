@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:32:32 by laprieur          #+#    #+#             */
-/*   Updated: 2024/08/15 19:32:32 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:11:42 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,23 @@ void	setPosition(sf::Sprite& sprite, int x, int y) {
 }
 
 void	setStatistics(std::vector<sf::Text>& stats, sf::Font& font, int player) {
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 5; i++) {
 		stats[i].setFont(font);
-		stats[i].setString((i == 0) ? std::to_string(0) : std::to_string(0) + ".00s");
+		stats[i].setString((i == 0 || i == 1) ? std::to_string(0) : std::to_string(0) + ".00s");
 		stats[i].setCharacterSize(22);
 		stats[i].setFillColor(sf::Color::White);
 	}
 	if (player == 1) {
-		stats[0].setPosition(327, 530);
-		stats[1].setPosition(313, 556);
-		stats[2].setPosition(314, 583);
+		stats[0].setPosition(312, 504);
+		stats[1].setPosition(295, 556);
+		stats[2].setPosition(298, 609);
+		stats[3].setPosition(298, 620);
+		stats[4].setPosition(298, 630);
 	} else if (player == 2) {
-		stats[0].setPosition(1769, 530);
-		stats[1].setPosition(1755, 556);
-		stats[2].setPosition(1756, 583);
+		stats[0].setPosition(1730, 504);
+		stats[1].setPosition(1715, 556);
+		stats[2].setPosition(1718, 609);
+		stats[3].setPosition(1718, 620);
+		stats[4].setPosition(1718, 630);
 	}
 }

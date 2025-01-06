@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:26 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/05 13:30:14 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/06 12:09:40 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Gameplay.hpp"
 
-Gameplay::Gameplay() : _playerJustMoved(0), _isFirstMove(true), _didSuggestMove(false), _cellSize(868 / 19.0f), _player1Stats(3), _player2Stats(3) {
+Gameplay::Gameplay() : _playerJustMoved(0), _isFirstMove(true), _didSuggestMove(false), _cellSize(868 / 19.0f), _player1Stats(5), _player2Stats(5) {
 	init();
 }
 
@@ -45,6 +45,8 @@ void	Gameplay::play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai) {
 			return;
 			
 		bitboard.placeStone(position.first, position.second, _currentPlayer);
+        
+        (_currentPlayer == 1) ? _playersTotalMoves[0] += 1 : _playersTotalMoves[1] += 1; 
 
 		if (_isFirstMove) {
 			_isFirstMove = false;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   GameplayUtils.cpp                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/06 11:53:56 by laprieur          #+#    #+#             */
+/*   Updated: 2025/01/06 12:17:48 by laprieur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Gameplay.hpp"
 
 void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
@@ -16,7 +28,7 @@ void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboar
 	window.draw(_firstPlayerAvatarSprite);
 	window.draw(_secondPlayerAvatarSprite);
 	window.draw(_gridAndIndexSprite);
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 5; i++) {
 		window.draw(_player1Stats[i]);
 		window.draw(_player2Stats[i]);
 	}
@@ -93,8 +105,9 @@ void	Gameplay::statistics() {
 		std::string totalTime = ssTotalTime.str() + "s";
 		std::string lastMoveTime = ssLastMoveDuration.str() + "s";
 		
-		(_playerJustMoved == 1) ? _player1Stats[1].setString(totalTime) : _player2Stats[1].setString(totalTime);
+		(_playerJustMoved == 1) ? _player1Stats[1].setString(std::to_string(_playersTotalMoves[0])) : _player2Stats[1].setString(std::to_string(_playersTotalMoves[1]));
 		(_playerJustMoved == 1) ? _player1Stats[2].setString(lastMoveTime) : _player2Stats[2].setString(lastMoveTime);
+		(_playerJustMoved == 1) ? _player1Stats[4].setString(totalTime) : _player2Stats[4].setString(totalTime);
 	}
 }
 
@@ -224,8 +237,8 @@ void    Gameplay::init() {
 	_firstPlayerMoveSuggestionSprite.setTexture(_stonesTextures[0]);
 	_secondPlayerMoveSuggestionSprite.setTexture(_stonesTextures[1]);
 
-	_firstPlayerAvatarSprite.setPosition(167, 278);
-	_secondPlayerAvatarSprite.setPosition(1607, 278);
+	_firstPlayerAvatarSprite.setPosition(171, 241);
+	_secondPlayerAvatarSprite.setPosition(1591, 241);
 	_gobanSprite.setPosition(477, 0);
 	_gridAndIndexSprite.setPosition(477, 0);
 	_backwardButtonSprite.setPosition(100, 100);

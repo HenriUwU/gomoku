@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:33:07 by laprieur          #+#    #+#             */
-/*   Updated: 2024/12/21 16:07:30 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:53:09 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ class AI;
 class Gameplay {
 	private:
 		int										_playerJustMoved;
+        int                                     _playersTotalMoves[2];
 		bool									_isFirstMove;
     	bool									_didSuggestMove;
 		float									_cellSize;
