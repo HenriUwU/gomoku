@@ -89,11 +89,12 @@ void	Gameplay::returnButton(const sf::Event& event, const sf::RenderWindow& wind
 		else
 			_backwardButtonSprite.setTexture(_pageTextures[BACKWARDBUTTON]);
 	}
-	if (!aiPlaying && event.type == sf::Event::MouseButtonPressed)
+	if (!aiPlaying && event.type == sf::Event::MouseButtonPressed) {
 		if (_backwardButtonSprite.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
 			gameState = MENU;
 			resetGame(bitboard);
 		}
+	}
 }
 
 void	Gameplay::statistics() {
@@ -119,6 +120,7 @@ void	Gameplay::statistics() {
 		ssPlayer1AverageMoveTime << std::fixed << std::setprecision(2) << player1AverageMoveTime.count();
 		ssPlayer2AverageMoveTime << std::fixed << std::setprecision(2) << player2AverageMoveTime.count();
 
+		
 		_player1Stats[3].setString(ssPlayer1AverageMoveTime.str() + "s");
 		_player2Stats[3].setString(ssPlayer2AverageMoveTime.str() + "s");
 

@@ -47,7 +47,7 @@ class AI;
 #define GRIDSTARTPOINT_Y 50
 #define CELLPIXELSIZE (float)48
 #define MOVE_INTERVAL (float)0.5
-#define ENDGAME_INTERVAL (float)1
+#define ENDGAME_INTERVAL (float)0.5
 
 class Gameplay {
 	private:

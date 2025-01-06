@@ -21,7 +21,7 @@ class Bitboard;
 #define EASY_AI_DEPTH 4
 #define MOVE_SUGGESTION_DEPTH 2
 #define MAX_TESTED_MOVES 6
-#define NB_HEURISTIC_PATTERNS 32
+#define NB_HEURISTIC_PATTERNS 34
 
 struct Move {
 	std::pair<int, int> position;

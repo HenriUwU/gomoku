@@ -37,7 +37,10 @@ void	AI::play(Bitboard &bitboard) {
 	_firstPlayerNbCaptures = playersCaptures[0];
 	_secondPlayerNbCaptures = playersCaptures[1];
 	std::pair<int, int> move = negamax(tmp, depth, true, INT_MIN, INT_MAX).position;
-	bitboard.placeStone(move.first, move.second, 2);
+	if (bitboard.isLegalMoveForAI(move.first, move.second, 2))
+		bitboard.placeStone(move.first, move.second, 2);
+	else
+		crazyMode(bitboard);
 }
 
 std::pair<int, int> AI::suggestMove(Bitboard &bitboard, int player) {
