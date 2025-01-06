@@ -113,9 +113,13 @@ void	Gameplay::popUp(const sf::Event& event, sf::RenderWindow& window, Bitboard&
 	window.draw(_popupSprite);
 
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-	auto currentTime = std::chrono::steady_clock::now();
-	std::chrono::duration<double> timeElapsed = currentTime - gameEndTime;
-	if (endGameState != NOVICTORY && timeElapsed.count() > ENDGAME_INTERVAL) {
+	if (endGameState != NOVICTORY) {
+		auto currentTime = std::chrono::steady_clock::now();
+		std::chrono::duration<double> timeElapsed = currentTime - gameEndTime;
+
+		if (timeElapsed.count() < ENDGAME_INTERVAL)
+			return;
+
 		if (_popupMainMenuButtonSprite.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos))) {
 			_popupMainMenuButtonSprite.setTexture(_popupTextures[MAINMENUHOVEREDBUTTON]);
 			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
