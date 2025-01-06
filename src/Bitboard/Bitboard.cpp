@@ -13,14 +13,7 @@
 #include "Bitboard.hpp"
 
 Bitboard::Bitboard() {
-	_firstPlayerBoardLines.fill(0);
-	_secondPlayerBoardLines.fill(0);
-	_firstPlayerBoardColumns.fill(0);
-	_secondPlayerBoardColumns.fill(0);
-	_firstPlayerBoardDiagonals.fill(0);
-	_secondPlayerBoardDiagonals.fill(0);
-	_firstPlayerBoardAntiDiagonals.fill(0);
-	_secondPlayerBoardAntiDiagonals.fill(0);
+	clear();
 }
 
 Bitboard::~Bitboard() {}
@@ -40,7 +33,7 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 	int captures = makeCapture(x, y, player, onverraplustard);
 	(player == 1) ? playersCaptures[0] += captures : playersCaptures[1] += captures;
 
-	if (fiveInARow() || (playersCaptures[0] == 5 || playersCaptures[1] == 5)) {
+	if (fiveInARow() || (playersCaptures[0] >= 5 || playersCaptures[1] >= 5)) {
 		gameEndTime = std::chrono::steady_clock::now();
 		if (player == 1)
 			endGameState = P1VICTORY;
