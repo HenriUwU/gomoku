@@ -15,7 +15,7 @@
 std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMoves(int player) {
 	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;
 	std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
-	int														margin = 2;
+	int														margin = 1;
 
 	for (auto& stone : currentStones) {
 		int startX = std::max(0, stone.first - margin);
@@ -177,4 +177,37 @@ void	Bitboard::clear() {
 	_secondPlayerBoardDiagonals.fill(0);
 	_firstPlayerBoardAntiDiagonals.fill(0);
 	_secondPlayerBoardAntiDiagonals.fill(0);
+}
+
+void	Bitboard::printBoard() {
+	for (int y = 0; y < BOARD_SIZE; ++y) {
+		for (int x = 0; x < BOARD_SIZE; ++x) {
+			uint32_t mask = uint32_t(1) << x;
+			if (_firstPlayerBoardLines[y] & mask) {
+				std::cout << "1 ";
+			} else if (_secondPlayerBoardLines[y] & mask) {
+				std::cout << "2 ";
+			} else {
+				std::cout << ". ";
+			}
+		}
+		std::cout << "\n";
+	}
+}
+void	Bitboard::printBoardWithPossibleMoves(std::vector<std::pair<int, int>> sortedMoves) {
+	for (int y = 0; y < BOARD_SIZE; ++y) {
+		for (int x = 0; x < BOARD_SIZE; ++x) {
+			uint32_t mask = uint32_t(1) << x;
+			if (_firstPlayerBoardLines[y] & mask) {
+				std::cout << "1 ";
+			} else if (_secondPlayerBoardLines[y] & mask) {
+				std::cout << "2 ";
+			} else if (std::find(sortedMoves.begin(), sortedMoves.end(), std::make_pair(x, y)) != sortedMoves.end()) {
+				std::cout << "X ";
+			} else {
+				std::cout << ". ";
+			}
+		}
+		std::cout << "\n";
+	}
 }

@@ -16,6 +16,9 @@ int evaluateLine(PatternInfo pattern, uint32_t playerBoardLine, uint32_t opponen
 	int score = 0;
 	int x = 0;
 
+	if (playerBoardLine == 0 && opponentBoardLine == 0)
+		return (0);
+
 	while (x <= (19 - pattern.patternSize)) {
 		uint32_t playerSelection = (playerBoardLine >> x) & ((1 << pattern.patternSize) - 1);
 		uint32_t opponentSelection = (opponentBoardLine >> x) & ((1 << pattern.patternSize) - 1);
