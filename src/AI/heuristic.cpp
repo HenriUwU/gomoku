@@ -33,7 +33,6 @@ int AI::heuristic(Bitboard& bitboard) {
 
 int AI::evaluateAlignments(Bitboard& bitboard) {
 	int score = 0;
-	bitboard.printBoard();
 
 	PatternInfo mainPatterns[NB_HEURISTIC_PATTERNS] = {
 		{0b01010, 0b00000, 5, 2, 10},
