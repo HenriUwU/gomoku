@@ -6,11 +6,11 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:53:56 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/06 15:10:40 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:26:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Gameplay.hpp"
+#include "Game/Gameplay.hpp"
 
 void	Gameplay::display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard) {
 	returnButton(event, window, bitboard);

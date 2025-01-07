@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bitboard_captures.cpp                              :+:      :+:    :+:   */
+/*   BitboardCaptures.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:47:40 by hsebille          #+#    #+#             */
-/*   Updated: 2024/10/10 13:30:28 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:24:59 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bitboard.hpp"
+#include "Bitboard/Bitboard.hpp"
 
 int	Bitboard::makeCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones) {
 	int captures = 0;

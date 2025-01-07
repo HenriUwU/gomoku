@@ -6,11 +6,11 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:26 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/06 12:19:46 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:26:43 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Gameplay.hpp"
+#include "Game/Gameplay.hpp"
 
 Gameplay::Gameplay() : _playerJustMoved(0), _isFirstMove(true), _didSuggestMove(false), _cellSize(868 / 19.0f), _player1Stats(5), _player2Stats(5) {
 	init();

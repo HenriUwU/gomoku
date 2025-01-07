@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   Bitboard.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:46:19 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/05 13:30:03 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:24:50 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bitboard.hpp"
+#include "Bitboard/Bitboard.hpp"
 
 Bitboard::Bitboard() {
 	clear();

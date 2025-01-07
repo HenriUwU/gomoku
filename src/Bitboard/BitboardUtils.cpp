@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   BitboardUtils.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 10:57:17 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/05 15:11:45 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:25:09 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bitboard.hpp"
+#include "Bitboard/Bitboard.hpp"
 
 std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMoves(int player) {
 	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   BitboardPatterns.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:41:12 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/05 13:33:22 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:25:06 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bitboard.hpp"
+#include "Bitboard/Bitboard.hpp"
 
 int evaluateLine(PatternInfo pattern, uint32_t playerBoardLine, uint32_t opponentBoardLine) {
 	int score = 0;

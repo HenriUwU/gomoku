@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   BitboardVictory.cpp                                :+:      :+:    :+:   */
+/*   BitboardRules.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
+/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:39:41 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/05 22:00:27 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:25:08 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bitboard.hpp"
+#include "Bitboard/Bitboard.hpp"
 
 bool Bitboard::isDoubleThree(int x, int y, int player) {
 	PatternInfo pattern[] = {
