@@ -56,6 +56,7 @@ class Bitboard {
 		int		makeAntiDiagonalCapture(int x, int y, int player, std::vector<std::pair<int, int>>& removedStones);
 
 		bool	isDoubleThree(int x, int y, int player);
+		bool	draw() const;
 
 		void	update(int x, int y, int player, bool add);
 		void	verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);

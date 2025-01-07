@@ -41,6 +41,8 @@ bool	Bitboard::placeStone(int x, int y, int player) {
 			endGameState = P2VICTORY;
 		else
 			endGameState = AIVICTORY;
+	} else if (draw()) {
+		endGameState = SEEGAMESTATE;
 	}
 	return (true);
 }

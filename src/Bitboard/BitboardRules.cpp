@@ -93,3 +93,14 @@ bool    Bitboard::isLegalMoveForAI(int x, int y, int player) {
 
 	return (true);
 }
+
+bool	Bitboard::draw() const {
+	for (int y = 0; y < BOARD_SIZE; y++) {
+		for (int x = 0; x < BOARD_SIZE; x++) {
+			if (!getBit(x, y))
+				return (false);
+		}
+	}
+
+	return true;
+}
