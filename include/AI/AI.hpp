@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/07 17:40:48 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/07 23:00:52 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,18 @@ class AI {
 		int								_secondPlayerNbCaptures;
 
 		int		heuristic(Bitboard &bitboard) __attribute__((hot));
-		int		checkPatterns(Bitboard &bitboard, int player, int opponent);
 		int		evaluateAlignments(Bitboard& bitboard);
-
 
 		void	quicksort(std::vector<std::pair<std::pair<int, int>, int>> &vec, int low, int high);
 
-		std::vector<std::pair<int, int>>	sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
 		Move								negamax(Bitboard &bitboard, int depth, bool aiTurn, int alpha, int beta) __attribute__((hot));
+		std::vector<std::pair<int, int>>	sortMoves(const std::unordered_set<std::pair<int, int>, pair_hash> &possibleMoves, Bitboard &bitboard, bool maximizingPlayer);
 
 	public:
 		AI();
 		~AI();
 
-        std::pair<int, int>	suggestMove(Bitboard &bitboard, int player);
 		void				play(Bitboard &bitboard);
 		void				crazyMode(Bitboard &bitboard);
+        std::pair<int, int>	suggestMove(Bitboard &bitboard, int player);
 };

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Gameplay.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 19:33:07 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/06 14:49:32 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/07 23:02:29 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,5 @@ class Gameplay {
 
 		void	display(const sf::Event& event, sf::RenderWindow& window, Bitboard& bitboard);
 		void	play(sf::RenderWindow& window, Bitboard& bitboard, AI& ai);
-
 		void	setClosingApp(bool closingApp) { _closingApp = closingApp; }
 };
