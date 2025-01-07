@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/07 13:32:39 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:34:45 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class Bitboard;
 #define CHALLENGING_AI_DEPTH 6
 #define EASY_AI_DEPTH 4
 #define MOVE_SUGGESTION_DEPTH 2
-#define MAX_TESTED_MOVES 150
+#define MAX_TESTED_MOVES 6
 #define NB_HEURISTIC_PATTERNS 18
 
 struct Move {
