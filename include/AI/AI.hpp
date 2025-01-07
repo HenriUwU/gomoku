@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AI.hpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:23:02 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/07 13:34:45 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:40:48 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ class Bitboard;
 #define EASY_AI_DEPTH 4
 #define MOVE_SUGGESTION_DEPTH 2
 #define MAX_TESTED_MOVES 6
-#define NB_HEURISTIC_PATTERNS 42
+#define NB_HEURISTIC_PATTERNS 46
 
 struct Move {
 	std::pair<int, int> position;
