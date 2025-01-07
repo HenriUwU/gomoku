@@ -27,6 +27,8 @@ Here are all the resources that we used to understand and code this project.
 - [Minimax with Alpha Beta Pruning (YouTube)](https://www.youtube.com/watch?v=zp3VMe0Jpf8&t=603s)
 - [Minimax: How Computers Play Games (YouTube)](https://www.youtube.com/watch?v=SLgZhpDsrfc)
 - [Quick Sort (GeeksforGeeks)](https://www.geeksforgeeks.org/quick-sort-algorithm/)
+- [Negamax algorithm](https://en.wikipedia.org/wiki/Negamax)
+- [Principal variation search](https://en.wikipedia.org/wiki/Principal_variation_search)
 
 <br>
 
