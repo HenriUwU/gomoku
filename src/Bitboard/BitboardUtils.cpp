@@ -15,7 +15,7 @@
 std::unordered_set<std::pair<int, int>, pair_hash>	Bitboard::generatePossibleMoves(int player) {
 	std::unordered_set<std::pair<int, int>, pair_hash>		uniqueMoves;
 	std::unordered_set<std::pair<int, int>, pair_hash>		currentStones = getAllStones();
-	int														margin = 2;
+	int														margin = 1;
 
 	for (auto& stone : currentStones) {
 		int startX = std::max(0, stone.first - margin);
@@ -166,15 +166,4 @@ void Bitboard::update(int x, int y, int player, bool add) {
 		this->_firstHash[y] = std::hash<int>{}(this->_firstPlayerBoardLines[y]);
 	else
 		this->_secondHash[y] = std::hash<int>{}(this->_secondPlayerBoardLines[y]);
-}
-
-void	Bitboard::clear() {
-	_firstPlayerBoardLines.fill(0);
-	_secondPlayerBoardLines.fill(0);
-	_firstPlayerBoardColumns.fill(0);
-	_secondPlayerBoardColumns.fill(0);
-	_firstPlayerBoardDiagonals.fill(0);
-	_secondPlayerBoardDiagonals.fill(0);
-	_firstPlayerBoardAntiDiagonals.fill(0);
-	_secondPlayerBoardAntiDiagonals.fill(0);
 }
