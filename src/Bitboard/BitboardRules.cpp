@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitboardRules.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:39:41 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/07 13:25:08 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/07 22:04:31 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,23 @@ bool Bitboard::isDoubleThree(int x, int y, int player) {
 int	Bitboard::fiveInARow() {
 	PatternInfo playerOneFiveInARow[] = {0b11111, 0b00000, 5, 1, 1};
 	PatternInfo playerTwoFiveInARow[] = {0b11111, 0b00000, 5, 2, 1};
-	int win = 0;
 		
-	if (evaluatePatterns(playerOneFiveInARow, 1) && !isAlignmentBreakable(playerOneFiveInARow, 1, 2))
-		win = 1;
+	int nbPlayerOneFiveInARow = evaluatePatterns(playerOneFiveInARow, 1);
+	if (nbPlayerOneFiveInARow && !isAlignmentBreakable(playerOneFiveInARow, 1, 2, nbPlayerOneFiveInARow))
+		return 1;
 	
-	if (evaluatePatterns(playerTwoFiveInARow, 1) && !isAlignmentBreakable(playerTwoFiveInARow, 2, 1))
-		win = 2;
+	int nbPlayerTwoFiveInARow = evaluatePatterns(playerTwoFiveInARow, 1);
+	if (nbPlayerTwoFiveInARow && !isAlignmentBreakable(playerTwoFiveInARow, 2, 1, nbPlayerTwoFiveInARow))
+		return 2;
 
-	return (win);
+	return 0;
 }
 
-bool Bitboard::isAlignmentBreakable(PatternInfo alignment[], int player, int opponent) {
+bool Bitboard::isAlignmentBreakable(PatternInfo alignment[], int player, int opponent, int nbFiveInARow) {
 	Bitboard tmp = *this;
+	const int nbInitialFiveInARow = nbFiveInARow;
+
+	std::cout << "nbFiveInARow: " << nbFiveInARow << std::endl;
 
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
@@ -57,20 +61,22 @@ bool Bitboard::isAlignmentBreakable(PatternInfo alignment[], int player, int opp
 				continue;
 			}
 			
-			if (removedStones.size() > 0 && !tmp.evaluatePatterns(alignment, 1)) {
-				for (auto& stone : removedStones) {
-					tmp.placeStoneAI(stone.first, stone.second, player, false);
-				}
-				tmp.removeStone(x, y, opponent);
-				return (true);
+			if (removedStones.size() > 0) {
+				std::cout << "Capture and got this state: " << std::endl;
+				tmp.printBoard();
 			}
-			for (auto& stone : removedStones) {
+			
+			if (removedStones.size() > 0 && tmp.evaluatePatterns(alignment, 1) != nbInitialFiveInARow)
+				nbFiveInARow--;
+				
+			for (auto& stone : removedStones)
 				tmp.placeStoneAI(stone.first, stone.second, player, false);
-			}
 			tmp.removeStone(x, y, opponent);
 		}
 	}
-	return (false);
+	if (nbFiveInARow <= 0)
+		return true;
+	return false;
 }
 
 bool	Bitboard::isLegalMove(int x, int y, int player) {

@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:40:43 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/05 21:28:43 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/07 21:28:25 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ class Bitboard {
 		bool	draw() const;
 
 		void	update(int x, int y, int player, bool add);
-		void	verifyHorizontalCapture(int &nbCaptures, int x, int y, int player);
-		void	verifyVerticalCapture(int &nbCaptures, int x, int y, int player);
-		void	verifyDiagonalCapture(int &nbCaptures, int x, int y, int player);
-		void	verifyAntiDiagonalCapture(int &nbCaptures, int x, int y, int player);
 
 		std::unordered_set<std::pair<int, int>, pair_hash>	getAllStones();
 		uint32_t											getSelection(uint32_t bitboard, int nbBits, int bitsPos);
@@ -79,7 +75,7 @@ class Bitboard {
 		bool	placeStone(int x, int y, int player);
 		bool	isLegalMove(int x, int y, int player);
         bool	isLegalMoveForAI(int x, int y, int player);
-		bool	isAlignmentBreakable(PatternInfo alignment[], int player, int opponent);
+		bool	isAlignmentBreakable(PatternInfo alignment[], int player, int opponent, int nbFiveInARow);
 	
 		void	clear();
 		void	printBoard();

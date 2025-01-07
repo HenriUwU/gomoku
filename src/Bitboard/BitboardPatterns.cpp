@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitboardPatterns.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 14:41:12 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/07 13:25:06 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/07 22:27:13 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int evaluateLine(PatternInfo pattern, uint32_t playerBoardLine, uint32_t opponen
 
 		if (playerSelection == pattern.pattern && opponentSelection == pattern.opponentPattern) {
 			score += pattern.multiplier;
+			x += pattern.patternSize - 1;
 		}
 		x++;
 	}
