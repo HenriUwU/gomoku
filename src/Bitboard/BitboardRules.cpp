@@ -6,7 +6,7 @@
 /*   By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:39:41 by hsebille          #+#    #+#             */
-/*   Updated: 2025/01/07 22:04:31 by hsebille         ###   ########.fr       */
+/*   Updated: 2025/01/07 22:33:15 by hsebille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ bool Bitboard::isAlignmentBreakable(PatternInfo alignment[], int player, int opp
 	Bitboard tmp = *this;
 	const int nbInitialFiveInARow = nbFiveInARow;
 
-	std::cout << "nbFiveInARow: " << nbFiveInARow << std::endl;
-
 	for (int y = 0; y < BOARD_SIZE; y++) {
 		for (int x = 0; x < BOARD_SIZE; x++) {
 			std::vector<std::pair<int, int>> removedStones = {};
@@ -59,11 +57,6 @@ bool Bitboard::isAlignmentBreakable(PatternInfo alignment[], int player, int opp
 				removedStones = tmp.placeStoneAI(x, y, opponent, true);
 			} else {
 				continue;
-			}
-			
-			if (removedStones.size() > 0) {
-				std::cout << "Capture and got this state: " << std::endl;
-				tmp.printBoard();
 			}
 			
 			if (removedStones.size() > 0 && tmp.evaluatePatterns(alignment, 1) != nbInitialFiveInARow)
