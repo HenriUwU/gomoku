@@ -167,3 +167,47 @@ void Bitboard::update(int x, int y, int player, bool add) {
 	else
 		this->_secondHash[y] = std::hash<int>{}(this->_secondPlayerBoardLines[y]);
 }
+
+void	Bitboard::clear() {
+	_firstPlayerBoardLines.fill(0);
+	_secondPlayerBoardLines.fill(0);
+	_firstPlayerBoardColumns.fill(0);
+	_secondPlayerBoardColumns.fill(0);
+	_firstPlayerBoardDiagonals.fill(0);
+	_secondPlayerBoardDiagonals.fill(0);
+	_firstPlayerBoardAntiDiagonals.fill(0);
+	_secondPlayerBoardAntiDiagonals.fill(0);
+}
+
+void	Bitboard::printBoard() {
+	for (int y = 0; y < BOARD_SIZE; ++y) {
+		for (int x = 0; x < BOARD_SIZE; ++x) {
+			uint32_t mask = uint32_t(1) << x;
+			if (_firstPlayerBoardLines[y] & mask) {
+				std::cout << "1 ";
+			} else if (_secondPlayerBoardLines[y] & mask) {
+				std::cout << "2 ";
+			} else {
+				std::cout << ". ";
+			}
+		}
+		std::cout << "\n";
+	}
+}
+void	Bitboard::printBoardWithPossibleMoves(std::vector<std::pair<int, int>> sortedMoves) {
+	for (int y = 0; y < BOARD_SIZE; ++y) {
+		for (int x = 0; x < BOARD_SIZE; ++x) {
+			uint32_t mask = uint32_t(1) << x;
+			if (_firstPlayerBoardLines[y] & mask) {
+				std::cout << "1 ";
+			} else if (_secondPlayerBoardLines[y] & mask) {
+				std::cout << "2 ";
+			} else if (std::find(sortedMoves.begin(), sortedMoves.end(), std::make_pair(x, y)) != sortedMoves.end()) {
+				std::cout << "X ";
+			} else {
+				std::cout << ". ";
+			}
+		}
+		std::cout << "\n";
+	}
+}
