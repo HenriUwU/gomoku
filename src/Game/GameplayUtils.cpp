@@ -6,7 +6,7 @@
 /*   By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 11:53:56 by laprieur          #+#    #+#             */
-/*   Updated: 2025/01/07 13:26:50 by laprieur         ###   ########.fr       */
+/*   Updated: 2025/01/07 13:48:17 by laprieur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void Gameplay::resetGame(Bitboard& bitboard) {
 	endGameState = NOVICTORY;
 	std::fill(playersCaptures, playersCaptures + 2, 0);
 	std::fill(_playersTotalMoves, _playersTotalMoves + 2, 0);
-	std::fill(_player1AverageMoveTime.begin(), _player1AverageMoveTime.end(), std::chrono::duration<double>(0));
-	std::fill(_player2AverageMoveTime.begin(), _player2AverageMoveTime.end(), std::chrono::duration<double>(0));
+    _player1AverageMoveTime.clear();
+    _player2AverageMoveTime.clear();
 	bitboard.clear();
 	_player1TotalTime = std::chrono::milliseconds::zero();
 	_player2TotalTime = std::chrono::milliseconds::zero();
@@ -120,11 +120,8 @@ void	Gameplay::statistics() {
 		ssPlayer1AverageMoveTime << std::fixed << std::setprecision(2) << player1AverageMoveTime.count();
 		ssPlayer2AverageMoveTime << std::fixed << std::setprecision(2) << player2AverageMoveTime.count();
 
-		if (_player1AverageMoveTime.size() == 0)
-			_player1Stats[3].setString("0.00s");
-		else
-			_player1Stats[3].setString(ssPlayer1AverageMoveTime.str() + "s");
-		_player2Stats[3].setString(ssPlayer2AverageMoveTime.str() + "s");
+		(_player1AverageMoveTime.size() == 0) ? _player1Stats[3].setString("0.00s") : _player1Stats[3].setString(ssPlayer1AverageMoveTime.str() + "s");
+        (_player2AverageMoveTime.size() == 0) ? _player2Stats[3].setString("0.00s") : _player2Stats[3].setString(ssPlayer2AverageMoveTime.str() + "s");
 
 		(_playerJustMoved == 1) ? _player1Stats[1].setString(std::to_string(_playersTotalMoves[0])) : _player2Stats[1].setString(std::to_string(_playersTotalMoves[1]));
 		(_playerJustMoved == 1) ? _player1Stats[2].setString(lastMoveTime) : _player2Stats[2].setString(lastMoveTime);
