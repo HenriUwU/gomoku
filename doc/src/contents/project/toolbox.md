@@ -23,7 +23,7 @@ The first tool we used was [gprof](https://en.wikipedia.org/wiki/Gprof). It's a 
 
 <br>
 
-### How it works?
+### How it works
 
 <br>
 

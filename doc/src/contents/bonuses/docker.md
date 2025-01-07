@@ -9,7 +9,7 @@
 
 <br>
 
-This bonus aims to create a Docker that reproduces a basic Unix environment with only the necessaries dependencies installed to prove that the project can be run on any machine.
+This bonus aims to create a Docker that reproduces a basic Unix environment with only the necessaries dependencies installed.
 
 <br>
 
@@ -52,7 +52,7 @@ We also install the `libFLAC`, a library that implements the Free Lossless Audio
 
 <br>
 
-## How it works?
+## How it works
 
 ---
 

@@ -23,7 +23,7 @@ Astro provides powerful Markdown and MDX support, making it ideal for content-he
 
 <br>
 
-## How it works?
+## How it works
 
 ---
 
