@@ -20,7 +20,7 @@ class Bitboard;
 #define CHALLENGING_AI_DEPTH 6
 #define EASY_AI_DEPTH 4
 #define MOVE_SUGGESTION_DEPTH 2
-#define MAX_TESTED_MOVES 6
+#define MAX_TESTED_MOVES 10
 #define NB_HEURISTIC_PATTERNS 46
 
 struct Move {
