@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsebille <hsebille@student.42.fr>          +#+  +:+       +#+         #
+#    By: laprieur <laprieur@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 14:32:27 by hsebille          #+#    #+#              #
-#    Updated: 2024/11/11 19:31:48 by hsebille         ###   ########.fr        #
+#    Updated: 2025/01/08 10:21:30 by laprieur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,14 +68,28 @@ $(NAME): $(SRC_OBJS)
 -include $(DEPS)
 
 clean:
-	rm -rf .build
+	@rm -rf .build
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re:
-	$(MAKE) fclean
-	$(MAKE) all
+	@$(MAKE) fclean
+	@$(MAKE) all
+
+docker-build:
+	@docker build --no-cache -t gomoku .
+	
+docker-run:
+	@xhost +local:
+	@docker run --net=host --env="DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix:rw --device /dev/snd -it gomoku
+	
+docker-clean:
+	@docker system prune -af
+
+docker-re:
+	@$(MAKE) docker-clean
+	@$(MAKE) docker-build
 
 # **************************************************************************** #
 #                                    STYLE                                     #

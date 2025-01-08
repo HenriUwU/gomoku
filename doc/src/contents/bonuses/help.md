@@ -6,7 +6,9 @@ We decide to create in game help pages to help players with the hard rules of Go
 
 <br>
 
-Here are some screenshots:
+## Screenshots
+
+---
 
 <br>
 

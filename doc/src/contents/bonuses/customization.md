@@ -38,6 +38,10 @@
 
 <br>
 
+This bonus allows users to customize certain elements of the game, such as the colors of the stones, their avatar and the color of the board.
+
+<br>
+
 ## Stones
 
 ---

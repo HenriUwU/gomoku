@@ -20,13 +20,7 @@ This documentation is a part (as a bonus) of our Gomoku project.
 2. **Algorithm**
 	1. <a href="/gomoku/algorithm/minimax">Minimax</a>
 	2. <a href="/gomoku/algorithm/alpha_beta">Alpha-beta</a>
-3. **Graphic**
-	1. <a href="/gomoku/graphic/game">Game</a>
-	2. <a href="/gomoku/graphic/sfml">SFML</a>
-	3. <a href="/gomoku/graphic/gif">GIF</a>
-4. **Music**
-	1. <a href="/gomoku/music/music">Music</a>
-5. **Bonuses**
+3. **Bonuses**
 	1. <a href="/gomoku/bonuses/customization">Customization</a>
 	2. <a href="/gomoku/bonuses/ai_modes">AI Modes</a>
 	3. <a href="/gomoku/bonuses/help">Help</a>
